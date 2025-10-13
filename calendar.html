@@ -123,7 +123,7 @@
         
         .schedule-info {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             background: #e3f2fd;
             border-radius: 8px;
             margin-bottom: 30px;
@@ -140,6 +140,71 @@
             color: #555;
             font-size: 1.05em;
             line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        .pros-cons-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .pros-section, .cons-section {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+        }
+        
+        .pros-section {
+            border-left: 4px solid #27ae60;
+        }
+        
+        .cons-section {
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .pros-section h4 {
+            color: #27ae60;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+        
+        .cons-section h4 {
+            color: #e74c3c;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+        
+        .pros-section ul, .cons-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .pros-section li, .cons-section li {
+            padding: 6px 0;
+            color: #555;
+            font-size: 0.9em;
+            line-height: 1.5;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .pros-section li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .cons-section li:before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: #e74c3c;
+            font-weight: bold;
         }
         
         .legend {
@@ -358,6 +423,10 @@
             .toggle-btn {
                 padding: 12px 20px;
             }
+            
+            .pros-cons-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -393,11 +462,60 @@
         <div id="scheduleInfoA" class="schedule-info">
             <h3>📅 Option A: Spaced Repeats</h3>
             <p>Sessions repeated 4-8 weeks apart for maximum flexibility and practice time. Complete program over 10 months with breathing room between topics.</p>
+            
+            <div class="pros-cons-grid">
+                <div class="pros-section">
+                    <h4>✓ Advantages</h4>
+                    <ul>
+                        <li>Winter travel protection (miss Jan? catch March)</li>
+                        <li>2-8 weeks practice time between sessions</li>
+                        <li>Reduces instructor fatigue</li>
+                        <li>Progressive learning with digestion time</li>
+                        <li>Even distribution over 10 months</li>
+                        <li>Proven traditional model</li>
+                    </ul>
+                </div>
+                <div class="cons-section">
+                    <h4>✗ Disadvantages</h4>
+                    <ul>
+                        <li>Long wait times (Jan to March repeat)</li>
+                        <li>Momentum may be lost in gaps</li>
+                        <li>Limited time flexibility within period</li>
+                        <li>Hard to commit months ahead</li>
+                        <li>Slower community building</li>
+                    </ul>
+                </div>
+            </div>
         </div>
         
         <div id="scheduleInfoB" class="schedule-info" style="display: none;">
             <h3>⚡ Option B: Same-Week Repeats</h3>
             <p>Each session offered twice in the same week (morning + lunch). Complete foundations faster with immediate time flexibility. Finish in 8 months.</p>
+            
+            <div class="pros-cons-grid">
+                <div class="pros-section">
+                    <h4>✓ Advantages</h4>
+                    <ul>
+                        <li>Immediate flexibility (Tuesday or Thursday)</li>
+                        <li>Faster momentum (foundations in 5 weeks)</li>
+                        <li>"This week only" creates urgency</li>
+                        <li>Perfect for variable schedules</li>
+                        <li>Quick cohort building</li>
+                        <li>Shorter program (8 vs 10 months)</li>
+                    </ul>
+                </div>
+                <div class="cons-section">
+                    <h4>✗ Disadvantages</h4>
+                    <ul>
+                        <li>Miss whole week if traveling</li>
+                        <li>Less practice time (2-3 weeks vs 4-8)</li>
+                        <li>Higher instructor intensity</li>
+                        <li>May feel rushed for some</li>
+                        <li>Requires clearer communication</li>
+                        <li>More reliance on recordings</li>
+                    </ul>
+                </div>
+            </div>
         </div>
         
         <div class="legend">
