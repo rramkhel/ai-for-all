@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sector Prompt Packs - AI for All</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1c1917;
+            --paper: #fafaf9;
+            --cream: #f5f5f0;
+            --accent: #0f766e;
+            --accent-light: #ccfbf1;
+            --warm-gray: #78716c;
+            --border: #e7e5e4;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Commissioner', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.7;
+        }
+        .nav {
+            background: var(--ink);
+            padding: 1rem 0;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            font-family: 'Fraunces', serif;
+            color: white;
+            font-size: 1.4em;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+        .page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 24px;
+            text-align: center;
+        }
+        .icon {
+            font-size: 64px;
+            margin-bottom: 24px;
+        }
+        h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2em;
+            margin-bottom: 16px;
+        }
+        p {
+            color: var(--warm-gray);
+            font-size: 1.1em;
+            margin-bottom: 32px;
+        }
+        .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">AI for All</a>
+            <a href="resources.html" class="back-link">← Back to Hub</a>
+        </div>
+    </nav>
+    <div class="page">
+        <div class="icon">📦</div>
+        <h1>Sector Prompt Packs</h1>
+        <p>This resource is coming soon! We're preparing ready-to-use prompts for different industries.</p>
+        <a href="resources.html" class="btn">Return to Hub</a>
+    </div>
+    <script>
+        if (!localStorage.getItem('aiforall_hub_access')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

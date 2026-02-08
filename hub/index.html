@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Hub - AI for All</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1c1917;
+            --paper: #fafaf9;
+            --cream: #f5f5f0;
+            --accent: #0f766e;
+            --accent-light: #ccfbf1;
+            --accent-dark: #134e4a;
+            --warm-gray: #78716c;
+            --border: #e7e5e4;
+            --error: #dc2626;
+            --error-light: #fee2e2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Commissioner', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--ink);
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Fraunces', serif;
+            color: white;
+            font-size: 1.4em;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95em;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover { opacity: 1; }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 48px;
+            width: 100%;
+            max-width: 440px;
+            text-align: center;
+        }
+
+        .login-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--accent-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 28px;
+        }
+
+        .login-card h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .login-card .subtitle {
+            color: var(--warm-gray);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            color: var(--ink);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        .form-group input::placeholder {
+            color: var(--warm-gray);
+        }
+
+        .error-message {
+            background: var(--error-light);
+            color: var(--error);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-dark);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .help-text {
+            margin-top: 24px;
+            font-size: 0.85em;
+            color: var(--warm-gray);
+        }
+
+        .help-text a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .help-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--cream);
+            padding: 20px 24px;
+            text-align: center;
+            font-size: 0.85em;
+            color: var(--warm-gray);
+        }
+
+        @media (max-width: 500px) {
+            .login-card {
+                padding: 32px 24px;
+            }
+
+            .nav-links {
+                gap: 16px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">AI for All</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../calendar.html">Calendar</a></li>
+                <li><a href="../survey.html">Survey</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="login-card">
+            <div class="login-icon">🔐</div>
+            <h1>Resource Hub</h1>
+            <p class="subtitle">Enter your workshop access code to view exclusive AI tools and resources.</p>
+
+            <div class="error-message" id="errorMessage">
+                Invalid access code. Please check your code and try again.
+            </div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="accessCode">Access Code</label>
+                    <input
+                        type="text"
+                        id="accessCode"
+                        name="accessCode"
+                        placeholder="Enter your code"
+                        autocomplete="off"
+                        autofocus
+                    >
+                </div>
+
+                <button type="submit" class="submit-btn">Access Resources</button>
+            </form>
+
+            <p class="help-text">
+                Access codes are provided at AI for All workshops.<br>
+                Questions? <a href="mailto:info@stalbertchamber.com">Contact us</a>
+            </p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>AI for All Workshop Series • St. Albert & District Chamber of Commerce</p>
+    </footer>
+
+    <script>
+        // Valid access codes (add more as needed)
+        const validCodes = {
+            'AIFORALL2026': 'General Access',
+            'SESSION1': 'Session 1 Attendee',
+            'SESSION2': 'Session 2 Attendee',
+            'PREVIEW': 'Preview Access'
+            // Add more codes here
+        };
+
+        const form = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
+        const codeInput = document.getElementById('accessCode');
+
+        // Check if already logged in
+        if (localStorage.getItem('aiforall_hub_access')) {
+            window.location.href = 'resources.html';
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const code = codeInput.value.trim().toUpperCase();
+
+            if (validCodes[code]) {
+                // Store access info
+                localStorage.setItem('aiforall_hub_access', JSON.stringify({
+                    code: code,
+                    type: validCodes[code],
+                    timestamp: new Date().toISOString()
+                }));
+
+                // Redirect to resources
+                window.location.href = 'resources.html';
+            } else {
+                // Show error
+                errorMessage.classList.add('show');
+                codeInput.focus();
+                codeInput.select();
+            }
+        });
+
+        // Hide error when typing
+        codeInput.addEventListener('input', function() {
+            errorMessage.classList.remove('show');
+        });
+    </script>
+</body>
+</html>
