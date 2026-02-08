@@ -83,6 +83,27 @@
             margin-bottom: 30px;
             font-size: 1em;
         }
+
+        .important-notice {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-left: 6px solid #ffc107;
+            text-align: center;
+        }
+
+        .important-notice h3 {
+            color: #856404;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .important-notice p {
+            color: #856404;
+            font-size: 1.05em;
+        }
         
         .schedule-info {
             text-align: center;
@@ -104,7 +125,7 @@
             font-size: 1.05em;
             line-height: 1.6;
         }
-
+        
         .legend {
             display: flex;
             justify-content: center;
@@ -127,18 +148,28 @@
             border: 1px solid #ddd;
         }
         
-        .workshop {
+        .legend-box.workshop {
             background: #2c3e50;
         }
-        
-        .blackout {
+
+        .legend-box.tentative {
             background: #95a5a6;
         }
-
+        
+        .legend-box.blackout {
+            background: repeating-linear-gradient(
+                45deg,
+                #f8f8f8,
+                #f8f8f8 3px,
+                #d0d0d0 3px,
+                #d0d0d0 6px
+            );
+            border: 1px solid #bbb;
+        }
+        
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(4, 1fr);
             gap: 20px;
         }
         
@@ -175,13 +206,24 @@
             border-radius: 3px;
             border-left: 3px solid #2c3e50;
         }
-        
-        .blackout-entry {
+
+        .tentative-entry {
             padding: 6px 8px;
             margin-bottom: 6px;
             background: white;
             border-radius: 3px;
             border-left: 3px solid #95a5a6;
+            opacity: 0.8;
+        }
+        
+        .blackout-entry {
+            padding: 6px 8px;
+            margin-bottom: 6px;
+            background: #f5f5f5;
+            border-radius: 3px;
+            border-left: 3px solid #bbb;
+            font-style: italic;
+            color: #888;
         }
         
         .entry-date {
@@ -189,11 +231,20 @@
             color: #1a1a1a;
             font-size: 0.9em;
         }
+
+        .blackout-entry .entry-date {
+            color: #888;
+            font-weight: 500;
+        }
         
         .entry-title {
             color: #555;
             font-size: 0.85em;
             margin-top: 2px;
+        }
+
+        .blackout-entry .entry-title {
+            color: #999;
         }
         
         .entry-time {
@@ -249,12 +300,24 @@
             font-weight: 600;
             border-color: #2c3e50;
         }
-        
-        .day.blackout {
+
+        .day.tentative {
             background: #95a5a6;
             color: white;
             font-weight: 600;
             border-color: #95a5a6;
+        }
+        
+        .day.blackout {
+            background: repeating-linear-gradient(
+                45deg,
+                #f8f8f8,
+                #f8f8f8 3px,
+                #e0e0e0 3px,
+                #e0e0e0 6px
+            );
+            color: #999;
+            border-color: #ccc;
         }
         
         .tooltip {
@@ -289,6 +352,18 @@
             font-weight: 600;
             border: 1px solid #bdc3c7;
         }
+
+        .year-divider {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 20px;
+            background: #34495e;
+            border-radius: 6px;
+            color: white;
+            font-size: 1.4em;
+            font-weight: 700;
+            margin: 10px 0;
+        }
         
         @media (max-width: 1200px) {
             .calendar-grid {
@@ -301,7 +376,7 @@
                 gap: 15px;
                 font-size: 0.9em;
             }
-
+            
             .calendar-grid {
                 grid-template-columns: 1fr;
             }
@@ -324,51 +399,49 @@
     
     <div class="container">
         <h1>AI for All Workshop Calendar</h1>
-        <p class="subtitle">St. Albert & District Chamber of Commerce • 2026</p>
+        <p class="subtitle">St. Albert & District Chamber of Commerce • 2026-2027</p>
+        
+        <div class="important-notice">
+            <h3>📅 Workshop Schedule - One Session Per Month</h3>
+            <p><strong>First session confirmed for February 24th, 2026.</strong> Future sessions scheduled monthly through June 2027. All future dates marked as tentative pending member feedback and Chamber approval.</p>
+        </div>
         
         <div class="schedule-info">
-            <h3>📅 Workshop Schedule</h3>
-            <p>Sessions repeated 4-8 weeks apart for maximum flexibility and practice time. Complete program over 10 months with breathing room between topics.</p>
+            <h3>📊 Monthly Workshop Series</h3>
+            <p>One focused workshop per month allows for deeper implementation and practice between sessions. The 16-month program (Feb 2026 - June 2027) provides sustainable learning without overwhelming busy business owners.</p>
         </div>
         
         <div class="legend">
             <div class="legend-item">
                 <div class="legend-box workshop"></div>
-                <span><strong>Workshop Date</strong></span>
+                <span><strong>Confirmed Workshop</strong></span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box tentative"></div>
+                <span><strong>Tentative Workshop</strong></span>
             </div>
             <div class="legend-item">
                 <div class="legend-box blackout"></div>
-                <span><strong>Blackout Date</strong></span>
+                <span><strong>Blackout Dates</strong></span>
             </div>
         </div>
         
-        <div id="calendar"></div>
+        <div id="calendar" class="calendar-grid"></div>
     </div>
     
     <script>
         const months = [
-            {
-                name: 'January 2026',
-                days: 31,
-                startDay: 4,
-                workshops: [
-                    { date: 7, title: 'Session 1A: AI Fundamentals', time: '7:30-9:00 AM' },
-                    { date: 20, title: 'Session 2A: Prevent Costly Mistakes', time: '12:00-1:30 PM' }
-                ],
-                blackouts: [
-                    { date: 14, reason: 'Blackout Date' }
-                ]
-            },
+            // 2026
             {
                 name: 'February 2026',
                 days: 28,
                 startDay: 0,
                 workshops: [
-                    { date: 4, title: 'Session 3A: Prompt Power', time: '12:00-1:30 PM' },
-                    { date: 24, title: 'Session 4A: AI for Marketing', time: '7:30-9:00 AM' }
+                    { date: 24, title: 'Session 1: AI Fundamentals', time: '12:00-1:30 PM', confirmed: true }
                 ],
-                blackouts: [
-                    { date: 11, reason: 'Blackout Date' }
+                blackoutDates: [11, 16],
+                blackoutRanges: [
+                    { label: 'Feb 11, 16', reason: 'Blackout Dates' }
                 ]
             },
             {
@@ -376,11 +449,11 @@
                 days: 31,
                 startDay: 0,
                 workshops: [
-                    { date: 18, title: 'Session 5B: AI Fundamentals (Repeat)', time: '12:00-1:30 PM' },
-                    { date: 24, title: 'Session 6B: Prevent Mistakes (Repeat)', time: '7:30-9:00 AM' }
+                    { date: 18, title: 'Session 2: Prevent Costly AI Mistakes (Tentative)', time: '12:00-1:30 PM', tentative: true }
                 ],
-                blackouts: [
-                    { date: 11, reason: 'Blackout Date' }
+                blackoutDates: [1, 11, 27, 30, 31],
+                blackoutRanges: [
+                    { label: 'Mar 1, 11, 27, 30-31', reason: 'Blackout Dates' }
                 ]
             },
             {
@@ -388,12 +461,11 @@
                 days: 30,
                 startDay: 3,
                 workshops: [
-                    { date: 14, title: 'Session 7B: Marketing (Repeat)', time: '12:00-1:30 PM' },
-                    { date: 23, title: 'Session 8: 2-Hour Productivity Surge', time: '7:30-9:30 AM' }
+                    { date: 22, title: 'Session 3: Prompt Power (Tentative)', time: '7:30-9:00 AM', tentative: true }
                 ],
-                blackouts: [
-                    { date: 15, reason: 'Blackout Date' },
-                    { date: 17, reason: 'Blackout Date' }
+                blackoutDates: [1, 2, 3, 4, 5, 6, 15, 17],
+                blackoutRanges: [
+                    { label: 'Apr 1-6, 15, 17', reason: 'Blackout Dates' }
                 ]
             },
             {
@@ -401,11 +473,11 @@
                 days: 31,
                 startDay: 5,
                 workshops: [
-                    { date: 6, title: 'Session 9: Smarter Business Decisions', time: '12:00-1:30 PM' },
-                    { date: 26, title: 'Session 10: AI Health Check', time: '7:30-9:00 AM' }
+                    { date: 20, title: 'Session 4: AI for Marketing & Branding (Tentative)', time: '12:00-1:30 PM', tentative: true }
                 ],
-                blackouts: [
-                    { date: 13, reason: 'Blackout Date' }
+                blackoutDates: [13, 18],
+                blackoutRanges: [
+                    { label: 'May 13, 18', reason: 'Blackout Dates' }
                 ]
             },
             {
@@ -413,7 +485,8 @@
                 days: 30,
                 startDay: 1,
                 workshops: [],
-                blackouts: [],
+                blackoutDates: [10],
+                blackoutRanges: [],
                 summerBreak: true
             },
             {
@@ -421,7 +494,8 @@
                 days: 31,
                 startDay: 3,
                 workshops: [],
-                blackouts: [],
+                blackoutDates: [],
+                blackoutRanges: [],
                 summerBreak: true
             },
             {
@@ -429,38 +503,45 @@
                 days: 31,
                 startDay: 6,
                 workshops: [
-                    { date: 18, title: 'Session 11: Retail & E-commerce', time: '7:30-9:30 AM' }
+                    { date: 19, title: 'Session 5: 2-Hour Productivity Surge (Tentative)', time: '7:30-9:30 AM', tentative: true }
                 ],
-                blackouts: []
+                blackoutDates: [],
+                blackoutRanges: []
             },
             {
                 name: 'September 2026',
                 days: 30,
                 startDay: 2,
                 workshops: [
-                    { date: 9, title: 'Session 12: Professional Services', time: '12:00-2:00 PM' }
+                    { date: 23, title: 'Session 6: Smarter Business Decisions (Tentative)', time: '12:00-1:30 PM', tentative: true }
                 ],
-                blackouts: []
+                blackoutDates: [7, 16, 30],
+                blackoutRanges: [
+                    { label: 'Sep 7, 16, 30', reason: 'Blackout Dates' }
+                ]
             },
             {
                 name: 'October 2026',
                 days: 31,
                 startDay: 4,
                 workshops: [
-                    { date: 14, title: 'Session 13: Mfg & Agri-Tech', time: '7:30-9:30 AM' }
+                    { date: 14, title: 'Session 7: AI Health Check (Tentative)', time: '7:30-9:00 AM', tentative: true }
                 ],
-                blackouts: []
+                blackoutDates: [5, 6, 7, 8, 9, 12, 21, 30],
+                blackoutRanges: [
+                    { label: 'Oct 5-9, 12, 21, 30', reason: 'Blackout Dates' }
+                ]
             },
             {
                 name: 'November 2026',
                 days: 30,
                 startDay: 0,
                 workshops: [
-                    { date: 3, title: 'Session 14: Future-Proofing', time: '12:00-1:30 PM' }
+                    { date: 25, title: 'Session 8: Sector Deep Dive - Retail (Tentative)', time: '7:30-9:30 AM', tentative: true }
                 ],
-                blackouts: [
-                    { date: 11, reason: 'Blackout Date' },
-                    { date: 18, reason: 'Blackout Date' }
+                blackoutDates: [11, 18],
+                blackoutRanges: [
+                    { label: 'Nov 11, 18', reason: 'Blackout Dates' }
                 ]
             },
             {
@@ -468,20 +549,93 @@
                 days: 31,
                 startDay: 2,
                 workshops: [
-                    { date: 15, title: 'Session 15: Community Showcase', time: 'TBD' }
+                    { date: 16, title: 'Session 9: Sector Deep Dive - Prof Services (Tentative)', time: '12:00-2:00 PM', tentative: true }
                 ],
-                blackouts: []
+                blackoutDates: [9],
+                blackoutRanges: [
+                    { label: 'Dec 9', reason: 'Blackout Dates' }
+                ]
+            },
+            // 2027
+            {
+                name: 'January 2027',
+                year2027: true,
+                days: 31,
+                startDay: 5,
+                workshops: [
+                    { date: 20, title: 'Session 10: Sector Deep Dive - Mfg & Agri (Tentative)', time: '7:30-9:30 AM', tentative: true }
+                ],
+                blackoutDates: [],
+                blackoutRanges: []
+            },
+            {
+                name: 'February 2027',
+                days: 28,
+                startDay: 1,
+                workshops: [
+                    { date: 17, title: 'Session 11: Advanced AI Tools (Tentative)', time: '12:00-1:30 PM', tentative: true }
+                ],
+                blackoutDates: [],
+                blackoutRanges: []
+            },
+            {
+                name: 'March 2027',
+                days: 31,
+                startDay: 1,
+                workshops: [
+                    { date: 17, title: 'Session 12: AI Ethics & Governance (Tentative)', time: '7:30-9:00 AM', tentative: true }
+                ],
+                blackoutDates: [],
+                blackoutRanges: []
+            },
+            {
+                name: 'April 2027',
+                days: 30,
+                startDay: 4,
+                workshops: [
+                    { date: 21, title: 'Session 13: Scaling AI in Your Business (Tentative)', time: '12:00-1:30 PM', tentative: true }
+                ],
+                blackoutDates: [],
+                blackoutRanges: []
+            },
+            {
+                name: 'May 2027',
+                days: 31,
+                startDay: 6,
+                workshops: [
+                    { date: 19, title: 'Session 14: Future-Proofing & Risk Monitoring (Tentative)', time: '7:30-9:00 AM', tentative: true }
+                ],
+                blackoutDates: [],
+                blackoutRanges: []
+            },
+            {
+                name: 'June 2027',
+                days: 30,
+                startDay: 2,
+                workshops: [
+                    { date: 16, title: 'Session 15: Community AI Showcase (Tentative)', time: 'Full Day Event', tentative: true }
+                ],
+                blackoutDates: [],
+                blackoutRanges: []
             }
         ];
-
+        
         const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         
-        function createCalendar(months, containerId) {
-            const calendar = document.getElementById(containerId);
-            const calendarGrid = document.createElement('div');
-            calendarGrid.className = 'calendar-grid';
+        function createCalendar() {
+            const calendar = document.getElementById('calendar');
+            let year2027Added = false;
             
             months.forEach(month => {
+                // Add year divider before 2027 months
+                if (month.year2027 && !year2027Added) {
+                    const yearDivider = document.createElement('div');
+                    yearDivider.className = 'year-divider';
+                    yearDivider.textContent = '2027';
+                    calendar.appendChild(yearDivider);
+                    year2027Added = true;
+                }
+
                 const monthDiv = document.createElement('div');
                 monthDiv.className = 'month';
                 
@@ -492,7 +646,7 @@
                             ☀️ SUMMER BREAK ☀️
                         </div>
                     `;
-                    calendarGrid.appendChild(monthDiv);
+                    calendar.appendChild(monthDiv);
                     return;
                 }
                 
@@ -523,19 +677,27 @@
                     dayDiv.textContent = day;
                     
                     const workshops = month.workshops.filter(w => w.date === day);
-                    const blackout = month.blackouts.find(b => b.date === day);
+                    const isBlackout = month.blackoutDates.includes(day);
                     
                     if (workshops.length > 0) {
-                        dayDiv.className = 'day workshop';
+                        const isTentative = workshops.some(w => w.tentative);
+                        const isConfirmed = workshops.some(w => w.confirmed);
+                        
+                        if (isConfirmed) {
+                            dayDiv.className = 'day workshop';
+                        } else if (isTentative) {
+                            dayDiv.className = 'day tentative';
+                        }
+                        
                         const tooltip = document.createElement('div');
                         tooltip.className = 'tooltip';
                         tooltip.innerHTML = workshops.map(w => `${w.title}<br>${w.time}`).join('<br>---<br>');
                         dayDiv.appendChild(tooltip);
-                    } else if (blackout) {
+                    } else if (isBlackout) {
                         dayDiv.className = 'day blackout';
                         const tooltip = document.createElement('div');
                         tooltip.className = 'tooltip';
-                        tooltip.textContent = blackout.reason;
+                        tooltip.textContent = 'Blackout Dates';
                         dayDiv.appendChild(tooltip);
                     }
                     
@@ -549,7 +711,7 @@
                 
                 month.workshops.forEach(workshop => {
                     const eventEntry = document.createElement('div');
-                    eventEntry.className = 'event-entry';
+                    eventEntry.className = workshop.tentative ? 'tentative-entry' : 'event-entry';
                     eventEntry.innerHTML = `
                         <div class="entry-date">${month.name.split(' ')[0]} ${workshop.date}</div>
                         <div class="entry-title">${workshop.title}</div>
@@ -558,27 +720,26 @@
                     eventsDiv.appendChild(eventEntry);
                 });
                 
-                month.blackouts.forEach(blackout => {
+                // Show consolidated blackout ranges instead of individual dates
+                month.blackoutRanges.forEach(range => {
                     const blackoutEntry = document.createElement('div');
                     blackoutEntry.className = 'blackout-entry';
                     blackoutEntry.innerHTML = `
-                        <div class="entry-date">${month.name.split(' ')[0]} ${blackout.date}</div>
-                        <div class="entry-title">${blackout.reason}</div>
+                        <div class="entry-date">${range.label}</div>
+                        <div class="entry-title">${range.reason}</div>
                     `;
                     eventsDiv.appendChild(blackoutEntry);
                 });
                 
-                if (month.workshops.length > 0 || month.blackouts.length > 0) {
+                if (month.workshops.length > 0 || month.blackoutRanges.length > 0) {
                     monthDiv.appendChild(eventsDiv);
                 }
                 
-                calendarGrid.appendChild(monthDiv);
+                calendar.appendChild(monthDiv);
             });
-            
-            calendar.appendChild(calendarGrid);
         }
         
-        createCalendar(months, 'calendar');
+        createCalendar();
     </script>
 </body>
 </html>
