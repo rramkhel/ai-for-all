@@ -3,297 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI for All - SACC 2026</title>
+    <title>AI for All - SACC 2026-2027</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #fff;
-            color: #1a1a1a;
-            line-height: 1.6;
-        }
-        
-        nav {
-            background: #2c3e50;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        nav .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        nav .logo {
-            color: white;
-            font-size: 1.5em;
-            font-weight: 600;
-        }
-        
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-        
-        nav a:hover {
-            opacity: 0.8;
-        }
-        
-        .hero {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 100px 20px;
-            text-align: center;
-        }
-        
-        .hero h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        
-        .hero p {
-            font-size: 1.3em;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            opacity: 0.95;
-        }
-        
-        .hero .subtitle {
-            font-size: 1.1em;
-            opacity: 0.85;
-            margin-bottom: 40px;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #2c3e50;
-            padding: 15px 40px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1em;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-        
-        .section-title {
-            font-size: 2.2em;
-            margin-bottom: 40px;
-            text-align: center;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-        
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .card {
-            background: #fafafa;
-            padding: 30px;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        }
-        
-        .card h3 {
-            color: #2c3e50;
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        
-        .card p {
-            color: #555;
-            line-height: 1.7;
-        }
-        
-        .stats {
-            background: #ecf0f1;
-            padding: 60px 20px;
-            text-align: center;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            max-width: 1000px;
-            margin: 40px auto 0;
-        }
-        
-        .stat {
-            padding: 20px;
-        }
-        
-        .stat-number {
-            font-size: 3em;
-            font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 10px;
-        }
-        
-        .stat-label {
-            color: #555;
-            font-size: 1.1em;
-        }
-        
-        .timeline {
-            background: white;
-        }
-        
+        /* Page-specific styles */
         .timeline-item {
             display: grid;
             grid-template-columns: 120px 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #e0e0e0;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-lg);
+            border-bottom: 1px solid var(--border);
         }
-        
+
         .timeline-item:last-child {
             border-bottom: none;
         }
-        
+
         .timeline-date {
             font-weight: 600;
-            color: #2c3e50;
-            font-size: 1.1em;
+            color: var(--accent);
+            font-size: 1.05em;
         }
-        
+
         .timeline-content h4 {
-            color: #2c3e50;
-            font-size: 1.2em;
-            margin-bottom: 8px;
+            color: var(--ink);
+            font-size: 1.15em;
+            margin-bottom: var(--space-sm);
+            font-family: var(--font-heading);
         }
-        
+
         .timeline-content p {
-            color: #666;
+            color: var(--warm-gray);
+            margin-bottom: 0;
         }
-        
-        footer {
-            background: #2c3e50;
-            color: white;
-            padding: 40px 20px;
+
+        .stats-section {
+            background: var(--cream);
+            padding: var(--space-2xl) var(--space-lg);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-lg);
+            max-width: 1000px;
+            margin: var(--space-xl) auto 0;
+        }
+
+        .intro-text {
             text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--space-xl);
+            font-size: 1.1em;
+            color: var(--warm-gray);
         }
-        
-        footer p {
-            opacity: 0.9;
+
+        @media (max-width: 900px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        
-        .contact-info {
-            margin-top: 20px;
-            font-size: 0.95em;
-        }
-        
-        @media (max-width: 768px) {
-            nav ul {
-                gap: 15px;
-                font-size: 0.9em;
-            }
-            
-            .hero h1 {
-                font-size: 2em;
-            }
-            
-            .hero p {
-                font-size: 1.1em;
-            }
-            
+
+        @media (max-width: 600px) {
             .timeline-item {
                 grid-template-columns: 1fr;
-                gap: 10px;
+                gap: var(--space-sm);
             }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <div class="logo">AI for All</div>
-            <ul>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">AI for All</div>
+            <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="calendar.html">Calendar</a></li>
                 <li><a href="schedule.html">Schedule</a></li>
-                <li><a href="#overview">Overview</a></li>
                 <li><a href="survey.html">Survey</a></li>
             </ul>
         </div>
     </nav>
-    
+
     <div class="hero">
         <h1>AI for All: High-Impact AI for SMB Growth</h1>
-        <p>A comprehensive 10-month training program designed to help St. Albert businesses harness the power of AI</p>
-        <p class="subtitle">St. Albert & District Chamber of Commerce • 2026</p>
-        <a href="calendar.html" class="cta-button">View Full Calendar</a>
+        <p>A comprehensive 16-month training program designed to help St. Albert businesses harness the power of AI</p>
+        <p style="opacity: 0.8; margin-bottom: var(--space-lg);">St. Albert & District Chamber of Commerce • 2026-2027</p>
+        <a href="calendar.html" class="btn btn-primary" style="background: white; color: var(--ink);">View Full Calendar</a>
     </div>
-    
-    <div class="container">
+
+    <div class="page">
         <h2 class="section-title" id="overview">Program Overview</h2>
-        <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.1em; color: #555;">
+        <p class="intro-text">
             The "AI for All" program transforms the perceived risks and costs of AI into strategic advantages through a phased, accessible, and strategic roadmap designed specifically for St. Albert's small and medium-sized businesses.
         </p>
-        
-        <div class="cards">
-            <div class="card">
+
+        <div class="grid-3">
+            <div class="card card-accent">
                 <h3>Foundation Phase</h3>
-                <p>Build confidence and literacy with AI Fundamentals, governance frameworks, and prompt engineering basics. Learn to prevent costly mistakes from day one.</p>
+                <p style="color: var(--warm-gray);">Build confidence and literacy with AI Fundamentals, governance frameworks, and prompt engineering basics. Learn to prevent costly mistakes from day one.</p>
             </div>
-            
-            <div class="card">
+
+            <div class="card card-accent">
                 <h3>Tools & Application</h3>
-                <p>Master practical, low-cost AI tools for marketing, productivity, and business insights. Get immediate ROI with hands-on training and take-home resources.</p>
+                <p style="color: var(--warm-gray);">Master practical, low-cost AI tools for marketing, productivity, and business insights. Get immediate ROI with hands-on training and take-home resources.</p>
             </div>
-            
-            <div class="card">
+
+            <div class="card card-accent">
                 <h3>Sector Deep Dives</h3>
-                <p>Specialized training for Retail & E-commerce, Professional Services, and Manufacturing & Agri-Tech sectors with industry-specific applications.</p>
+                <p style="color: var(--warm-gray);">Specialized training for Retail & E-commerce, Professional Services, and Manufacturing & Agri-Tech sectors with industry-specific applications.</p>
             </div>
         </div>
     </div>
-    
-    <div class="stats">
+
+    <div class="stats-section">
         <h2 class="section-title">By The Numbers</h2>
         <div class="stats-grid">
             <div class="stat">
@@ -301,7 +124,7 @@
                 <div class="stat-label">Workshop Sessions</div>
             </div>
             <div class="stat">
-                <div class="stat-number">10</div>
+                <div class="stat-number">16</div>
                 <div class="stat-label">Month Program</div>
             </div>
             <div class="stat">
@@ -314,26 +137,26 @@
             </div>
         </div>
     </div>
-    
-    <div class="container timeline">
+
+    <div class="page">
         <h2 class="section-title">Program Timeline</h2>
-        
+
         <div class="timeline-item">
-            <div class="timeline-date">Jan - Feb</div>
+            <div class="timeline-date">Feb 2026</div>
             <div class="timeline-content">
-                <h4>Foundation & Literacy</h4>
-                <p>AI Fundamentals, governance frameworks, prompt engineering, and marketing applications. Build the essential knowledge base.</p>
+                <h4>Program Launch</h4>
+                <p>First session confirmed for February 24th. AI Fundamentals kicks off the series with a focus on practical business applications.</p>
             </div>
         </div>
-        
+
         <div class="timeline-item">
             <div class="timeline-date">Mar - May</div>
             <div class="timeline-content">
-                <h4>Tools & Strategy</h4>
-                <p>Repeat foundation sessions for accessibility, plus productivity tools, business insights, and AI readiness assessments.</p>
+                <h4>Foundation & Tools</h4>
+                <p>Core sessions on preventing AI mistakes, prompt engineering, marketing applications, and productivity tools.</p>
             </div>
         </div>
-        
+
         <div class="timeline-item">
             <div class="timeline-date">Jun - Jul</div>
             <div class="timeline-content">
@@ -341,29 +164,29 @@
                 <p>Time for businesses to implement learnings, experiment with tools, and prepare for advanced topics.</p>
             </div>
         </div>
-        
+
         <div class="timeline-item">
-            <div class="timeline-date">Aug - Oct</div>
+            <div class="timeline-date">Aug - Dec</div>
             <div class="timeline-content">
                 <h4>Sector Specialization</h4>
                 <p>Deep dives into Retail & E-commerce, Professional Services, and Manufacturing & Agri-Tech with industry-specific applications.</p>
             </div>
         </div>
-        
+
         <div class="timeline-item">
-            <div class="timeline-date">Nov - Dec</div>
+            <div class="timeline-date">Jan - Jun 2027</div>
             <div class="timeline-content">
-                <h4>Future-Proofing & Showcase</h4>
-                <p>Long-term compliance strategies and a community showcase celebrating St. Albert's AI success stories.</p>
+                <h4>Advanced Topics & Showcase</h4>
+                <p>Advanced AI tools, ethics & governance, scaling strategies, and a community showcase celebrating St. Albert's AI success stories.</p>
             </div>
         </div>
     </div>
-    
-    <footer>
+
+    <footer class="footer">
         <p><strong>AI for All: High-Impact AI for SMB Growth</strong></p>
-        <p class="contact-info">St. Albert & District Chamber of Commerce<br>
-        KEI • Perry Kinkaide, Jeff Uhlich, Rachel Ramkhelawan</p>
-        <p style="margin-top: 20px; font-size: 0.9em; opacity: 0.7;">© 2026 All Rights Reserved</p>
+        <p>St. Albert & District Chamber of Commerce</p>
+        <p class="footer-muted">KEI • Perry Kinkaide, Jeff Uhlich, Rachel Ramkhelawan</p>
+        <p class="footer-muted" style="margin-top: var(--space-md);">© 2026 All Rights Reserved</p>
     </footer>
 </body>
 </html>

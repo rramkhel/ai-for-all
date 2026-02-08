@@ -4,177 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Training Survey - AI for All</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f5f5f5;
-            color: #1a1a1a;
-            line-height: 1.6;
-        }
-        
-        nav {
-            background: #2c3e50;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        nav .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        nav .logo {
-            color: white;
-            font-size: 1.5em;
-            font-weight: 600;
-        }
-        
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-        
-        nav a:hover {
-            opacity: 0.8;
-        }
-        
-        .hero {
+        /* Survey-specific styles */
+        .survey-hero {
             background: white;
-            padding: 60px 40px 40px;
-            border-bottom: 1px solid #e0e0e0;
+            padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid var(--border);
         }
-        
-        .hero-content {
-            max-width: 1000px;
+
+        .survey-hero-content {
+            max-width: 900px;
             margin: 0 auto;
         }
-        
-        .hero h1 {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            color: #2c3e50;
-            font-weight: 600;
+
+        .survey-hero h1 {
+            margin-bottom: var(--space-md);
         }
-        
-        .hero p {
-            font-size: 1.15em;
-            color: #666;
-            margin-bottom: 15px;
-        }
-        
-        .hero .time-estimate {
-            color: #2c3e50;
-            font-weight: 600;
+
+        .survey-hero p {
             font-size: 1.1em;
+            color: var(--warm-gray);
+            margin-bottom: var(--space-md);
         }
-        
+
+        .time-estimate {
+            display: inline-block;
+            background: var(--accent-light);
+            color: var(--accent-dark);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
         .form-container {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 40px 40px;
+            max-width: 900px;
+            margin: var(--space-xl) auto;
+            padding: 0 var(--space-lg) var(--space-xl);
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
         }
-        
-        /* This ensures the Tally form looks good */
+
         .tally-embed {
             min-height: 500px;
         }
-        
+
         @media (max-width: 768px) {
-            nav ul {
-                gap: 15px;
-                font-size: 0.9em;
-            }
-            
-            .hero h1 {
-                font-size: 2em;
-            }
-            
-            .hero, .form-container {
-                padding: 30px 20px;
+            .survey-hero, .form-container {
+                padding: var(--space-lg) var(--space-md);
             }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <div class="logo">AI for All</div>
-            <ul>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">AI for All</div>
+            <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="calendar.html">Calendar</a></li>
-                <li><a href="schedule.html">Schedule Options</a></li>
+                <li><a href="schedule.html">Schedule</a></li>
                 <li><a href="survey.html">Survey</a></li>
             </ul>
         </div>
     </nav>
-    
-    <div class="hero">
-        <div class="hero-content">
+
+    <div class="survey-hero">
+        <div class="survey-hero-content">
             <h1>AI for All Workshop Series: Member Preferences Survey</h1>
             <p>The St. Albert & District Chamber of Commerce is developing a comprehensive AI training program for local businesses. To ensure this program meets your needs and schedule, we need your input on timing, format, and delivery preferences.</p>
-            <p class="time-estimate">⏱️ This survey takes approximately 5-7 minutes to complete.</p>
-            <p style="margin-top: 15px; color: #666;">Your responses will directly shape the workshop schedule and format for 2026.</p>
+            <span class="time-estimate">This survey takes approximately 5-7 minutes to complete</span>
+            <p style="margin-top: var(--space-md); color: var(--warm-gray);">Your responses will directly shape the workshop schedule and format for 2026-2027.</p>
         </div>
     </div>
-    
+
     <div class="form-container">
-        <!-- ============================================ -->
-        <!-- 📝 PASTE YOUR TALLY EMBED CODE HERE -->
-        <!-- ============================================ -->
-        
-        <!-- INSTRUCTIONS:
-             1. Go to your Tally form
-             2. Click "Share" → "Embed"
-             3. Choose "Standard embed"
-             4. Check: Dynamic height, Transparent background
-             5. Copy the embed code
-             6. Paste it below, replacing this comment
-        -->
-        
-        <!-- YOUR TALLY EMBED CODE GOES HERE -->
         <div class="tally-embed">
-            <iframe 
-                data-tally-src="https://tally.so/embed/aQ95Nq?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-                loading="lazy" 
-                width="100%" 
-                height="500" 
-                frameborder="0" 
-                marginheight="0" 
-                marginwidth="0" 
+            <iframe
+                data-tally-src="https://tally.so/embed/aQ95Nq?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+                loading="lazy"
+                width="100%"
+                height="500"
+                frameborder="0"
+                marginheight="0"
+                marginwidth="0"
                 title="AI Training Survey">
             </iframe>
             <script>
                 var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
             </script>
         </div>
-        
-        <!-- END TALLY EMBED -->
-        
     </div>
-    
+
+    <footer class="footer">
+        <p><strong>AI for All: High-Impact AI for SMB Growth</strong></p>
+        <p>St. Albert & District Chamber of Commerce</p>
+        <p class="footer-muted">© 2026 All Rights Reserved</p>
+    </footer>
 </body>
 </html>

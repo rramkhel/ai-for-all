@@ -4,158 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workshop Calendar - AI for All</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f5f5f5;
-            min-height: 100vh;
-        }
-        
-        nav {
-            background: #2c3e50;
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        nav .container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        nav .logo {
-            color: white;
-            font-size: 1.5em;
-            font-weight: 600;
-        }
-        
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-        
-        nav a:hover {
-            opacity: 0.8;
-        }
-        
-        .container {
+        /* Calendar-specific styles */
+        .calendar-container {
             max-width: 1600px;
             margin: 0 auto;
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 40px;
-            margin-top: 40px;
-            margin-bottom: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--space-xl);
+            margin-top: var(--space-xl);
+            margin-bottom: var(--space-xl);
         }
-        
-        h1 {
+
+        .calendar-header {
             text-align: center;
-            color: #1a1a1a;
-            margin-bottom: 8px;
-            font-size: 2em;
-            font-weight: 600;
+            margin-bottom: var(--space-lg);
         }
-        
-        .subtitle {
-            text-align: center;
-            color: #666;
-            margin-bottom: 30px;
+
+        .calendar-header h1 {
+            margin-bottom: var(--space-sm);
+        }
+
+        .calendar-subtitle {
+            color: var(--warm-gray);
             font-size: 1em;
         }
 
         .important-notice {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 30px;
-            border-left: 6px solid #ffc107;
+            background: var(--highlight);
+            border: 2px solid var(--highlight-dark);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            border-left: 6px solid var(--highlight-dark);
             text-align: center;
         }
 
         .important-notice h3 {
-            color: #856404;
-            margin-bottom: 10px;
-            font-size: 1.3em;
+            color: #92400e;
+            margin-bottom: var(--space-sm);
+            font-size: 1.2em;
         }
 
         .important-notice p {
-            color: #856404;
-            font-size: 1.05em;
+            color: #92400e;
+            font-size: 1em;
+            margin-bottom: 0;
         }
-        
+
         .schedule-info {
             text-align: center;
-            padding: 30px;
-            background: #e3f2fd;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            border-left: 4px solid #2196f3;
+            padding: var(--space-lg);
+            background: var(--accent-light);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-lg);
+            border-left: 4px solid var(--accent);
         }
-        
+
         .schedule-info h3 {
-            color: #1565c0;
-            margin-bottom: 10px;
-            font-size: 1.3em;
+            color: var(--accent-dark);
+            margin-bottom: var(--space-sm);
+            font-size: 1.2em;
         }
-        
+
         .schedule-info p {
-            color: #555;
-            font-size: 1.05em;
+            color: var(--ink);
+            font-size: 1em;
             line-height: 1.6;
+            margin-bottom: 0;
         }
-        
+
         .legend {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-bottom: 40px;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
             flex-wrap: wrap;
         }
-        
+
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: var(--space-sm);
             font-size: 0.95em;
         }
-        
+
         .legend-box {
             width: 24px;
             height: 24px;
-            border-radius: 4px;
-            border: 1px solid #ddd;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
         }
-        
+
         .legend-box.workshop {
-            background: #2c3e50;
+            background: var(--accent);
         }
 
         .legend-box.tentative {
-            background: #95a5a6;
+            background: var(--warm-gray);
         }
-        
+
         .legend-box.blackout {
             background: repeating-linear-gradient(
                 45deg,
@@ -166,148 +116,149 @@
             );
             border: 1px solid #bbb;
         }
-        
+
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: var(--space-lg);
         }
-        
+
         .month {
-            background: #fafafa;
-            border-radius: 6px;
-            padding: 16px;
-            border: 1px solid #e0e0e0;
+            background: var(--cream);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            border: 1px solid var(--border);
             display: flex;
             flex-direction: column;
         }
-        
+
         .month-header {
             text-align: center;
             font-size: 1.1em;
             font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #2c3e50;
+            font-family: var(--font-heading);
+            color: var(--ink);
+            margin-bottom: var(--space-sm);
+            padding-bottom: var(--space-sm);
+            border-bottom: 2px solid var(--accent);
         }
-        
+
         .month-events {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid #e0e0e0;
+            margin-top: var(--space-sm);
+            padding-top: var(--space-sm);
+            border-top: 1px solid var(--border);
             font-size: 0.8em;
         }
-        
+
         .event-entry {
             padding: 6px 8px;
             margin-bottom: 6px;
             background: white;
-            border-radius: 3px;
-            border-left: 3px solid #2c3e50;
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--accent);
         }
 
         .tentative-entry {
             padding: 6px 8px;
             margin-bottom: 6px;
             background: white;
-            border-radius: 3px;
-            border-left: 3px solid #95a5a6;
-            opacity: 0.8;
+            border-radius: var(--radius-sm);
+            border-left: 3px solid var(--warm-gray);
+            opacity: 0.85;
         }
-        
+
         .blackout-entry {
             padding: 6px 8px;
             margin-bottom: 6px;
-            background: #f5f5f5;
-            border-radius: 3px;
+            background: var(--paper);
+            border-radius: var(--radius-sm);
             border-left: 3px solid #bbb;
             font-style: italic;
-            color: #888;
+            color: var(--warm-gray);
         }
-        
+
         .entry-date {
             font-weight: 600;
-            color: #1a1a1a;
+            color: var(--ink);
             font-size: 0.9em;
         }
 
         .blackout-entry .entry-date {
-            color: #888;
+            color: var(--warm-gray);
             font-weight: 500;
         }
-        
+
         .entry-title {
-            color: #555;
+            color: var(--warm-gray);
             font-size: 0.85em;
             margin-top: 2px;
         }
 
         .blackout-entry .entry-title {
-            color: #999;
+            color: var(--warm-gray-light);
         }
-        
+
         .entry-time {
-            color: #777;
+            color: var(--warm-gray-light);
             font-size: 0.8em;
             margin-top: 1px;
         }
-        
+
         .days-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 4px;
         }
-        
+
         .day-label {
             text-align: center;
             font-weight: 600;
-            color: #666;
+            color: var(--warm-gray);
             font-size: 0.75em;
             padding: 4px 0;
         }
-        
+
         .day {
             aspect-ratio: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 4px;
+            border-radius: var(--radius-sm);
             font-size: 0.85em;
             cursor: pointer;
             transition: all 0.15s;
             position: relative;
             border: 1px solid transparent;
         }
-        
+
         .day:hover {
             transform: scale(1.08);
         }
-        
+
         .day.empty {
             background: transparent;
         }
-        
+
         .day.regular {
             background: white;
-            color: #333;
-            border-color: #e0e0e0;
+            color: var(--ink);
+            border-color: var(--border);
         }
-        
+
         .day.workshop {
-            background: #2c3e50;
+            background: var(--accent);
             color: white;
             font-weight: 600;
-            border-color: #2c3e50;
+            border-color: var(--accent);
         }
 
         .day.tentative {
-            background: #95a5a6;
+            background: var(--warm-gray);
             color: white;
             font-weight: 600;
-            border-color: #95a5a6;
+            border-color: var(--warm-gray);
         }
-        
+
         .day.blackout {
             background: repeating-linear-gradient(
                 45deg,
@@ -316,101 +267,102 @@
                 #e0e0e0 3px,
                 #e0e0e0 6px
             );
-            color: #999;
+            color: var(--warm-gray-light);
             border-color: #ccc;
         }
-        
+
         .tooltip {
             display: none;
             position: absolute;
             bottom: 100%;
             left: 50%;
             transform: translateX(-50%);
-            background: #1a1a1a;
+            background: var(--ink);
             color: white;
             padding: 8px 12px;
-            border-radius: 4px;
+            border-radius: var(--radius-sm);
             font-size: 0.75em;
             white-space: nowrap;
             z-index: 10;
             margin-bottom: 5px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            box-shadow: var(--shadow-md);
         }
-        
+
         .day:hover .tooltip {
             display: block;
         }
-        
+
         .summer-break {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 30px;
-            background: #ecf0f1;
-            border-radius: 6px;
-            color: #555;
+            padding: var(--space-lg);
+            background: var(--cream);
+            border-radius: var(--radius-md);
+            color: var(--warm-gray);
             font-size: 1.1em;
             font-weight: 600;
-            border: 1px solid #bdc3c7;
+            border: 1px solid var(--border);
         }
 
         .year-divider {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 20px;
-            background: #34495e;
-            border-radius: 6px;
+            padding: var(--space-lg);
+            background: var(--ink);
+            border-radius: var(--radius-md);
             color: white;
             font-size: 1.4em;
             font-weight: 700;
-            margin: 10px 0;
+            font-family: var(--font-heading);
+            margin: var(--space-sm) 0;
         }
-        
+
         @media (max-width: 1200px) {
             .calendar-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-        
+
         @media (max-width: 768px) {
-            nav ul {
-                gap: 15px;
-                font-size: 0.9em;
-            }
-            
             .calendar-grid {
                 grid-template-columns: 1fr;
+            }
+            .calendar-container {
+                padding: var(--space-lg);
+                margin: var(--space-md);
             }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="container" style="background: transparent; box-shadow: none; padding: 0 20px; margin: 0 auto;">
-            <div class="logo">AI for All</div>
-            <ul>
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">AI for All</div>
+            <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="calendar.html">Calendar</a></li>
                 <li><a href="schedule.html">Schedule</a></li>
-                <li><a href="index.html#overview">Overview</a></li>
                 <li><a href="survey.html">Survey</a></li>
             </ul>
         </div>
     </nav>
-    
-    <div class="container">
-        <h1>AI for All Workshop Calendar</h1>
-        <p class="subtitle">St. Albert & District Chamber of Commerce • 2026-2027</p>
-        
+
+    <div class="calendar-container">
+        <div class="calendar-header">
+            <h1>AI for All Workshop Calendar</h1>
+            <p class="calendar-subtitle">St. Albert & District Chamber of Commerce • 2026-2027</p>
+        </div>
+
         <div class="important-notice">
-            <h3>📅 Workshop Schedule - One Session Per Month</h3>
+            <h3>Workshop Schedule - One Session Per Month</h3>
             <p><strong>First session confirmed for February 24th, 2026.</strong> Future sessions scheduled monthly through June 2027. All future dates marked as tentative pending member feedback and Chamber approval.</p>
         </div>
-        
+
         <div class="schedule-info">
-            <h3>📊 Monthly Workshop Series</h3>
+            <h3>Monthly Workshop Series</h3>
             <p>One focused workshop per month allows for deeper implementation and practice between sessions. The 16-month program (Feb 2026 - June 2027) provides sustainable learning without overwhelming busy business owners.</p>
         </div>
-        
+
         <div class="legend">
             <div class="legend-item">
                 <div class="legend-box workshop"></div>
@@ -425,10 +377,16 @@
                 <span><strong>Blackout Dates</strong></span>
             </div>
         </div>
-        
+
         <div id="calendar" class="calendar-grid"></div>
     </div>
-    
+
+    <footer class="footer">
+        <p><strong>AI for All: High-Impact AI for SMB Growth</strong></p>
+        <p>St. Albert & District Chamber of Commerce</p>
+        <p class="footer-muted">© 2026 All Rights Reserved</p>
+    </footer>
+
     <script>
         const months = [
             // 2026
@@ -619,13 +577,13 @@
                 blackoutRanges: []
             }
         ];
-        
+
         const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        
+
         function createCalendar() {
             const calendar = document.getElementById('calendar');
             let year2027Added = false;
-            
+
             months.forEach(month => {
                 // Add year divider before 2027 months
                 if (month.year2027 && !year2027Added) {
@@ -638,57 +596,57 @@
 
                 const monthDiv = document.createElement('div');
                 monthDiv.className = 'month';
-                
+
                 if (month.summerBreak) {
                     monthDiv.innerHTML = `
                         <div class="month-header">${month.name}</div>
                         <div class="summer-break">
-                            ☀️ SUMMER BREAK ☀️
+                            SUMMER BREAK
                         </div>
                     `;
                     calendar.appendChild(monthDiv);
                     return;
                 }
-                
+
                 const header = document.createElement('div');
                 header.className = 'month-header';
                 header.textContent = month.name;
                 monthDiv.appendChild(header);
-                
+
                 const daysGrid = document.createElement('div');
                 daysGrid.className = 'days-grid';
-                
+
                 dayLabels.forEach(label => {
                     const dayLabel = document.createElement('div');
                     dayLabel.className = 'day-label';
                     dayLabel.textContent = label;
                     daysGrid.appendChild(dayLabel);
                 });
-                
+
                 for (let i = 0; i < month.startDay; i++) {
                     const emptyDay = document.createElement('div');
                     emptyDay.className = 'day empty';
                     daysGrid.appendChild(emptyDay);
                 }
-                
+
                 for (let day = 1; day <= month.days; day++) {
                     const dayDiv = document.createElement('div');
                     dayDiv.className = 'day regular';
                     dayDiv.textContent = day;
-                    
+
                     const workshops = month.workshops.filter(w => w.date === day);
                     const isBlackout = month.blackoutDates.includes(day);
-                    
+
                     if (workshops.length > 0) {
                         const isTentative = workshops.some(w => w.tentative);
                         const isConfirmed = workshops.some(w => w.confirmed);
-                        
+
                         if (isConfirmed) {
                             dayDiv.className = 'day workshop';
                         } else if (isTentative) {
                             dayDiv.className = 'day tentative';
                         }
-                        
+
                         const tooltip = document.createElement('div');
                         tooltip.className = 'tooltip';
                         tooltip.innerHTML = workshops.map(w => `${w.title}<br>${w.time}`).join('<br>---<br>');
@@ -697,18 +655,18 @@
                         dayDiv.className = 'day blackout';
                         const tooltip = document.createElement('div');
                         tooltip.className = 'tooltip';
-                        tooltip.textContent = 'Blackout Dates';
+                        tooltip.textContent = 'Blackout Date';
                         dayDiv.appendChild(tooltip);
                     }
-                    
+
                     daysGrid.appendChild(dayDiv);
                 }
-                
+
                 monthDiv.appendChild(daysGrid);
-                
+
                 const eventsDiv = document.createElement('div');
                 eventsDiv.className = 'month-events';
-                
+
                 month.workshops.forEach(workshop => {
                     const eventEntry = document.createElement('div');
                     eventEntry.className = workshop.tentative ? 'tentative-entry' : 'event-entry';
@@ -719,7 +677,7 @@
                     `;
                     eventsDiv.appendChild(eventEntry);
                 });
-                
+
                 // Show consolidated blackout ranges instead of individual dates
                 month.blackoutRanges.forEach(range => {
                     const blackoutEntry = document.createElement('div');
@@ -730,15 +688,15 @@
                     `;
                     eventsDiv.appendChild(blackoutEntry);
                 });
-                
+
                 if (month.workshops.length > 0 || month.blackoutRanges.length > 0) {
                     monthDiv.appendChild(eventsDiv);
                 }
-                
+
                 calendar.appendChild(monthDiv);
             });
         }
-        
+
         createCalendar();
     </script>
 </body>
