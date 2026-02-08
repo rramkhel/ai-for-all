@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Set Up Ally - AI for All</title>
+    <title>Set Up Ally — Your AI Business Assistant | AI for All</title>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,20 +12,33 @@
             --cream: #f5f5f0;
             --accent: #0f766e;
             --accent-light: #ccfbf1;
+            --accent-dark: #134e4a;
             --warm-gray: #78716c;
             --border: #e7e5e4;
+            --blue: #2563eb;
+            --blue-light: #dbeafe;
+            --purple: #7c3aed;
+            --purple-light: #ede9fe;
         }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Commissioner', sans-serif;
             background: var(--paper);
             color: var(--ink);
             line-height: 1.7;
         }
+        
+        /* Navigation */
         .nav {
             background: var(--ink);
             padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
+        
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -34,6 +47,7 @@
             justify-content: space-between;
             align-items: center;
         }
+        
         .nav-logo {
             font-family: 'Fraunces', serif;
             color: white;
@@ -41,43 +55,274 @@
             font-weight: 600;
             text-decoration: none;
         }
+        
         .back-link {
             color: white;
             text-decoration: none;
             font-size: 0.95em;
             opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
+        
+        .back-link:hover { opacity: 1; }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+        }
+        
+        .hero-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+        
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .hero p {
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1em;
+        }
+        
+        /* Main Content */
         .page {
             max-width: 800px;
             margin: 0 auto;
-            padding: 60px 24px;
-            text-align: center;
+            padding: 48px 24px;
         }
-        .icon {
-            font-size: 64px;
-            margin-bottom: 24px;
+        
+        .section {
+            margin-bottom: 48px;
         }
-        h1 {
+        
+        .section-title {
             font-family: 'Fraunces', serif;
-            font-size: 2em;
-            margin-bottom: 16px;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-        p {
-            color: var(--warm-gray);
+        
+        .section-title .step-number {
+            background: var(--accent);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+            font-weight: 700;
+        }
+        
+        p { margin-bottom: 1em; }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .card h4 {
+            font-family: 'Fraunces', serif;
             font-size: 1.1em;
-            margin-bottom: 32px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        .btn {
+        
+        .card p:last-child { margin-bottom: 0; }
+        
+        /* Platform Options */
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 24px 0;
+        }
+        
+        .platform-card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .platform-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .platform-card.recommended {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+        
+        .platform-card .icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+        
+        .platform-card h5 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .platform-card .subtitle {
+            font-size: 0.85em;
+            color: var(--warm-gray);
+        }
+        
+        .badge {
             display: inline-block;
             background: var(--accent);
             color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
+            font-size: 0.7em;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 8px;
+            vertical-align: middle;
         }
-        .btn:hover {
-            opacity: 0.9;
+        
+        /* Code Block */
+        .code-block {
+            background: var(--ink);
+            color: #e5e5e5;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .code-block pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: background 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .copy-btn.copied {
+            background: var(--accent);
+        }
+        
+        /* Highlight Box */
+        .highlight-box {
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+        }
+        
+        .highlight-box h4 {
+            color: var(--accent-dark);
+            margin-bottom: 8px;
+        }
+        
+        .highlight-box p:last-child { margin-bottom: 0; }
+        
+        /* Warning Box */
+        .warning-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+        }
+        
+        .warning-box h4 {
+            color: #92400e;
+            margin-bottom: 8px;
+        }
+        
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .checklist li {
+            padding: 12px 0;
+            padding-left: 36px;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .checklist li:last-child { border-bottom: none; }
+        
+        .checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--ink);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+        }
+        
+        .footer p {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+        
+        /* Responsive */
+        @media (max-width: 700px) {
+            .platform-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 { font-size: 1.8em; }
+            
+            .code-block {
+                font-size: 0.8em;
+                padding: 16px;
+            }
         }
     </style>
 </head>
@@ -88,15 +333,254 @@
             <a href="resources.html" class="back-link">← Back to Hub</a>
         </div>
     </nav>
-    <div class="page">
-        <div class="icon">🤖</div>
+    
+    <div class="hero">
+        <div class="hero-icon">🤖</div>
         <h1>Set Up Ally</h1>
-        <p>This resource is coming soon! We're preparing detailed instructions for setting up your personalized AI business assistant.</p>
-        <a href="resources.html" class="btn">Return to Hub</a>
+        <p>Your personalized AI business assistant that knows your context, speaks your language, and keeps you safe.</p>
     </div>
+    
+    <div class="page">
+        <!-- What is Ally -->
+        <div class="section">
+            <h2 class="section-title">What is Ally?</h2>
+            <p>Ally is a <strong>custom AI persona</strong> you create inside any AI chatbot (ChatGPT, Claude, or Gemini). Unlike a generic chatbot, Ally:</p>
+            
+            <div class="card">
+                <h4>🎯 Knows Your Business</h4>
+                <p>Understands your industry, customers, goals, and challenges from your Business Profile.</p>
+            </div>
+            
+            <div class="card">
+                <h4>🗣️ Speaks Your Language</h4>
+                <p>Adapts to your tech comfort level—no jargon if you're a beginner, deeper details if you're advanced.</p>
+            </div>
+            
+            <div class="card">
+                <h4>🛡️ Keeps You Safe</h4>
+                <p>Has guardrails built in—reminds you about data privacy and flags risky requests before you make mistakes.</p>
+            </div>
+        </div>
+        
+        <!-- Step 1: Choose Platform -->
+        <div class="section">
+            <h2 class="section-title"><span class="step-number">1</span> Choose Your AI Platform</h2>
+            <p>Ally works with any major AI chatbot. All have free tiers that are perfect for getting started.</p>
+            
+            <div class="platform-grid">
+                <div class="platform-card recommended">
+                    <div class="icon">💬</div>
+                    <h5>ChatGPT <span class="badge">Recommended</span></h5>
+                    <p class="subtitle">Best for beginners</p>
+                </div>
+                <div class="platform-card">
+                    <div class="icon">🟣</div>
+                    <h5>Claude</h5>
+                    <p class="subtitle">Great for writing</p>
+                </div>
+                <div class="platform-card">
+                    <div class="icon">🔵</div>
+                    <h5>Gemini</h5>
+                    <p class="subtitle">Good Google integration</p>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h4>💡 Our Recommendation: Start with ChatGPT</h4>
+                <p>It's the most user-friendly and has the best "Custom Instructions" feature for setting up Ally. Once you're comfortable, feel free to try others!</p>
+            </div>
+        </div>
+        
+        <!-- Step 2: Business Profile -->
+        <div class="section">
+            <h2 class="section-title"><span class="step-number">2</span> Complete Your Business Profile</h2>
+            <p>Before setting up Ally, fill out your <a href="business-profile.html">Business Profile Template</a>. This gives Ally the context it needs to help you effectively.</p>
+            
+            <p>Your profile includes:</p>
+            <ul class="checklist">
+                <li>Your business name, industry, and what you do</li>
+                <li>Who your customers are and what they need</li>
+                <li>Your biggest challenges and goals</li>
+                <li>Your tech comfort level (1-5 scale)</li>
+            </ul>
+            
+            <p><strong>Time required:</strong> About 10-15 minutes</p>
+        </div>
+        
+        <!-- Step 3: Copy Instructions -->
+        <div class="section">
+            <h2 class="section-title"><span class="step-number">3</span> Copy the Ally Instructions</h2>
+            <p>Copy this entire block of text. You'll paste it into your AI platform in the next step.</p>
+            
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyInstructions()">📋 Copy</button>
+                <pre id="allyInstructions">You are Ally, an AI business assistant for a small business owner who attended the "AI for All" workshop series.
+
+## YOUR ROLE
+- You are a knowledgeable, patient, and practical business advisor
+- You adapt your communication style to the user's tech comfort level
+- You focus on actionable advice that saves time and improves results
+- You celebrate small wins and encourage experimentation
+
+## BUSINESS CONTEXT
+[PASTE YOUR COMPLETED BUSINESS PROFILE HERE]
+
+## COMMUNICATION STYLE
+Based on the tech comfort level indicated in the profile:
+- Level 1-2: Use plain language, avoid jargon, explain every step, use analogies
+- Level 3: Balance clarity with some technical terms, offer shortcuts
+- Level 4-5: Be direct, use industry terms, focus on efficiency and advanced tips
+
+## GUARDRAILS (IMPORTANT!)
+Before providing any advice or generating content, always consider:
+
+🔴 RED - NEVER share with AI:
+- Customer financial data (bank accounts, credit cards)
+- Employee personal information (SIN, health records)
+- Passwords, access codes, or security credentials
+- Confidential contracts or legal documents
+- Private customer communications without consent
+
+🟡 YELLOW - ANONYMIZE first:
+- Customer names and contact details
+- Specific dollar amounts and financial figures
+- Employee performance details
+- Business-specific metrics others could identify
+
+🟢 GREEN - Safe to share:
+- General business descriptions
+- Industry-standard processes
+- Public marketing content
+- Generic templates and examples
+
+If the user is about to share something in the RED or YELLOW category, gently remind them:
+"Just a heads up—this sounds like it might contain [type of sensitive info]. Consider [anonymizing it / keeping that detail out] for privacy. Want me to help you rephrase the request?"
+
+## WHEN RESPONDING
+1. First, acknowledge what they're trying to accomplish
+2. Consider if any guardrails apply
+3. Provide clear, actionable advice
+4. Offer a concrete next step or example
+5. If relevant, suggest related prompts from their Sector Pack
+
+## CONVERSATION STARTERS
+If the user seems unsure where to begin, offer these options:
+- "What's taking up most of your time this week?"
+- "Is there a task you keep putting off that I could help with?"
+- "Want me to suggest some quick wins based on your industry?"
+
+Remember: You're here to make AI useful and safe for small business owners. Be helpful, be patient, and always keep their best interests in mind.</pre>
+            </div>
+        </div>
+        
+        <!-- Step 4: Set Up in ChatGPT -->
+        <div class="section">
+            <h2 class="section-title"><span class="step-number">4</span> Set Up in ChatGPT</h2>
+            
+            <div class="card">
+                <h4>📱 On Mobile (App)</h4>
+                <ol style="margin-left: 20px; margin-top: 12px;">
+                    <li>Open the ChatGPT app</li>
+                    <li>Tap your profile icon (bottom left)</li>
+                    <li>Tap <strong>"Customize ChatGPT"</strong></li>
+                    <li>In the first box ("What would you like ChatGPT to know about you?"), paste the Ally instructions</li>
+                    <li>Don't forget to replace <code>[PASTE YOUR COMPLETED BUSINESS PROFILE HERE]</code> with your actual profile!</li>
+                    <li>Tap <strong>Save</strong></li>
+                </ol>
+            </div>
+            
+            <div class="card">
+                <h4>💻 On Desktop (Browser)</h4>
+                <ol style="margin-left: 20px; margin-top: 12px;">
+                    <li>Go to <a href="https://chat.openai.com" target="_blank">chat.openai.com</a></li>
+                    <li>Click your name (bottom left) → <strong>Settings</strong></li>
+                    <li>Click <strong>"Personalization"</strong></li>
+                    <li>Click <strong>"Custom instructions"</strong></li>
+                    <li>Paste the Ally instructions in the first text box</li>
+                    <li>Replace the placeholder with your Business Profile</li>
+                    <li>Click <strong>Save</strong></li>
+                </ol>
+            </div>
+            
+            <div class="warning-box">
+                <h4>⚠️ Don't Forget Your Business Profile!</h4>
+                <p>The instructions won't work well without your specific business context. Make sure to replace the placeholder text <code>[PASTE YOUR COMPLETED BUSINESS PROFILE HERE]</code> with your completed <a href="business-profile.html">Business Profile</a>.</p>
+            </div>
+        </div>
+        
+        <!-- Step 5: Test It -->
+        <div class="section">
+            <h2 class="section-title"><span class="step-number">5</span> Test Your Setup</h2>
+            <p>Start a new conversation and try one of these test prompts:</p>
+            
+            <div class="card">
+                <h4>Test 1: Context Check</h4>
+                <p><em>"What do you know about my business?"</em></p>
+                <p style="color: var(--warm-gray); font-size: 0.9em;">Ally should summarize key details from your Business Profile.</p>
+            </div>
+            
+            <div class="card">
+                <h4>Test 2: Guardrails Check</h4>
+                <p><em>"I want to upload my customer's credit card info so you can help me process refunds."</em></p>
+                <p style="color: var(--warm-gray); font-size: 0.9em;">Ally should politely warn you this is in the RED zone and suggest a safer alternative.</p>
+            </div>
+            
+            <div class="card">
+                <h4>Test 3: Quick Win</h4>
+                <p><em>"What's one task I could automate this week?"</em></p>
+                <p style="color: var(--warm-gray); font-size: 0.9em;">Ally should give advice relevant to your industry and comfort level.</p>
+            </div>
+        </div>
+        
+        <!-- Troubleshooting -->
+        <div class="section">
+            <h2 class="section-title">Troubleshooting</h2>
+            
+            <div class="card">
+                <h4>🤔 Ally doesn't seem to know my business</h4>
+                <p>Double-check that you pasted your Business Profile in the right spot and saved your Custom Instructions.</p>
+            </div>
+            
+            <div class="card">
+                <h4>🤔 Ally is too technical / not technical enough</h4>
+                <p>Update your tech comfort level (1-5) in your Business Profile and re-save the instructions.</p>
+            </div>
+            
+            <div class="card">
+                <h4>🤔 I want to update my business info</h4>
+                <p>Just edit your Custom Instructions anytime. Changes take effect in new conversations.</p>
+            </div>
+        </div>
+        
+        <!-- Next Steps -->
+        <div class="highlight-box">
+            <h4>🎉 You're All Set!</h4>
+            <p>Now that Ally is ready, explore your <a href="sector-packs.html">Sector Prompt Packs</a> for ready-to-use prompts, or use the <a href="prompt-builder.html">Prompt Builder</a> to create your own.</p>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>AI for All Workshop Series • St. Albert & District Chamber of Commerce</p>
+    </footer>
+    
     <script>
+        // Auth check
         if (!localStorage.getItem('aiforall_hub_access')) {
             window.location.href = 'index.html';
+        }
+        
+        // Copy functionality
+        function copyInstructions() {
+            const text = document.getElementById('allyInstructions').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = '✓ Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            });
         }
     </script>
 </body>

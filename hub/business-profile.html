@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Business Profile Template - AI for All</title>
+    <title>Business Profile Template | AI for All</title>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,20 +12,29 @@
             --cream: #f5f5f0;
             --accent: #0f766e;
             --accent-light: #ccfbf1;
+            --accent-dark: #134e4a;
             --warm-gray: #78716c;
             --border: #e7e5e4;
         }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Commissioner', sans-serif;
             background: var(--paper);
             color: var(--ink);
             line-height: 1.7;
         }
+        
+        /* Navigation */
         .nav {
             background: var(--ink);
             padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
+        
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -34,6 +43,7 @@
             justify-content: space-between;
             align-items: center;
         }
+        
         .nav-logo {
             font-family: 'Fraunces', serif;
             color: white;
@@ -41,43 +51,317 @@
             font-weight: 600;
             text-decoration: none;
         }
+        
         .back-link {
             color: white;
             text-decoration: none;
             font-size: 0.95em;
             opacity: 0.9;
         }
+        
+        .back-link:hover { opacity: 1; }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+        }
+        
+        .hero-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+        
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .hero p {
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1em;
+        }
+        
+        /* Main Content */
         .page {
             max-width: 800px;
             margin: 0 auto;
-            padding: 60px 24px;
-            text-align: center;
+            padding: 48px 24px;
         }
-        .icon {
-            font-size: 64px;
+        
+        /* Intro */
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .intro p {
+            color: var(--warm-gray);
+            font-size: 1.05em;
+        }
+        
+        .time-badge {
+            display: inline-block;
+            background: var(--accent-light);
+            color: var(--accent-dark);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin-top: 12px;
+        }
+        
+        /* Form Section */
+        .form-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
             margin-bottom: 24px;
         }
-        h1 {
+        
+        .form-section h3 {
             font-family: 'Fraunces', serif;
-            font-size: 2em;
+            font-size: 1.3em;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-section .section-desc {
+            color: var(--warm-gray);
+            font-size: 0.95em;
+            margin-bottom: 24px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+        
+        .form-group .hint {
+            display: block;
+            font-size: 0.85em;
+            color: var(--warm-gray);
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+        
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: white;
+        }
+        
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        /* Comfort Level Slider */
+        .comfort-level {
+            margin: 20px 0;
+        }
+        
+        .comfort-scale {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+        }
+        
+        .comfort-option {
+            flex: 1;
+            text-align: center;
+            padding: 16px 8px;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        
+        .comfort-option:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+        
+        .comfort-option:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .comfort-option:not(:last-child) {
+            border-right: none;
+        }
+        
+        .comfort-option:hover {
+            background: var(--cream);
+        }
+        
+        .comfort-option.selected {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+        
+        .comfort-option .level {
+            font-size: 1.4em;
+            font-weight: 700;
+            display: block;
+        }
+        
+        .comfort-option .label {
+            font-size: 0.75em;
+            margin-top: 4px;
+        }
+        
+        /* Output Section */
+        .output-section {
+            background: var(--ink);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 40px;
+        }
+        
+        .output-section h3 {
+            font-family: 'Fraunces', serif;
+            color: white;
+            font-size: 1.3em;
             margin-bottom: 16px;
         }
-        p {
-            color: var(--warm-gray);
-            font-size: 1.1em;
-            margin-bottom: 32px;
+        
+        .output-section p {
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 16px;
         }
+        
+        #profileOutput {
+            background: #292524;
+            color: #e5e5e5;
+            padding: 24px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.85em;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .output-actions {
+            margin-top: 16px;
+            display: flex;
+            gap: 12px;
+        }
+        
         .btn {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
             padding: 12px 24px;
             border-radius: 8px;
-            text-decoration: none;
             font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-family: inherit;
         }
-        .btn:hover {
-            opacity: 0.9;
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dark);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* Helper Text */
+        .helper-box {
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding: 16px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 24px 0;
+        }
+        
+        .helper-box h4 {
+            color: var(--accent-dark);
+            font-size: 0.95em;
+            margin-bottom: 6px;
+        }
+        
+        .helper-box p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--ink);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+            margin-top: 0;
+        }
+        
+        .footer p {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .comfort-scale {
+                flex-wrap: wrap;
+            }
+            
+            .comfort-option {
+                flex-basis: 50%;
+                border-radius: 0 !important;
+                border: 2px solid var(--border) !important;
+                margin: -1px;
+            }
+            
+            .form-section {
+                padding: 24px 20px;
+            }
+            
+            .hero h1 { font-size: 1.8em; }
         }
     </style>
 </head>
@@ -88,16 +372,283 @@
             <a href="resources.html" class="back-link">← Back to Hub</a>
         </div>
     </nav>
-    <div class="page">
-        <div class="icon">📋</div>
+    
+    <div class="hero">
+        <div class="hero-icon">📋</div>
         <h1>Business Profile Template</h1>
-        <p>This resource is coming soon! We're preparing the template to help you document your business context for AI tools.</p>
-        <a href="resources.html" class="btn">Return to Hub</a>
+        <p>Help Ally understand your business so it can give you relevant, personalized advice.</p>
     </div>
+    
+    <div class="page">
+        <div class="intro">
+            <p>Fill out this template to create context for Ally. The more detail you provide, the better Ally can help you.</p>
+            <div class="time-badge">⏱️ Takes about 10-15 minutes</div>
+        </div>
+        
+        <form id="profileForm">
+            <!-- Section 1: Business Basics -->
+            <div class="form-section">
+                <h3>📍 Business Basics</h3>
+                <p class="section-desc">The essentials about who you are and what you do.</p>
+                
+                <div class="form-group">
+                    <label for="businessName">Business Name</label>
+                    <input type="text" id="businessName" placeholder="e.g., Smith Construction Ltd.">
+                </div>
+                
+                <div class="form-group">
+                    <label for="industry">Industry / Sector</label>
+                    <select id="industry">
+                        <option value="">Select your industry...</option>
+                        <option value="Construction / Trades">Construction / Trades</option>
+                        <option value="Professional Services">Professional Services (Accounting, Legal, Consulting)</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Food & Beverage">Food & Beverage</option>
+                        <option value="Health & Wellness">Health & Wellness</option>
+                        <option value="Real Estate">Real Estate</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Manufacturing">Manufacturing</option>
+                        <option value="Non-Profit">Non-Profit</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">What does your business do?</label>
+                    <span class="hint">Describe your main products or services in 2-3 sentences.</span>
+                    <textarea id="description" placeholder="e.g., We're a residential renovation company specializing in kitchen and bathroom remodels. Most of our projects are in St. Albert and Edmonton, ranging from $20K to $100K."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="teamSize">Team Size</label>
+                    <select id="teamSize">
+                        <option value="">Select team size...</option>
+                        <option value="Just me (solo operator)">Just me (solo operator)</option>
+                        <option value="2-4 employees">2-4 employees</option>
+                        <option value="5-10 employees">5-10 employees</option>
+                        <option value="11-25 employees">11-25 employees</option>
+                        <option value="26+ employees">26+ employees</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Section 2: Customers -->
+            <div class="form-section">
+                <h3>👥 Your Customers</h3>
+                <p class="section-desc">Who you serve and how you reach them.</p>
+                
+                <div class="form-group">
+                    <label for="customers">Who are your typical customers?</label>
+                    <span class="hint">Describe your ideal customer—are they individuals, businesses, a specific demographic?</span>
+                    <textarea id="customers" placeholder="e.g., Homeowners aged 35-60 who have lived in their house 10+ years and are ready to invest in upgrades. Usually dual-income families."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="howFind">How do customers find you?</label>
+                    <span class="hint">Referrals, Google, social media, trade shows, etc.</span>
+                    <textarea id="howFind" placeholder="e.g., About 70% word-of-mouth referrals, 20% Google searches, 10% from our yard signs on job sites."></textarea>
+                </div>
+            </div>
+            
+            <!-- Section 3: Challenges & Goals -->
+            <div class="form-section">
+                <h3>🎯 Challenges & Goals</h3>
+                <p class="section-desc">What's holding you back and where you want to go.</p>
+                
+                <div class="form-group">
+                    <label for="challenges">What are your biggest business challenges right now?</label>
+                    <span class="hint">Think about what keeps you up at night or takes too much time.</span>
+                    <textarea id="challenges" placeholder="e.g., Writing detailed quotes takes forever—I spend 3-4 hours on each one. Following up with leads is inconsistent. I know I should do more marketing but never have time."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="goals">What would you like to accomplish with AI?</label>
+                    <span class="hint">Be specific—what tasks would you love to speed up or improve?</span>
+                    <textarea id="goals" placeholder="e.g., Faster quotes, better follow-up emails, maybe some help with social media posts. Would love to spend less time on admin and more time on actual work."></textarea>
+                </div>
+            </div>
+            
+            <!-- Section 4: Tech Comfort -->
+            <div class="form-section">
+                <h3>💻 Tech Comfort Level</h3>
+                <p class="section-desc">This helps Ally adjust how it explains things.</p>
+                
+                <div class="comfort-level">
+                    <label>How comfortable are you with technology?</label>
+                    <div class="comfort-scale">
+                        <div class="comfort-option" data-level="1" onclick="selectComfort(1)">
+                            <span class="level">1</span>
+                            <span class="label">Beginner</span>
+                        </div>
+                        <div class="comfort-option" data-level="2" onclick="selectComfort(2)">
+                            <span class="level">2</span>
+                            <span class="label">Basic</span>
+                        </div>
+                        <div class="comfort-option" data-level="3" onclick="selectComfort(3)">
+                            <span class="level">3</span>
+                            <span class="label">Moderate</span>
+                        </div>
+                        <div class="comfort-option" data-level="4" onclick="selectComfort(4)">
+                            <span class="level">4</span>
+                            <span class="label">Comfortable</span>
+                        </div>
+                        <div class="comfort-option" data-level="5" onclick="selectComfort(5)">
+                            <span class="level">5</span>
+                            <span class="label">Advanced</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="helper-box">
+                    <h4>💡 What does this mean?</h4>
+                    <p><strong>1-2:</strong> "I use email and basic apps but tech isn't my thing"<br>
+                    <strong>3:</strong> "I can figure most things out with some patience"<br>
+                    <strong>4-5:</strong> "I'm comfortable learning new tools and troubleshooting"</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="aiExperience">Have you used AI tools before?</label>
+                    <select id="aiExperience">
+                        <option value="">Select...</option>
+                        <option value="No, this is completely new to me">No, this is completely new to me</option>
+                        <option value="I've tried ChatGPT a few times">I've tried ChatGPT a few times</option>
+                        <option value="I use AI occasionally but not systematically">I use AI occasionally but not systematically</option>
+                        <option value="I use AI regularly for various tasks">I use AI regularly for various tasks</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Section 5: Anything Else -->
+            <div class="form-section">
+                <h3>📝 Anything Else?</h3>
+                <p class="section-desc">Optional: Any other context that might help.</p>
+                
+                <div class="form-group">
+                    <label for="other">Other information Ally should know</label>
+                    <span class="hint">Seasonal patterns, unique constraints, communication preferences, etc.</span>
+                    <textarea id="other" placeholder="e.g., Business is very seasonal—super busy May-October, slower in winter. I'm not great at writing and tend to be too brief in emails."></textarea>
+                </div>
+            </div>
+        </form>
+        
+        <!-- Output Section -->
+        <div class="output-section">
+            <h3>📄 Your Generated Profile</h3>
+            <p>This text will update as you fill out the form. Copy it and paste into the Ally instructions.</p>
+            <div id="profileOutput">Fill out the form above to generate your Business Profile...</div>
+            <div class="output-actions">
+                <button class="btn btn-primary" onclick="copyProfile()">📋 Copy Profile</button>
+                <button class="btn btn-secondary" onclick="downloadProfile()">⬇️ Download as Text</button>
+            </div>
+        </div>
+        
+        <div class="helper-box" style="margin-top: 32px;">
+            <h4>✅ Next Step</h4>
+            <p>After copying your profile, head to the <a href="ally-setup.html">Ally Setup Guide</a> to paste it into your AI platform!</p>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>AI for All Workshop Series • St. Albert & District Chamber of Commerce</p>
+    </footer>
+    
     <script>
+        // Auth check
         if (!localStorage.getItem('aiforall_hub_access')) {
             window.location.href = 'index.html';
         }
+        
+        let techLevel = null;
+        
+        function selectComfort(level) {
+            techLevel = level;
+            document.querySelectorAll('.comfort-option').forEach(el => {
+                el.classList.remove('selected');
+            });
+            document.querySelector(`.comfort-option[data-level="${level}"]`).classList.add('selected');
+            updateProfile();
+        }
+        
+        // Generate profile text
+        function generateProfile() {
+            const businessName = document.getElementById('businessName').value || '[Business Name]';
+            const industry = document.getElementById('industry').value || '[Industry]';
+            const description = document.getElementById('description').value || '[Description]';
+            const teamSize = document.getElementById('teamSize').value || '[Team Size]';
+            const customers = document.getElementById('customers').value || '[Customers]';
+            const howFind = document.getElementById('howFind').value || '[How customers find you]';
+            const challenges = document.getElementById('challenges').value || '[Challenges]';
+            const goals = document.getElementById('goals').value || '[Goals]';
+            const comfort = techLevel || '[1-5]';
+            const aiExperience = document.getElementById('aiExperience').value || '[AI Experience]';
+            const other = document.getElementById('other').value;
+            
+            let profile = `## BUSINESS PROFILE
+
+**Business Name:** ${businessName}
+**Industry:** ${industry}
+**Team Size:** ${teamSize}
+
+**What We Do:**
+${description}
+
+**Our Customers:**
+${customers}
+
+**How Customers Find Us:**
+${howFind}
+
+**Current Challenges:**
+${challenges}
+
+**AI Goals:**
+${goals}
+
+**Tech Comfort Level:** ${comfort}/5
+**AI Experience:** ${aiExperience}`;
+
+            if (other) {
+                profile += `\n\n**Additional Context:**\n${other}`;
+            }
+            
+            return profile;
+        }
+        
+        function updateProfile() {
+            document.getElementById('profileOutput').textContent = generateProfile();
+        }
+        
+        // Add listeners to all form fields
+        document.querySelectorAll('input, textarea, select').forEach(el => {
+            el.addEventListener('input', updateProfile);
+            el.addEventListener('change', updateProfile);
+        });
+        
+        function copyProfile() {
+            const text = document.getElementById('profileOutput').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector('.btn-primary');
+                const original = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = original;
+                }, 2000);
+            });
+        }
+        
+        function downloadProfile() {
+            const text = generateProfile();
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'my-business-profile.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+        
+        // Initialize
+        updateProfile();
     </script>
 </body>
 </html>

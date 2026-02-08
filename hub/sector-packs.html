@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sector Prompt Packs - AI for All</title>
+    <title>Sector Prompt Packs | AI for All</title>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,20 +12,37 @@
             --cream: #f5f5f0;
             --accent: #0f766e;
             --accent-light: #ccfbf1;
+            --accent-dark: #134e4a;
             --warm-gray: #78716c;
             --border: #e7e5e4;
+            --construction: #ea580c;
+            --construction-light: #fed7aa;
+            --professional: #2563eb;
+            --professional-light: #dbeafe;
+            --retail: #db2777;
+            --retail-light: #fce7f3;
+            --general: #0f766e;
+            --general-light: #ccfbf1;
         }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Commissioner', sans-serif;
             background: var(--paper);
             color: var(--ink);
             line-height: 1.7;
         }
+        
+        /* Navigation */
         .nav {
             background: var(--ink);
             padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
+        
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -34,6 +51,7 @@
             justify-content: space-between;
             align-items: center;
         }
+        
         .nav-logo {
             font-family: 'Fraunces', serif;
             color: white;
@@ -41,43 +59,301 @@
             font-weight: 600;
             text-decoration: none;
         }
+        
         .back-link {
             color: white;
             text-decoration: none;
             font-size: 0.95em;
             opacity: 0.9;
         }
-        .page {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 24px;
+        
+        .back-link:hover { opacity: 1; }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+            padding: 48px 24px;
             text-align: center;
         }
-        .icon {
+        
+        .hero-icon {
             font-size: 64px;
-            margin-bottom: 24px;
-        }
-        h1 {
-            font-family: 'Fraunces', serif;
-            font-size: 2em;
             margin-bottom: 16px;
         }
-        p {
-            color: var(--warm-gray);
-            font-size: 1.1em;
-            margin-bottom: 32px;
+        
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
-        .btn {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
+        
+        .hero p {
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1em;
+        }
+        
+        /* Main Content */
+        .page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .intro p {
+            color: var(--warm-gray);
+            font-size: 1.05em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Sector Tabs */
+        .sector-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .sector-tab {
             padding: 12px 24px;
             border-radius: 8px;
-            text-decoration: none;
             font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid var(--border);
+            background: white;
         }
-        .btn:hover {
-            opacity: 0.9;
+        
+        .sector-tab:hover {
+            background: var(--cream);
+        }
+        
+        .sector-tab.active {
+            color: white;
+            border-color: transparent;
+        }
+        
+        .sector-tab[data-sector="construction"].active {
+            background: var(--construction);
+        }
+        
+        .sector-tab[data-sector="professional"].active {
+            background: var(--professional);
+        }
+        
+        .sector-tab[data-sector="retail"].active {
+            background: var(--retail);
+        }
+        
+        .sector-tab[data-sector="general"].active {
+            background: var(--general);
+        }
+        
+        /* Sector Content */
+        .sector-content {
+            display: none;
+        }
+        
+        .sector-content.active {
+            display: block;
+        }
+        
+        .sector-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .sector-header h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.8em;
+            margin-bottom: 8px;
+        }
+        
+        .sector-header p {
+            color: var(--warm-gray);
+        }
+        
+        /* Prompt Cards */
+        .prompt-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .prompt-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .prompt-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+        
+        .prompt-card-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .prompt-card h4 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1em;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .prompt-card .description {
+            font-size: 0.9em;
+            color: var(--warm-gray);
+        }
+        
+        .prompt-card-body {
+            padding: 20px;
+            background: var(--cream);
+        }
+        
+        .prompt-text {
+            font-size: 0.9em;
+            line-height: 1.6;
+            color: var(--ink);
+            margin-bottom: 16px;
+        }
+        
+        .copy-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85em;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background: var(--accent-dark);
+        }
+        
+        .copy-btn.copied {
+            background: #16a34a;
+        }
+        
+        /* Guardrails Note */
+        .guardrails-note {
+            margin-top: 12px;
+            padding: 12px;
+            background: #fef3c7;
+            border-radius: 6px;
+            font-size: 0.8em;
+            color: #92400e;
+        }
+        
+        .guardrails-note strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        /* How to Use */
+        .how-to-use {
+            background: var(--accent-light);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 48px;
+        }
+        
+        .how-to-use h3 {
+            font-family: 'Fraunces', serif;
+            color: var(--accent-dark);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .steps-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+        
+        .use-step {
+            text-align: center;
+        }
+        
+        .use-step .num {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 12px;
+        }
+        
+        .use-step p {
+            font-size: 0.9em;
+            color: var(--ink);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--ink);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+            margin-top: 0;
+        }
+        
+        .footer p {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+        
+        /* Responsive */
+        @media (max-width: 800px) {
+            .prompt-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .steps-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hero h1 { font-size: 1.8em; }
+        }
+        
+        @media (max-width: 500px) {
+            .steps-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .sector-tabs {
+                flex-direction: column;
+            }
+            
+            .sector-tab {
+                width: 100%;
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -88,15 +364,338 @@
             <a href="resources.html" class="back-link">← Back to Hub</a>
         </div>
     </nav>
-    <div class="page">
-        <div class="icon">📦</div>
+    
+    <div class="hero">
+        <div class="hero-icon">📦</div>
         <h1>Sector Prompt Packs</h1>
-        <p>This resource is coming soon! We're preparing ready-to-use prompts for different industries.</p>
-        <a href="resources.html" class="btn">Return to Hub</a>
+        <p>Ready-to-use prompts tailored to your industry. Copy, customize, and get results immediately.</p>
     </div>
+    
+    <div class="page">
+        <!-- How to Use -->
+        <div class="how-to-use">
+            <h3>How to Use These Prompts</h3>
+            <div class="steps-row">
+                <div class="use-step">
+                    <div class="num">1</div>
+                    <p><strong>Find</strong> a prompt that fits your task</p>
+                </div>
+                <div class="use-step">
+                    <div class="num">2</div>
+                    <p><strong>Copy</strong> it to your clipboard</p>
+                </div>
+                <div class="use-step">
+                    <div class="num">3</div>
+                    <p><strong>Customize</strong> the [brackets] with your details</p>
+                </div>
+                <div class="use-step">
+                    <div class="num">4</div>
+                    <p><strong>Paste</strong> into ChatGPT, Claude, or Ally</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sector Tabs -->
+        <div class="sector-tabs">
+            <button class="sector-tab active" data-sector="construction" onclick="showSector('construction')">🔨 Construction</button>
+            <button class="sector-tab" data-sector="professional" onclick="showSector('professional')">💼 Professional Services</button>
+            <button class="sector-tab" data-sector="retail" onclick="showSector('retail')">🛍️ Retail & Service</button>
+            <button class="sector-tab" data-sector="general" onclick="showSector('general')">📋 General Business</button>
+        </div>
+        
+        <!-- Construction Pack -->
+        <div class="sector-content active" id="construction">
+            <div class="sector-header">
+                <h2>🔨 Construction & Trades Pack</h2>
+                <p>Quotes, project updates, client communication, and documentation</p>
+            </div>
+            
+            <div class="prompt-grid">
+                <!-- Quote Generator -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>📝 Quote/Estimate Email</h4>
+                        <p class="description">Professional quote follow-up for prospects</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">You are a professional contractor. Write a follow-up email for a customer who requested a quote for [TYPE OF PROJECT]. The quote total is in the [PRICE RANGE] range. Include: thanks for considering us, brief recap of scope, mention our [KEY DIFFERENTIATOR], and clear next steps. Keep it under 150 words, professional but warm.</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                        <div class="guardrails-note">
+                            <strong>⚠️ Guardrails:</strong> Don't include actual customer names or exact dollar amounts. Use ranges like "$30-40K range" instead.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project Update -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>🏗️ Project Status Update</h4>
+                        <p class="description">Keep clients informed on project progress</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Write a brief project update email for a [TYPE OF PROJECT] that is [PERCENT]% complete. This week we accomplished: [COMPLETED ITEMS]. Next week we will: [PLANNED ITEMS]. Any issues to flag: [ISSUES OR "none"]. Keep it clear, professional, and under 100 words.</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                        <div class="guardrails-note">
+                            <strong>⚠️ Guardrails:</strong> Anonymize addresses. Say "the project site" instead of specific addresses.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Change Order -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>📋 Change Order Explanation</h4>
+                        <p class="description">Explain scope changes professionally</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Write a professional explanation for a change order. The original scope was [ORIGINAL]. The change is [WHAT CHANGED]. The reason is [WHY - e.g., unforeseen condition, client request]. Impact: [COST AND/OR TIME IMPACT]. Tone should be matter-of-fact and professional, not apologetic. Under 150 words.</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                    </div>
+                </div>
+                
+                <!-- Safety Meeting -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>⚠️ Safety Toolbox Talk</h4>
+                        <p class="description">Quick safety meeting content</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Create a 5-minute safety toolbox talk about [TOPIC - e.g., ladder safety, heat stress, PPE]. Include: why it matters (1-2 sentences), 3-4 key safety points, and one discussion question to ask the crew. Keep it practical and conversational, not preachy.</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Professional Services Pack -->
+        <div class="sector-content" id="professional">
+            <div class="sector-header">
+                <h2>💼 Professional Services Pack</h2>
+                <p>Proposals, reports, client management, and documentation</p>
+            </div>
+            
+            <div class="prompt-grid">
+                <!-- Proposal Introduction -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>📑 Proposal Introduction</h4>
+                        <p class="description">Compelling opening for client proposals</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Write an executive summary for a proposal. Client's main challenge: [CHALLENGE]. Our proposed solution: [SOLUTION]. Key benefits: [2-3 BENEFITS]. Our relevant experience: [BRIEF CREDENTIAL]. Keep it to one paragraph, confident but not arrogant, focused on client outcomes.</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                        <div class="guardrails-note">
+                            <strong>⚠️ Guardrails:</strong> Anonymize client identity. Use "a growing retail business" instead of company names.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Meeting Summary -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>📝 Meeting Summary</h4>
+                        <p class="description">Turn notes into professional summaries</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Turn these meeting notes into a professional summary email. Notes: [PASTE ROUGH NOTES]. Format: Brief context (1 sentence), Key decisions made, Action items with owners, Next steps. Keep it scannable with bullet points, under 200 words.</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                        <div class="guardrails-note">
+                            <strong>⚠️ Guardrails:</strong> Review notes for sensitive info before pasting. Remove financials and personal details.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Client Check-in -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>👋 Quarterly Check-in Email</h4>
+                        <p class="description">Maintain client relationships</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Write a brief check-in email to a client we haven't spoken to in [TIME]. Mention: [LAST PROJECT/INTERACTION]. Ask about: [RELEVANT BUSINESS AREA]. Offer value: [SOMETHING HELPFUL - article, insight, offer]. Tone: warm, not salesy, genuinely helpful. Under 100 words.</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                    </div>
+                </div>
+                
+                <!-- Scope Document -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>📋 Scope of Work Outline</h4>
+                        <p class="description">Clear project scope documentation</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Create a scope of work outline for [TYPE OF PROJECT]. Include sections for: Objectives, Deliverables, Timeline/Milestones, What's Included, What's NOT Included (exclusions), and Assumptions. Use clear, unambiguous language. The goal is to prevent scope creep.</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Retail & Service Pack -->
+        <div class="sector-content" id="retail">
+            <div class="sector-header">
+                <h2>🛍️ Retail & Service Pack</h2>
+                <p>Product descriptions, social media, customer responses, and marketing</p>
+            </div>
+            
+            <div class="prompt-grid">
+                <!-- Product Description -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>🏷️ Product Description</h4>
+                        <p class="description">Compelling product copy that sells</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Write a product description for [PRODUCT NAME]. Features: [KEY FEATURES]. Ideal customer: [WHO IT'S FOR]. Price point: [BUDGET/MID/PREMIUM]. Include: attention-grabbing opening, 3 key benefits (not just features), and a subtle call to action. 75-100 words, [TONE - e.g., playful, sophisticated, practical].</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                    </div>
+                </div>
+                
+                <!-- Social Post -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>📱 Social Media Post</h4>
+                        <p class="description">Engaging content for social platforms</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Write a [PLATFORM - Instagram/Facebook/LinkedIn] post about [TOPIC - new product, behind-the-scenes, tip, promotion]. Our brand voice is [VOICE - friendly, professional, quirky]. Include: hook in first line, value or entertainment, call to action. Suggest 3-5 relevant hashtags. Under 150 words.</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                    </div>
+                </div>
+                
+                <!-- Review Response -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>⭐ Review Response</h4>
+                        <p class="description">Professional responses to customer reviews</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Write a response to this [POSITIVE/NEGATIVE] customer review: "[SUMMARY OF REVIEW - don't paste actual text]". For positive: thank them genuinely, mention specific thing they liked, invite them back. For negative: acknowledge concern, apologize appropriately, offer resolution, take conversation offline. Professional, not defensive. Under 75 words.</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                        <div class="guardrails-note">
+                            <strong>⚠️ Guardrails:</strong> Summarize the review instead of copying it directly. Don't include reviewer's name.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Email Promo -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>📧 Promotional Email</h4>
+                        <p class="description">Email marketing that converts</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Write a promotional email for [OFFER/EVENT/PRODUCT]. Target audience: [WHO]. Key selling points: [2-3 POINTS]. Urgency factor: [DEADLINE/LIMITED QUANTITY/etc.]. Include: compelling subject line, brief body (under 150 words), clear CTA button text. Tone: [TONE].</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- General Business Pack -->
+        <div class="sector-content" id="general">
+            <div class="sector-header">
+                <h2>📋 General Business Pack</h2>
+                <p>Universal prompts for any business type</p>
+            </div>
+            
+            <div class="prompt-grid">
+                <!-- Professional Email -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>✉️ Professional Email</h4>
+                        <p class="description">Any business email, done right</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Write a professional email. Purpose: [WHAT YOU NEED TO COMMUNICATE]. Recipient relationship: [CLIENT/VENDOR/COLLEAGUE/etc.]. Key points to include: [MAIN POINTS]. Desired outcome: [WHAT YOU WANT THEM TO DO]. Tone: [FORMAL/FRIENDLY/URGENT]. Keep it concise, under 150 words.</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                    </div>
+                </div>
+                
+                <!-- Job Posting -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>👥 Job Posting</h4>
+                        <p class="description">Attract the right candidates</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Write a job posting for [POSITION]. We are a [BRIEF COMPANY DESCRIPTION]. Key responsibilities: [3-5 MAIN DUTIES]. Required qualifications: [MUST-HAVES]. Nice to have: [PREFERRED]. What we offer: [BENEFITS/CULTURE]. Tone should attract [TYPE OF CANDIDATE - e.g., experienced professionals, eager learners].</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                    </div>
+                </div>
+                
+                <!-- Meeting Agenda -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>📅 Meeting Agenda</h4>
+                        <p class="description">Run effective meetings</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Create a meeting agenda. Meeting purpose: [GOAL]. Duration: [TIME]. Attendees: [WHO]. Topics to cover: [LIST TOPICS]. For each topic, suggest: time allocation, who leads, and desired outcome. Include 5 min at start for check-in and 5 min at end for action items.</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                    </div>
+                </div>
+                
+                <!-- Process Documentation -->
+                <div class="prompt-card">
+                    <div class="prompt-card-header">
+                        <h4>📝 Process Documentation</h4>
+                        <p class="description">Document how things get done</p>
+                    </div>
+                    <div class="prompt-card-body">
+                        <p class="prompt-text">Create a step-by-step process document for [PROCESS NAME]. Current rough steps: [LIST WHAT YOU DO]. Who performs this: [ROLE]. How often: [FREQUENCY]. Include: numbered steps, any decision points (if X, then Y), common mistakes to avoid, and estimated time. Write it so a new employee could follow it.</p>
+                        <button class="copy-btn" onclick="copyPrompt(this)">📋 Copy Prompt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Customization Note -->
+        <div style="background: var(--accent-light); border-left: 4px solid var(--accent); padding: 20px 24px; border-radius: 0 12px 12px 0; margin-top: 48px;">
+            <h4 style="color: var(--accent-dark); margin-bottom: 8px;">🎨 Make These Your Own</h4>
+            <p style="margin: 0;">These prompts are starting points. Feel free to mix and match, add your brand voice, or combine elements from different prompts. The more you customize, the better the results!</p>
+        </div>
+        
+        <div style="text-align: center; margin-top: 32px;">
+            <p style="color: var(--warm-gray);">Want to build completely custom prompts?</p>
+            <a href="prompt-builder.html" style="display: inline-block; background: var(--ink); color: white; padding: 12px 24px; border-radius: 8px; font-weight: 600; text-decoration: none; margin-top: 12px;">Try the Prompt Builder →</a>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>AI for All Workshop Series • St. Albert & District Chamber of Commerce</p>
+    </footer>
+    
     <script>
+        // Auth check
         if (!localStorage.getItem('aiforall_hub_access')) {
             window.location.href = 'index.html';
+        }
+        
+        function showSector(sector) {
+            // Update tabs
+            document.querySelectorAll('.sector-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`.sector-tab[data-sector="${sector}"]`).classList.add('active');
+            
+            // Update content
+            document.querySelectorAll('.sector-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(sector).classList.add('active');
+        }
+        
+        function copyPrompt(button) {
+            const promptText = button.parentElement.querySelector('.prompt-text').textContent;
+            navigator.clipboard.writeText(promptText).then(() => {
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = '📋 Copy Prompt';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
         }
     </script>
 </body>

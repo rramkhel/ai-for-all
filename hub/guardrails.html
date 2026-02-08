@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Safety Guardrails - AI for All</title>
+    <title>AI Safety Guardrails | AI for All</title>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,20 +12,38 @@
             --cream: #f5f5f0;
             --accent: #0f766e;
             --accent-light: #ccfbf1;
+            --accent-dark: #134e4a;
             --warm-gray: #78716c;
             --border: #e7e5e4;
+            --red: #dc2626;
+            --red-light: #fee2e2;
+            --red-dark: #991b1b;
+            --yellow: #ca8a04;
+            --yellow-light: #fef9c3;
+            --yellow-dark: #854d0e;
+            --green: #16a34a;
+            --green-light: #dcfce7;
+            --green-dark: #166534;
         }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Commissioner', sans-serif;
             background: var(--paper);
             color: var(--ink);
             line-height: 1.7;
         }
+        
+        /* Navigation */
         .nav {
             background: var(--ink);
             padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
+        
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -34,6 +52,7 @@
             justify-content: space-between;
             align-items: center;
         }
+        
         .nav-logo {
             font-family: 'Fraunces', serif;
             color: white;
@@ -41,43 +60,325 @@
             font-weight: 600;
             text-decoration: none;
         }
+        
         .back-link {
             color: white;
             text-decoration: none;
             font-size: 0.95em;
             opacity: 0.9;
         }
-        .page {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 24px;
+        
+        .back-link:hover { opacity: 1; }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            color: white;
+            padding: 48px 24px;
             text-align: center;
         }
-        .icon {
+        
+        .hero-icon {
             font-size: 64px;
-            margin-bottom: 24px;
-        }
-        h1 {
-            font-family: 'Fraunces', serif;
-            font-size: 2em;
             margin-bottom: 16px;
         }
-        p {
-            color: var(--warm-gray);
+        
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        
+        .hero p {
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
             font-size: 1.1em;
+        }
+        
+        /* Main Content */
+        .page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .intro h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.6em;
+            margin-bottom: 16px;
+        }
+        
+        .intro p {
+            color: var(--warm-gray);
+            font-size: 1.05em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Traffic Light System */
+        .traffic-light-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+        
+        .light-card {
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+        }
+        
+        .light-card.red {
+            background: var(--red-light);
+            border: 2px solid var(--red);
+        }
+        
+        .light-card.yellow {
+            background: var(--yellow-light);
+            border: 2px solid var(--yellow);
+        }
+        
+        .light-card.green {
+            background: var(--green-light);
+            border: 2px solid var(--green);
+        }
+        
+        .light-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 40px;
+        }
+        
+        .red .light-icon { background: var(--red); }
+        .yellow .light-icon { background: var(--yellow); }
+        .green .light-icon { background: var(--green); }
+        
+        .light-card h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4em;
+            margin-bottom: 8px;
+        }
+        
+        .red h3 { color: var(--red-dark); }
+        .yellow h3 { color: var(--yellow-dark); }
+        .green h3 { color: var(--green-dark); }
+        
+        .light-card .action {
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+        
+        .red .action { color: var(--red); }
+        .yellow .action { color: var(--yellow-dark); }
+        .green .action { color: var(--green); }
+        
+        .light-card p {
+            font-size: 0.95em;
+            color: var(--ink);
+        }
+        
+        /* Detailed Sections */
+        .detail-section {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+        
+        .detail-section h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .detail-section h3 .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7em;
+            font-weight: 700;
+            font-family: 'Commissioner', sans-serif;
+        }
+        
+        .detail-section.red h3 .badge {
+            background: var(--red);
+            color: white;
+        }
+        
+        .detail-section.yellow h3 .badge {
+            background: var(--yellow);
+            color: white;
+        }
+        
+        .detail-section.green h3 .badge {
+            background: var(--green);
+            color: white;
+        }
+        
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        
+        .example-item {
+            padding: 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .red .example-item { background: var(--red-light); }
+        .yellow .example-item { background: var(--yellow-light); }
+        .green .example-item { background: var(--green-light); }
+        
+        .example-item .icon {
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+        
+        .example-item p {
+            margin: 0;
+            font-size: 0.95em;
+        }
+        
+        /* Scenario Section */
+        .scenario-section {
+            margin-top: 48px;
+        }
+        
+        .scenario-section h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5em;
+            text-align: center;
             margin-bottom: 32px;
         }
-        .btn {
-            display: inline-block;
-            background: var(--accent);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
+        
+        .scenario-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
         }
-        .btn:hover {
+        
+        .scenario-card h4 {
+            font-family: 'Fraunces', serif;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .scenario-question {
+            background: var(--cream);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+        
+        .scenario-answer {
+            padding-left: 20px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .scenario-answer strong {
+            color: var(--accent);
+        }
+        
+        /* Quick Reference */
+        .quick-ref {
+            background: var(--ink);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 48px;
+            color: white;
+        }
+        
+        .quick-ref h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .quick-ref-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        
+        .quick-ref-item {
+            text-align: center;
+            padding: 16px;
+            border-radius: 8px;
+        }
+        
+        .quick-ref-item.red { background: rgba(220, 38, 38, 0.2); }
+        .quick-ref-item.yellow { background: rgba(202, 138, 4, 0.2); }
+        .quick-ref-item.green { background: rgba(22, 163, 74, 0.2); }
+        
+        .quick-ref-item h4 {
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .quick-ref-item p {
+            font-size: 0.85em;
             opacity: 0.9;
+            margin: 0;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--ink);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+            margin-top: 0;
+        }
+        
+        .footer p {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+        
+        /* Responsive */
+        @media (max-width: 800px) {
+            .traffic-light-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .example-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quick-ref-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 { font-size: 1.8em; }
         }
     </style>
 </head>
@@ -88,13 +389,220 @@
             <a href="resources.html" class="back-link">← Back to Hub</a>
         </div>
     </nav>
-    <div class="page">
-        <div class="icon">🛡️</div>
+    
+    <div class="hero">
+        <div class="hero-icon">🛡️</div>
         <h1>AI Safety Guardrails</h1>
-        <p>This resource is coming soon! We're preparing the Red/Yellow/Green framework guide for keeping your data safe.</p>
-        <a href="resources.html" class="btn">Return to Hub</a>
+        <p>The Red/Yellow/Green framework for keeping your business data safe when using AI tools.</p>
     </div>
+    
+    <div class="page">
+        <div class="intro">
+            <h2>Think of it Like a Traffic Light</h2>
+            <p>Before sharing anything with an AI tool, ask yourself: "What category does this information fall into?" This simple system helps you avoid costly mistakes.</p>
+        </div>
+        
+        <!-- Traffic Light Overview -->
+        <div class="traffic-light-container">
+            <div class="light-card red">
+                <div class="light-icon">🛑</div>
+                <h3>RED</h3>
+                <p class="action">NEVER Share</p>
+                <p>Highly sensitive data that should never go into AI systems.</p>
+            </div>
+            
+            <div class="light-card yellow">
+                <div class="light-icon">⚠️</div>
+                <h3>YELLOW</h3>
+                <p class="action">Anonymize First</p>
+                <p>Useful data, but remove identifying details before sharing.</p>
+            </div>
+            
+            <div class="light-card green">
+                <div class="light-icon">✅</div>
+                <h3>GREEN</h3>
+                <p class="action">Safe to Share</p>
+                <p>General information that poses no risk.</p>
+            </div>
+        </div>
+        
+        <!-- Detailed: RED -->
+        <div class="detail-section red">
+            <h3><span class="badge">RED</span> Never Share with AI</h3>
+            <p style="margin-bottom: 20px;">This data is too sensitive. Even if the AI promises confidentiality, these systems store and learn from inputs. A data breach could be catastrophic.</p>
+            
+            <div class="example-grid">
+                <div class="example-item">
+                    <span class="icon">💳</span>
+                    <p><strong>Financial credentials</strong> — Credit card numbers, bank account details, payment information</p>
+                </div>
+                <div class="example-item">
+                    <span class="icon">🔐</span>
+                    <p><strong>Access credentials</strong> — Passwords, API keys, security codes, PINs</p>
+                </div>
+                <div class="example-item">
+                    <span class="icon">🏥</span>
+                    <p><strong>Health information</strong> — Medical records, health conditions, prescription details</p>
+                </div>
+                <div class="example-item">
+                    <span class="icon">📋</span>
+                    <p><strong>Government IDs</strong> — Social Insurance Numbers, driver's license numbers, passport info</p>
+                </div>
+                <div class="example-item">
+                    <span class="icon">📜</span>
+                    <p><strong>Confidential contracts</strong> — NDAs, proprietary agreements, legal documents under privilege</p>
+                </div>
+                <div class="example-item">
+                    <span class="icon">💬</span>
+                    <p><strong>Private communications</strong> — Customer emails/texts without consent, internal HR matters</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed: YELLOW -->
+        <div class="detail-section yellow">
+            <h3><span class="badge">YELLOW</span> Anonymize Before Sharing</h3>
+            <p style="margin-bottom: 20px;">This information can be valuable for AI help, but needs to be scrubbed of identifying details first. Remove names, specific amounts, and anything that could identify individuals.</p>
+            
+            <div class="example-grid">
+                <div class="example-item">
+                    <span class="icon">👤</span>
+                    <p><strong>Customer details</strong> — Names, contact info, addresses → "Customer A" or "a client in Edmonton"</p>
+                </div>
+                <div class="example-item">
+                    <span class="icon">💰</span>
+                    <p><strong>Financial figures</strong> — Exact revenue, specific quotes → "approximately $X" or "in the $50-75K range"</p>
+                </div>
+                <div class="example-item">
+                    <span class="icon">👥</span>
+                    <p><strong>Employee info</strong> — Names, performance details → "a team member" or "an employee in sales"</p>
+                </div>
+                <div class="example-item">
+                    <span class="icon">📊</span>
+                    <p><strong>Business metrics</strong> — Specific KPIs others could identify → use ranges or percentages</p>
+                </div>
+            </div>
+            
+            <div style="background: white; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                <h4 style="margin-bottom: 12px;">✏️ Example: Anonymizing a Customer Scenario</h4>
+                <p style="margin-bottom: 8px;"><strong>Before:</strong> "I need to write a follow-up email to John Smith at ABC Corp (john@abc.com) about his $47,500 renovation project on 123 Main Street."</p>
+                <p style="margin-bottom: 0;"><strong>After:</strong> "I need to write a follow-up email to a customer about their mid-range residential renovation project (kitchen and bathroom)."</p>
+            </div>
+        </div>
+        
+        <!-- Detailed: GREEN -->
+        <div class="detail-section green">
+            <h3><span class="badge">GREEN</span> Safe to Share</h3>
+            <p style="margin-bottom: 20px;">General, non-sensitive information that poses no risk. This is where AI can help most freely!</p>
+            
+            <div class="example-grid">
+                <div class="example-item">
+                    <span class="icon">📝</span>
+                    <p><strong>General templates</strong> — Email formats, document structures, standard processes</p>
+                </div>
+                <div class="example-item">
+                    <span class="icon">🏢</span>
+                    <p><strong>Public business info</strong> — What you do, services offered, general capabilities</p>
+                </div>
+                <div class="example-item">
+                    <span class="icon">📚</span>
+                    <p><strong>Industry knowledge</strong> — Best practices, common challenges, standard terminology</p>
+                </div>
+                <div class="example-item">
+                    <span class="icon">💡</span>
+                    <p><strong>Ideas & concepts</strong> — Marketing concepts, business strategies, improvement ideas</p>
+                </div>
+                <div class="example-item">
+                    <span class="icon">🌐</span>
+                    <p><strong>Public content</strong> — Published blog posts, social media content, marketing materials</p>
+                </div>
+                <div class="example-item">
+                    <span class="icon">❓</span>
+                    <p><strong>General questions</strong> — "How do I..." questions about processes or techniques</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Practice Scenarios -->
+        <div class="scenario-section">
+            <h2>🎯 Test Your Knowledge</h2>
+            
+            <div class="scenario-card">
+                <h4>📧 Scenario 1: Writing a Quote</h4>
+                <div class="scenario-question">
+                    "I want AI to help me write a quote for Sarah Johnson's bathroom renovation at 456 Oak Avenue. The total is $32,750."
+                </div>
+                <div class="scenario-answer">
+                    <strong>YELLOW — Anonymize first!</strong><br>
+                    Instead say: "Help me write a quote for a residential bathroom renovation, mid-range budget around $30-35K."
+                </div>
+            </div>
+            
+            <div class="scenario-card">
+                <h4>💼 Scenario 2: Marketing Help</h4>
+                <div class="scenario-question">
+                    "Can you help me write a social media post about the services my plumbing company offers?"
+                </div>
+                <div class="scenario-answer">
+                    <strong>GREEN — Safe to share!</strong><br>
+                    General business descriptions and marketing content are fine. Go ahead!
+                </div>
+            </div>
+            
+            <div class="scenario-card">
+                <h4>🏦 Scenario 3: Invoice Processing</h4>
+                <div class="scenario-question">
+                    "Here's a scan of my customer's credit card to process a payment..."
+                </div>
+                <div class="scenario-answer">
+                    <strong>RED — Never share!</strong><br>
+                    Financial credentials should never go into AI systems. Use your secure payment processor instead.
+                </div>
+            </div>
+            
+            <div class="scenario-card">
+                <h4>📞 Scenario 4: Follow-up Call Script</h4>
+                <div class="scenario-question">
+                    "Write me a follow-up call script for leads who requested quotes but haven't responded."
+                </div>
+                <div class="scenario-answer">
+                    <strong>GREEN — Safe to share!</strong><br>
+                    You're asking for a general template, not sharing any specific customer data. Perfect use of AI!
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Reference Card -->
+        <div class="quick-ref">
+            <h3>📋 Quick Reference Card</h3>
+            <div class="quick-ref-grid">
+                <div class="quick-ref-item red">
+                    <h4>🛑 Red — Never</h4>
+                    <p>Passwords, credit cards, SINs, health records, confidential contracts</p>
+                </div>
+                <div class="quick-ref-item yellow">
+                    <h4>⚠️ Yellow — Anonymize</h4>
+                    <p>Names, addresses, specific $ amounts, employee details</p>
+                </div>
+                <div class="quick-ref-item green">
+                    <h4>✅ Green — Go</h4>
+                    <p>Templates, public info, general questions, ideas</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: var(--accent-light); border-left: 4px solid var(--accent); padding: 20px 24px; border-radius: 0 12px 12px 0; margin-top: 32px;">
+            <h4 style="color: var(--accent-dark); margin-bottom: 8px;">💡 Remember</h4>
+            <p style="margin: 0;">When in doubt, anonymize. It only takes a few seconds to remove identifying details, and it could save you from a serious privacy incident. Ally is programmed to remind you about these guardrails—but the final check is always on you.</p>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>AI for All Workshop Series • St. Albert & District Chamber of Commerce</p>
+    </footer>
+    
     <script>
+        // Auth check
         if (!localStorage.getItem('aiforall_hub_access')) {
             window.location.href = 'index.html';
         }

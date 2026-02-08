@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prompt Builder - AI for All</title>
+    <title>Prompt Builder | AI for All</title>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -12,20 +12,31 @@
             --cream: #f5f5f0;
             --accent: #0f766e;
             --accent-light: #ccfbf1;
+            --accent-dark: #134e4a;
             --warm-gray: #78716c;
             --border: #e7e5e4;
+            --purple: #7c3aed;
+            --purple-light: #ede9fe;
         }
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: 'Commissioner', sans-serif;
             background: var(--paper);
             color: var(--ink);
             line-height: 1.7;
         }
+        
+        /* Navigation */
         .nav {
             background: var(--ink);
             padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
+        
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -34,6 +45,7 @@
             justify-content: space-between;
             align-items: center;
         }
+        
         .nav-logo {
             font-family: 'Fraunces', serif;
             color: white;
@@ -41,43 +53,350 @@
             font-weight: 600;
             text-decoration: none;
         }
+        
         .back-link {
             color: white;
             text-decoration: none;
             font-size: 0.95em;
             opacity: 0.9;
         }
-        .page {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 24px;
+        
+        .back-link:hover { opacity: 1; }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--purple) 0%, #6d28d9 100%);
+            color: white;
+            padding: 48px 24px;
             text-align: center;
         }
-        .icon {
+        
+        .hero-icon {
             font-size: 64px;
-            margin-bottom: 24px;
-        }
-        h1 {
-            font-family: 'Fraunces', serif;
-            font-size: 2em;
             margin-bottom: 16px;
         }
-        p {
-            color: var(--warm-gray);
-            font-size: 1.1em;
-            margin-bottom: 32px;
+        
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
-        .btn {
-            display: inline-block;
-            background: var(--accent);
+        
+        .hero p {
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1em;
+        }
+        
+        /* Main Content */
+        .page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .intro p {
+            color: var(--warm-gray);
+            font-size: 1.05em;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Steps */
+        .step-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+        
+        .step-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .step-number {
+            background: var(--purple);
             color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .step-header h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4em;
+            margin-bottom: 4px;
+        }
+        
+        .step-header .subtitle {
+            color: var(--warm-gray);
+            font-size: 0.95em;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+        
+        .form-group .hint {
+            display: block;
+            font-size: 0.85em;
+            color: var(--warm-gray);
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+        
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: white;
+        }
+        
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--purple);
+            box-shadow: 0 0 0 3px var(--purple-light);
+        }
+        
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        /* Guardrails Check */
+        .guardrails-check {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 16px;
+        }
+        
+        .guardrails-check h4 {
+            color: #92400e;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .check-item:last-child {
+            border-bottom: none;
+        }
+        
+        .check-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            accent-color: #16a34a;
+        }
+        
+        .check-item label {
+            font-size: 0.95em;
+            cursor: pointer;
+        }
+        
+        /* Output Section */
+        .output-section {
+            background: var(--ink);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 40px;
+        }
+        
+        .output-section h3 {
+            font-family: 'Fraunces', serif;
+            color: white;
+            font-size: 1.3em;
+            margin-bottom: 8px;
+        }
+        
+        .output-section .subtitle {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 20px;
+        }
+        
+        #promptOutput {
+            background: #292524;
+            color: #e5e5e5;
+            padding: 24px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95em;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .output-actions {
+            margin-top: 16px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
             padding: 12px 24px;
             border-radius: 8px;
-            text-decoration: none;
             font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-family: inherit;
         }
-        .btn:hover {
-            opacity: 0.9;
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--accent-dark);
+        }
+        
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        /* Example Box */
+        .example-box {
+            background: var(--purple-light);
+            border-left: 4px solid var(--purple);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+        }
+        
+        .example-box h4 {
+            color: #6d28d9;
+            margin-bottom: 12px;
+            font-size: 0.95em;
+        }
+        
+        .example-box p {
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+        
+        .example-box p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .example-box code {
+            background: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        /* Tips */
+        .tips-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 40px;
+        }
+        
+        .tips-card h3 {
+            font-family: 'Fraunces', serif;
+            margin-bottom: 16px;
+        }
+        
+        .tip-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .tip-item:last-child {
+            border-bottom: none;
+        }
+        
+        .tip-item .icon {
+            font-size: 1.2em;
+        }
+        
+        .tip-item p {
+            margin: 0;
+            font-size: 0.95em;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--ink);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+            margin-top: 0;
+        }
+        
+        .footer p {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .step-header {
+                flex-direction: column;
+            }
+            
+            .hero h1 { font-size: 1.8em; }
+            
+            .step-card {
+                padding: 24px 20px;
+            }
         }
     </style>
 </head>
@@ -88,16 +407,279 @@
             <a href="resources.html" class="back-link">← Back to Hub</a>
         </div>
     </nav>
-    <div class="page">
-        <div class="icon">🔨</div>
+    
+    <div class="hero">
+        <div class="hero-icon">🔨</div>
         <h1>Prompt Builder</h1>
-        <p>This resource is coming soon! We're preparing the step-by-step framework for writing effective prompts.</p>
-        <a href="resources.html" class="btn">Return to Hub</a>
+        <p>A simple 5-step framework for writing effective AI prompts—with guardrails built right in.</p>
     </div>
+    
+    <div class="page">
+        <div class="intro">
+            <p>Great prompts lead to great results. This builder walks you through creating a well-structured prompt while automatically checking for data safety issues.</p>
+        </div>
+        
+        <form id="promptForm">
+            <!-- Step 1: Role -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h3>Set the Role</h3>
+                        <p class="subtitle">Tell the AI who it should "be" for this task</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="role">What role should the AI play?</label>
+                    <span class="hint">e.g., "an experienced marketing copywriter", "a professional accountant", "a patient teacher"</span>
+                    <input type="text" id="role" placeholder="You are a...">
+                </div>
+                
+                <div class="example-box">
+                    <h4>💡 Examples</h4>
+                    <p><code>You are an experienced construction estimator</code></p>
+                    <p><code>You are a friendly customer service representative</code></p>
+                    <p><code>You are a professional business writer</code></p>
+                </div>
+            </div>
+            
+            <!-- Step 2: Task -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h3>Define the Task</h3>
+                        <p class="subtitle">What do you want the AI to do?</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="task">Describe the task clearly</label>
+                    <span class="hint">Be specific about what you want created or accomplished</span>
+                    <textarea id="task" placeholder="I need you to..."></textarea>
+                </div>
+                
+                <div class="example-box">
+                    <h4>💡 Examples</h4>
+                    <p><code>Write a follow-up email for a customer who requested a quote but hasn't responded in a week</code></p>
+                    <p><code>Create a checklist for onboarding a new employee in a retail store</code></p>
+                    <p><code>Summarize these meeting notes into 5 key action items</code></p>
+                </div>
+            </div>
+            
+            <!-- Step 3: Context -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h3>Provide Context</h3>
+                        <p class="subtitle">Background info the AI needs to do a good job</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="context">What context should the AI know?</label>
+                    <span class="hint">Industry, audience, situation, constraints, etc.</span>
+                    <textarea id="context" placeholder="Here's what you need to know..."></textarea>
+                </div>
+                
+                <div class="example-box">
+                    <h4>💡 Examples</h4>
+                    <p><code>My business is a residential renovation company. Our customers are homeowners aged 35-60 in St. Albert.</code></p>
+                    <p><code>This is for a professional audience who prefers formal communication.</code></p>
+                    <p><code>The customer seemed interested but mentioned budget concerns.</code></p>
+                </div>
+            </div>
+            
+            <!-- Step 4: Format -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div>
+                        <h3>Specify Format</h3>
+                        <p class="subtitle">How should the output be structured?</p>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="format">What format do you want?</label>
+                    <span class="hint">Length, structure, tone, any specific requirements</span>
+                    <input type="text" id="format" placeholder="Format it as...">
+                </div>
+                
+                <div class="example-box">
+                    <h4>💡 Examples</h4>
+                    <p><code>Keep it under 150 words, professional but warm tone</code></p>
+                    <p><code>Bullet points, no more than 10 items</code></p>
+                    <p><code>A table with columns for Task, Owner, and Due Date</code></p>
+                </div>
+            </div>
+            
+            <!-- Step 5: Guardrails Check -->
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div>
+                        <h3>Guardrails Check</h3>
+                        <p class="subtitle">Safety verification before you submit</p>
+                    </div>
+                </div>
+                
+                <div class="guardrails-check">
+                    <h4>⚠️ Data Safety Checklist</h4>
+                    <p style="margin-bottom: 16px; font-size: 0.9em;">Confirm each item before using your prompt:</p>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="check1">
+                        <label for="check1"><strong>No RED data:</strong> I haven't included passwords, credit cards, SINs, health records, or confidential contracts</label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="check2">
+                        <label for="check2"><strong>YELLOW data anonymized:</strong> Any customer names, specific $ amounts, or addresses have been generalized</label>
+                    </div>
+                    
+                    <div class="check-item">
+                        <input type="checkbox" id="check3">
+                        <label for="check3"><strong>Consent considered:</strong> If using someone else's words/content, I have appropriate permission</label>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 16px; font-size: 0.9em; color: var(--warm-gray);">
+                    Need a refresher? Review the <a href="guardrails.html">AI Safety Guardrails</a>.
+                </p>
+            </div>
+        </form>
+        
+        <!-- Output Section -->
+        <div class="output-section">
+            <h3>📝 Your Generated Prompt</h3>
+            <p class="subtitle">Copy this and paste it into ChatGPT, Claude, or any AI tool</p>
+            <div id="promptOutput">Fill out the steps above to build your prompt...</div>
+            <div class="output-actions">
+                <button class="btn btn-primary" onclick="copyPrompt()">📋 Copy Prompt</button>
+                <button class="btn btn-secondary" onclick="clearForm()">🔄 Start Over</button>
+            </div>
+        </div>
+        
+        <!-- Tips -->
+        <div class="tips-card">
+            <h3>💡 Pro Tips for Better Prompts</h3>
+            
+            <div class="tip-item">
+                <span class="icon">🎯</span>
+                <p><strong>Be specific:</strong> "Write a 100-word product description" beats "Write something about my product"</p>
+            </div>
+            
+            <div class="tip-item">
+                <span class="icon">📝</span>
+                <p><strong>Show examples:</strong> Include a sample of the style or format you want: "Like this: [example]"</p>
+            </div>
+            
+            <div class="tip-item">
+                <span class="icon">🔄</span>
+                <p><strong>Iterate:</strong> First response not perfect? Ask the AI to "make it more formal" or "add more detail"</p>
+            </div>
+            
+            <div class="tip-item">
+                <span class="icon">❓</span>
+                <p><strong>Ask for options:</strong> Request "3 different versions" to have choices</p>
+            </div>
+            
+            <div class="tip-item">
+                <span class="icon">🛡️</span>
+                <p><strong>When in doubt, anonymize:</strong> It takes 30 seconds and could save you from a privacy incident</p>
+            </div>
+        </div>
+        
+        <div style="background: var(--accent-light); border-left: 4px solid var(--accent); padding: 20px 24px; border-radius: 0 12px 12px 0; margin-top: 32px;">
+            <h4 style="color: var(--accent-dark); margin-bottom: 8px;">🚀 Ready for Pre-Built Prompts?</h4>
+            <p style="margin: 0;">Check out the <a href="sector-packs.html">Sector Prompt Packs</a> for ready-to-use prompts tailored to your industry!</p>
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>AI for All Workshop Series • St. Albert & District Chamber of Commerce</p>
+    </footer>
+    
     <script>
+        // Auth check
         if (!localStorage.getItem('aiforall_hub_access')) {
             window.location.href = 'index.html';
         }
+        
+        // Generate prompt
+        function generatePrompt() {
+            const role = document.getElementById('role').value.trim();
+            const task = document.getElementById('task').value.trim();
+            const context = document.getElementById('context').value.trim();
+            const format = document.getElementById('format').value.trim();
+            
+            if (!role && !task && !context && !format) {
+                return 'Fill out the steps above to build your prompt...';
+            }
+            
+            let prompt = '';
+            
+            if (role) {
+                prompt += `**Role:** ${role}\n\n`;
+            }
+            
+            if (task) {
+                prompt += `**Task:** ${task}\n\n`;
+            }
+            
+            if (context) {
+                prompt += `**Context:** ${context}\n\n`;
+            }
+            
+            if (format) {
+                prompt += `**Format:** ${format}`;
+            }
+            
+            return prompt.trim();
+        }
+        
+        function updatePrompt() {
+            document.getElementById('promptOutput').textContent = generatePrompt();
+        }
+        
+        // Add listeners to all form fields
+        document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+            el.addEventListener('input', updatePrompt);
+        });
+        
+        function copyPrompt() {
+            const text = document.getElementById('promptOutput').textContent;
+            
+            // Check if guardrails are checked
+            const checks = document.querySelectorAll('.guardrails-check input[type="checkbox"]');
+            const allChecked = Array.from(checks).every(c => c.checked);
+            
+            if (!allChecked) {
+                if (!confirm('⚠️ You haven\'t completed the safety checklist.\n\nAre you sure your prompt is safe to use?')) {
+                    return;
+                }
+            }
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector('.btn-primary');
+                const original = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = original;
+                }, 2000);
+            });
+        }
+        
+        function clearForm() {
+            document.getElementById('promptForm').reset();
+            updatePrompt();
+        }
+        
+        // Initialize
+        updatePrompt();
     </script>
 </body>
 </html>
