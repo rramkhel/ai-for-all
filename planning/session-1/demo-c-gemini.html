@@ -319,6 +319,9 @@
             .s-grid-3, .s-grid-2, .versus-container { grid-template-columns: 1fr; }
             .versus-label { padding: 5px 0; }
             .rop-meta { flex-direction: column; }
+            [style*="grid-template-columns: 1fr 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+            }
         }
         @media print {
             .tabs-container, .slide-nav, .quick-nav { display: none; }
@@ -588,6 +591,31 @@
                 <div class="rop-meta-item"><span>Duration</span><strong>~15 minutes</strong></div>
                 <div class="rop-meta-item"><span>Position</span><strong>3rd demo (after Shortcut AI)</strong></div>
                 <div class="rop-meta-item"><span>Transition From</span><strong>Jeff (Shortcut AI)</strong></div>
+            </div>
+
+            <div style="background: white; border: 2px solid var(--coral); border-radius: 10px; padding: 25px; margin-bottom: 25px;">
+                <h4 style="font-family: 'Fraunces', Georgia, serif; color: var(--coral); margin-bottom: 15px;">📖 Demo Overview</h4>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                    <div>
+                        <p style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--warm-gray); margin-bottom: 6px; font-weight: 600;">What This Demo Does</p>
+                        <p style="font-size: 0.9em; margin: 0;">Shows how to create a custom AI marketing assistant that already knows your brand voice, pricing, and customers — then contrasts generic AI output with context-powered output to demonstrate why "fuel" matters.</p>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--warm-gray); margin-bottom: 6px; font-weight: 600;">Content Used</p>
+                        <p style="font-size: 0.9em; margin: 0;">Three fictional documents for "Evergreen Renos" (a St. Albert kitchen renovation company): a brand voice guide, a services & pricing sheet, and a past best-performing marketing email. All provided in the Demo Assets tab.</p>
+                    </div>
+                    <div>
+                        <p style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--warm-gray); margin-bottom: 6px; font-weight: 600;">Skills & Takeaways</p>
+                        <ul style="font-size: 0.9em; margin: 0; padding-left: 18px;">
+                            <li>Set up a persistent AI project with custom instructions</li>
+                            <li>Upload business context documents (brand voice, pricing)</li>
+                            <li>See the difference between generic and context-powered output</li>
+                            <li>Generate social posts, emails, and content calendars on-brand</li>
+                            <li>Understand this works across Gemini, ChatGPT Projects, and Claude Projects</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
             <div class="prep-checklist">
