@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo C: The Marketing Assistant — Gemini Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1c1917;
+            --paper: #fafaf9;
+            --cream: #f5f5f0;
+            --accent: #0f766e;
+            --accent-light: #ccfbf1;
+            --warm-gray: #78716c;
+            --border: #e7e5e4;
+            --highlight: #fef3c7;
+            --blue: #2563eb;
+            --blue-light: #dbeafe;
+            --purple: #7c3aed;
+            --purple-light: #ede9fe;
+            --red: #dc2626;
+            --red-light: #fef2f2;
+            --yellow: #f59e0b;
+            --yellow-light: #fffbeb;
+            --green: #16a34a;
+            --green-light: #f0fdf4;
+            --coral: #e45a3b;
+            --coral-light: #fff1ee;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Commissioner', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .page-header {
+            background: var(--ink);
+            color: white;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .page-header h1 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+        .page-header h1 span { opacity: 0.5; font-weight: 400; }
+        .header-meta { font-size: 0.85em; opacity: 0.6; }
+        .header-badge {
+            display: inline-block;
+            background: var(--coral);
+            color: white;
+            font-size: 0.7em;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-left: 12px;
+            vertical-align: middle;
+        }
+
+        .tabs-container {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .tabs { max-width: 1000px; margin: 0 auto; display: flex; }
+        .tab {
+            padding: 16px 28px; font-weight: 600; font-size: 0.9em;
+            cursor: pointer; border-bottom: 3px solid transparent;
+            color: var(--warm-gray); transition: all 0.2s;
+        }
+        .tab:hover { color: var(--ink); background: var(--cream); }
+        .tab.active { color: var(--coral); border-bottom-color: var(--coral); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* ── Presentation ── */
+        .pres-container { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
+        .pres-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .pres-header h4 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; }
+        .pres-header p { font-size: 0.85em; color: var(--warm-gray); }
+        .slide-counter { font-size: 0.85em; color: var(--warm-gray); font-weight: 600; }
+
+        .slide-wrapper {
+            background: white; border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+            padding: 50px; min-height: 520px;
+        }
+        .slide { display: none; }
+        .slide.active { display: block; animation: fadeSlide 0.3s ease; }
+        @keyframes fadeSlide { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        .slide-title {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 2em; font-weight: 700; margin-bottom: 8px;
+        }
+        .slide-subtitle { font-size: 1.1em; color: var(--warm-gray); margin-bottom: 30px; }
+
+        .s-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .s-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .s-card {
+            background: var(--cream); border-radius: 10px; padding: 25px;
+        }
+        .s-card.accent { background: var(--accent-light); }
+        .s-card.blue { background: var(--blue-light); }
+        .s-card.purple { background: var(--purple-light); }
+        .s-card.coral { background: var(--coral-light); border: 1px solid #feb2a8; }
+        .s-card.highlight { background: var(--highlight); border: 2px solid var(--yellow); }
+        .s-card.dark {
+            background: var(--ink); color: white; border-radius: 10px;
+        }
+        .s-card.dark p { color: rgba(255,255,255,0.7); }
+        .s-card.dark h5 { color: white; }
+        .s-card h5 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.05em; font-weight: 600; margin-bottom: 8px;
+        }
+        .s-card p { font-size: 0.92em; color: #57534e; line-height: 1.6; }
+        .s-card .icon { font-size: 1.8em; margin-bottom: 12px; }
+
+        .s-hero-box {
+            background: linear-gradient(135deg, var(--ink) 0%, #374151 100%);
+            color: white; border-radius: 12px; padding: 35px; margin-bottom: 25px;
+        }
+        .s-hero-box.coral { background: linear-gradient(135deg, var(--coral) 0%, #b91c1c 100%); }
+        .s-hero-box.teal { background: linear-gradient(135deg, var(--accent) 0%, var(--blue) 100%); }
+        .s-hero-box h3 { font-family: 'Fraunces', Georgia, serif; font-size: 1.5em; margin-bottom: 8px; }
+        .s-hero-box p { opacity: 0.85; }
+        .s-hero-box .stat-row { display: flex; gap: 25px; margin-top: 20px; }
+        .s-hero-box .stat {
+            background: rgba(255,255,255,0.12); border-radius: 8px;
+            padding: 12px 20px; text-align: center; flex: 1;
+        }
+        .s-hero-box .stat strong { display: block; font-size: 1.4em; }
+        .s-hero-box .stat span { font-size: 0.8em; opacity: 0.8; }
+
+        .demo-live-box {
+            background: var(--ink); color: white; border-radius: 12px;
+            padding: 40px; text-align: center;
+        }
+        .demo-live-box .demo-icon { font-size: 3em; margin-bottom: 15px; }
+        .demo-live-box h4 { font-family: 'Fraunces', Georgia, serif; font-size: 1.4em; margin-bottom: 8px; }
+        .demo-live-box p { opacity: 0.7; font-size: 0.95em; }
+        .demo-badge-tag {
+            display: inline-block; background: var(--coral); color: white;
+            padding: 6px 16px; border-radius: 20px; font-weight: 600;
+            font-size: 0.85em; margin-top: 15px;
+        }
+
+        .prompt-box {
+            background: #1e1e2e; color: #cdd6f4; border-radius: 8px;
+            padding: 18px 22px; font-family: 'Courier New', monospace;
+            font-size: 0.9em; line-height: 1.6; margin: 15px 0;
+            border-left: 4px solid var(--coral);
+        }
+
+        .script-note {
+            background: var(--highlight); border-radius: 8px;
+            padding: 15px 20px; font-size: 0.9em; font-style: italic;
+            color: #92400e; margin: 15px 0;
+        }
+        .script-note strong { font-style: normal; }
+
+        .agnostic-box {
+            background: var(--blue-light); border: 2px solid var(--blue);
+            border-radius: 10px; padding: 20px; margin-top: 20px;
+        }
+        .agnostic-box h5 { color: var(--blue); margin-bottom: 8px; font-size: 0.95em; }
+        .agnostic-box p { font-size: 0.9em; }
+
+        .versus-container {
+            display: grid; grid-template-columns: 1fr auto 1fr; gap: 15px;
+            align-items: stretch; margin: 20px 0;
+        }
+        .versus-label {
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Fraunces', Georgia, serif; font-weight: 700;
+            font-size: 1.3em; color: var(--warm-gray);
+        }
+        .versus-card {
+            border-radius: 10px; padding: 22px;
+        }
+        .versus-card.bad {
+            background: var(--red-light); border: 2px solid #fca5a5;
+        }
+        .versus-card.good {
+            background: var(--green-light); border: 2px solid #86efac;
+        }
+        .versus-card h5 { font-size: 0.9em; margin-bottom: 10px; }
+        .versus-card p { font-size: 0.85em; line-height: 1.6; }
+
+        .doc-preview {
+            background: white; border: 1px solid var(--border);
+            border-radius: 8px; padding: 18px; font-size: 0.85em;
+            line-height: 1.6; margin: 10px 0;
+        }
+        .doc-preview .doc-title {
+            font-weight: 700; font-size: 0.8em; text-transform: uppercase;
+            letter-spacing: 0.04em; color: var(--warm-gray); margin-bottom: 8px;
+            padding-bottom: 6px; border-bottom: 1px solid var(--border);
+        }
+
+        /* ── Navigation ── */
+        .slide-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; }
+        .nav-btn {
+            padding: 10px 22px; border: none; border-radius: 8px;
+            font-weight: 600; font-size: 0.9em; cursor: pointer;
+            font-family: 'Commissioner', sans-serif; transition: all 0.2s;
+        }
+        .nav-btn.prev { background: var(--cream); color: var(--ink); }
+        .nav-btn.prev:hover { background: var(--border); }
+        .nav-btn.next { background: var(--coral); color: white; }
+        .nav-btn.next:hover { opacity: 0.9; }
+        .nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+        .slide-dots { display: flex; gap: 6px; }
+        .slide-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--border); border: none; cursor: pointer; transition: all 0.2s;
+        }
+        .slide-dot.active { background: var(--coral); width: 24px; border-radius: 4px; }
+        .quick-nav { margin-top: 20px; }
+        .quick-nav-title { font-size: 0.8em; font-weight: 600; color: var(--warm-gray); margin-bottom: 8px; }
+        .quick-nav-btns { display: flex; flex-wrap: wrap; gap: 6px; }
+        .quick-nav-btn {
+            padding: 5px 12px; border: 1px solid var(--border); border-radius: 6px;
+            background: white; font-size: 0.78em; font-weight: 500; cursor: pointer;
+            font-family: 'Commissioner', sans-serif; transition: all 0.15s; color: var(--warm-gray);
+        }
+        .quick-nav-btn:hover { background: var(--cream); color: var(--ink); }
+        .quick-nav-btn.active { background: var(--coral); color: white; border-color: var(--coral); }
+
+        /* ── Run of Play ── */
+        .rop-container { max-width: 900px; margin: 0 auto; padding: 30px 20px 60px; }
+        .rop-title { font-family: 'Fraunces', Georgia, serif; font-size: 1.8em; font-weight: 700; margin-bottom: 5px; }
+        .rop-subtitle { color: var(--warm-gray); margin-bottom: 30px; }
+        .rop-meta { display: flex; gap: 20px; margin-bottom: 30px; }
+        .rop-meta-item {
+            background: white; border: 1px solid var(--border);
+            border-radius: 8px; padding: 14px 22px; flex: 1;
+        }
+        .rop-meta-item span { font-size: 0.75em; color: var(--warm-gray); text-transform: uppercase; letter-spacing: 0.05em; }
+        .rop-meta-item strong { display: block; font-size: 1em; margin-top: 3px; }
+
+        .rop-segment {
+            background: white; border-radius: 10px;
+            border: 1px solid var(--border); margin-bottom: 16px; overflow: hidden;
+        }
+        .rop-seg-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 22px; cursor: pointer; transition: background 0.15s;
+        }
+        .rop-seg-header:hover { background: var(--cream); }
+        .rop-seg-header h4 { font-size: 0.95em; font-weight: 600; }
+        .rop-seg-time {
+            font-size: 0.82em; font-weight: 600; color: var(--coral);
+            background: var(--coral-light); padding: 3px 10px; border-radius: 12px;
+        }
+        .rop-seg-body { padding: 0 22px 20px; border-top: 1px solid var(--border); }
+        .rop-seg-body.collapsed { display: none; }
+
+        .rop-script {
+            background: var(--cream); border-radius: 8px; padding: 16px 20px;
+            margin: 12px 0; font-style: italic; color: #57534e;
+            border-left: 3px solid var(--coral); line-height: 1.7;
+        }
+        .rop-script strong { font-style: normal; color: var(--ink); }
+        .rop-prompt {
+            background: #1e1e2e; color: #cdd6f4; border-radius: 8px;
+            padding: 14px 18px; font-family: 'Courier New', monospace;
+            font-size: 0.88em; line-height: 1.5; margin: 10px 0;
+        }
+        .rop-action { display: flex; align-items: flex-start; gap: 10px; margin: 8px 0; }
+        .rop-action-dot {
+            width: 6px; height: 6px; background: var(--coral);
+            border-radius: 50%; margin-top: 8px; flex-shrink: 0;
+        }
+        .rop-note {
+            background: var(--highlight); border-radius: 6px;
+            padding: 10px 14px; font-size: 0.85em; color: #92400e; margin: 10px 0;
+        }
+
+        .prep-checklist {
+            background: white; border: 1px solid var(--border);
+            border-radius: 10px; padding: 25px; margin: 20px 0;
+        }
+        .prep-checklist h4 { font-size: 0.95em; margin-bottom: 12px; color: var(--coral); }
+        .check-item { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; }
+        .check-box {
+            width: 18px; height: 18px; border: 2px solid var(--border);
+            border-radius: 4px; flex-shrink: 0; margin-top: 2px;
+            cursor: pointer; transition: all 0.15s;
+        }
+        .check-box:hover { border-color: var(--coral); }
+        .check-box.checked { background: var(--coral); border-color: var(--coral); }
+
+        .qa-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .qa-table th {
+            text-align: left; background: var(--cream); padding: 10px 15px;
+            font-size: 0.82em; text-transform: uppercase; letter-spacing: 0.04em;
+            color: var(--warm-gray); border-bottom: 2px solid var(--border);
+        }
+        .qa-table td {
+            padding: 12px 15px; border-bottom: 1px solid var(--border);
+            font-size: 0.9em; vertical-align: top;
+        }
+
+        @media (max-width: 768px) {
+            .page-header { padding: 20px; flex-direction: column; gap: 8px; }
+            .slide-wrapper { padding: 25px; min-height: auto; }
+            .s-grid-3, .s-grid-2, .versus-container { grid-template-columns: 1fr; }
+            .versus-label { padding: 5px 0; }
+            .rop-meta { flex-direction: column; }
+        }
+        @media print {
+            .tabs-container, .slide-nav, .quick-nav { display: none; }
+            .tab-content { display: block !important; page-break-before: always; }
+            .slide { display: block !important; page-break-after: always; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <div>
+            <h1>Demo C: The Marketing Assistant <span>— Gemini Projects</span><span class="header-badge">Professional Services</span></h1>
+        </div>
+        <div class="header-meta">Session 1 • February 24, 2026 • Lead: Rachel</div>
+    </div>
+
+    <div class="tabs-container">
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('deck', this)">📽️ Pitch Deck</div>
+            <div class="tab" onclick="showTab('rop', this)">📋 Run-of-Play</div>
+            <div class="tab" onclick="showTab('assets', this)">📂 Demo Assets</div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- TAB 1: PITCH DECK                   -->
+    <!-- ═══════════════════════════════════ -->
+    <div id="deck" class="tab-content active">
+        <div class="pres-container">
+            <div class="pres-header">
+                <div>
+                    <h4>Demo C: The Marketing Assistant</h4>
+                    <p>Gemini Projects — "Evergreen Renos"</p>
+                </div>
+                <div class="slide-counter">Slide <span id="curSlide">1</span> / <span id="totSlides">8</span></div>
+            </div>
+
+            <div class="slide-wrapper">
+                <!-- SLIDE 1: Title -->
+                <div class="slide active" data-slide="1">
+                    <div style="text-align:center; padding-top:30px;">
+                        <div style="font-size:3.5em; margin-bottom:20px;">🎯</div>
+                        <h2 class="slide-title" style="font-size:2.4em;">The Marketing Assistant</h2>
+                        <p class="slide-subtitle" style="font-size:1.2em;">Gemini Projects — "Your sous chef who already knows your recipes"</p>
+                        <div class="s-grid-3" style="margin-top:35px;">
+                            <div class="s-card" style="text-align:center;">
+                                <div class="icon">📋</div>
+                                <h5>Upload Your Docs</h5>
+                                <p>Brand voice, pricing, past wins</p>
+                            </div>
+                            <div class="s-card coral" style="text-align:center;">
+                                <div class="icon">🤖</div>
+                                <h5>Set Instructions</h5>
+                                <p>Teach it YOUR business</p>
+                            </div>
+                            <div class="s-card highlight" style="text-align:center;">
+                                <div class="icon">✨</div>
+                                <h5>On-Brand Content</h5>
+                                <p>Every time — automatically</p>
+                            </div>
+                        </div>
+                        <p style="margin-top:30px; color:var(--warm-gray); font-size:0.9em;">Works in Gemini, ChatGPT Projects, and Claude Projects</p>
+                    </div>
+                </div>
+
+                <!-- SLIDE 2: The Problem -->
+                <div class="slide" data-slide="2">
+                    <h2 class="slide-title">The Problem</h2>
+                    <p class="slide-subtitle">Marketing was your #1 request. But AI gives you generic slop.</p>
+
+                    <div class="s-hero-box coral">
+                        <h3>You've Tried This Before</h3>
+                        <p>You open ChatGPT. You type "write me a social media post." You get something that could be any company, anywhere. No personality. Wrong pricing. No local flavour.</p>
+                        <div class="stat-row">
+                            <div class="stat"><strong>76 pts</strong><span>#1 survey topic: Marketing</span></div>
+                            <div class="stat"><strong>62%</strong><span>"Save time" top motivation</span></div>
+                            <div class="stat"><strong>~$500</strong><span>To onboard a freelancer</span></div>
+                        </div>
+                    </div>
+
+                    <div class="script-note">
+                        <strong>💬 Say:</strong> "Most of you open ChatGPT, type 'write me a social media post about my business,' and get something that sounds like it was written by a robot who's never been to St. Albert. Let me show you why."
+                    </div>
+                </div>
+
+                <!-- SLIDE 3: The Proof — Generic vs Context -->
+                <div class="slide" data-slide="3">
+                    <h2 class="slide-title">Why Generic AI Fails</h2>
+                    <p class="slide-subtitle">Same AI, same question — completely different results</p>
+
+                    <div class="versus-container">
+                        <div class="versus-card bad">
+                            <h5>❌ Without Context (Empty Chat)</h5>
+                            <p style="font-style:italic; color:#991b1b;">"Spruce up your kitchen this spring! Our experienced team of professionals provides top-quality renovation services at competitive prices. Contact us today for a free quote!"</p>
+                            <p style="margin-top:10px; font-size:0.82em; color:#991b1b;">Generic. No personality. Wrong details. Could be anyone.</p>
+                        </div>
+                        <div class="versus-label">vs.</div>
+                        <div class="versus-card good">
+                            <h5>✅ With Your Context (Gemini Project)</h5>
+                            <p style="font-style:italic; color:#166534;">"That kitchen you keep meaning to update? The one with the oak cabinets? Spring is the best time to start — and if you book before May 1, your 3D rendering is on us. Every Evergreen crew member is a full-time employee. No random subs at your door. 📞 780-555-0172"</p>
+                            <p style="margin-top:10px; font-size:0.82em; color:#166534;">Your voice. Your promo. Your differentiators. Your phone number.</p>
+                        </div>
+                    </div>
+
+                    <div class="script-note">
+                        <strong>💬 Say:</strong> "Same AI. Same question. The only difference is the <em>fuel</em>. On the left, it's driving on empty. On the right, we gave it our brand guide, our pricing, and our best email."
+                    </div>
+                </div>
+
+                <!-- SLIDE 4: The Setup -->
+                <div class="slide" data-slide="4">
+                    <h2 class="slide-title">The 10-Minute Setup</h2>
+                    <p class="slide-subtitle">Build the machine once, use it every day</p>
+
+                    <div class="s-grid-3">
+                        <div class="s-card">
+                            <div class="icon">📋</div>
+                            <h5>1. Brand Voice Guide</h5>
+                            <p>Who you are, how you talk, what makes you different. A simple one-pager.</p>
+                        </div>
+                        <div class="s-card coral">
+                            <div class="icon">💰</div>
+                            <h5>2. Services & Pricing</h5>
+                            <p>What you offer and what it costs. The AI uses YOUR numbers, not made-up ones.</p>
+                        </div>
+                        <div class="s-card highlight">
+                            <div class="icon">📧</div>
+                            <h5>3. A Past Win</h5>
+                            <p>Your best-performing email, post, or ad. The AI learns your tone from real results.</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:25px; background:var(--cream); border-radius:10px; padding:20px;">
+                        <p style="font-weight:600; margin-bottom:8px;">Then set your instructions:</p>
+                        <div class="prompt-box" style="border-left-color:var(--coral);">You are the marketing assistant for Evergreen Renos, a family-owned kitchen and bathroom renovation company in St. Albert, Alberta. Use the warm, jargon-free voice from the Brand Voice Guide. Reference actual services and pricing. Mention the 5-year warranty naturally. Never make up services or pricing.</div>
+                    </div>
+
+                    <div class="script-note">
+                        <strong>💬 Say:</strong> "Three documents. One set of instructions. This took me about 10 minutes. You do this once — and every time you come back, it already knows your business."
+                    </div>
+                </div>
+
+                <!-- SLIDE 5: Live Demo — Social Post -->
+                <div class="slide" data-slide="5">
+                    <h2 class="slide-title">Prompt 1: Social Post</h2>
+                    <p class="slide-subtitle">Watch it use YOUR pricing, YOUR tone, YOUR community</p>
+
+                    <div class="demo-live-box" style="background: linear-gradient(135deg, var(--coral) 0%, #b91c1c 100%);">
+                        <div class="demo-icon">📱</div>
+                        <h4>LIVE DEMO</h4>
+                        <p>Ask the Gemini Project for a social media post</p>
+                        <div class="demo-badge-tag" style="background:white; color:var(--coral);">Contrast with the generic version</div>
+                    </div>
+
+                    <div style="margin-top:20px;">
+                        <p style="font-weight:600; margin-bottom:8px;">Type this:</p>
+                        <div class="prompt-box" style="border-left-color:var(--coral);">Write a social media post promoting our spring kitchen renovation special.</div>
+                    </div>
+
+                    <div class="script-note">
+                        <strong>💬 Say:</strong> "It knows the spring promo. It knows the price ranges. It's talking like Dave and Maria, not like a marketing textbook. Same AI, same question — completely different result."
+                    </div>
+                </div>
+
+                <!-- SLIDE 6: Live Demo — Email -->
+                <div class="slide" data-slide="6">
+                    <h2 class="slide-title">Prompt 2: Follow-Up Email</h2>
+                    <p class="slide-subtitle">It learned your tone from your best-performing email</p>
+
+                    <div style="margin-bottom:20px;">
+                        <p style="font-weight:600; margin-bottom:8px;">Type this:</p>
+                        <div class="prompt-box" style="border-left-color:var(--coral);">Write a follow-up email for a homeowner who got a kitchen quote from us 2 weeks ago but hasn't booked. Be warm, not pushy. Mention the spring promo deadline.</div>
+                    </div>
+
+                    <div class="script-note">
+                        <strong>💬 Say:</strong> "It picked up the tone from that best-performing email I uploaded. It's not copying it — it <em>learned</em> how Evergreen talks to customers. That's the sous chef knowing your recipes."
+                    </div>
+
+                    <div class="s-grid-2" style="margin-top:20px;">
+                        <div class="s-card">
+                            <h5>What It Pulls From</h5>
+                            <p>Brand voice guide → warm, jargon-free tone. Pricing sheet → actual dollar figures. Past email → "neighbour you trust" language.</p>
+                        </div>
+                        <div class="s-card accent">
+                            <h5>What You'd Change</h5>
+                            <p>Add the customer's name. Tweak the specific quote reference. Maybe adjust the urgency. 2 minutes of editing vs. 30 minutes from scratch.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 7: Quick Fire -->
+                <div class="slide" data-slide="7">
+                    <h2 class="slide-title">Prompt 3: Quick Fire</h2>
+                    <p class="slide-subtitle">5 ready-to-use posts in 8 seconds</p>
+
+                    <div style="margin-bottom:20px;">
+                        <p style="font-weight:600; margin-bottom:8px;">Type this:</p>
+                        <div class="prompt-box" style="border-left-color:var(--coral);">Give me 5 Google Business Profile post ideas for this month. Keep them short, casual, and seasonal for Alberta spring.</div>
+                    </div>
+
+                    <div class="script-note">
+                        <strong>💬 Say:</strong> "Five posts. Ready to copy-paste into Google Business. Eight seconds. That's your entire month of Google posts — done before your coffee gets cold."
+                    </div>
+
+                    <div class="s-card highlight" style="margin-top:25px;">
+                        <h5>🧮 The Math</h5>
+                        <p><strong>Without AI:</strong> 30 min per post × 5 posts × $50/hr = <strong>$125 in your time</strong><br>
+                        <strong>With your marketing assistant:</strong> 8 seconds + 10 min editing = <strong>~$8 in your time</strong><br>
+                        <strong>Saving:</strong> ~$117 and 2+ hours. Every single month. From one prompt.</p>
+                    </div>
+                </div>
+
+                <!-- SLIDE 8: Landing -->
+                <div class="slide" data-slide="8">
+                    <h2 class="slide-title">The Takeaway</h2>
+                    <p class="slide-subtitle">Build once. Use forever. Pick your tool.</p>
+
+                    <div class="s-hero-box teal">
+                        <h3>10 Minutes of Setup = A Marketing Assistant That Knows Your Business</h3>
+                        <p>You're not replacing your marketing. You're giving yourself a sous chef who already knows your recipes. Upload your docs, set your instructions, and stop prompting from scratch.</p>
+                    </div>
+
+                    <div class="agnostic-box">
+                        <h5>🔄 This Works Across Tools</h5>
+                        <p><strong>Gemini Projects</strong> — Natural fit for Google Workspace users. Strong integration with Gmail, Docs, Drive.<br>
+                        <strong>ChatGPT Projects</strong> — Same concept. Upload docs, set instructions. Free persistent projects available.<br>
+                        <strong>Claude Projects</strong> — Excellent writing quality. Great for longer-form content like proposals and reports.<br><br>
+                        The key isn't <em>which</em> tool — it's the principle: <strong>give it your context, and it stops being generic.</strong></p>
+                    </div>
+
+                    <div class="s-grid-2" style="margin-top:20px;">
+                        <div class="s-card">
+                            <h5>🎁 In Your Toolkit</h5>
+                            <p>Step-by-step setup instructions for all three tools. Brand voice template. Sample prompts by industry.</p>
+                        </div>
+                        <div class="s-card coral">
+                            <h5>💡 Tonight's Homework</h5>
+                            <p>Write a one-paragraph brand voice description. Upload it + your pricing into whichever tool you prefer. Ask it for one social post. See the difference.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nav -->
+            <div class="slide-nav">
+                <button class="nav-btn prev" onclick="prevSlide()" id="prevBtn" disabled>← Previous</button>
+                <div class="slide-dots" id="slideDots"></div>
+                <button class="nav-btn next" onclick="nextSlide()" id="nextBtn">Next →</button>
+            </div>
+            <div class="quick-nav">
+                <div class="quick-nav-title">Quick Navigation:</div>
+                <div class="quick-nav-btns" id="quickNavBtns"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- TAB 2: RUN-OF-PLAY                  -->
+    <!-- ═══════════════════════════════════ -->
+    <div id="rop" class="tab-content">
+        <div class="rop-container">
+            <h2 class="rop-title">Run-of-Play: Demo C</h2>
+            <p class="rop-subtitle">Gemini Projects — Marketing Assistant • ~15 minutes</p>
+
+            <div class="rop-meta">
+                <div class="rop-meta-item"><span>Lead</span><strong>Rachel</strong></div>
+                <div class="rop-meta-item"><span>Duration</span><strong>~15 minutes</strong></div>
+                <div class="rop-meta-item"><span>Position</span><strong>3rd demo (after Shortcut AI)</strong></div>
+                <div class="rop-meta-item"><span>Transition From</span><strong>Jeff (Shortcut AI)</strong></div>
+            </div>
+
+            <div class="prep-checklist">
+                <h4>📋 Prep Checklist</h4>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Create 3 Google Docs for "Evergreen Renos" (see Assets tab)</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Set up Gemini Project with all 3 docs uploaded</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Set system instructions (see Assets tab)</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Test all 3 prompts — verify on-brand output</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Open a SEPARATE empty Gemini tab for the contrast moment</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Prepare all prompts in a notes doc for copy-paste</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Screenshot the contrast (generic vs. branded) as backup</span></div>
+            </div>
+
+            <!-- Segment 1 -->
+            <div class="rop-segment">
+                <div class="rop-seg-header" onclick="toggleSegment(this)">
+                    <h4>📢 The Problem — Generic AI</h4>
+                    <div class="rop-seg-time">0:00 – 3:00</div>
+                </div>
+                <div class="rop-seg-body">
+                    <div class="rop-note">Jeff hands off: "Rachel, you want to show them the marketing side?"</div>
+                    <div class="rop-script">"Marketing was your #1 request — 76 points in the survey. But most of you told us you're prompting from scratch every time — and it sounds generic. What if your AI already knew your brand?"</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>Open the EMPTY Gemini tab</strong> (not the project)</span></div>
+                    <div class="rop-script">"Let me show you what I mean."</div>
+                    <p style="font-weight:600; font-size:0.9em; margin:10px 0 5px;">Type this in the blank Gemini:</p>
+                    <div class="rop-prompt">Write a social media post promoting a kitchen renovation spring special for a renovation company.</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show the generic result — bland, no personality, wrong pricing</span></div>
+                    <div class="rop-script">"See? It's... fine. But it could be any company anywhere. There's no <em>you</em> in this. Now watch what happens when we add fuel."</div>
+                </div>
+            </div>
+
+            <!-- Segment 2 -->
+            <div class="rop-segment">
+                <div class="rop-seg-header" onclick="toggleSegment(this)">
+                    <h4>⚙️ Show the Setup</h4>
+                    <div class="rop-seg-time">3:00 – 6:00</div>
+                </div>
+                <div class="rop-seg-body">
+                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>Switch to the pre-built Gemini Project</strong></span></div>
+                    <div class="rop-script">"This is a Gemini Project I set up for a fictional company called Evergreen Renos — a St. Albert kitchen and bathroom renovation business. I uploaded three things: a brand voice guide, their pricing sheet, and their best-performing email."</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Briefly show the uploaded docs list — don't read them, just gesture</span></div>
+                    <div class="rop-script">"That took me about 10 minutes. You do this once. Now let's ask it the exact same question."</div>
+                </div>
+            </div>
+
+            <!-- Segment 3 -->
+            <div class="rop-segment">
+                <div class="rop-seg-header" onclick="toggleSegment(this)">
+                    <h4>✨ Prompt 1 — The Contrast (MONEY SHOT)</h4>
+                    <div class="rop-seg-time">6:00 – 9:00</div>
+                </div>
+                <div class="rop-seg-body">
+                    <div class="rop-note">⭐ This is the most important moment of the entire demo. The audience sees the same question produce completely different results.</div>
+                    <div class="rop-prompt">Write a social media post promoting our spring kitchen renovation special.</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show the result — should use Evergreen's voice, spring promo, actual pricing, mention St. Albert</span></div>
+                    <div class="rop-script">"See the difference? It knows the spring promo. It knows the price ranges. It's talking like Dave and Maria, not like a marketing textbook."</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>If time: scroll back to the generic version for side-by-side visual</span></div>
+                    <div class="rop-script">"Same AI, same question — completely different result. The only difference is the <em>fuel</em>."</div>
+                </div>
+            </div>
+
+            <!-- Segment 4 -->
+            <div class="rop-segment">
+                <div class="rop-seg-header" onclick="toggleSegment(this)">
+                    <h4>📧 Prompt 2 — Going Deeper</h4>
+                    <div class="rop-seg-time">9:00 – 12:00</div>
+                </div>
+                <div class="rop-seg-body">
+                    <div class="rop-script">"But it doesn't just do social posts. Let's try something more complex."</div>
+                    <div class="rop-prompt">Write a follow-up email for a homeowner who got a kitchen quote from us 2 weeks ago but hasn't booked. Be warm, not pushy. Mention the spring promo deadline.</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show the result — should mirror the tone of the uploaded best-performing email</span></div>
+                    <div class="rop-script">"It picked up the tone from that best-performing email I uploaded. It's not copying it — it <em>learned</em> how Evergreen talks to customers. That's the sous chef knowing your recipes."</div>
+                </div>
+            </div>
+
+            <!-- Segment 5 -->
+            <div class="rop-segment">
+                <div class="rop-seg-header" onclick="toggleSegment(this)">
+                    <h4>⚡ Prompt 3 — Quick Fire</h4>
+                    <div class="rop-seg-time">12:00 – 14:00</div>
+                </div>
+                <div class="rop-seg-body">
+                    <div class="rop-script">"One more — let's see how fast this gets."</div>
+                    <div class="rop-prompt">Give me 5 Google Business Profile post ideas for this month. Keep them short, casual, and seasonal for Alberta spring.</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show the list — locally relevant, on-brand, ready to use</span></div>
+                    <div class="rop-script">"Five posts. Ready to copy-paste into Google Business. Took about 8 seconds. That's your entire month of Google posts done."</div>
+                </div>
+            </div>
+
+            <!-- Segment 6 -->
+            <div class="rop-segment">
+                <div class="rop-seg-header" onclick="toggleSegment(this)">
+                    <h4>🔄 Landing + LLM-Agnostic Close</h4>
+                    <div class="rop-seg-time">14:00 – 15:00</div>
+                </div>
+                <div class="rop-seg-body">
+                    <div class="rop-script">
+                        "I showed you Gemini because it plugs into Google Workspace beautifully, and a lot of you are already using Gmail and Google Docs. But this same approach works everywhere."<br><br>
+                        "<strong>ChatGPT Projects</strong> does the same thing — upload your docs, set instructions, it remembers your brand. <strong>Claude Projects</strong> works this way too. The key isn't <em>which</em> tool — it's the principle: <strong>give it your context, and it stops being generic.</strong>"<br><br>
+                        "In your take-home toolkit, we've got instructions for setting this up in all three. Pick whichever one you're already comfortable with."<br><br>
+                        "That's what 'building the machine once' means. Ten minutes of setup, and you've got a marketing assistant that knows your business better than a freelancer you'd pay $500 to onboard."
+                    </div>
+                    <div class="rop-note">Transition to closing: "So to recap — you've seen NotebookLM turn a 90-page document into a podcast, Jeff showed you Shortcut AI pulling insights from census data, and we just built a marketing assistant that knows your brand. Three tools, three problems solved. Let me take 5 minutes to walk you through what you're taking home..."</div>
+                </div>
+            </div>
+
+            <!-- Q&A -->
+            <h3 style="font-family:'Fraunces',Georgia,serif; margin-top:30px; margin-bottom:15px;">Anticipated Q&A</h3>
+            <table class="qa-table">
+                <thead><tr><th style="width:35%;">Question</th><th>Answer</th></tr></thead>
+                <tbody>
+                    <tr><td>"Which tool should I use?"</td><td>Gmail/Docs → Gemini. Already on ChatGPT Plus → ChatGPT Projects. Love writing quality → Claude. They all do this. We'll cover tool selection more in Session 2.</td></tr>
+                    <tr><td>"How much does Gemini cost?"</td><td>Free tier works. Gemini Advanced ($25.99/mo CAD) for longer conversations and better models. If you're using it daily, it pays for itself.</td></tr>
+                    <tr><td>"What if my brand voice changes?"</td><td>Just update the documents. Swap out the old pricing for the new one. The assistant adapts immediately.</td></tr>
+                    <tr><td>"Can I share this with my team?"</td><td>Yes — Gemini Projects are shareable. ChatGPT custom GPTs can be shared via link. Great for brand consistency.</td></tr>
+                    <tr><td>"What about data safety?"</td><td>Brand guide and pricing are Green zone — public info. Client lists would be Yellow — anonymize first. Never upload Red zone info.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════ -->
+    <!-- TAB 3: DEMO ASSETS                  -->
+    <!-- ═══════════════════════════════════ -->
+    <div id="assets" class="tab-content">
+        <div class="rop-container">
+            <h2 class="rop-title">Demo Assets: "Evergreen Renos"</h2>
+            <p class="rop-subtitle">Copy these into Google Docs and upload to your Gemini Project</p>
+
+            <div class="rop-note" style="margin-bottom:25px;">📝 These are the three documents you'll upload. Create each as a Google Doc, then add them to your Gemini Project. The system instructions go in the Project settings.</div>
+
+            <!-- Doc 1 -->
+            <div class="doc-preview">
+                <div class="doc-title">📄 Document 1: Brand Voice Guide</div>
+                <p><strong>EVERGREEN RENOS — Brand Voice Guide</strong></p>
+                <br>
+                <p><strong>Who We Are:</strong><br>
+                Family-owned renovation company in St. Albert, AB. Est. 2018. Specializing in kitchen and bathroom renovations for homeowners.</p>
+                <br>
+                <p><strong>Our Voice:</strong></p>
+                <p>• Warm but professional. We're the neighbour you trust with your house keys.<br>
+                • No jargon. "We'll replace your countertops" not "countertop substrate remediation."<br>
+                • Always mention our warranty and local roots.</p>
+                <br>
+                <p><strong>Key Differentiators:</strong></p>
+                <p>• 5-year workmanship warranty (longest in St. Albert)<br>
+                • All crews are our employees, not subcontractors<br>
+                • We clean up every day — your family still lives there</p>
+                <br>
+                <p><strong>Target Customer:</strong><br>
+                Homeowners aged 35-55 in St. Albert, Morinville, Spruce Grove. Household income $100K–$180K. Usually triggered by: "We've been meaning to do this for years."</p>
+            </div>
+
+            <!-- Doc 2 -->
+            <div class="doc-preview">
+                <div class="doc-title">📄 Document 2: Services & Pricing 2026</div>
+                <p><strong>EVERGREEN RENOS — Services & Pricing 2026</strong></p>
+                <br>
+                <p><strong>Kitchen Renovations:</strong><br>
+                • Budget refresh (paint, hardware, backsplash): $8,000–$15,000<br>
+                • Mid-range remodel (cabinets, counters, layout): $25,000–$45,000<br>
+                • Full custom kitchen: $50,000–$80,000</p>
+                <br>
+                <p><strong>Bathroom Renovations:</strong><br>
+                • Tub-to-shower conversion: $6,000–$10,000<br>
+                • Full bathroom remodel: $15,000–$30,000<br>
+                • Ensuite luxury build: $30,000–$50,000</p>
+                <br>
+                <p><strong>All quotes include:</strong> Free in-home consultation, 3D design rendering, 5-year workmanship warranty, dedicated project manager.</p>
+                <br>
+                <p><strong>Spring Promo (March–May 2026):</strong> Book before May 1 → Free 3D rendering upgrade (value $500)</p>
+            </div>
+
+            <!-- Doc 3 -->
+            <div class="doc-preview">
+                <div class="doc-title">📄 Document 3: Best-Performing Email</div>
+                <p><strong>Subject: Your kitchen deserves better than 2005</strong></p>
+                <br>
+                <p>Hi [First Name],</p>
+                <br>
+                <p>That kitchen you keep meaning to update? The one with the oak cabinets and the tile you've hated since you moved in?</p>
+                <br>
+                <p>We get it. Life's busy. But here's the thing — spring is the best time to start a kitchen reno, and we just opened up our March–May schedule.</p>
+                <br>
+                <p>Right now, if you book a free consultation before May 1, we'll include a full 3D design rendering at no charge. That means you'll see your new kitchen before we swing a single hammer.</p>
+                <br>
+                <p>We're Dave and Maria, and we've been renovating St. Albert kitchens for 8 years. Every one of our crew members is a full-time Evergreen employee — no random subs showing up at your door.</p>
+                <br>
+                <p>Want to see what's possible? Reply to this email or call us at 780-555-0172.</p>
+                <br>
+                <p>— Dave & Maria, Evergreen Renos<br>
+                <em>"The neighbours you trust with your house keys"</em></p>
+            </div>
+
+            <!-- System Instructions -->
+            <div class="doc-preview" style="border-color: var(--coral); border-width: 2px;">
+                <div class="doc-title" style="color: var(--coral);">⚙️ Gemini Project System Instructions</div>
+                <p style="font-family: 'Courier New', monospace; font-size: 0.88em; line-height: 1.7;">You are the marketing assistant for Evergreen Renos, a family-owned kitchen and bathroom renovation company in St. Albert, Alberta.<br><br>
+                Your role: Create on-brand marketing content including social media posts, emails, blog outlines, ad copy, and client communications.<br><br>
+                Rules:<br>
+                - Always use the warm, jargon-free voice from the Brand Voice Guide<br>
+                - Reference actual services and pricing from the pricing document<br>
+                - Mention the 5-year warranty and "no subcontractors" differentiator naturally<br>
+                - Include seasonal promotions when relevant<br>
+                - Target St. Albert and surrounding communities<br>
+                - Never make up services, pricing, or testimonials</p>
+            </div>
+
+            <!-- Demo Prompts -->
+            <h3 style="font-family:'Fraunces',Georgia,serif; margin-top:30px; margin-bottom:15px;">Copy-Paste Prompts</h3>
+            <div class="rop-note">Have these open in a notes doc during the demo. Copy-paste is faster and less error-prone than live typing.</div>
+
+            <div class="doc-preview">
+                <div class="doc-title">Prompt for the EMPTY Gemini (the generic one)</div>
+                <p style="font-family:'Courier New',monospace; font-size:0.88em;">Write a social media post promoting a kitchen renovation spring special for a renovation company.</p>
+            </div>
+
+            <div class="doc-preview">
+                <div class="doc-title">Prompt 1 — Social Post (in the Project)</div>
+                <p style="font-family:'Courier New',monospace; font-size:0.88em;">Write a social media post promoting our spring kitchen renovation special.</p>
+            </div>
+
+            <div class="doc-preview">
+                <div class="doc-title">Prompt 2 — Follow-Up Email</div>
+                <p style="font-family:'Courier New',monospace; font-size:0.88em;">Write a follow-up email for a homeowner who got a kitchen quote from us 2 weeks ago but hasn't booked. Be warm, not pushy. Mention the spring promo deadline.</p>
+            </div>
+
+            <div class="doc-preview">
+                <div class="doc-title">Prompt 3 — Quick Fire</div>
+                <p style="font-family:'Courier New',monospace; font-size:0.88em;">Give me 5 Google Business Profile post ideas for this month. Keep them short, casual, and seasonal for Alberta spring.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(id, el) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            el.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        const slides = document.querySelectorAll('.slide');
+        const total = slides.length;
+        let cur = 1;
+        document.getElementById('totSlides').textContent = total;
+
+        const dotsC = document.getElementById('slideDots');
+        for (let i = 1; i <= total; i++) {
+            const d = document.createElement('button');
+            d.className = 'slide-dot' + (i===1?' active':'');
+            d.onclick = () => go(i);
+            dotsC.appendChild(d);
+        }
+
+        const titles = ['Title','The Problem','Generic vs Context','The Setup','Social Post','Follow-Up Email','Quick Fire','Takeaway'];
+        const qnC = document.getElementById('quickNavBtns');
+        titles.forEach((t,i) => {
+            const b = document.createElement('button');
+            b.className = 'quick-nav-btn' + (i===0?' active':'');
+            b.textContent = (i+1)+'. '+t;
+            b.onclick = () => go(i+1);
+            qnC.appendChild(b);
+        });
+
+        function upd() {
+            slides.forEach(s => s.classList.remove('active'));
+            document.querySelector(`[data-slide="${cur}"]`).classList.add('active');
+            document.getElementById('curSlide').textContent = cur;
+            document.querySelectorAll('.slide-dot').forEach((d,i) => d.classList.toggle('active',i===cur-1));
+            document.querySelectorAll('.quick-nav-btn').forEach((b,i) => b.classList.toggle('active',i===cur-1));
+            document.getElementById('prevBtn').disabled = cur===1;
+            document.getElementById('nextBtn').disabled = cur===total;
+        }
+        function nextSlide() { if(cur<total){cur++;upd();} }
+        function prevSlide() { if(cur>1){cur--;upd();} }
+        function go(n) { cur=n; upd(); }
+
+        document.addEventListener('keydown', e => {
+            if(document.getElementById('deck').classList.contains('active')) {
+                if(e.key==='ArrowRight'||e.key===' ') nextSlide();
+                else if(e.key==='ArrowLeft') prevSlide();
+            }
+        });
+
+        function toggleSegment(header) {
+            header.nextElementSibling.classList.toggle('collapsed');
+        }
+    </script>
+</body>
+</html>
