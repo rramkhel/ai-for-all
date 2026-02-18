@@ -25,7 +25,7 @@ auth: none
 
 vercel:
   team: ""
-  project: "ai-for-all"
+  project: "sacc-ai-for-all"
 
 supabase:
   project: ""

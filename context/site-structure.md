@@ -3,7 +3,7 @@
 ## Deployment
 
 - **Hosting:** Vercel
-- **URL:** https://ai-for-all.vercel.app
+- **URL:** https://sacc-ai-for-all.vercel.app
 - **Repo:** https://github.com/rramkhel/ai-for-all
 - **Deploy trigger:** Auto-deploy on push to `main`
 
