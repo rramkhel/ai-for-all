@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>Demo A: The Research Assistant — NotebookLM</title>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -12,6 +13,7 @@
             --cream: #f5f5f0;
             --accent: #0f766e;
             --accent-light: #ccfbf1;
+            --accent-dark: #134e4a;
             --warm-gray: #78716c;
             --border: #e7e5e4;
             --highlight: #fef3c7;
@@ -37,7 +39,7 @@
             font-size: 15px;
         }
 
-        /* ── Header ── */
+        /* Header */
         .page-header {
             background: var(--ink);
             color: white;
@@ -65,7 +67,7 @@
             vertical-align: middle;
         }
 
-        /* ── Tabs ── */
+        /* Tabs */
         .tabs-container {
             background: white;
             border-bottom: 1px solid var(--border);
@@ -90,11 +92,10 @@
         .tab:hover { color: var(--ink); background: var(--cream); }
         .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-        /* ── Tab Content ── */
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* ── Presentation ── */
+        /* Presentation */
         .pres-container {
             max-width: 1000px;
             margin: 0 auto;
@@ -138,7 +139,6 @@
             margin-bottom: 30px;
         }
 
-        /* Slide grids */
         .s-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .s-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .s-card {
@@ -257,7 +257,28 @@
         .tl-item.green { background: var(--green-light); border: 1px solid #86efac; }
         .tl-item strong { display: block; margin-bottom: 3px; }
 
-        /* ── Navigation ── */
+        .versus-container {
+            display: grid; grid-template-columns: 1fr auto 1fr; gap: 15px;
+            align-items: stretch; margin: 20px 0;
+        }
+        .versus-label {
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Fraunces', Georgia, serif; font-weight: 700;
+            font-size: 1.3em; color: var(--warm-gray);
+        }
+        .versus-card {
+            border-radius: 10px; padding: 22px;
+        }
+        .versus-card.bad {
+            background: var(--red-light); border: 2px solid #fca5a5;
+        }
+        .versus-card.good {
+            background: var(--green-light); border: 2px solid #86efac;
+        }
+        .versus-card h5 { font-size: 0.9em; margin-bottom: 10px; }
+        .versus-card p { font-size: 0.85em; line-height: 1.6; }
+
+        /* Navigation */
         .slide-nav {
             display: flex;
             justify-content: space-between;
@@ -307,7 +328,7 @@
         .quick-nav-btn:hover { background: var(--cream); color: var(--ink); }
         .quick-nav-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
 
-        /* ── Run of Play ── */
+        /* Run of Play */
         .rop-container {
             max-width: 900px;
             margin: 0 auto;
@@ -462,10 +483,25 @@
         .check-box:hover { border-color: var(--accent); }
         .check-box.checked { background: var(--accent); border-color: var(--accent); }
 
+        .character-card {
+            background: var(--accent-light);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        .character-card h4 {
+            font-family: 'Fraunces', Georgia, serif;
+            color: var(--accent-dark);
+            margin-bottom: 10px;
+        }
+        .character-card p { font-size: 0.9em; color: #57534e; margin: 5px 0; }
+
         @media (max-width: 768px) {
             .page-header { padding: 20px; flex-direction: column; gap: 8px; }
             .slide-wrapper { padding: 25px; min-height: auto; }
-            .s-grid-3, .s-grid-2 { grid-template-columns: 1fr; }
+            .s-grid-3, .s-grid-2, .versus-container { grid-template-columns: 1fr; }
+            .versus-label { padding: 5px 0; }
             .s-hero-box .stat-row { flex-direction: column; gap: 10px; }
             .rop-meta { flex-direction: column; }
             .traffic-light-mini { flex-direction: column; }
@@ -481,224 +517,239 @@
 <body>
     <div class="page-header">
         <div>
-            <h1>Demo A: The Research Assistant <span>— NotebookLM</span><span class="header-badge">Construction Focus</span></h1>
+            <h1>Demo A: The Research Assistant <span>— NotebookLM</span><span class="header-badge">Birchwood Builders</span></h1>
         </div>
-        <div class="header-meta">Session 1 • February 24, 2026 • Lead: Rachel</div>
+        <div class="header-meta">Session 1 | February 24, 2026 | Lead: Rachel</div>
     </div>
 
     <div class="tabs-container">
         <div class="tabs">
-            <div class="tab active" onclick="showTab('deck', this)">📽️ Pitch Deck</div>
-            <div class="tab" onclick="showTab('rop', this)">📋 Run-of-Play</div>
+            <div class="tab active" onclick="showTab('deck', this)">Pitch Deck</div>
+            <div class="tab" onclick="showTab('rop', this)">Run-of-Play</div>
         </div>
     </div>
 
-    <!-- ═══════════════════════════════════ -->
-    <!-- TAB 1: PITCH DECK                   -->
-    <!-- ═══════════════════════════════════ -->
+    <!-- TAB 1: PITCH DECK -->
     <div id="deck" class="tab-content active">
         <div class="pres-container">
             <div class="pres-header">
                 <div>
                     <h4>Demo A: The Research Assistant</h4>
-                    <p>NotebookLM — Construction Sector</p>
+                    <p>NotebookLM | Birchwood Builders | Construction Sector</p>
                 </div>
-                <div class="slide-counter">Slide <span id="curSlide">1</span> / <span id="totSlides">7</span></div>
+                <div class="slide-counter">Slide <span id="curSlide">1</span> / <span id="totSlides">8</span></div>
             </div>
 
             <div class="slide-wrapper">
                 <!-- SLIDE 1: Title -->
                 <div class="slide active" data-slide="1">
-                    <div style="text-align:center; padding-top:30px;">
-                        <div style="font-size:3.5em; margin-bottom:20px;">📚</div>
+                    <div style="text-align:center; padding-top:20px;">
+                        <div style="font-size:3.5em; margin-bottom:20px;">&#128218;</div>
                         <h2 class="slide-title" style="font-size:2.4em;">The Research Assistant</h2>
-                        <p class="slide-subtitle" style="font-size:1.2em;">NotebookLM — "Get an audio briefing on new-hire obligations while you drive between sites"</p>
+                        <p class="slide-subtitle" style="font-size:1.2em;">NotebookLM | "Get answers from your 90-page compliance doc in 8 seconds"</p>
                         <div class="s-grid-3" style="margin-top:35px;">
                             <div class="s-card" style="text-align:center;">
-                                <div class="icon">🔍</div>
-                                <h5>Ask Questions</h5>
-                                <p>Get instant answers with citations</p>
+                                <div class="icon">&#128269;</div>
+                                <h5>Scenario 1: Quick Answer</h5>
+                                <p>Upload 1 doc, ask 1 question, get cited answers</p>
                             </div>
                             <div class="s-card accent" style="text-align:center;">
-                                <div class="icon">📄</div>
-                                <h5>Multiple Outputs</h5>
-                                <p>FAQs, briefings, study guides</p>
+                                <div class="icon">&#128196;</div>
+                                <h5>Scenario 2: Deep Dive</h5>
+                                <p>Cross-reference multiple docs for RFP responses</p>
                             </div>
                             <div class="s-card highlight" style="text-align:center;">
-                                <div class="icon">🎧</div>
-                                <h5>Audio Podcast</h5>
-                                <p>Listen on your commute</p>
+                                <div class="icon">&#127911;</div>
+                                <h5>Scenario 3: Power User</h5>
+                                <p>Audio briefings, mind maps, FAQs from your docs</p>
                             </div>
                         </div>
-                        <p style="margin-top:30px; color:var(--warm-gray); font-size:0.9em;">Free tool — no subscription required</p>
+                        <p style="margin-top:30px; color:var(--warm-gray); font-size:0.9em;">Free tool from Google | No subscription required</p>
                     </div>
                 </div>
 
-                <!-- SLIDE 2: The Problem -->
+                <!-- SLIDE 2: Meet Steve -->
                 <div class="slide" data-slide="2">
-                    <h2 class="slide-title">The Problem</h2>
-                    <p class="slide-subtitle">"I have too much to read and not enough hours"</p>
+                    <h2 class="slide-title">Meet Steve Makara</h2>
+                    <p class="slide-subtitle">Birchwood Builders Ltd. | St. Albert, AB</p>
 
                     <div class="s-hero-box">
-                        <h3>Sound Familiar?</h3>
-                        <p>You're a contractor. You just received a 90-page Alberta Employment Standards update. You need to know what affects your crew's overtime — by tomorrow morning.</p>
+                        <h3>The Problem Every Contractor Knows</h3>
+                        <p>Steve runs a 12-person residential renovation company. His projects range from $25K kitchens to $120K additions. He just received a 90-page Alberta Employment Standards update. One of his crew members is asking about injury coverage. Steve has a client walkthrough in 20 minutes.</p>
                         <div class="stat-row">
                             <div class="stat"><strong>90+</strong><span>Pages of regulations</span></div>
-                            <div class="stat"><strong>15%</strong><span>Survey: "too much to read"</span></div>
-                            <div class="stat"><strong>$300/hr</strong><span>To ask your lawyer</span></div>
+                            <div class="stat"><strong>3-4 hrs</strong><span>Per RFP response</span></div>
+                            <div class="stat"><strong>$300/hr</strong><span>To call the lawyer</span></div>
                         </div>
                     </div>
 
                     <div class="script-note">
-                        <strong>💬 Say:</strong> "Show of hands — who's ever had to read a government compliance document cover to cover? Right. Now imagine you could just <em>ask</em> it questions."
+                        <strong>Say:</strong> "Show of hands | who's ever had to read a government compliance document cover to cover? Right. Steve doesn't have time for that. He needs an answer in the next 10 minutes."
                     </div>
                 </div>
 
-                <!-- SLIDE 3: The Magic — Upload & Ask -->
+                <!-- SLIDE 3: Scenario 1 - Quick Answer -->
                 <div class="slide" data-slide="3">
-                    <h2 class="slide-title">Step 1: Upload & Ask</h2>
-                    <p class="slide-subtitle">30 seconds to set up. Instant answers with citations.</p>
+                    <h2 class="slide-title">Scenario 1: The Quick Answer</h2>
+                    <p class="slide-subtitle">Upload one document. Ask one question. Get a cited answer.</p>
 
                     <div class="demo-live-box">
-                        <div class="demo-icon">📂 → 🤖</div>
+                        <div class="demo-icon">&#128194; &#8594; &#129302;</div>
                         <h4>LIVE DEMO</h4>
-                        <p>Upload: Alberta Employment Standards Code + OH&S Act + Sample RFP</p>
-                        <div class="demo-badge-tag">Drag. Drop. Done.</div>
-                    </div>
-
-                    <div style="background: var(--accent-light); border-radius: 8px; padding: 12px 18px; margin: 15px 0; font-size: 0.88em;">
-                        <strong>📎 Source Documents:</strong>
-                        <a href="https://kings-printer.alberta.ca/documents/Acts/E09.pdf" target="_blank" style="color: var(--accent); margin-left: 8px;">Employment Standards Code (PDF)</a> •
-                        <a href="https://www.alberta.ca/employment-standards-publications" target="_blank" style="color: var(--accent); margin-left: 4px;">Employer Toolkit & Publications</a> •
-                        <a href="https://www.alberta.ca/employment-standards" target="_blank" style="color: var(--accent); margin-left: 4px;">alberta.ca/employment-standards</a>
+                        <p>NotebookLM with Alberta Employment Standards Code uploaded</p>
+                        <div class="demo-badge-tag">Drag. Drop. Ask.</div>
                     </div>
 
                     <div style="margin-top:25px;">
-                        <p style="font-weight:600; margin-bottom:8px;">Prompt 1 — The practical hit:</p>
-                        <div class="prompt-box">What are the rules for overtime pay and overtime banking for construction workers in Alberta? Give me the key points I need to know as an employer.</div>
-                        <div class="script-note">
-                            <strong>💬 Say:</strong> "See those little citation numbers? It's telling me exactly which section of the code it pulled from. I can click and verify. This isn't AI guessing — this is grounded in YOUR document."
+                        <p style="font-weight:600; margin-bottom:8px;">Steve's question:</p>
+                        <div class="prompt-box">What are an employer's obligations when a construction worker is injured on the job in Alberta? What's covered under WCB vs. what I need to handle as the employer?</div>
+                    </div>
+
+                    <div class="script-note">
+                        <strong>Say:</strong> "See those little citation numbers? Click one. It takes you right to the section in the actual document. This isn't AI guessing | it's grounded in Steve's document. 8 seconds. And he can verify every word."
+                    </div>
+                </div>
+
+                <!-- SLIDE 4: The Contrast -->
+                <div class="slide" data-slide="4">
+                    <h2 class="slide-title">The Contrast</h2>
+                    <p class="slide-subtitle">Same AI, same question | completely different results</p>
+
+                    <div class="versus-container">
+                        <div class="versus-card bad">
+                            <h5>Without Documents (Generic LLM)</h5>
+                            <p style="font-style:italic; color:#991b1b;">"In Alberta, employers generally have obligations under the Workers' Compensation Board. When an employee is injured, you should report the injury and ensure they receive medical attention. WCB typically covers workplace injuries..."</p>
+                            <p style="margin-top:10px; font-size:0.82em; color:#991b1b;">Generic. No citations. Possibly outdated. Could be wrong.</p>
+                        </div>
+                        <div class="versus-label">vs.</div>
+                        <div class="versus-card good">
+                            <h5>With NotebookLM (Your Documents)</h5>
+                            <p style="font-style:italic; color:#166534;">"Under Section 87.1 of the Employment Standards Code, employers must [specific obligation]. Additionally, per Part 4, Division 2 of the OH&S Act [citation]..."</p>
+                            <p style="margin-top:10px; font-size:0.82em; color:#166534;">Specific. Cited. Verifiable. Based on YOUR documents.</p>
+                        </div>
+                    </div>
+
+                    <div class="script-note">
+                        <strong>Say:</strong> "This is what we mean by 'fuel.' Same engine, completely different results. On the left, it's driving on empty. On the right, we gave it Steve's actual compliance documents."
+                    </div>
+                </div>
+
+                <!-- SLIDE 5: Scenario 2 - Deep Dive -->
+                <div class="slide" data-slide="5">
+                    <h2 class="slide-title">Scenario 2: The Deep Dive</h2>
+                    <p class="slide-subtitle">Cross-reference multiple documents for complex tasks</p>
+
+                    <div class="s-hero-box" style="background: linear-gradient(135deg, var(--accent) 0%, #065f46 100%);">
+                        <h3>Thursday Evening: Steve Has an RFP to Respond To</h3>
+                        <p>City of St. Albert renovation project. 30 pages of requirements. Steve needs to cross-reference against the OH&S Act for safety compliance. Last time, this took an entire weekend.</p>
+                    </div>
+
+                    <p style="font-weight:600; margin-bottom:8px;">Steve adds 2 more documents, then asks:</p>
+                    <div class="prompt-box">Based on the RFP requirements and the OH&S Act, what safety certifications and documentation does Birchwood Builders need to have in place before submitting this bid? Summarize the requirements in a checklist I can hand to my site supervisor.</div>
+
+                    <div class="s-grid-2" style="margin-top:20px;">
+                        <div class="s-card">
+                            <h5>Before NotebookLM</h5>
+                            <p>Print both docs. Highlight manually. Cross-reference by hand. Weekend gone.</p>
+                        </div>
+                        <div class="s-card accent">
+                            <h5>With NotebookLM</h5>
+                            <p>Upload. Ask. Get a checklist that pulls from BOTH documents. 2 minutes.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- SLIDE 4: The "I Didn't Know That" -->
-                <div class="slide" data-slide="4">
-                    <h2 class="slide-title">Step 2: Go Deeper</h2>
-                    <p class="slide-subtitle">The kind of question you'd normally call your lawyer for</p>
+                <!-- SLIDE 6: Scenario 3 - Power User -->
+                <div class="slide" data-slide="6">
+                    <h2 class="slide-title">Scenario 3: The Power User</h2>
+                    <p class="slide-subtitle">Steve's notebook becomes his compliance brain</p>
 
-                    <p style="font-weight:600; margin-bottom:8px;">Prompt 2 — The tricky one:</p>
-                    <div class="prompt-box">If I have an employee who works on a statutory holiday, what am I required to pay them? Are there exceptions for small businesses?</div>
+                    <div class="demo-live-box" style="background: linear-gradient(135deg, var(--accent) 0%, #065f46 100%);">
+                        <div class="demo-icon">&#127911;</div>
+                        <h4>JEFF'S FULL NOTEBOOK</h4>
+                        <p>10+ documents | Multiple output formats | This is what "a few weeks in" looks like</p>
+                        <div class="demo-badge-tag" style="background: white; color: var(--accent);">Audio Briefing | Mind Map | FAQ | Study Guide</div>
+                    </div>
 
-                    <div class="script-note">
-                        <strong>💬 Say:</strong> "Hands up if you knew the answer to that before I asked. Yeah — me neither. That took 10 seconds instead of a 45-minute phone call."
+                    <div class="s-grid-2" style="margin-top:25px;">
+                        <div class="s-card highlight">
+                            <div class="icon">&#127911;</div>
+                            <h5>Audio Briefing</h5>
+                            <p>"Generate a podcast-style overview of the new overtime banking rules." Steve listens on his drive between job sites.</p>
+                        </div>
+                        <div class="s-card blue">
+                            <div class="icon">&#128065;</div>
+                            <h5>Mind Map</h5>
+                            <p>"Create a visual map of all safety compliance requirements." See how regulations connect.</p>
+                        </div>
+                        <div class="s-card purple">
+                            <div class="icon">&#10067;</div>
+                            <h5>FAQ / Study Guide</h5>
+                            <p>"Generate an FAQ I can give to new hires about their rights and obligations." Instant onboarding material.</p>
+                        </div>
+                        <div class="s-card">
+                            <div class="icon">&#128203;</div>
+                            <h5>Briefing Document</h5>
+                            <p>"Summarize everything that affects residential renovation projects." Board-ready summary.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SLIDE 7: Tool Agnostic -->
+                <div class="slide" data-slide="7">
+                    <h2 class="slide-title">The Principle, Not Just the Tool</h2>
+                    <p class="slide-subtitle">This works across AI tools | NotebookLM is just one option</p>
+
+                    <div class="s-hero-box" style="background: linear-gradient(135deg, var(--accent) 0%, var(--blue) 100%);">
+                        <h3>Give AI Your Documents = Stop Driving on Empty</h3>
+                        <p>The same documents that made NotebookLM useful can power Claude, ChatGPT, or Gemini. Upload your context, and AI goes from a random intern to a research assistant who's read everything.</p>
+                    </div>
+
+                    <div class="agnostic-box">
+                        <h5>This Works Across Tools</h5>
+                        <p><strong>NotebookLM</strong> | Free, best citation system, unique podcast feature. Great starting point.<br>
+                        <strong>Claude</strong> | Upload PDFs directly, strong at nuanced analysis and longer documents.<br>
+                        <strong>ChatGPT</strong> | File upload in all tiers, integrates with the Projects feature (Demo C).<br>
+                        <strong>Gemini</strong> | Connects with Google Drive natively, great for Google Workspace users.</p>
+                        <p style="margin-top:10px; font-weight:600; color:var(--blue);">The key is the same: give it your context, and it stops guessing.</p>
+                    </div>
+                </div>
+
+                <!-- SLIDE 8: Safety + Close -->
+                <div class="slide" data-slide="8">
+                    <h2 class="slide-title">Before You Upload Everything...</h2>
+                    <p class="slide-subtitle">Quick safety reminder from Jeff's framework</p>
+
+                    <div class="traffic-light-mini" style="margin-top:20px;">
+                        <div class="tl-item green"><strong>Green Light | Upload Freely</strong>Public docs, compliance regs, templates, general guides. The Employment Standards Code? Green.</div>
+                        <div class="tl-item yellow"><strong>Yellow | Anonymize First</strong>Client contracts, strategic plans, internal processes. Strip names and sensitive details first.</div>
+                        <div class="tl-item red"><strong>Red | Never Upload</strong>Client PII, financial records, passwords, banking info. Never.</div>
                     </div>
 
                     <div class="s-grid-2" style="margin-top:25px;">
                         <div class="s-card">
-                            <h5>🕐 Before NotebookLM</h5>
-                            <p>Ctrl+F through a PDF. Hope you didn't miss anything. Call the lawyer if you're still unsure. 2-3 hours.</p>
+                            <h5>What Steve Learned</h5>
+                            <p><strong>Level 1:</strong> Upload 1 doc, ask 1 question | "I can do this right now"<br>
+                            <strong>Level 2:</strong> Cross-reference multiple docs | "This saves me hours"<br>
+                            <strong>Level 3:</strong> Full knowledge base + audio | "This changes how I run my business"</p>
                         </div>
                         <div class="s-card accent">
-                            <h5>✅ With NotebookLM</h5>
-                            <p>Ask in plain English. Get cited answer. Verify the source. 10 seconds.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SLIDE 5: Multiple Output Styles -->
-                <div class="slide" data-slide="5">
-                    <h2 class="slide-title">Step 3: Choose Your Format</h2>
-                    <p class="slide-subtitle">Same document, different output — whatever works for you</p>
-
-                    <div class="s-grid-2">
-                        <div class="s-card">
-                            <div class="icon">❓</div>
-                            <h5>FAQ</h5>
-                            <p>"Generate an FAQ from this document" → Instant reference you could hand to new hires on day one.</p>
-                        </div>
-                        <div class="s-card blue">
-                            <div class="icon">📝</div>
-                            <h5>Briefing Document</h5>
-                            <p>"Summarize employer obligations" → A one-pager you could print and pin in the site trailer.</p>
-                        </div>
-                        <div class="s-card purple">
-                            <div class="icon">📖</div>
-                            <h5>Study Guide</h5>
-                            <p>Deep-dive for when you need to actually understand the nuances. Great for training new PMs.</p>
-                        </div>
-                        <div class="s-card highlight">
-                            <div class="icon">🎧</div>
-                            <h5>Audio Podcast</h5>
-                            <p>NotebookLM generates a conversational audio briefing from your documents. Ask it to focus on a specific topic — like "new employee onboarding rules" — and listen on your drive between sites. <strong>Up next →</strong></p>
+                            <h5>Start Tonight</h5>
+                            <p>Pick one compliance document you've been avoiding. Upload it to NotebookLM. Ask it one question. See what happens.</p>
                         </div>
                     </div>
 
                     <div class="script-note">
-                        <strong>💬 Say:</strong> "Not everyone processes information the same way. Some of you want a quick FAQ. Some want the full deep dive. NotebookLM gives you both — from the same source."
-                    </div>
-                </div>
-
-                <!-- SLIDE 6: The WOW — Podcast -->
-                <div class="slide" data-slide="6">
-                    <h2 class="slide-title">The WOW: Audio Podcast</h2>
-                    <p class="slide-subtitle">"Your 8-minute briefing for the drive between sites"</p>
-
-                    <div class="demo-live-box" style="background: linear-gradient(135deg, var(--accent) 0%, #065f46 100%);">
-                        <div class="demo-icon">🎧</div>
-                        <h4>▶️ PLAY AUDIO BRIEFING (45-60 seconds)</h4>
-                        <p>Topic: "What are my obligations as an employer for a new hire's first 90 days?"</p>
-                        <div class="demo-badge-tag" style="background: white; color: var(--accent);">Pre-generated — have backup ready</div>
-                    </div>
-
-                    <div class="script-note" style="margin-top:25px;">
-                        <strong>💬 Say (after pausing audio):</strong> "Imagine this — you're driving from your morning site in Spruce Grove to a walkthrough in St. Albert. Your new hire starts Monday. Instead of pulling over to Google it or calling your lawyer at $300 an hour, you tap play on this 8-minute briefing. Probation rules, break requirements, overtime calculations, holiday pay — all covered before you park the truck."
-                    </div>
-
-                    <div class="s-grid-2" style="margin-top:20px;">
-                        <div class="s-card">
-                            <h5>⏱️ Demo Tip</h5>
-                            <p>Pre-generate the briefing the night before — ask NotebookLM to focus the Audio Overview on "new employee onboarding obligations for Alberta employers." Pick a 45-60 second section that's engaging and specific.</p>
-                        </div>
-                        <div class="s-card accent">
-                            <h5>🎯 Why This Lands</h5>
-                            <p>Everyone in the room has been stuck in a truck needing an answer they can't look up. The scenario is visceral. They'll remember "I could have had that as an audio briefing" long after the session.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SLIDE 7: Landing + LLM Agnostic -->
-                <div class="slide" data-slide="7">
-                    <h2 class="slide-title">The Takeaway</h2>
-                    <p class="slide-subtitle">The principle, not just the tool</p>
-
-                    <div class="s-hero-box" style="background: linear-gradient(135deg, var(--accent) 0%, var(--blue) 100%);">
-                        <h3>Give AI Your Documents = Stop Driving on Empty</h3>
-                        <p>This is what happens when you use the <strong>fuel</strong> Jeff talked about. Upload your actual documents, and AI goes from a random intern to a research assistant who's read everything.</p>
-                    </div>
-
-                    <div class="agnostic-box">
-                        <h5>🔄 This Works Across Tools</h5>
-                        <p><strong>NotebookLM</strong> — Free, best citation system, unique podcast feature. Great starting point.<br>
-                        <strong>Claude</strong> — Upload PDFs directly, strong at nuanced analysis and longer documents.<br>
-                        <strong>ChatGPT</strong> — File upload in all tiers, integrates with the Projects feature from Demo C.<br>
-                        <strong>Gemini</strong> — Connects with Google Drive natively, great if you're already in Google Workspace.</p>
-                        <p style="margin-top:10px; font-weight:600; color:var(--blue);">The principle is the same: give AI your context, and it stops guessing.</p>
-                    </div>
-
-                    <div class="traffic-light-mini" style="margin-top:20px;">
-                        <div class="tl-item green"><strong>🟢 Upload Freely</strong>Public docs, compliance regs, templates, general guides</div>
-                        <div class="tl-item yellow"><strong>🟡 Anonymize First</strong>Strategic plans, internal processes — strip names and sensitive details</div>
-                        <div class="tl-item red"><strong>🔴 Never Upload</strong>Client PII, financial records, passwords, banking info</div>
+                        <strong>Transition:</strong> "Steve's research problem is solved. But what about the spreadsheet he's been avoiding all week? Jeff, take it away."
                     </div>
                 </div>
             </div>
 
             <!-- Nav -->
             <div class="slide-nav">
-                <button class="nav-btn prev" onclick="prevSlide()" id="prevBtn" disabled>← Previous</button>
+                <button class="nav-btn prev" onclick="prevSlide()" id="prevBtn" disabled>Previous</button>
                 <div class="slide-dots" id="slideDots"></div>
-                <button class="nav-btn next" onclick="nextSlide()" id="nextBtn">Next →</button>
+                <button class="nav-btn next" onclick="nextSlide()" id="nextBtn">Next</button>
             </div>
             <div class="quick-nav">
                 <div class="quick-nav-title">Quick Navigation:</div>
@@ -707,172 +758,162 @@
         </div>
     </div>
 
-    <!-- ═══════════════════════════════════ -->
-    <!-- TAB 2: RUN-OF-PLAY                  -->
-    <!-- ═══════════════════════════════════ -->
+    <!-- TAB 2: RUN-OF-PLAY -->
     <div id="rop" class="tab-content">
         <div class="rop-container">
             <h2 class="rop-title">Run-of-Play: Demo A</h2>
-            <p class="rop-subtitle">NotebookLM — Construction Sector • ~15 minutes</p>
+            <p class="rop-subtitle">NotebookLM | Birchwood Builders | ~15 minutes</p>
 
             <div class="rop-meta">
                 <div class="rop-meta-item"><span>Lead</span><strong>Rachel</strong></div>
                 <div class="rop-meta-item"><span>Duration</span><strong>~15 minutes</strong></div>
-                <div class="rop-meta-item"><span>Position</span><strong>1st demo (after Safety)</strong></div>
+                <div class="rop-meta-item"><span>Position</span><strong>1st demo (after Safety section)</strong></div>
                 <div class="rop-meta-item"><span>Transition From</span><strong>Jeff (Safety section)</strong></div>
             </div>
 
-            <div style="background: white; border: 2px solid var(--accent); border-radius: 10px; padding: 25px; margin-bottom: 25px;">
-                <h4 style="font-family: 'Fraunces', Georgia, serif; color: var(--accent); margin-bottom: 15px;">📖 Demo Overview</h4>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
-                    <div>
-                        <p style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--warm-gray); margin-bottom: 6px; font-weight: 600;">What This Demo Does</p>
-                        <p style="font-size: 0.9em; margin: 0;">Shows how to upload long, complex documents into NotebookLM and get instant, cited answers — plus convert them into FAQs, briefing documents, and audio briefings you can listen to on the go.</p>
-                    </div>
-                    <div>
-                        <p style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--warm-gray); margin-bottom: 6px; font-weight: 600;">Content Used</p>
-                        <p style="font-size: 0.9em; margin: 0;">Alberta Employment Standards Code (public PDF), Alberta OH&S Act, and a sample municipal RFP — all publicly available, construction-relevant documents the audience will recognize.</p>
-                    </div>
-                    <div>
-                        <p style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--warm-gray); margin-bottom: 6px; font-weight: 600;">Skills & Takeaways</p>
-                        <ul style="font-size: 0.9em; margin: 0; padding-left: 18px;">
-                            <li>Upload documents to an AI tool (the "fuel" concept)</li>
-                            <li>Ask specific questions and verify cited answers</li>
-                            <li>Generate multiple output formats from the same source</li>
-                            <li>Understand which documents are safe to upload (Green/Yellow/Red)</li>
-                            <li>Recognize that this principle applies across LLMs, not just NotebookLM</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="character-card">
+                <h4>Character: Steve Makara | Birchwood Builders Ltd.</h4>
+                <p><strong>Business:</strong> 12-person residential renovation company, St. Albert, AB</p>
+                <p><strong>Projects:</strong> $25K-$120K (kitchens, basements, additions)</p>
+                <p><strong>Pain points:</strong> Drowning in compliance docs, RFPs take entire weekends, evenings lost to admin</p>
+                <p><strong>Story arc:</strong> Starts skeptical, ends converted. We scaffold his AI use from zero to expert across 3 scenarios.</p>
             </div>
 
             <div class="prep-checklist">
-                <h4>📋 Prep Checklist</h4>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Create NotebookLM notebook: "Construction Compliance Hub"</span></div>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Upload: Alberta Employment Standards Code (<a href="https://kings-printer.alberta.ca/documents/Acts/E09.pdf" target="_blank">download PDF</a>)</span></div>
+                <h4>Prep Checklist</h4>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Create NotebookLM notebook: "Birchwood Builders | Compliance Hub"</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Upload: Alberta Employment Standards Code (<a href="https://kings-printer.alberta.ca/documents/Acts/E09.pdf" target="_blank">PDF</a>)</span></div>
                 <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Upload: Alberta OH&S Act, Parts 1-3</span></div>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Upload: Public municipal RFP (e.g., from City of St. Albert)</span></div>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Bookmark: <a href="https://www.alberta.ca/employment-standards-publications" target="_blank">Alberta Employment Standards Publications page</a> for additional source documents</span></div>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Pre-generate Audio Briefing — focus on "new employee onboarding obligations for Alberta employers" (night before)</span></div>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Pick 45-60 second clip where hosts discuss a specific obligation (e.g., overtime rules for new hires)</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Upload: Sample municipal RFP (source or create realistic one)</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Verify Jeff's notebook link works: <a href="https://notebooklm.google.com/notebook/18779246-5c6d-4d96-89a7-5354f650e52e?authuser=1" target="_blank">Jeff's Notebook</a></span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Pre-generate audio briefing in Jeff's notebook (night before)</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Have generic LLM tab open for 45-sec contrast moment</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Prompts in notes doc for copy-paste</span></div>
                 <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Screenshot key moments as backup</span></div>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Prepare prompts in a notes doc for copy-paste</span></div>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Record screen backup of full demo (WiFi insurance)</span></div>
             </div>
 
-            <!-- Segment 1 -->
+            <!-- Segment 1: Hook -->
             <div class="rop-segment">
                 <div class="rop-seg-header" onclick="toggleSegment(this)">
-                    <h4>📢 Transition + Setup</h4>
-                    <div class="rop-seg-time">0:00 – 2:00</div>
+                    <h4>Hook + Meet Steve</h4>
+                    <div class="rop-seg-time">0:00 - 1:00</div>
                 </div>
                 <div class="rop-seg-body">
                     <div class="rop-note">Jeff hands off: "Rachel's going to show you something that'll change how you deal with every long document in your business."</div>
                     <div class="rop-script">
-                        "Show of hands — who's ever had to read a government compliance document cover to cover?"<br><br>
+                        "Show of hands | who's ever had to read a government compliance document cover to cover?"<br><br>
                         <em>(wait for groans)</em><br><br>
-                        "Right. So here's what I did. I took the Alberta Employment Standards Code — all 90-something pages of it — and uploaded it into a free tool called NotebookLM. Took me about 30 seconds. Drag, drop, done. Now watch what happens."
+                        "Meet Steve. He runs Birchwood Builders | a 12-person reno company here in St. Albert. He just got a 90-page Employment Standards update, and one of his guys is asking about injury coverage. Steve has a client walkthrough in 20 minutes. Sound familiar?"
                     </div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show the notebook on screen — uploaded sources visible</span></div>
                 </div>
             </div>
 
-            <!-- Segment 2 -->
+            <!-- Segment 2: Scenario 1 -->
             <div class="rop-segment">
                 <div class="rop-seg-header" onclick="toggleSegment(this)">
-                    <h4>🔍 Question 1 — The Practical Hit</h4>
-                    <div class="rop-seg-time">2:00 – 5:00</div>
+                    <h4>Scenario 1: The Quick Answer</h4>
+                    <div class="rop-seg-time">1:00 - 3:30</div>
                 </div>
                 <div class="rop-seg-body">
-                    <div class="rop-script">"Let's say I'm a contractor and I just hired a new apprentice. I need to know: what are my obligations for overtime?"</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>Open NotebookLM</strong> with Employment Standards Code already uploaded</span></div>
+                    <div class="rop-script">"So here's what I did. I took the Alberta Employment Standards Code | all 90-something pages | and uploaded it into NotebookLM. Free tool from Google. Took 30 seconds. Watch what happens."</div>
                     <p style="font-weight:600; font-size:0.9em; margin:10px 0 5px;">Type this prompt:</p>
-                    <div class="rop-prompt">What are the rules for overtime pay and overtime banking for construction workers in Alberta? Give me the key points I need to know as an employer.</div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show the response — point to the citation numbers</span></div>
+                    <div class="rop-prompt">What are an employer's obligations when a construction worker is injured on the job in Alberta? What's covered under WCB vs. what I need to handle as the employer?</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Point to the citation numbers</span></div>
                     <div class="rop-action"><div class="rop-action-dot"></div><span>Click a citation to show source verification</span></div>
-                    <div class="rop-script">"See those little numbers? Those are citations — it's telling me exactly which section it pulled from. I can click and verify. This isn't ChatGPT guessing — this is grounded in YOUR document."</div>
+                    <div class="rop-script">"See those little numbers? Those are citations | it's telling me exactly which section it pulled from. I can click and verify. This isn't AI guessing | this is grounded in YOUR document. <strong>8 seconds.</strong> And he can verify every word."</div>
                 </div>
             </div>
 
-            <!-- Segment 3 -->
+            <!-- Segment 3: The Contrast -->
             <div class="rop-segment">
                 <div class="rop-seg-header" onclick="toggleSegment(this)">
-                    <h4>🧠 Question 2 — "I Didn't Know That"</h4>
-                    <div class="rop-seg-time">5:00 – 8:00</div>
+                    <h4>The Contrast (45 sec max)</h4>
+                    <div class="rop-seg-time">3:30 - 4:15</div>
                 </div>
                 <div class="rop-seg-body">
-                    <div class="rop-script">"Now let me ask something trickier — the kind of thing you'd normally have to call your lawyer about."</div>
-                    <div class="rop-prompt">If I have an employee who works on a statutory holiday, what am I required to pay them? Are there exceptions for small businesses?</div>
-                    <div class="rop-script">"Hands up if you knew the answer to that before I asked. Yeah — me neither. And this took 10 seconds instead of a 45-minute phone call."</div>
+                    <div class="rop-note">Brief visual comparison | don't dwell. The scenarios themselves demonstrate the progression more powerfully.</div>
+                    <div class="rop-script">"Now here's the same question in a generic LLM | no documents uploaded..."</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show pre-prepared generic LLM answer (vague, no citations, possibly wrong)</span></div>
+                    <div class="rop-script">"Generic. No citations. Could be outdated. Could be wrong. Now flip back to NotebookLM..."</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show NotebookLM cited answer again</span></div>
+                    <div class="rop-script">"<strong>This is what we mean by 'fuel.'</strong> Same engine, completely different results."</div>
                 </div>
             </div>
 
-            <!-- Segment 4 -->
+            <!-- Segment 4: Scenario 2 -->
             <div class="rop-segment">
                 <div class="rop-seg-header" onclick="toggleSegment(this)">
-                    <h4>📄 Multiple Output Styles</h4>
-                    <div class="rop-seg-time">8:00 – 11:00</div>
+                    <h4>Scenario 2: The Deep Dive (RFP Cross-Reference)</h4>
+                    <div class="rop-seg-time">4:15 - 7:30</div>
                 </div>
                 <div class="rop-seg-body">
-                    <div class="rop-script">"Not everyone processes information the same way. Watch this."</div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>FAQ:</strong> "Generate an FAQ from this document" → show the instant output</span></div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>Briefing Doc:</strong> "Create a briefing summarizing employer obligations" → a printable one-pager</span></div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>Study Guide:</strong> Briefly show it exists — don't dwell</span></div>
-                    <div class="rop-script">"Same compliance document, but now it's in whatever format works for you — a quick-reference FAQ you could hand to new hires, a printable briefing for the office, or a deep-dive study guide."</div>
+                    <div class="rop-script">"Now it's Thursday evening. Steve's sitting at the kitchen table trying to respond to an RFP from the City of St. Albert. 30 pages of requirements he needs to cross-reference against the OH&S Act. Last time he bid on one of these, he spent an entire weekend on it. His wife is not impressed."</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show notebook now has 3 documents: Employment Standards + OH&S Act + Sample RFP</span></div>
+                    <p style="font-weight:600; font-size:0.9em; margin:10px 0 5px;">Type this prompt:</p>
+                    <div class="rop-prompt">Based on the RFP requirements and the OH&S Act, what safety certifications and documentation does Birchwood Builders need to have in place before submitting this bid? Summarize the requirements in a checklist I can hand to my site supervisor.</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show the checklist output | point out it pulls from BOTH documents</span></div>
+                    <div class="rop-script">"<strong>Steve just did in 2 minutes what used to take him a full weekend.</strong> And notice | it didn't just summarize the RFP. It cross-referenced the safety requirements against the actual legislation. That's the power of giving AI multiple documents to work with."</div>
+                    <div class="rop-note">If time: show "Draft an executive summary for our RFP response that addresses the safety compliance section."</div>
                 </div>
             </div>
 
-            <!-- Segment 5 -->
+            <!-- Segment 5: Scenario 3 -->
             <div class="rop-segment">
                 <div class="rop-seg-header" onclick="toggleSegment(this)">
-                    <h4>🎧 The WOW — Audio Podcast</h4>
-                    <div class="rop-seg-time">11:00 – 14:00</div>
+                    <h4>Scenario 3: The Power User (Jeff's Notebook)</h4>
+                    <div class="rop-seg-time">7:30 - 11:00</div>
                 </div>
                 <div class="rop-seg-body">
-                    <div class="rop-note">⚠️ Use the PRE-GENERATED audio. Tell NotebookLM to focus the Audio Overview on "new employee onboarding obligations for Alberta employers." Don't generate live — too slow and risky.</div>
-                    <div class="rop-script">"Okay, one more thing. This is the one that changes the game for anyone who spends time in a vehicle."</div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span>Click the pre-generated Audio Overview</span></div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span>Play 45-60 seconds of the two AI hosts discussing new-hire employer obligations</span></div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span>Pause the audio</span></div>
-                    <div class="rop-script">"Picture this: you're driving from your morning site in Spruce Grove to a walkthrough in St. Albert. Your new hire starts Monday. Instead of pulling over to read 90 pages or calling your lawyer at $300 an hour, you tap play on this 8-minute briefing. Probation rules, break requirements, overtime calculations, holiday pay — all covered before you park the truck."</div>
+                    <div class="rop-script">"Steve's now a few weeks in. He's been uploading everything | his employee handbook, the city's building code amendments, his insurance policy summary. His NotebookLM has become his compliance brain. But here's the real unlock..."</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>Switch to Jeff's fully built notebook</strong> (different tab)</span></div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show the volume of sources | gesture at how organized it is</span></div>
+                    <div class="rop-script">"This is what a mature notebook looks like. Multiple sources, organized by topic. Now watch the output formats..."</div>
+
+                    <div class="rop-note">Use PRE-GENERATED audio. Don't generate live | too slow.</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>Audio Briefing:</strong> Play 30 seconds of the pre-generated audio overview</span></div>
+                    <div class="rop-script">"Steve listens to this on his drive between job sites. Eight minutes on overtime banking rules while he's stuck in traffic on the Henday."</div>
+
+                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>Mind Map:</strong> Show the visual compliance map (if pre-generated)</span></div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>FAQ:</strong> Show generated FAQ output</span></div>
+                    <div class="rop-script">"Same documents. Five different outputs. The audio? Steve listens to that between job sites. The FAQ? He hands that to new hires on day one."</div>
                 </div>
             </div>
 
-            <!-- Segment 6 -->
+            <!-- Segment 6: Close -->
             <div class="rop-segment">
                 <div class="rop-seg-header" onclick="toggleSegment(this)">
-                    <h4>🔄 Landing + LLM-Agnostic Close</h4>
-                    <div class="rop-seg-time">14:00 – 15:00</div>
+                    <h4>Tool-Agnostic Close + Safety</h4>
+                    <div class="rop-seg-time">11:00 - 14:00</div>
                 </div>
                 <div class="rop-seg-body">
                     <div class="rop-script">
-                        "NotebookLM is free, from Google, and works right now. But this <em>concept</em> of uploading documents and asking questions isn't unique to one tool."<br><br>
-                        "Claude can do something similar — you upload a PDF and ask it questions directly. ChatGPT lets you upload files too. The principle is the same: <strong>give AI your actual documents</strong>, and it goes from a random intern to a research assistant who's read everything you have."<br><br>
-                        "That's the <em>fuel</em> Jeff was talking about. This is what happens when you stop driving on empty."
+                        "NotebookLM is free and great for this. But the principle | give AI your context | works in Claude, ChatGPT, Gemini. The fuel is what matters."<br><br>
+                        "Quick reminder from Jeff's framework: Employment Standards Code? Green light. Client contracts with names? Yellow | anonymize first. Banking info? Never."<br><br>
+                        "You don't have to get to Level 3 today. But Level 1 takes 30 seconds, and it's already useful."
                     </div>
-                    <div class="rop-note">Hand off to Jeff for Demo B (Shortcut AI): "Jeff, you want to show them what happens when you point AI at real data?"</div>
+                    <div class="rop-note">Transition to Demo B: "Steve's research problem is solved. But what about the spreadsheet he's been avoiding all week? Jeff, take it away."</div>
                 </div>
             </div>
 
-            <!-- Q&A Cheat Sheet -->
+            <!-- Q&A -->
             <h3 style="font-family:'Fraunces',Georgia,serif; margin-top:30px; margin-bottom:15px;">Anticipated Q&A</h3>
             <table class="qa-table">
                 <thead>
                     <tr><th style="width:35%;">Question</th><th>Answer</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td>"Is this really free?"</td><td>Yes — free with a Google account. No subscription needed.</td></tr>
-                    <tr><td>"Can I upload my own contracts?"</td><td>Up to 50 sources per notebook. PDFs, Google Docs, websites, YouTube.</td></tr>
-                    <tr><td>"Is my data safe?"</td><td>Yellow zone on the traffic light. Don't upload client personal info — use it for compliance, templates, and public docs.</td></tr>
-                    <tr><td>"Can other tools do this?"</td><td>Yes — Claude reads PDFs natively, ChatGPT accepts uploads, Gemini integrates with Drive. NotebookLM's edge is citations + podcast.</td></tr>
-                    <tr><td>"Does it work in French?"</td><td>Handles multiple languages; English gets best results currently.</td></tr>
+                    <tr><td>"Is this really free?"</td><td>Yes | free with a Google account. No subscription needed.</td></tr>
+                    <tr><td>"Can I upload my own contracts?"</td><td>Up to 50 sources per notebook. PDFs, Google Docs, websites, YouTube transcripts.</td></tr>
+                    <tr><td>"Is my data safe?"</td><td>Use the traffic light. Compliance docs = green. Client contracts = yellow (anonymize first). PII/banking = never.</td></tr>
+                    <tr><td>"Can other tools do this?"</td><td>Yes | Claude reads PDFs natively, ChatGPT accepts uploads, Gemini integrates with Drive. NotebookLM's edge is citations + podcast.</td></tr>
+                    <tr><td>"How long does the audio take to generate?"</td><td>A few minutes. We pre-generated this one | recommend doing that the night before any presentation.</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        // Tab switching
         function showTab(id, el) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -881,7 +922,6 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Slides
         const slides = document.querySelectorAll('.slide');
         const total = slides.length;
         let cur = 1;
@@ -895,7 +935,7 @@
             dotsC.appendChild(d);
         }
 
-        const titles = ['Title','The Problem','Upload & Ask','Go Deeper','Output Styles','Audio Podcast','Takeaway'];
+        const titles = ['Title','Meet Steve','Quick Answer','The Contrast','Deep Dive','Power User','Tool Agnostic','Safety + Close'];
         const qnC = document.getElementById('quickNavBtns');
         titles.forEach((t,i) => {
             const b = document.createElement('button');
@@ -925,7 +965,6 @@
             }
         });
 
-        // ROP collapse
         function toggleSegment(header) {
             const body = header.nextElementSibling;
             body.classList.toggle('collapsed');
