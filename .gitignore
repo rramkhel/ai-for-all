@@ -1,2 +1,21 @@
+# OS files
 .DS_Store
+
+# Sprint docs (local only)
 docs/
+
+# Environment
+.env
+.env.local
+.env.*
+
+# Logs
+*.log
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# Vercel
+.vercel/

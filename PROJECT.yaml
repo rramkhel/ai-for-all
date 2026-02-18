@@ -1,0 +1,77 @@
+# ============================================================
+# PROJECT.yaml — ai-for-all Project Configuration
+# ============================================================
+
+# --- Project Identity ---
+
+project: ai-for-all
+description: "AI for All workshop series website for St. Albert & District Chamber of Commerce"
+owner: rachel
+
+# --- Autonomy Mode ---
+
+autonomy: full
+
+# --- Stack ---
+
+framework: static-html
+language: javascript
+styling: vanilla-css
+hosting: vercel
+backend: none
+auth: none
+
+# --- Hosting Details ---
+
+vercel:
+  team: ""
+  project: "ai-for-all"
+
+supabase:
+  project: ""
+  region: ""
+
+# --- Git & Branching ---
+
+branching: main-only
+commit_granularity: logical
+
+# --- Dev Server ---
+# Static HTML — no dev server needed. Open files directly in browser.
+# If you want a local server: python3 -m http.server 8080
+
+dev_server: false
+dev_server_command: ""
+dev_server_port: 0
+keep_running: false
+
+# --- Code Conventions ---
+
+max_file_lines: 300
+component_naming: PascalCase
+file_naming: kebab-case
+folder_naming: kebab-case
+
+# --- Testing ---
+
+test_folder: false
+test_structure: flat
+
+# --- Repo Hygiene ---
+
+docs_in_repo: false
+
+gitignore_extras:
+  - docs/
+  - "*.log"
+  - ".DS_Store"
+
+# --- Ralph Wiggum Defaults ---
+
+ralph:
+  max_iterations: 20
+  completion_promise: "COMPLETE"
+  blocked_promise: "BLOCKED"
+  verify_build: false
+  build_command: ""
+  type_check: ""
