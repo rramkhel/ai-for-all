@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo C: The Marketing Assistant — Gemini Projects</title>
+    <meta name="robots" content="noindex, nofollow">
+    <title>Demo C: The Marketing Assistant — ChatGPT Projects</title>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -83,7 +84,7 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
 
-        /* ── Presentation ── */
+        /* Presentation */
         .pres-container { max-width: 1000px; margin: 0 auto; padding: 30px 20px; }
         .pres-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .pres-header h4 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; }
@@ -170,6 +171,16 @@
         }
         .script-note strong { font-style: normal; }
 
+        .struggle-intro {
+            background: var(--coral-light);
+            border: 2px solid var(--coral);
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 15px 0;
+            font-size: 0.95em;
+        }
+        .struggle-intro strong { color: var(--coral); }
+
         .agnostic-box {
             background: var(--blue-light); border: 2px solid var(--blue);
             border-radius: 10px; padding: 20px; margin-top: 20px;
@@ -209,7 +220,19 @@
             padding-bottom: 6px; border-bottom: 1px solid var(--border);
         }
 
-        /* ── Navigation ── */
+        .traffic-light-mini { display: flex; gap: 12px; margin: 15px 0; }
+        .tl-item {
+            flex: 1;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 0.85em;
+        }
+        .tl-item.red { background: var(--red-light); border: 1px solid #fca5a5; }
+        .tl-item.yellow { background: var(--yellow-light); border: 1px solid #fde68a; }
+        .tl-item.green { background: var(--green-light); border: 1px solid #86efac; }
+        .tl-item strong { display: block; margin-bottom: 3px; }
+
+        /* Navigation */
         .slide-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 25px; }
         .nav-btn {
             padding: 10px 22px; border: none; border-radius: 8px;
@@ -238,7 +261,7 @@
         .quick-nav-btn:hover { background: var(--cream); color: var(--ink); }
         .quick-nav-btn.active { background: var(--coral); color: white; border-color: var(--coral); }
 
-        /* ── Run of Play ── */
+        /* Run of Play */
         .rop-container { max-width: 900px; margin: 0 auto; padding: 30px 20px 60px; }
         .rop-title { font-family: 'Fraunces', Georgia, serif; font-size: 1.8em; font-weight: 700; margin-bottom: 5px; }
         .rop-subtitle { color: var(--warm-gray); margin-bottom: 30px; }
@@ -319,9 +342,7 @@
             .s-grid-3, .s-grid-2, .versus-container { grid-template-columns: 1fr; }
             .versus-label { padding: 5px 0; }
             .rop-meta { flex-direction: column; }
-            [style*="grid-template-columns: 1fr 1fr 1fr"] {
-                grid-template-columns: 1fr !important;
-            }
+            .traffic-light-mini { flex-direction: column; }
         }
         @media print {
             .tabs-container, .slide-nav, .quick-nav { display: none; }
@@ -333,28 +354,26 @@
 <body>
     <div class="page-header">
         <div>
-            <h1>Demo C: The Marketing Assistant <span>— Gemini Projects</span><span class="header-badge">Professional Services</span></h1>
+            <h1>Demo C: The Marketing Assistant <span>— ChatGPT Projects</span><span class="header-badge">Cross-Sector</span></h1>
         </div>
-        <div class="header-meta">Session 1 • February 24, 2026 • Lead: Rachel</div>
+        <div class="header-meta">Session 1 | February 24, 2026 | Lead: Rachel</div>
     </div>
 
     <div class="tabs-container">
         <div class="tabs">
-            <div class="tab active" onclick="showTab('deck', this)">📽️ Pitch Deck</div>
-            <div class="tab" onclick="showTab('rop', this)">📋 Run-of-Play</div>
-            <div class="tab" onclick="showTab('assets', this)">📂 Demo Assets</div>
+            <div class="tab active" onclick="showTab('deck', this)">Pitch Deck</div>
+            <div class="tab" onclick="showTab('rop', this)">Run-of-Play</div>
+            <div class="tab" onclick="showTab('assets', this)">Demo Assets</div>
         </div>
     </div>
 
-    <!-- ═══════════════════════════════════ -->
-    <!-- TAB 1: PITCH DECK                   -->
-    <!-- ═══════════════════════════════════ -->
+    <!-- TAB 1: PITCH DECK -->
     <div id="deck" class="tab-content active">
         <div class="pres-container">
             <div class="pres-header">
                 <div>
                     <h4>Demo C: The Marketing Assistant</h4>
-                    <p>Gemini Projects — "Evergreen Renos"</p>
+                    <p>ChatGPT Projects | "Evergreen Renos"</p>
                 </div>
                 <div class="slide-counter">Slide <span id="curSlide">1</span> / <span id="totSlides">8</span></div>
             </div>
@@ -363,27 +382,27 @@
                 <!-- SLIDE 1: Title -->
                 <div class="slide active" data-slide="1">
                     <div style="text-align:center; padding-top:30px;">
-                        <div style="font-size:3.5em; margin-bottom:20px;">🎯</div>
+                        <div style="font-size:3.5em; margin-bottom:20px;">&#127919;</div>
                         <h2 class="slide-title" style="font-size:2.4em;">The Marketing Assistant</h2>
-                        <p class="slide-subtitle" style="font-size:1.2em;">Gemini Projects — "Your sous chef who already knows your recipes"</p>
+                        <p class="slide-subtitle" style="font-size:1.2em;">ChatGPT Projects — "Your sous chef who already knows your recipes"</p>
                         <div class="s-grid-3" style="margin-top:35px;">
                             <div class="s-card" style="text-align:center;">
-                                <div class="icon">📋</div>
+                                <div class="icon">&#128203;</div>
                                 <h5>Upload Your Docs</h5>
                                 <p>Brand voice, pricing, past wins</p>
                             </div>
                             <div class="s-card coral" style="text-align:center;">
-                                <div class="icon">🤖</div>
+                                <div class="icon">&#129302;</div>
                                 <h5>Set Instructions</h5>
                                 <p>Teach it YOUR business</p>
                             </div>
                             <div class="s-card highlight" style="text-align:center;">
-                                <div class="icon">✨</div>
+                                <div class="icon">&#10024;</div>
                                 <h5>On-Brand Content</h5>
                                 <p>Every time — automatically</p>
                             </div>
                         </div>
-                        <p style="margin-top:30px; color:var(--warm-gray); font-size:0.9em;">Works in Gemini, ChatGPT Projects, and Claude Projects</p>
+                        <p style="margin-top:30px; color:var(--warm-gray); font-size:0.9em;">Works in ChatGPT Projects, Gemini Projects, and Claude Projects</p>
                     </div>
                 </div>
 
@@ -403,31 +422,33 @@
                     </div>
 
                     <div class="script-note">
-                        <strong>💬 Say:</strong> "Most of you open ChatGPT, type 'write me a social media post about my business,' and get something that sounds like it was written by a robot who's never been to St. Albert. Let me show you why."
+                        <strong>Say:</strong> "Most of you open ChatGPT, type 'write me a social media post about my business,' and get something that sounds like it was written by a robot who's never been to St. Albert. Let me show you why."
                     </div>
                 </div>
 
-                <!-- SLIDE 3: The Proof — Generic vs Context -->
+                <!-- SLIDE 3: Generic vs Context (PRE-RECORDED) -->
                 <div class="slide" data-slide="3">
                     <h2 class="slide-title">Why Generic AI Fails</h2>
-                    <p class="slide-subtitle">Same AI, same question — completely different results</p>
+                    <p class="slide-subtitle">Scenario 1: Pre-recorded contrast</p>
+
+                    <div class="rop-note" style="margin-bottom:20px;">This result was pre-recorded earlier today. Pull up the saved ChatGPT tab.</div>
 
                     <div class="versus-container">
                         <div class="versus-card bad">
-                            <h5>❌ Without Context (Empty Chat)</h5>
+                            <h5>Without Context (Empty Chat)</h5>
                             <p style="font-style:italic; color:#991b1b;">"Spruce up your kitchen this spring! Our experienced team of professionals provides top-quality renovation services at competitive prices. Contact us today for a free quote!"</p>
                             <p style="margin-top:10px; font-size:0.82em; color:#991b1b;">Generic. No personality. Wrong details. Could be anyone.</p>
                         </div>
                         <div class="versus-label">vs.</div>
                         <div class="versus-card good">
-                            <h5>✅ With Your Context (Gemini Project)</h5>
-                            <p style="font-style:italic; color:#166534;">"That kitchen you keep meaning to update? The one with the oak cabinets? Spring is the best time to start — and if you book before May 1, your 3D rendering is on us. Every Evergreen crew member is a full-time employee. No random subs at your door. 📞 780-555-0172"</p>
+                            <h5>With Your Context (ChatGPT Project)</h5>
+                            <p style="font-style:italic; color:#166534;">"That kitchen you keep meaning to update? The one with the oak cabinets? Spring is the best time to start — and if you book before May 1, your 3D rendering is on us. Every Evergreen crew member is a full-time employee. No random subs at your door."</p>
                             <p style="margin-top:10px; font-size:0.82em; color:#166534;">Your voice. Your promo. Your differentiators. Your phone number.</p>
                         </div>
                     </div>
 
                     <div class="script-note">
-                        <strong>💬 Say:</strong> "Same AI. Same question. The only difference is the <em>fuel</em>. On the left, it's driving on empty. On the right, we gave it our brand guide, our pricing, and our best email."
+                        <strong>Say:</strong> "I ran this earlier today. Standard ChatGPT, no context. And this is what you get — it's grammatically correct, and it could be literally any company in any city. <strong>The problem isn't the AI. You just asked a brand-new sous chef to cook for your restaurant without telling them anything about your menu. Of course it's bland.</strong>"
                     </div>
                 </div>
 
@@ -438,17 +459,17 @@
 
                     <div class="s-grid-3">
                         <div class="s-card">
-                            <div class="icon">📋</div>
+                            <div class="icon">&#128203;</div>
                             <h5>1. Brand Voice Guide</h5>
                             <p>Who you are, how you talk, what makes you different. A simple one-pager.</p>
                         </div>
                         <div class="s-card coral">
-                            <div class="icon">💰</div>
+                            <div class="icon">&#128176;</div>
                             <h5>2. Services & Pricing</h5>
                             <p>What you offer and what it costs. The AI uses YOUR numbers, not made-up ones.</p>
                         </div>
                         <div class="s-card highlight">
-                            <div class="icon">📧</div>
+                            <div class="icon">&#128231;</div>
                             <h5>3. A Past Win</h5>
                             <p>Your best-performing email, post, or ad. The AI learns your tone from real results.</p>
                         </div>
@@ -460,77 +481,91 @@
                     </div>
 
                     <div class="script-note">
-                        <strong>💬 Say:</strong> "Three documents. One set of instructions. This took me about 10 minutes. You do this once — and every time you come back, it already knows your business."
+                        <strong>Say:</strong> "Three documents. One set of instructions. This took me about 10 minutes. You do this once — and every time you come back, it already knows your business."
                     </div>
                 </div>
 
-                <!-- SLIDE 5: Live Demo — Social Post -->
+                <!-- SLIDE 5: Live Demo — The Contrast -->
                 <div class="slide" data-slide="5">
-                    <h2 class="slide-title">Prompt 1: Social Post</h2>
+                    <h2 class="slide-title">Scenario 2: The Contrast</h2>
                     <p class="slide-subtitle">Watch it use YOUR pricing, YOUR tone, YOUR community</p>
 
                     <div class="demo-live-box" style="background: linear-gradient(135deg, var(--coral) 0%, #b91c1c 100%);">
-                        <div class="demo-icon">📱</div>
+                        <div class="demo-icon">&#128241;</div>
                         <h4>LIVE DEMO</h4>
-                        <p>Ask the Gemini Project for a social media post</p>
-                        <div class="demo-badge-tag" style="background:white; color:var(--coral);">Contrast with the generic version</div>
+                        <p>Ask the ChatGPT Project for a social media post</p>
+                        <div class="demo-badge-tag" style="background:white; color:var(--coral);">Same question, completely different result</div>
                     </div>
 
                     <div style="margin-top:20px;">
-                        <p style="font-weight:600; margin-bottom:8px;">Type this:</p>
+                        <p style="font-weight:600; margin-bottom:8px;">Type this in the Project:</p>
                         <div class="prompt-box" style="border-left-color:var(--coral);">Write a social media post promoting our spring kitchen renovation special.</div>
                     </div>
 
                     <div class="script-note">
-                        <strong>💬 Say:</strong> "It knows the spring promo. It knows the price ranges. It's talking like Dave and Maria, not like a marketing textbook. Same AI, same question — completely different result."
+                        <strong>Say:</strong> "Same AI. Same question. Only difference is the fuel. It knows the spring promo. It mentions St. Albert. It sounds like Dave and Maria, not a marketing textbook."
                     </div>
                 </div>
 
-                <!-- SLIDE 6: Live Demo — Email -->
+                <!-- SLIDE 6: Follow-Up Email -->
                 <div class="slide" data-slide="6">
-                    <h2 class="slide-title">Prompt 2: Follow-Up Email</h2>
+                    <h2 class="slide-title">Scenario 3a: Follow-Up Email</h2>
                     <p class="slide-subtitle">It learned your tone from your best-performing email</p>
+
+                    <div class="struggle-intro">
+                        <strong>"For those of you who struggle with responding to leads quickly — or following up at all after you send a quote..."</strong>
+                    </div>
 
                     <div style="margin-bottom:20px;">
                         <p style="font-weight:600; margin-bottom:8px;">Type this:</p>
-                        <div class="prompt-box" style="border-left-color:var(--coral);">Write a follow-up email for a homeowner who got a kitchen quote from us 2 weeks ago but hasn't booked. Be warm, not pushy. Mention the spring promo deadline.</div>
+                        <div class="prompt-box" style="border-left-color:var(--coral);">Write a follow-up email for a homeowner who got a kitchen quote from us 2 weeks ago but hasn't booked. Be warm, not pushy. Mention that our spring booking calendar is filling up.</div>
                     </div>
 
                     <div class="script-note">
-                        <strong>💬 Say:</strong> "It picked up the tone from that best-performing email I uploaded. It's not copying it — it <em>learned</em> how Evergreen talks to customers. That's the sous chef knowing your recipes."
+                        <strong>Say:</strong> "It picked up the tone from that best-performing email I uploaded. It's not copying it — it <em>learned</em> how Evergreen talks to customers. That's the sous chef knowing your recipes."
                     </div>
 
                     <div class="s-grid-2" style="margin-top:20px;">
                         <div class="s-card">
                             <h5>What It Pulls From</h5>
-                            <p>Brand voice guide → warm, jargon-free tone. Pricing sheet → actual dollar figures. Past email → "neighbour you trust" language.</p>
+                            <p>Brand voice guide > warm, jargon-free tone. Pricing sheet > actual dollar figures. Past email > "neighbour you trust" language.</p>
                         </div>
                         <div class="s-card accent">
                             <h5>What You'd Change</h5>
-                            <p>Add the customer's name. Tweak the specific quote reference. Maybe adjust the urgency. 2 minutes of editing vs. 30 minutes from scratch.</p>
+                            <p>Add the customer's name. Tweak the specific quote reference. 2 minutes of editing vs. 30 minutes from scratch.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- SLIDE 7: Quick Fire -->
+                <!-- SLIDE 7: Content Calendar -->
                 <div class="slide" data-slide="7">
-                    <h2 class="slide-title">Prompt 3: Quick Fire</h2>
-                    <p class="slide-subtitle">5 ready-to-use posts in 8 seconds</p>
+                    <h2 class="slide-title">Scenario 3b: Content Calendar</h2>
+                    <p class="slide-subtitle">Four months of content tied to real St. Albert events</p>
+
+                    <div class="struggle-intro">
+                        <strong>"For those of you who struggle with figuring out what to post — and when — or who stare at a blank screen every Monday morning..."</strong>
+                    </div>
 
                     <div style="margin-bottom:20px;">
                         <p style="font-weight:600; margin-bottom:8px;">Type this:</p>
-                        <div class="prompt-box" style="border-left-color:var(--coral);">Give me 5 Google Business Profile post ideas for this month. Keep them short, casual, and seasonal for Alberta spring.</div>
+                        <div class="prompt-box" style="border-left-color:var(--coral);">Create a content calendar for Evergreen Renos for March through June. Include posts tied to Alberta spring — snow melt renovation season, the St. Albert Lifestyle Expo, and Farmers' Market season starting in June. Mix of social posts, one email per month, and Google Business Profile updates.</div>
+                    </div>
+
+                    <div class="s-grid-2" style="margin-top:20px;">
+                        <div class="s-card highlight">
+                            <h5>&#128197; Local Event Tie-Ins</h5>
+                            <p><strong>St. Albert Lifestyle Expo</strong> — Spring event, perfect for renovation promo<br>
+                            <strong>Farmers' Market</strong> — Starts June, community feel<br>
+                            <strong>Snow melt season</strong> — "Spring reno" timing</p>
+                        </div>
+                        <div class="s-card">
+                            <h5>&#9889; What You Get</h5>
+                            <p>4 months of content. Mix of social, email, and Google Business posts. All on-brand. Ready to schedule.</p>
+                        </div>
                     </div>
 
                     <div class="script-note">
-                        <strong>💬 Say:</strong> "Five posts. Ready to copy-paste into Google Business. Eight seconds. That's your entire month of Google posts — done before your coffee gets cold."
-                    </div>
-
-                    <div class="s-card highlight" style="margin-top:25px;">
-                        <h5>🧮 The Math</h5>
-                        <p><strong>Without AI:</strong> 30 min per post × 5 posts × $50/hr = <strong>$125 in your time</strong><br>
-                        <strong>With your marketing assistant:</strong> 8 seconds + 10 min editing = <strong>~$8 in your time</strong><br>
-                        <strong>Saving:</strong> ~$117 and 2+ hours. Every single month. From one prompt.</p>
+                        <strong>Say:</strong> "If you're a bakery, your calendar ties to wedding season. Professional services? RRSP deadline, tax season. When the AI knows your business, it can think seasonally for you."
                     </div>
                 </div>
 
@@ -545,31 +580,37 @@
                     </div>
 
                     <div class="agnostic-box">
-                        <h5>🔄 This Works Across Tools</h5>
-                        <p><strong>Gemini Projects</strong> — Natural fit for Google Workspace users. Strong integration with Gmail, Docs, Drive.<br>
-                        <strong>ChatGPT Projects</strong> — Same concept. Upload docs, set instructions. Free persistent projects available.<br>
-                        <strong>Claude Projects</strong> — Excellent writing quality. Great for longer-form content like proposals and reports.<br><br>
+                        <h5>&#128260; This Works Across Tools</h5>
+                        <p><strong>ChatGPT Projects</strong> — What we showed today. $27/mo USD (~$37 CAD) for Plus. Free tier has limited Projects.<br>
+                        <strong>Gemini Projects</strong> — Same concept, natural fit for Google Workspace users.<br>
+                        <strong>Claude Projects</strong> — Excellent writing quality. We'll dig into Claude next session — it does some things that'll surprise you.<br><br>
                         The key isn't <em>which</em> tool — it's the principle: <strong>give it your context, and it stops being generic.</strong></p>
                     </div>
 
                     <div class="s-grid-2" style="margin-top:20px;">
                         <div class="s-card">
-                            <h5>🎁 In Your Toolkit</h5>
-                            <p>Step-by-step setup instructions for all three tools. Brand voice template. Sample prompts by industry.</p>
+                            <h5>&#127873; Tonight's Homework</h5>
+                            <p>Fill in the brand voice template (5 minutes). Upload it + your pricing into ChatGPT, Gemini, or Claude. Ask for one social post. See the difference.</p>
                         </div>
                         <div class="s-card coral">
-                            <h5>💡 Tonight's Homework</h5>
-                            <p>Write a one-paragraph brand voice description. Upload it + your pricing into whichever tool you prefer. Ask it for one social post. See the difference.</p>
+                            <h5>&#128161; In Your Toolkit</h5>
+                            <p>Brand voice fill-in-the-blank template. Step-by-step setup instructions. Sample prompts by industry.</p>
                         </div>
+                    </div>
+
+                    <div class="traffic-light-mini" style="margin-top:20px;">
+                        <div class="tl-item green"><strong>Green Light</strong>Brand voice guide, pricing sheet — public info.</div>
+                        <div class="tl-item yellow"><strong>Yellow</strong>Client lists — anonymize first.</div>
+                        <div class="tl-item red"><strong>Red</strong>PII, banking info — never.</div>
                     </div>
                 </div>
             </div>
 
             <!-- Nav -->
             <div class="slide-nav">
-                <button class="nav-btn prev" onclick="prevSlide()" id="prevBtn" disabled>← Previous</button>
+                <button class="nav-btn prev" onclick="prevSlide()" id="prevBtn" disabled>Previous</button>
                 <div class="slide-dots" id="slideDots"></div>
-                <button class="nav-btn next" onclick="nextSlide()" id="nextBtn">Next →</button>
+                <button class="nav-btn next" onclick="nextSlide()" id="nextBtn">Next</button>
             </div>
             <div class="quick-nav">
                 <div class="quick-nav-title">Quick Navigation:</div>
@@ -578,147 +619,164 @@
         </div>
     </div>
 
-    <!-- ═══════════════════════════════════ -->
-    <!-- TAB 2: RUN-OF-PLAY                  -->
-    <!-- ═══════════════════════════════════ -->
+    <!-- TAB 2: RUN-OF-PLAY -->
     <div id="rop" class="tab-content">
         <div class="rop-container">
             <h2 class="rop-title">Run-of-Play: Demo C</h2>
-            <p class="rop-subtitle">Gemini Projects — Marketing Assistant • ~15 minutes</p>
+            <p class="rop-subtitle">ChatGPT Projects | Marketing Assistant | ~13 minutes</p>
 
             <div class="rop-meta">
                 <div class="rop-meta-item"><span>Lead</span><strong>Rachel</strong></div>
-                <div class="rop-meta-item"><span>Duration</span><strong>~15 minutes</strong></div>
+                <div class="rop-meta-item"><span>Duration</span><strong>~13 minutes</strong></div>
                 <div class="rop-meta-item"><span>Position</span><strong>3rd demo (after Shortcut AI)</strong></div>
                 <div class="rop-meta-item"><span>Transition From</span><strong>Jeff (Shortcut AI)</strong></div>
             </div>
 
             <div style="background: white; border: 2px solid var(--coral); border-radius: 10px; padding: 25px; margin-bottom: 25px;">
-                <h4 style="font-family: 'Fraunces', Georgia, serif; color: var(--coral); margin-bottom: 15px;">📖 Demo Overview</h4>
-
+                <h4 style="font-family: 'Fraunces', Georgia, serif; color: var(--coral); margin-bottom: 15px;">Demo Overview</h4>
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
                     <div>
                         <p style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--warm-gray); margin-bottom: 6px; font-weight: 600;">What This Demo Does</p>
-                        <p style="font-size: 0.9em; margin: 0;">Shows how to create a custom AI marketing assistant that already knows your brand voice, pricing, and customers — then contrasts generic AI output with context-powered output to demonstrate why "fuel" matters.</p>
+                        <p style="font-size: 0.9em; margin: 0;">Shows how to create a custom AI marketing assistant that knows your brand voice, pricing, and customers. Contrasts generic vs. context-powered output.</p>
                     </div>
                     <div>
-                        <p style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--warm-gray); margin-bottom: 6px; font-weight: 600;">Content Used</p>
-                        <p style="font-size: 0.9em; margin: 0;">Three fictional documents for "Evergreen Renos" (a St. Albert kitchen renovation company): a brand voice guide, a services & pricing sheet, and a past best-performing marketing email. All provided in the Demo Assets tab.</p>
+                        <p style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--warm-gray); margin-bottom: 6px; font-weight: 600;">Key Change from Original</p>
+                        <p style="font-size: 0.9em; margin: 0;"><strong>Scenario 1 is PRE-RECORDED.</strong> Pull up a saved ChatGPT tab with the generic result. Don't type live. Scenarios 2 & 3 are live in the Project.</p>
                     </div>
                     <div>
-                        <p style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--warm-gray); margin-bottom: 6px; font-weight: 600;">Skills & Takeaways</p>
-                        <ul style="font-size: 0.9em; margin: 0; padding-left: 18px;">
-                            <li>Set up a persistent AI project with custom instructions</li>
-                            <li>Upload business context documents (brand voice, pricing)</li>
-                            <li>See the difference between generic and context-powered output</li>
-                            <li>Generate social posts, emails, and content calendars on-brand</li>
-                            <li>Understand this works across Gemini, ChatGPT Projects, and Claude Projects</li>
-                        </ul>
+                        <p style="font-size: 0.78em; text-transform: uppercase; letter-spacing: 0.05em; color: var(--warm-gray); margin-bottom: 6px; font-weight: 600;">"Struggle With" Framing</p>
+                        <p style="font-size: 0.9em; margin: 0;">Each Scenario 3 prompt starts with "For those of you who struggle with..." — this targets different pain points in the audience.</p>
                     </div>
                 </div>
             </div>
 
             <div class="prep-checklist">
-                <h4>📋 Prep Checklist</h4>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Create 3 Google Docs for "Evergreen Renos" (see Assets tab)</span></div>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Set up Gemini Project with all 3 docs uploaded</span></div>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Set system instructions (see Assets tab)</span></div>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Test all 3 prompts — verify on-brand output</span></div>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Open a SEPARATE empty Gemini tab for the contrast moment</span></div>
-                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Prepare all prompts in a notes doc for copy-paste</span></div>
+                <h4>Prep Checklist</h4>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Convert 3 Evergreen Renos docs to .docx or .pdf (see Assets tab)</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Create ChatGPT Project "Evergreen Renos — Marketing" with all 3 docs uploaded</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Set system instructions in Project settings (see Assets tab)</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Test all prompts — verify on-brand output</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span><strong>PRE-RECORD:</strong> Open blank ChatGPT, run generic prompt, save/bookmark that tab</span></div>
+                <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Prepare all prompts in notes doc for copy-paste</span></div>
                 <div class="check-item"><div class="check-box" onclick="this.classList.toggle('checked')"></div><span>Screenshot the contrast (generic vs. branded) as backup</span></div>
             </div>
 
             <!-- Segment 1 -->
             <div class="rop-segment">
                 <div class="rop-seg-header" onclick="toggleSegment(this)">
-                    <h4>📢 The Problem — Generic AI</h4>
-                    <div class="rop-seg-time">0:00 – 3:00</div>
+                    <h4>Hook + Show of Hands</h4>
+                    <div class="rop-seg-time">0:00 – 0:30</div>
                 </div>
                 <div class="rop-seg-body">
-                    <div class="rop-note">Jeff hands off: "Rachel, you want to show them the marketing side?"</div>
-                    <div class="rop-script">"Marketing was your #1 request — 76 points in the survey. But most of you told us you're prompting from scratch every time — and it sounds generic. What if your AI already knew your brand?"</div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>Open the EMPTY Gemini tab</strong> (not the project)</span></div>
-                    <div class="rop-script">"Let me show you what I mean."</div>
-                    <p style="font-weight:600; font-size:0.9em; margin:10px 0 5px;">Type this in the blank Gemini:</p>
-                    <div class="rop-prompt">Write a social media post promoting a kitchen renovation spring special for a renovation company.</div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show the generic result — bland, no personality, wrong pricing</span></div>
-                    <div class="rop-script">"See? It's... fine. But it could be any company anywhere. There's no <em>you</em> in this. Now watch what happens when we add fuel."</div>
+                    <div class="rop-note">Jeff hands off: "Rachel's going to show you something that'll change how you create marketing content."</div>
+                    <div class="rop-script">
+                        "Who's tried using AI to write a social post or email?"<br><br>
+                        <em>(most hands)</em><br><br>
+                        "How many of you thought it sounded like everybody else?"<br><br>
+                        <em>(knowing nods)</em>
+                    </div>
                 </div>
             </div>
 
             <!-- Segment 2 -->
             <div class="rop-segment">
                 <div class="rop-seg-header" onclick="toggleSegment(this)">
-                    <h4>⚙️ Show the Setup</h4>
-                    <div class="rop-seg-time">3:00 – 6:00</div>
+                    <h4>Scenario 1: Generic Trap (PRE-RECORDED)</h4>
+                    <div class="rop-seg-time">0:30 – 1:30</div>
                 </div>
                 <div class="rop-seg-body">
-                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>Switch to the pre-built Gemini Project</strong></span></div>
-                    <div class="rop-script">"This is a Gemini Project I set up for a fictional company called Evergreen Renos — a St. Albert kitchen and bathroom renovation business. I uploaded three things: a brand voice guide, their pricing sheet, and their best-performing email."</div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span>Briefly show the uploaded docs list — don't read them, just gesture</span></div>
-                    <div class="rop-script">"That took me about 10 minutes. You do this once. Now let's ask it the exact same question."</div>
+                    <div class="rop-note">This is PRE-RECORDED. Just pull up the saved tab — don't type.</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>Pull up Tab 5</strong> (pre-recorded generic ChatGPT result)</span></div>
+                    <div class="rop-script">"I ran this earlier today. Standard ChatGPT, no context. And this is what you get — it's grammatically correct, and it could be literally any company in any city."</div>
+                    <div class="rop-script">"<strong>The problem isn't the AI. You just asked a brand-new sous chef to cook for your restaurant without telling them anything about your menu. Of course it's bland.</strong>"</div>
                 </div>
             </div>
 
             <!-- Segment 3 -->
             <div class="rop-segment">
                 <div class="rop-seg-header" onclick="toggleSegment(this)">
-                    <h4>✨ Prompt 1 — The Contrast (MONEY SHOT)</h4>
-                    <div class="rop-seg-time">6:00 – 9:00</div>
+                    <h4>Show the Setup</h4>
+                    <div class="rop-seg-time">1:30 – 2:15</div>
                 </div>
                 <div class="rop-seg-body">
-                    <div class="rop-note">⭐ This is the most important moment of the entire demo. The audience sees the same question produce completely different results.</div>
-                    <div class="rop-prompt">Write a social media post promoting our spring kitchen renovation special.</div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show the result — should use Evergreen's voice, spring promo, actual pricing, mention St. Albert</span></div>
-                    <div class="rop-script">"See the difference? It knows the spring promo. It knows the price ranges. It's talking like Dave and Maria, not like a marketing textbook."</div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span>If time: scroll back to the generic version for side-by-side visual</span></div>
-                    <div class="rop-script">"Same AI, same question — completely different result. The only difference is the <em>fuel</em>."</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span><strong>Switch to Tab 6</strong> (ChatGPT Project)</span></div>
+                    <div class="rop-script">"This is a ChatGPT Project I set up for a fictional company called Evergreen Renos — a St. Albert kitchen and bathroom renovation business."</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Gesture at the 3 uploaded docs and instructions panel</span></div>
+                    <div class="rop-script">"Three documents. Ten minutes. You do this once."</div>
                 </div>
             </div>
 
             <!-- Segment 4 -->
             <div class="rop-segment">
                 <div class="rop-seg-header" onclick="toggleSegment(this)">
-                    <h4>📧 Prompt 2 — Going Deeper</h4>
-                    <div class="rop-seg-time">9:00 – 12:00</div>
+                    <h4>Scenario 2: THE CONTRAST (Money Shot)</h4>
+                    <div class="rop-seg-time">2:15 – 4:00</div>
                 </div>
                 <div class="rop-seg-body">
-                    <div class="rop-script">"But it doesn't just do social posts. Let's try something more complex."</div>
-                    <div class="rop-prompt">Write a follow-up email for a homeowner who got a kitchen quote from us 2 weeks ago but hasn't booked. Be warm, not pushy. Mention the spring promo deadline.</div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show the result — should mirror the tone of the uploaded best-performing email</span></div>
-                    <div class="rop-script">"It picked up the tone from that best-performing email I uploaded. It's not copying it — it <em>learned</em> how Evergreen talks to customers. That's the sous chef knowing your recipes."</div>
+                    <div class="rop-note">This is the most important moment. The audience sees the same question produce completely different results.</div>
+                    <p style="font-weight:600; font-size:0.9em; margin:10px 0 5px;">Type this in the Project:</p>
+                    <div class="rop-prompt">Write a social media post promoting our spring kitchen renovation special.</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Wait for result — let the room react</span></div>
+                    <div class="rop-script">"<strong>Same AI. Same question. Only difference is the fuel.</strong> It knows the spring promo. It mentions St. Albert. It sounds like Dave and Maria, not a marketing textbook."</div>
                 </div>
             </div>
 
             <!-- Segment 5 -->
             <div class="rop-segment">
                 <div class="rop-seg-header" onclick="toggleSegment(this)">
-                    <h4>⚡ Prompt 3 — Quick Fire</h4>
-                    <div class="rop-seg-time">12:00 – 14:00</div>
+                    <h4>Scenario 3a: Follow-Up Email</h4>
+                    <div class="rop-seg-time">4:00 – 6:00</div>
                 </div>
                 <div class="rop-seg-body">
-                    <div class="rop-script">"One more — let's see how fast this gets."</div>
-                    <div class="rop-prompt">Give me 5 Google Business Profile post ideas for this month. Keep them short, casual, and seasonal for Alberta spring.</div>
-                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show the list — locally relevant, on-brand, ready to use</span></div>
-                    <div class="rop-script">"Five posts. Ready to copy-paste into Google Business. Took about 8 seconds. That's your entire month of Google posts done."</div>
+                    <div class="rop-script">"<strong>For those of you who struggle with responding to leads quickly — or following up at all after you send a quote — this one's for you.</strong>"</div>
+                    <div class="rop-prompt">Write a follow-up email for a homeowner who got a kitchen quote from us 2 weeks ago but hasn't booked. Be warm, not pushy. Mention that our spring booking calendar is filling up.</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show result</span></div>
+                    <div class="rop-script">"That took 6 seconds. How long does it usually take you to write that email? Or worse — how often does it just not get written?"</div>
                 </div>
             </div>
 
             <!-- Segment 6 -->
             <div class="rop-segment">
                 <div class="rop-seg-header" onclick="toggleSegment(this)">
-                    <h4>🔄 Landing + LLM-Agnostic Close</h4>
-                    <div class="rop-seg-time">14:00 – 15:00</div>
+                    <h4>Scenario 3b: Content Calendar</h4>
+                    <div class="rop-seg-time">6:00 – 8:30</div>
+                </div>
+                <div class="rop-seg-body">
+                    <div class="rop-script">"<strong>For those of you who struggle with figuring out what to post — and when — or who stare at a blank screen every Monday morning... this is the one that tends to blow people's minds.</strong>"</div>
+                    <div class="rop-prompt">Create a content calendar for Evergreen Renos for March through June. Include posts tied to Alberta spring — snow melt renovation season, the St. Albert Lifestyle Expo, and Farmers' Market season starting in June. Mix of social posts, one email per month, and Google Business Profile updates.</div>
+                    <div class="rop-action"><div class="rop-action-dot"></div><span>Show result — point out local event references</span></div>
+                    <div class="rop-script">"Four months of content tied to real St. Albert events. That's not generic."</div>
+                    <div class="rop-script">"If you're a bakery, your calendar ties to wedding season. Professional services? RRSP deadline, tax season. When the AI knows your business, it can think seasonally for you."</div>
+                </div>
+            </div>
+
+            <!-- Segment 7 -->
+            <div class="rop-segment">
+                <div class="rop-seg-header" onclick="toggleSegment(this)">
+                    <h4>Scenario 3c: GBP Posts (If Time)</h4>
+                    <div class="rop-seg-time">8:30 – 9:30</div>
+                </div>
+                <div class="rop-seg-body">
+                    <div class="rop-note">Only if running ahead of schedule. Skip if tight on time.</div>
+                    <div class="rop-script">"<strong>For those of you who have a Google Business Profile but struggle to ever actually post to it...</strong>"</div>
+                    <div class="rop-prompt">Give me 5 Google Business Profile posts for this month. Short, casual, seasonal for Alberta late winter. Include one that mentions our 5-year warranty.</div>
+                    <div class="rop-script">"Five posts. Your entire month. Done."</div>
+                </div>
+            </div>
+
+            <!-- Segment 8 -->
+            <div class="rop-segment">
+                <div class="rop-seg-header" onclick="toggleSegment(this)">
+                    <h4>Tool-Agnostic Close + Homework</h4>
+                    <div class="rop-seg-time">9:30 – 12:30</div>
                 </div>
                 <div class="rop-seg-body">
                     <div class="rop-script">
-                        "I showed you Gemini because it plugs into Google Workspace beautifully, and a lot of you are already using Gmail and Google Docs. But this same approach works everywhere."<br><br>
-                        "<strong>ChatGPT Projects</strong> does the same thing — upload your docs, set instructions, it remembers your brand. <strong>Claude Projects</strong> works this way too. The key isn't <em>which</em> tool — it's the principle: <strong>give it your context, and it stops being generic.</strong>"<br><br>
-                        "In your take-home toolkit, we've got instructions for setting this up in all three. Pick whichever one you're already comfortable with."<br><br>
-                        "That's what 'building the machine once' means. Ten minutes of setup, and you've got a marketing assistant that knows your business better than a freelancer you'd pay $500 to onboard."
+                        "I showed you ChatGPT because it's the name most of you know. This works in Gemini Projects too. <strong>We'll dig into Claude next session — it does some things that'll surprise you.</strong>"<br><br>
+                        "Brand voice guide? Green light. Pricing sheet? Green. Client list with names? Yellow — anonymize first."<br><br>
+                        "<strong>Tonight, I want you to do one thing.</strong> Fill in this template — it takes 5 minutes. Upload it and your pricing into ChatGPT, Gemini, or Claude. Ask for one social post. When you see the difference, you'll understand why we spent 13 minutes on this today."
                     </div>
-                    <div class="rop-note">Transition to closing: "So to recap — you've seen NotebookLM turn a 90-page document into a podcast, Jeff showed you Shortcut AI pulling insights from census data, and we just built a marketing assistant that knows your brand. Three tools, three problems solved. Let me take 5 minutes to walk you through what you're taking home..."</div>
+                    <div class="rop-note">Transition: "Three tools, three problems solved. Jeff, take us home."</div>
                 </div>
             </div>
 
@@ -727,29 +785,27 @@
             <table class="qa-table">
                 <thead><tr><th style="width:35%;">Question</th><th>Answer</th></tr></thead>
                 <tbody>
-                    <tr><td>"Which tool should I use?"</td><td>Gmail/Docs → Gemini. Already on ChatGPT Plus → ChatGPT Projects. Love writing quality → Claude. They all do this. We'll cover tool selection more in Session 2.</td></tr>
-                    <tr><td>"How much does Gemini cost?"</td><td>Free tier works. Gemini Advanced ($25.99/mo CAD) for longer conversations and better models. If you're using it daily, it pays for itself.</td></tr>
+                    <tr><td>"Which tool should I use?"</td><td>Already on ChatGPT? Stick with it. Gmail/Docs user? Gemini. Love writing quality? Claude. We'll cover tool selection more in Session 2.</td></tr>
+                    <tr><td>"How much does ChatGPT cost?"</td><td>Free tier works for testing. ChatGPT Plus is $27/mo USD (~$37 CAD). Includes Projects feature and better models. If you're using it daily, it pays for itself.</td></tr>
                     <tr><td>"What if my brand voice changes?"</td><td>Just update the documents. Swap out the old pricing for the new one. The assistant adapts immediately.</td></tr>
-                    <tr><td>"Can I share this with my team?"</td><td>Yes — Gemini Projects are shareable. ChatGPT custom GPTs can be shared via link. Great for brand consistency.</td></tr>
+                    <tr><td>"Can I share this with my team?"</td><td>ChatGPT custom GPTs can be shared via link. Great for brand consistency across multiple people.</td></tr>
                     <tr><td>"What about data safety?"</td><td>Brand guide and pricing are Green zone — public info. Client lists would be Yellow — anonymize first. Never upload Red zone info.</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- ═══════════════════════════════════ -->
-    <!-- TAB 3: DEMO ASSETS                  -->
-    <!-- ═══════════════════════════════════ -->
+    <!-- TAB 3: DEMO ASSETS -->
     <div id="assets" class="tab-content">
         <div class="rop-container">
             <h2 class="rop-title">Demo Assets: "Evergreen Renos"</h2>
-            <p class="rop-subtitle">Copy these into Google Docs and upload to your Gemini Project</p>
+            <p class="rop-subtitle">Convert these to .docx or .pdf and upload to your ChatGPT Project</p>
 
-            <div class="rop-note" style="margin-bottom:25px;">📝 These are the three documents you'll upload. Create each as a Google Doc, then add them to your Gemini Project. The system instructions go in the Project settings.</div>
+            <div class="rop-note" style="margin-bottom:25px;">These are the three documents you'll upload. Create each as a .docx or .pdf file, then add them to your ChatGPT Project. The system instructions go in the Project Instructions field.</div>
 
             <!-- Doc 1 -->
             <div class="doc-preview">
-                <div class="doc-title">📄 Document 1: Brand Voice Guide</div>
+                <div class="doc-title">Document 1: Brand Voice Guide</div>
                 <p><strong>EVERGREEN RENOS — Brand Voice Guide</strong></p>
                 <br>
                 <p><strong>Who We Are:</strong><br>
@@ -771,7 +827,7 @@
 
             <!-- Doc 2 -->
             <div class="doc-preview">
-                <div class="doc-title">📄 Document 2: Services & Pricing 2026</div>
+                <div class="doc-title">Document 2: Services & Pricing 2026</div>
                 <p><strong>EVERGREEN RENOS — Services & Pricing 2026</strong></p>
                 <br>
                 <p><strong>Kitchen Renovations:</strong><br>
@@ -786,12 +842,12 @@
                 <br>
                 <p><strong>All quotes include:</strong> Free in-home consultation, 3D design rendering, 5-year workmanship warranty, dedicated project manager.</p>
                 <br>
-                <p><strong>Spring Promo (March–May 2026):</strong> Book before May 1 → Free 3D rendering upgrade (value $500)</p>
+                <p><strong>Spring Promo (March–May 2026):</strong> Book before May 1 > Free 3D rendering upgrade (value $500)</p>
             </div>
 
             <!-- Doc 3 -->
             <div class="doc-preview">
-                <div class="doc-title">📄 Document 3: Best-Performing Email</div>
+                <div class="doc-title">Document 3: Best-Performing Email</div>
                 <p><strong>Subject: Your kitchen deserves better than 2005</strong></p>
                 <br>
                 <p>Hi [First Name],</p>
@@ -812,7 +868,7 @@
 
             <!-- System Instructions -->
             <div class="doc-preview" style="border-color: var(--coral); border-width: 2px;">
-                <div class="doc-title" style="color: var(--coral);">⚙️ Gemini Project System Instructions</div>
+                <div class="doc-title" style="color: var(--coral);">ChatGPT Project Instructions (paste into Project settings)</div>
                 <p style="font-family: 'Courier New', monospace; font-size: 0.88em; line-height: 1.7;">You are the marketing assistant for Evergreen Renos, a family-owned kitchen and bathroom renovation company in St. Albert, Alberta.<br><br>
                 Your role: Create on-brand marketing content including social media posts, emails, blog outlines, ad copy, and client communications.<br><br>
                 Rules:<br>
@@ -826,26 +882,31 @@
 
             <!-- Demo Prompts -->
             <h3 style="font-family:'Fraunces',Georgia,serif; margin-top:30px; margin-bottom:15px;">Copy-Paste Prompts</h3>
-            <div class="rop-note">Have these open in a notes doc during the demo. Copy-paste is faster and less error-prone than live typing.</div>
+            <div class="rop-note">Have these open in a notes doc during the demo. Copy-paste is faster than live typing.</div>
 
             <div class="doc-preview">
-                <div class="doc-title">Prompt for the EMPTY Gemini (the generic one)</div>
+                <div class="doc-title">Generic Prompt (pre-record in blank ChatGPT)</div>
                 <p style="font-family:'Courier New',monospace; font-size:0.88em;">Write a social media post promoting a kitchen renovation spring special for a renovation company.</p>
             </div>
 
             <div class="doc-preview">
-                <div class="doc-title">Prompt 1 — Social Post (in the Project)</div>
+                <div class="doc-title">Scenario 2 — The Contrast (type live in Project)</div>
                 <p style="font-family:'Courier New',monospace; font-size:0.88em;">Write a social media post promoting our spring kitchen renovation special.</p>
             </div>
 
             <div class="doc-preview">
-                <div class="doc-title">Prompt 2 — Follow-Up Email</div>
-                <p style="font-family:'Courier New',monospace; font-size:0.88em;">Write a follow-up email for a homeowner who got a kitchen quote from us 2 weeks ago but hasn't booked. Be warm, not pushy. Mention the spring promo deadline.</p>
+                <div class="doc-title">Scenario 3a — Follow-Up Email</div>
+                <p style="font-family:'Courier New',monospace; font-size:0.88em;">Write a follow-up email for a homeowner who got a kitchen quote from us 2 weeks ago but hasn't booked. Be warm, not pushy. Mention that our spring booking calendar is filling up.</p>
             </div>
 
             <div class="doc-preview">
-                <div class="doc-title">Prompt 3 — Quick Fire</div>
-                <p style="font-family:'Courier New',monospace; font-size:0.88em;">Give me 5 Google Business Profile post ideas for this month. Keep them short, casual, and seasonal for Alberta spring.</p>
+                <div class="doc-title">Scenario 3b — Content Calendar</div>
+                <p style="font-family:'Courier New',monospace; font-size:0.88em;">Create a content calendar for Evergreen Renos for March through June. Include posts tied to Alberta spring — snow melt renovation season, the St. Albert Lifestyle Expo, and Farmers' Market season starting in June. Mix of social posts, one email per month, and Google Business Profile updates.</p>
+            </div>
+
+            <div class="doc-preview">
+                <div class="doc-title">Scenario 3c — GBP Posts (if time)</div>
+                <p style="font-family:'Courier New',monospace; font-size:0.88em;">Give me 5 Google Business Profile posts for this month. Short, casual, seasonal for Alberta late winter. Include one that mentions our 5-year warranty.</p>
             </div>
         </div>
     </div>
@@ -872,7 +933,7 @@
             dotsC.appendChild(d);
         }
 
-        const titles = ['Title','The Problem','Generic vs Context','The Setup','Social Post','Follow-Up Email','Quick Fire','Takeaway'];
+        const titles = ['Title','The Problem','Generic Trap','The Setup','The Contrast','Follow-Up','Content Calendar','Takeaway'];
         const qnC = document.getElementById('quickNavBtns');
         titles.forEach((t,i) => {
             const b = document.createElement('button');
