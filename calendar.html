@@ -6,107 +6,398 @@
     <title>Workshop Calendar - AI for All</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* Calendar-specific styles */
-        .calendar-container {
-            max-width: 1600px;
-            margin: 0 auto;
+        /* Hero */
+        .calendar-hero {
             background: white;
-            border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-md);
-            padding: var(--space-xl);
-            margin-top: var(--space-xl);
-            margin-bottom: var(--space-xl);
+            border-bottom: 1px solid var(--border);
+            padding: var(--space-xl) var(--space-lg);
         }
-
-        .calendar-header {
+        .calendar-hero-inner {
+            max-width: 860px;
+            margin: 0 auto;
             text-align: center;
-            margin-bottom: var(--space-lg);
         }
-
-        .calendar-header h1 {
+        .calendar-hero h1 {
+            font-size: 1.875em;
             margin-bottom: var(--space-sm);
         }
-
-        .calendar-subtitle {
+        .calendar-hero-subtitle {
             color: var(--warm-gray);
             font-size: 1em;
-        }
-
-        .important-notice {
-            background: var(--highlight);
-            border: 2px solid var(--highlight-dark);
-            border-radius: var(--radius-md);
-            padding: var(--space-lg);
-            margin-bottom: var(--space-lg);
-            border-left: 6px solid var(--highlight-dark);
-            text-align: center;
-        }
-
-        .important-notice h3 {
-            color: #92400e;
-            margin-bottom: var(--space-sm);
-            font-size: 1.2em;
-        }
-
-        .important-notice p {
-            color: #92400e;
-            font-size: 1em;
-            margin-bottom: 0;
-        }
-
-        .schedule-info {
-            text-align: center;
-            padding: var(--space-lg);
-            background: var(--accent-light);
-            border-radius: var(--radius-md);
-            margin-bottom: var(--space-lg);
-            border-left: 4px solid var(--accent);
-        }
-
-        .schedule-info h3 {
-            color: var(--accent-dark);
-            margin-bottom: var(--space-sm);
-            font-size: 1.2em;
-        }
-
-        .schedule-info p {
-            color: var(--ink);
-            font-size: 1em;
             line-height: 1.6;
-            margin-bottom: 0;
+            max-width: 680px;
+            margin: 0 auto var(--space-lg);
+        }
+        .hero-tags {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+        .hero-tag {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        .hero-tag.teal {
+            background: var(--accent-light);
+            color: var(--accent-dark);
+        }
+        .hero-tag.gray {
+            background: var(--cream);
+            color: var(--warm-gray);
         }
 
-        .legend {
+        /* Main Container */
+        .calendar-main {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-lg);
+        }
+
+        /* View Toggle */
+        .view-toggle-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: var(--space-lg);
+        }
+        .view-toggle {
+            display: inline-flex;
+            background: var(--cream);
+            border-radius: var(--radius-full);
+            padding: 4px;
+            gap: 4px;
+        }
+        .view-toggle-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius-full);
+            background: transparent;
+            font-family: var(--font-body);
+            font-size: 0.9em;
+            font-weight: 600;
+            color: var(--warm-gray);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .view-toggle-btn.active {
+            background: white;
+            color: var(--ink);
+            box-shadow: var(--shadow-sm);
+        }
+        .view-toggle-btn:hover:not(.active) {
+            color: var(--ink);
+        }
+
+        /* Legend */
+        .legend-row {
             display: flex;
             justify-content: center;
             gap: var(--space-lg);
-            margin-bottom: var(--space-xl);
+            margin-bottom: var(--space-md);
             flex-wrap: wrap;
         }
-
         .legend-item {
             display: flex;
             align-items: center;
-            gap: var(--space-sm);
-            font-size: 0.95em;
+            gap: 8px;
+            font-size: 0.85em;
+            color: var(--warm-gray);
+        }
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .legend-dot.confirmed {
+            background: var(--accent);
+            width: 12px;
+            height: 12px;
+        }
+        .legend-dot.planned {
+            background: var(--warm-gray-light);
         }
 
-        .legend-box {
+        /* Blackout Toggle */
+        .blackout-toggle {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+        .blackout-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: 0.85em;
+            color: var(--warm-gray);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .blackout-btn:hover {
+            border-color: var(--warm-gray-light);
+            color: var(--ink);
+        }
+        .blackout-content {
+            display: none;
+            background: var(--highlight);
+            border-radius: var(--radius-md);
+            padding: var(--space-lg);
+            margin-top: var(--space-md);
+            text-align: left;
+        }
+        .blackout-content.show {
+            display: block;
+        }
+        .blackout-content h4 {
+            color: #92400e;
+            margin-bottom: var(--space-md);
+            font-size: 0.95em;
+        }
+        .blackout-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm) var(--space-lg);
+            font-size: 0.88em;
+            color: #92400e;
+        }
+        .blackout-grid span {
+            display: flex;
+            gap: 8px;
+        }
+        .blackout-grid strong {
+            min-width: 36px;
+        }
+
+        /* ========== TIMELINE VIEW ========== */
+        .timeline-view {
+            display: block;
+        }
+        .timeline-view.hidden {
+            display: none;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 56px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 23px;
+            top: 20px;
+            bottom: 20px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: var(--space-lg);
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -33px;
+            top: 22px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--warm-gray-light);
+            border: 2px solid var(--paper);
+        }
+        .timeline-item.confirmed .timeline-dot {
+            width: 14px;
+            height: 14px;
+            left: -35px;
+            top: 20px;
+            background: var(--accent);
+            border: 3px solid var(--accent-light);
+        }
+
+        .session-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            transition: box-shadow 0.2s;
+        }
+        .timeline-item.confirmed .session-card {
+            border-color: var(--accent);
+            box-shadow: 0 2px 12px rgba(15, 118, 110, 0.1);
+        }
+        .session-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-sm);
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+        .session-label {
+            font-size: 0.72em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--warm-gray);
+        }
+        .session-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.72em;
+            font-weight: 600;
+        }
+        .badge.confirmed {
+            background: var(--success-light);
+            color: var(--success);
+        }
+        .badge.planned {
+            background: var(--cream);
+            color: var(--warm-gray);
+        }
+        .badge.duration {
+            background: var(--accent-light);
+            color: var(--accent-dark);
+        }
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .session-title {
+            font-family: var(--font-heading);
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--ink);
+        }
+        .session-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            font-size: 0.9em;
+            color: var(--warm-gray);
+        }
+        .session-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .session-notes {
+            margin-top: var(--space-sm);
+            font-size: 0.88em;
+            font-style: italic;
+            color: var(--warm-gray);
+        }
+
+        /* Summer Break Divider */
+        .summer-divider {
+            background: var(--highlight);
+            border: 1px solid #fcd34d;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            text-align: center;
+            margin: var(--space-lg) 0;
+            margin-left: -56px;
+        }
+        .summer-divider-icon {
+            font-size: 2em;
+            margin-bottom: var(--space-xs);
+        }
+        .summer-divider-text {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            color: #92400e;
+        }
+        .summer-divider-sub {
+            font-size: 0.85em;
+            color: #b45309;
+            margin-top: 4px;
+        }
+
+        /* Year Divider */
+        .year-divider {
+            background: var(--ink);
+            color: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-md) var(--space-lg);
+            text-align: center;
+            margin: var(--space-lg) 0;
+            margin-left: -56px;
+            font-family: var(--font-heading);
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        /* Program Complete */
+        .program-complete {
+            text-align: center;
+            padding: var(--space-xl) 0;
+            margin-left: -56px;
+        }
+        .program-complete-text {
+            font-family: var(--font-heading);
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        /* ========== CALENDAR VIEW ========== */
+        .calendar-view {
+            display: none;
+        }
+        .calendar-view.show {
+            display: block;
+        }
+
+        .calendar-legend {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+        }
+        .cal-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85em;
+        }
+        .cal-legend-box {
             width: 24px;
             height: 24px;
             border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
         }
-
-        .legend-box.workshop {
+        .cal-legend-box.confirmed {
             background: var(--accent);
+            border: 2px solid var(--accent-light);
         }
-
-        .legend-box.tentative {
-            background: var(--warm-gray);
+        .cal-legend-box.planned {
+            background: var(--warm-gray-light);
+            border: 1px solid var(--warm-gray);
         }
-
-        .legend-box.blackout {
+        .cal-legend-box.blackout {
             background: repeating-linear-gradient(
                 45deg,
                 #f8f8f8,
@@ -117,219 +408,140 @@
             border: 1px solid #bbb;
         }
 
-        .calendar-grid {
+        .months-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: var(--space-lg);
         }
 
-        .month {
-            background: var(--cream);
+        .month-card {
+            background: white;
+            border: 1px solid var(--border);
             border-radius: var(--radius-md);
             padding: var(--space-md);
-            border: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
         }
-
+        .month-card.summer {
+            background: #fffbeb;
+            border-color: #fcd34d;
+            opacity: 0.8;
+        }
         .month-header {
-            text-align: center;
-            font-size: 1.1em;
-            font-weight: 600;
             font-family: var(--font-heading);
-            color: var(--ink);
-            margin-bottom: var(--space-sm);
+            font-weight: 600;
+            font-size: 0.95em;
+            text-align: center;
             padding-bottom: var(--space-sm);
+            margin-bottom: var(--space-sm);
             border-bottom: 2px solid var(--accent);
         }
-
-        .month-events {
-            margin-top: var(--space-sm);
-            padding-top: var(--space-sm);
-            border-top: 1px solid var(--border);
-            font-size: 0.8em;
+        .month-card.summer .month-header {
+            border-bottom-color: #fcd34d;
         }
-
-        .event-entry {
-            padding: 6px 8px;
-            margin-bottom: 6px;
-            background: white;
-            border-radius: var(--radius-sm);
-            border-left: 3px solid var(--accent);
-        }
-
-        .tentative-entry {
-            padding: 6px 8px;
-            margin-bottom: 6px;
-            background: white;
-            border-radius: var(--radius-sm);
-            border-left: 3px solid var(--warm-gray);
-            opacity: 0.85;
-        }
-
-        .blackout-entry {
-            padding: 6px 8px;
-            margin-bottom: 6px;
-            background: var(--paper);
-            border-radius: var(--radius-sm);
-            border-left: 3px solid #bbb;
-            font-style: italic;
-            color: var(--warm-gray);
-        }
-
-        .entry-date {
-            font-weight: 600;
-            color: var(--ink);
-            font-size: 0.9em;
-        }
-
-        .blackout-entry .entry-date {
-            color: var(--warm-gray);
-            font-weight: 500;
-        }
-
-        .entry-title {
-            color: var(--warm-gray);
-            font-size: 0.85em;
+        .summer-label {
+            display: block;
+            font-size: 0.75em;
+            font-weight: 400;
+            color: #b45309;
             margin-top: 2px;
-        }
-
-        .blackout-entry .entry-title {
-            color: var(--warm-gray-light);
-        }
-
-        .entry-time {
-            color: var(--warm-gray-light);
-            font-size: 0.8em;
-            margin-top: 1px;
         }
 
         .days-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
+            gap: 3px;
         }
-
         .day-label {
             text-align: center;
+            font-size: 0.7em;
             font-weight: 600;
             color: var(--warm-gray);
-            font-size: 0.75em;
             padding: 4px 0;
         }
-
-        .day {
+        .day-cell {
             aspect-ratio: 1;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.8em;
             border-radius: var(--radius-sm);
-            font-size: 0.85em;
-            cursor: pointer;
-            transition: all 0.15s;
-            position: relative;
             border: 1px solid transparent;
         }
-
-        .day:hover {
-            transform: scale(1.08);
-        }
-
-        .day.empty {
+        .day-cell.empty {
             background: transparent;
         }
-
-        .day.regular {
-            background: white;
+        .day-cell.regular {
+            background: var(--paper);
             color: var(--ink);
-            border-color: var(--border);
         }
-
-        .day.workshop {
+        .day-cell.workshop-confirmed {
             background: var(--accent);
             color: white;
             font-weight: 600;
-            border-color: var(--accent);
+            border-color: var(--accent-light);
         }
-
-        .day.tentative {
-            background: var(--warm-gray);
+        .day-cell.workshop-planned {
+            background: var(--warm-gray-light);
             color: white;
             font-weight: 600;
-            border-color: var(--warm-gray);
         }
-
-        .day.blackout {
+        .day-cell.blackout {
             background: repeating-linear-gradient(
                 45deg,
                 #f8f8f8,
-                #f8f8f8 3px,
-                #e0e0e0 3px,
-                #e0e0e0 6px
+                #f8f8f8 2px,
+                #e0e0e0 2px,
+                #e0e0e0 4px
             );
             color: var(--warm-gray-light);
-            border-color: #ccc;
         }
 
-        .tooltip {
-            display: none;
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
+        .cal-year-divider {
+            grid-column: 1 / -1;
             background: var(--ink);
             color: white;
-            padding: 8px 12px;
-            border-radius: var(--radius-sm);
-            font-size: 0.75em;
-            white-space: nowrap;
-            z-index: 10;
-            margin-bottom: 5px;
-            box-shadow: var(--shadow-md);
-        }
-
-        .day:hover .tooltip {
-            display: block;
-        }
-
-        .summer-break {
-            grid-column: 1 / -1;
             text-align: center;
-            padding: var(--space-lg);
-            background: var(--cream);
+            padding: var(--space-md);
             border-radius: var(--radius-md);
-            color: var(--warm-gray);
-            font-size: 1.1em;
-            font-weight: 600;
-            border: 1px solid var(--border);
-        }
-
-        .year-divider {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: var(--space-lg);
-            background: var(--ink);
-            border-radius: var(--radius-md);
-            color: white;
-            font-size: 1.4em;
-            font-weight: 700;
             font-family: var(--font-heading);
-            margin: var(--space-sm) 0;
+            font-size: 1.2em;
+            font-weight: 700;
         }
 
-        @media (max-width: 1200px) {
-            .calendar-grid {
+        /* Responsive */
+        @media (max-width: 900px) {
+            .months-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-
-        @media (max-width: 768px) {
-            .calendar-grid {
+        @media (max-width: 600px) {
+            .calendar-main {
+                padding: var(--space-lg) var(--space-md);
+            }
+            .timeline {
+                padding-left: 40px;
+            }
+            .timeline::before {
+                left: 15px;
+            }
+            .timeline-dot {
+                left: -25px;
+            }
+            .timeline-item.confirmed .timeline-dot {
+                left: -27px;
+            }
+            .summer-divider,
+            .year-divider,
+            .program-complete {
+                margin-left: -40px;
+            }
+            .months-grid {
                 grid-template-columns: 1fr;
             }
-            .calendar-container {
-                padding: var(--space-lg);
-                margin: var(--space-md);
+            .blackout-grid {
+                grid-template-columns: 1fr;
+            }
+            .session-header {
+                flex-direction: column;
             }
         }
     </style>
@@ -341,45 +553,365 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="calendar.html">Calendar</a></li>
-                <li><a href="schedule.html">Schedule</a></li>
                 <li><a href="survey.html">Survey</a></li>
                 <li><a href="hub/">Resource Hub</a></li>
             </ul>
         </div>
     </nav>
 
-    <div class="calendar-container">
-        <div class="calendar-header">
-            <h1>AI for All Workshop Calendar</h1>
-            <p class="calendar-subtitle">St. Albert & District Chamber of Commerce • 2026-2027</p>
-        </div>
-
-        <div class="important-notice">
-            <h3>Workshop Schedule - One Session Per Month</h3>
-            <p><strong>First session confirmed for February 24th, 2026.</strong> Future sessions scheduled monthly through June 2027. All future dates marked as tentative pending member feedback and Chamber approval.</p>
-        </div>
-
-        <div class="schedule-info">
-            <h3>Monthly Workshop Series</h3>
-            <p>One focused workshop per month allows for deeper implementation and practice between sessions. The 16-month program (Feb 2026 - June 2027) provides sustainable learning without overwhelming busy business owners.</p>
-        </div>
-
-        <div class="legend">
-            <div class="legend-item">
-                <div class="legend-box workshop"></div>
-                <span><strong>Confirmed Workshop</strong></span>
+    <div class="calendar-hero">
+        <div class="calendar-hero-inner">
+            <h1>Workshop Calendar</h1>
+            <p class="calendar-hero-subtitle">15 sessions over 16 months, designed for busy business owners. One focused workshop per month gives you time to learn, implement, and see results before the next session.</p>
+            <div class="hero-tags">
+                <span class="hero-tag teal">Feb 2026 – Jun 2027</span>
+                <span class="hero-tag gray">15 Sessions</span>
             </div>
-            <div class="legend-item">
-                <div class="legend-box tentative"></div>
-                <span><strong>Tentative Workshop</strong></span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-box blackout"></div>
-                <span><strong>Blackout Dates</strong></span>
+        </div>
+    </div>
+
+    <div class="calendar-main">
+        <!-- View Toggle -->
+        <div class="view-toggle-container">
+            <div class="view-toggle">
+                <button class="view-toggle-btn active" onclick="showView('timeline')">
+                    <span>📋</span> Timeline
+                </button>
+                <button class="view-toggle-btn" onclick="showView('calendar')">
+                    <span>📅</span> Calendar
+                </button>
             </div>
         </div>
 
-        <div id="calendar" class="calendar-grid"></div>
+        <!-- Legend -->
+        <div class="legend-row">
+            <div class="legend-item">
+                <div class="legend-dot confirmed"></div>
+                <span>Confirmed</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot planned"></div>
+                <span>Planned</span>
+            </div>
+        </div>
+
+        <!-- Blackout Toggle -->
+        <div class="blackout-toggle">
+            <button class="blackout-btn" onclick="toggleBlackout()">
+                <span id="blackout-icon">▶</span> Show blackout dates
+            </button>
+            <div class="blackout-content" id="blackout-content">
+                <h4>Chamber Blackout Dates (2026)</h4>
+                <div class="blackout-grid">
+                    <span><strong>Feb:</strong> 11, 16</span>
+                    <span><strong>Mar:</strong> 1, 11, 27, 30–31</span>
+                    <span><strong>Apr:</strong> 1–6, 15, 17</span>
+                    <span><strong>May:</strong> 13, 18</span>
+                    <span><strong>Jun:</strong> 10</span>
+                    <span><strong>Sep:</strong> 7, 16, 30</span>
+                    <span><strong>Oct:</strong> 5–9, 12, 21, 30</span>
+                    <span><strong>Nov:</strong> 11, 18</span>
+                    <span><strong>Dec:</strong> 9</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== TIMELINE VIEW ========== -->
+        <div class="timeline-view" id="timeline-view">
+            <div class="timeline">
+                <!-- Session 1 -->
+                <div class="timeline-item confirmed">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 1</span>
+                            <div class="session-badges">
+                                <span class="badge confirmed"><span class="badge-dot"></span> Confirmed</span>
+                                <span class="badge duration">1.5h</span>
+                            </div>
+                        </div>
+                        <h3 class="session-title">AI Fundamentals: Demystifying the Hype</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Tues, Feb 24, 2026</span>
+                            <span class="session-meta-item">🕐 9:30–11:00 AM MST</span>
+                        </div>
+                        <p class="session-notes">Via Zoom</p>
+                    </div>
+                </div>
+
+                <!-- Session 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 2</span>
+                            <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                        </div>
+                        <h3 class="session-title">How to Prevent Costly AI Mistakes</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, Mar 18, 2026</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 3</span>
+                            <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                        </div>
+                        <h3 class="session-title">Prompt Power: How to Talk to AI</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, Apr 22, 2026</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 4</span>
+                            <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                        </div>
+                        <h3 class="session-title">AI for Marketing & Branding Made Easy</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, May 20, 2026</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summer Break -->
+                <div class="summer-divider">
+                    <div class="summer-divider-icon">☀️</div>
+                    <div class="summer-divider-text">Summer Break</div>
+                    <div class="summer-divider-sub">June – July 2026</div>
+                </div>
+
+                <!-- Session 5 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 5</span>
+                            <div class="session-badges">
+                                <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                                <span class="badge duration">2h</span>
+                            </div>
+                        </div>
+                        <h3 class="session-title">The 2-Hour Productivity Surge</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, Aug 19, 2026</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session 6 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 6</span>
+                            <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                        </div>
+                        <h3 class="session-title">Smarter Business Decisions & AI Insights</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, Sep 23, 2026</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session 7 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 7</span>
+                            <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                        </div>
+                        <h3 class="session-title">AI Health Check: Assessing Your Readiness</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, Oct 14, 2026</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session 8 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 8</span>
+                            <div class="session-badges">
+                                <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                                <span class="badge duration">2h</span>
+                            </div>
+                        </div>
+                        <h3 class="session-title">Sector Deep Dive: Retail & E-commerce</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, Nov 25, 2026</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session 9 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 9</span>
+                            <div class="session-badges">
+                                <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                                <span class="badge duration">2h</span>
+                            </div>
+                        </div>
+                        <h3 class="session-title">Sector Deep Dive: Professional Services</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, Dec 16, 2026</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2027 Year Divider -->
+                <div class="year-divider">2027</div>
+
+                <!-- Session 10 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 10</span>
+                            <div class="session-badges">
+                                <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                                <span class="badge duration">2h</span>
+                            </div>
+                        </div>
+                        <h3 class="session-title">Sector Deep Dive: Mfg & Agri-Tech</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, Jan 20, 2027</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session 11 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 11</span>
+                            <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                        </div>
+                        <h3 class="session-title">Advanced AI Tools</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, Feb 17, 2027</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session 12 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 12</span>
+                            <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                        </div>
+                        <h3 class="session-title">AI Ethics & Governance</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, Mar 17, 2027</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session 13 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 13</span>
+                            <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                        </div>
+                        <h3 class="session-title">Scaling AI in Your Business</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, Apr 21, 2027</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session 14 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 14</span>
+                            <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                        </div>
+                        <h3 class="session-title">Future-Proofing: Monitoring Risk</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, May 19, 2027</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session 15 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="session-card">
+                        <div class="session-header">
+                            <span class="session-label">Session 15</span>
+                            <span class="badge planned"><span class="badge-dot"></span> Planned</span>
+                        </div>
+                        <h3 class="session-title">Community AI Showcase</h3>
+                        <div class="session-meta">
+                            <span class="session-meta-item">📅 Wed, Jun 16, 2027</span>
+                            <span class="session-meta-item">🕐 TBD</span>
+                        </div>
+                        <p class="session-notes">Celebration & demo event</p>
+                    </div>
+                </div>
+
+                <!-- Program Complete -->
+                <div class="program-complete">
+                    <span class="program-complete-text">Program Complete 🎉</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========== CALENDAR VIEW ========== -->
+        <div class="calendar-view" id="calendar-view">
+            <div class="calendar-legend">
+                <div class="cal-legend-item">
+                    <div class="cal-legend-box confirmed"></div>
+                    <span>Confirmed</span>
+                </div>
+                <div class="cal-legend-item">
+                    <div class="cal-legend-box planned"></div>
+                    <span>Planned</span>
+                </div>
+                <div class="cal-legend-item">
+                    <div class="cal-legend-box blackout"></div>
+                    <span>Blackout</span>
+                </div>
+            </div>
+
+            <div class="months-grid" id="months-grid"></div>
+        </div>
     </div>
 
     <footer class="footer">
@@ -389,316 +921,125 @@
     </footer>
 
     <script>
-        const months = [
-            // 2026
-            {
-                name: 'February 2026',
-                days: 28,
-                startDay: 0,
-                workshops: [
-                    { date: 24, title: 'Session 1: AI Fundamentals', time: '12:00-1:30 PM', confirmed: true }
-                ],
-                blackoutDates: [11, 16],
-                blackoutRanges: [
-                    { label: 'Feb 11, 16', reason: 'Blackout Dates' }
-                ]
-            },
-            {
-                name: 'March 2026',
-                days: 31,
-                startDay: 0,
-                workshops: [
-                    { date: 18, title: 'Session 2: Prevent Costly AI Mistakes (Tentative)', time: '12:00-1:30 PM', tentative: true }
-                ],
-                blackoutDates: [1, 11, 27, 30, 31],
-                blackoutRanges: [
-                    { label: 'Mar 1, 11, 27, 30-31', reason: 'Blackout Dates' }
-                ]
-            },
-            {
-                name: 'April 2026',
-                days: 30,
-                startDay: 3,
-                workshops: [
-                    { date: 22, title: 'Session 3: Prompt Power (Tentative)', time: '7:30-9:00 AM', tentative: true }
-                ],
-                blackoutDates: [1, 2, 3, 4, 5, 6, 15, 17],
-                blackoutRanges: [
-                    { label: 'Apr 1-6, 15, 17', reason: 'Blackout Dates' }
-                ]
-            },
-            {
-                name: 'May 2026',
-                days: 31,
-                startDay: 5,
-                workshops: [
-                    { date: 20, title: 'Session 4: AI for Marketing & Branding (Tentative)', time: '12:00-1:30 PM', tentative: true }
-                ],
-                blackoutDates: [13, 18],
-                blackoutRanges: [
-                    { label: 'May 13, 18', reason: 'Blackout Dates' }
-                ]
-            },
-            {
-                name: 'June 2026',
-                days: 30,
-                startDay: 1,
-                workshops: [],
-                blackoutDates: [10],
-                blackoutRanges: [],
-                summerBreak: true
-            },
-            {
-                name: 'July 2026',
-                days: 31,
-                startDay: 3,
-                workshops: [],
-                blackoutDates: [],
-                blackoutRanges: [],
-                summerBreak: true
-            },
-            {
-                name: 'August 2026',
-                days: 31,
-                startDay: 6,
-                workshops: [
-                    { date: 19, title: 'Session 5: 2-Hour Productivity Surge (Tentative)', time: '7:30-9:30 AM', tentative: true }
-                ],
-                blackoutDates: [],
-                blackoutRanges: []
-            },
-            {
-                name: 'September 2026',
-                days: 30,
-                startDay: 2,
-                workshops: [
-                    { date: 23, title: 'Session 6: Smarter Business Decisions (Tentative)', time: '12:00-1:30 PM', tentative: true }
-                ],
-                blackoutDates: [7, 16, 30],
-                blackoutRanges: [
-                    { label: 'Sep 7, 16, 30', reason: 'Blackout Dates' }
-                ]
-            },
-            {
-                name: 'October 2026',
-                days: 31,
-                startDay: 4,
-                workshops: [
-                    { date: 14, title: 'Session 7: AI Health Check (Tentative)', time: '7:30-9:00 AM', tentative: true }
-                ],
-                blackoutDates: [5, 6, 7, 8, 9, 12, 21, 30],
-                blackoutRanges: [
-                    { label: 'Oct 5-9, 12, 21, 30', reason: 'Blackout Dates' }
-                ]
-            },
-            {
-                name: 'November 2026',
-                days: 30,
-                startDay: 0,
-                workshops: [
-                    { date: 25, title: 'Session 8: Sector Deep Dive - Retail (Tentative)', time: '7:30-9:30 AM', tentative: true }
-                ],
-                blackoutDates: [11, 18],
-                blackoutRanges: [
-                    { label: 'Nov 11, 18', reason: 'Blackout Dates' }
-                ]
-            },
-            {
-                name: 'December 2026',
-                days: 31,
-                startDay: 2,
-                workshops: [
-                    { date: 16, title: 'Session 9: Sector Deep Dive - Prof Services (Tentative)', time: '12:00-2:00 PM', tentative: true }
-                ],
-                blackoutDates: [9],
-                blackoutRanges: [
-                    { label: 'Dec 9', reason: 'Blackout Dates' }
-                ]
-            },
-            // 2027
-            {
-                name: 'January 2027',
-                year2027: true,
-                days: 31,
-                startDay: 5,
-                workshops: [
-                    { date: 20, title: 'Session 10: Sector Deep Dive - Mfg & Agri (Tentative)', time: '7:30-9:30 AM', tentative: true }
-                ],
-                blackoutDates: [],
-                blackoutRanges: []
-            },
-            {
-                name: 'February 2027',
-                days: 28,
-                startDay: 1,
-                workshops: [
-                    { date: 17, title: 'Session 11: Advanced AI Tools (Tentative)', time: '12:00-1:30 PM', tentative: true }
-                ],
-                blackoutDates: [],
-                blackoutRanges: []
-            },
-            {
-                name: 'March 2027',
-                days: 31,
-                startDay: 1,
-                workshops: [
-                    { date: 17, title: 'Session 12: AI Ethics & Governance (Tentative)', time: '7:30-9:00 AM', tentative: true }
-                ],
-                blackoutDates: [],
-                blackoutRanges: []
-            },
-            {
-                name: 'April 2027',
-                days: 30,
-                startDay: 4,
-                workshops: [
-                    { date: 21, title: 'Session 13: Scaling AI in Your Business (Tentative)', time: '12:00-1:30 PM', tentative: true }
-                ],
-                blackoutDates: [],
-                blackoutRanges: []
-            },
-            {
-                name: 'May 2027',
-                days: 31,
-                startDay: 6,
-                workshops: [
-                    { date: 19, title: 'Session 14: Future-Proofing & Risk Monitoring (Tentative)', time: '7:30-9:00 AM', tentative: true }
-                ],
-                blackoutDates: [],
-                blackoutRanges: []
-            },
-            {
-                name: 'June 2027',
-                days: 30,
-                startDay: 2,
-                workshops: [
-                    { date: 16, title: 'Session 15: Community AI Showcase (Tentative)', time: 'Full Day Event', tentative: true }
-                ],
-                blackoutDates: [],
-                blackoutRanges: []
+        // View toggle
+        function showView(view) {
+            const timelineView = document.getElementById('timeline-view');
+            const calendarView = document.getElementById('calendar-view');
+            const buttons = document.querySelectorAll('.view-toggle-btn');
+
+            if (view === 'timeline') {
+                timelineView.classList.remove('hidden');
+                calendarView.classList.remove('show');
+                buttons[0].classList.add('active');
+                buttons[1].classList.remove('active');
+            } else {
+                timelineView.classList.add('hidden');
+                calendarView.classList.add('show');
+                buttons[0].classList.remove('active');
+                buttons[1].classList.add('active');
             }
+        }
+
+        // Blackout toggle
+        function toggleBlackout() {
+            const content = document.getElementById('blackout-content');
+            const icon = document.getElementById('blackout-icon');
+            const btn = document.querySelector('.blackout-btn');
+
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                icon.textContent = '▶';
+                btn.innerHTML = '<span id="blackout-icon">▶</span> Show blackout dates';
+            } else {
+                content.classList.add('show');
+                icon.textContent = '▼';
+                btn.innerHTML = '<span id="blackout-icon">▼</span> Hide blackout dates';
+            }
+        }
+
+        // Calendar data
+        const calendarData = [
+            { name: 'February 2026', days: 28, startDay: 0, workshop: 24, confirmed: true, blackout: [11, 16] },
+            { name: 'March 2026', days: 31, startDay: 0, workshop: 18, confirmed: false, blackout: [1, 11, 27, 30, 31] },
+            { name: 'April 2026', days: 30, startDay: 3, workshop: 22, confirmed: false, blackout: [1, 2, 3, 4, 5, 6, 15, 17] },
+            { name: 'May 2026', days: 31, startDay: 5, workshop: 20, confirmed: false, blackout: [13, 18] },
+            { name: 'June 2026', days: 30, startDay: 1, workshop: null, summer: true, blackout: [10] },
+            { name: 'July 2026', days: 31, startDay: 3, workshop: null, summer: true, blackout: [] },
+            { name: 'August 2026', days: 31, startDay: 6, workshop: 19, confirmed: false, blackout: [] },
+            { name: 'September 2026', days: 30, startDay: 2, workshop: 23, confirmed: false, blackout: [7, 16, 30] },
+            { name: 'October 2026', days: 31, startDay: 4, workshop: 14, confirmed: false, blackout: [5, 6, 7, 8, 9, 12, 21, 30] },
+            { name: 'November 2026', days: 30, startDay: 0, workshop: 25, confirmed: false, blackout: [11, 18] },
+            { name: 'December 2026', days: 31, startDay: 2, workshop: 16, confirmed: false, blackout: [9] },
+            { name: 'January 2027', days: 31, startDay: 5, workshop: 20, confirmed: false, blackout: [], year2027: true },
+            { name: 'February 2027', days: 28, startDay: 1, workshop: 17, confirmed: false, blackout: [] },
+            { name: 'March 2027', days: 31, startDay: 1, workshop: 17, confirmed: false, blackout: [] },
+            { name: 'April 2027', days: 30, startDay: 4, workshop: 21, confirmed: false, blackout: [] },
+            { name: 'May 2027', days: 31, startDay: 6, workshop: 19, confirmed: false, blackout: [] },
+            { name: 'June 2027', days: 30, startDay: 2, workshop: 16, confirmed: false, blackout: [] }
         ];
 
-        const dayLabels = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const dayLabels = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
-        function createCalendar() {
-            const calendar = document.getElementById('calendar');
+        function buildCalendarGrid() {
+            const grid = document.getElementById('months-grid');
             let year2027Added = false;
 
-            months.forEach(month => {
-                // Add year divider before 2027 months
+            calendarData.forEach(month => {
+                // Year divider
                 if (month.year2027 && !year2027Added) {
-                    const yearDivider = document.createElement('div');
-                    yearDivider.className = 'year-divider';
-                    yearDivider.textContent = '2027';
-                    calendar.appendChild(yearDivider);
+                    const divider = document.createElement('div');
+                    divider.className = 'cal-year-divider';
+                    divider.textContent = '2027';
+                    grid.appendChild(divider);
                     year2027Added = true;
                 }
 
-                const monthDiv = document.createElement('div');
-                monthDiv.className = 'month';
+                const card = document.createElement('div');
+                card.className = 'month-card' + (month.summer ? ' summer' : '');
 
-                if (month.summerBreak) {
-                    monthDiv.innerHTML = `
-                        <div class="month-header">${month.name}</div>
-                        <div class="summer-break">
-                            SUMMER BREAK
-                        </div>
-                    `;
-                    calendar.appendChild(monthDiv);
-                    return;
+                let headerHtml = month.name;
+                if (month.summer) {
+                    headerHtml += '<span class="summer-label">Break</span>';
                 }
 
-                const header = document.createElement('div');
-                header.className = 'month-header';
-                header.textContent = month.name;
-                monthDiv.appendChild(header);
+                let daysHtml = '<div class="days-grid">';
 
-                const daysGrid = document.createElement('div');
-                daysGrid.className = 'days-grid';
-
+                // Day labels
                 dayLabels.forEach(label => {
-                    const dayLabel = document.createElement('div');
-                    dayLabel.className = 'day-label';
-                    dayLabel.textContent = label;
-                    daysGrid.appendChild(dayLabel);
+                    daysHtml += `<div class="day-label">${label}</div>`;
                 });
 
+                // Empty cells
                 for (let i = 0; i < month.startDay; i++) {
-                    const emptyDay = document.createElement('div');
-                    emptyDay.className = 'day empty';
-                    daysGrid.appendChild(emptyDay);
+                    daysHtml += '<div class="day-cell empty"></div>';
                 }
 
-                for (let day = 1; day <= month.days; day++) {
-                    const dayDiv = document.createElement('div');
-                    dayDiv.className = 'day regular';
-                    dayDiv.textContent = day;
+                // Day cells
+                for (let d = 1; d <= month.days; d++) {
+                    let cellClass = 'day-cell regular';
 
-                    const workshops = month.workshops.filter(w => w.date === day);
-                    const isBlackout = month.blackoutDates.includes(day);
-
-                    if (workshops.length > 0) {
-                        const isTentative = workshops.some(w => w.tentative);
-                        const isConfirmed = workshops.some(w => w.confirmed);
-
-                        if (isConfirmed) {
-                            dayDiv.className = 'day workshop';
-                        } else if (isTentative) {
-                            dayDiv.className = 'day tentative';
-                        }
-
-                        const tooltip = document.createElement('div');
-                        tooltip.className = 'tooltip';
-                        tooltip.innerHTML = workshops.map(w => `${w.title}<br>${w.time}`).join('<br>---<br>');
-                        dayDiv.appendChild(tooltip);
-                    } else if (isBlackout) {
-                        dayDiv.className = 'day blackout';
-                        const tooltip = document.createElement('div');
-                        tooltip.className = 'tooltip';
-                        tooltip.textContent = 'Blackout Date';
-                        dayDiv.appendChild(tooltip);
+                    if (month.workshop === d) {
+                        cellClass = month.confirmed ? 'day-cell workshop-confirmed' : 'day-cell workshop-planned';
+                    } else if (month.blackout.includes(d)) {
+                        cellClass = 'day-cell blackout';
                     }
 
-                    daysGrid.appendChild(dayDiv);
+                    daysHtml += `<div class="${cellClass}">${d}</div>`;
                 }
 
-                monthDiv.appendChild(daysGrid);
+                daysHtml += '</div>';
 
-                const eventsDiv = document.createElement('div');
-                eventsDiv.className = 'month-events';
+                card.innerHTML = `
+                    <div class="month-header">${headerHtml}</div>
+                    ${daysHtml}
+                `;
 
-                month.workshops.forEach(workshop => {
-                    const eventEntry = document.createElement('div');
-                    eventEntry.className = workshop.tentative ? 'tentative-entry' : 'event-entry';
-                    eventEntry.innerHTML = `
-                        <div class="entry-date">${month.name.split(' ')[0]} ${workshop.date}</div>
-                        <div class="entry-title">${workshop.title}</div>
-                        <div class="entry-time">${workshop.time}</div>
-                    `;
-                    eventsDiv.appendChild(eventEntry);
-                });
-
-                // Show consolidated blackout ranges instead of individual dates
-                month.blackoutRanges.forEach(range => {
-                    const blackoutEntry = document.createElement('div');
-                    blackoutEntry.className = 'blackout-entry';
-                    blackoutEntry.innerHTML = `
-                        <div class="entry-date">${range.label}</div>
-                        <div class="entry-title">${range.reason}</div>
-                    `;
-                    eventsDiv.appendChild(blackoutEntry);
-                });
-
-                if (month.workshops.length > 0 || month.blackoutRanges.length > 0) {
-                    monthDiv.appendChild(eventsDiv);
-                }
-
-                calendar.appendChild(monthDiv);
+                grid.appendChild(card);
             });
         }
 
-        createCalendar();
+        // Build calendar on load
+        buildCalendarGrid();
     </script>
 </body>
 </html>

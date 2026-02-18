@@ -9,37 +9,56 @@
         /* Survey-specific styles */
         .survey-hero {
             background: white;
-            padding: var(--space-2xl) var(--space-lg) var(--space-xl);
             border-bottom: 1px solid var(--border);
+            padding: var(--space-xl) var(--space-lg);
         }
 
-        .survey-hero-content {
-            max-width: 900px;
+        .survey-hero-inner {
+            max-width: 860px;
             margin: 0 auto;
+            text-align: center;
         }
 
         .survey-hero h1 {
-            margin-bottom: var(--space-md);
+            font-size: 1.875em;
+            margin-bottom: var(--space-sm);
         }
 
-        .survey-hero p {
-            font-size: 1.1em;
+        .survey-hero-subtitle {
             color: var(--warm-gray);
-            margin-bottom: var(--space-md);
+            font-size: 1em;
+            line-height: 1.6;
+            max-width: 680px;
+            margin: 0 auto var(--space-lg);
         }
 
-        .time-estimate {
+        .hero-tags {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+        }
+
+        .hero-tag {
             display: inline-block;
+            padding: 6px 14px;
+            border-radius: var(--radius-full);
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .hero-tag.teal {
             background: var(--accent-light);
             color: var(--accent-dark);
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            font-size: 0.95em;
+        }
+
+        .hero-tag.gray {
+            background: var(--cream);
+            color: var(--warm-gray);
         }
 
         .form-container {
-            max-width: 900px;
+            max-width: 860px;
             margin: var(--space-xl) auto;
             padding: 0 var(--space-lg) var(--space-xl);
             background: white;
@@ -65,7 +84,6 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="calendar.html">Calendar</a></li>
-                <li><a href="schedule.html">Schedule</a></li>
                 <li><a href="survey.html">Survey</a></li>
                 <li><a href="hub/">Resource Hub</a></li>
             </ul>
@@ -73,11 +91,13 @@
     </nav>
 
     <div class="survey-hero">
-        <div class="survey-hero-content">
-            <h1>AI for All Workshop Series: Member Preferences Survey</h1>
-            <p>The St. Albert & District Chamber of Commerce is developing a comprehensive AI training program for local businesses. To ensure this program meets your needs and schedule, we need your input on timing, format, and delivery preferences.</p>
-            <span class="time-estimate">This survey takes approximately 5-7 minutes to complete</span>
-            <p style="margin-top: var(--space-md); color: var(--warm-gray);">Your responses will directly shape the workshop schedule and format for 2026-2027.</p>
+        <div class="survey-hero-inner">
+            <h1>Member Preferences Survey</h1>
+            <p class="survey-hero-subtitle">The St. Albert & District Chamber of Commerce is developing a comprehensive AI training program for local businesses. Your input on timing, format, and delivery preferences will directly shape the workshop schedule.</p>
+            <div class="hero-tags">
+                <span class="hero-tag teal">5–7 minutes</span>
+                <span class="hero-tag gray">Your responses shape the 2026–2027 program</span>
+            </div>
         </div>
     </div>
 
