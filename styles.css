@@ -316,6 +316,34 @@ a:hover { opacity: 0.8; }
     font-size: 0.85em;
 }
 
+.footer-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+}
+
+.footer-logos a {
+    display: inline-flex;
+    align-items: center;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.footer-logos a:hover {
+    opacity: 1;
+}
+
+.footer-logos img,
+.footer-logos svg {
+    height: 32px;
+    width: auto;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
     .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
