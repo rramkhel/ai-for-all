@@ -380,6 +380,146 @@
             border-radius: 8px;
         }
 
+        /* Step Indicator */
+        .step-indicator {
+            background: var(--cream);
+            text-align: center;
+            padding: 6px 0;
+            font-size: 0.8em;
+            color: var(--warm-gray);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* Hub Tabs */
+        .hub-tabs {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .hub-tabs-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hub-tab {
+            padding: 10px 16px;
+            text-decoration: none;
+            color: var(--warm-gray);
+            font-size: 0.82em;
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .hub-tab:hover { color: var(--ink); background: var(--cream); }
+        .hub-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+        /* Next Step CTA */
+        .next-step {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: white;
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .next-step-content { max-width: 600px; margin: 0 auto; }
+
+        .next-step-label {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .next-step h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4em;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .next-step-btn {
+            display: inline-block;
+            background: white;
+            color: var(--accent-dark);
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .next-step-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; right: 0; bottom: 0;
+            width: 260px;
+            background: var(--ink);
+            z-index: 1000;
+            padding: 60px 24px 24px;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-weight: 500;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .mobile-overlay.open { display: block; }
+
         /* Responsive */
         @media (max-width: 700px) {
             .platform-grid {
@@ -401,6 +541,18 @@
                 padding: 10px 16px;
                 font-size: 0.9em;
             }
+
+            .hamburger { display: block; }
+            .back-link { display: none; }
+
+            .hub-tabs-inner {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                justify-content: flex-start;
+                padding: 0 12px;
+            }
+
+            .hub-tab { padding: 10px 12px; font-size: 0.78em; }
         }
     </style>
 </head>
@@ -408,10 +560,31 @@
     <nav class="nav">
         <div class="nav-container">
             <a href="../index.html" class="nav-logo">AI for All</a>
-            <a href="resources.html" class="back-link">← Back to Hub</a>
+            <a href="resources.html" class="back-link">&larr; Back to Toolkit</a>
+            <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">&#9776;</button>
         </div>
     </nav>
-    
+
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="toggleMenu()">&times;</button>
+        <a href="resources.html">&larr; Back to Toolkit</a>
+        <a href="../index.html">Home</a>
+        <a href="../calendar.html">Calendar</a>
+    </div>
+
+    <div class="hub-tabs">
+        <div class="hub-tabs-inner">
+            <a href="business-profile.html" class="hub-tab">&#128203; Profile</a>
+            <a href="guardrails.html" class="hub-tab">&#128737;&#65039; Safety</a>
+            <a href="ally-setup.html" class="hub-tab active">&#129302; Ally</a>
+            <a href="sector-packs.html" class="hub-tab">&#128230; Prompts</a>
+            <a href="prompt-builder.html" class="hub-tab">&#128296; Builder</a>
+        </div>
+    </div>
+
+    <div class="step-indicator">Step 3 of 5</div>
+
     <div class="hero">
         <div class="hero-icon">🤖</div>
         <h1>Set Up Ally</h1>
@@ -719,17 +892,20 @@ Remember: You're here to make AI useful and safe for small business owners. Be h
             </div>
         </div>
         
-        <!-- Next Steps -->
-        <div class="highlight-box">
-            <h4>🎉 You're All Set!</h4>
-            <p>Now that Ally is ready, explore your <a href="sector-packs.html">Sector Prompt Packs</a> for ready-to-use prompts, or use the <a href="prompt-builder.html">Prompt Builder</a> to create your own.</p>
+    </div>
+
+    <div class="next-step">
+        <div class="next-step-content">
+            <span class="next-step-label">&#10003; Ally is ready!</span>
+            <h3>Next: Get Prompts for Your Industry</h3>
+            <a href="sector-packs.html" class="next-step-btn">Browse Sector Packs &rarr;</a>
         </div>
     </div>
-    
+
     <footer class="footer">
-        <p>AI for All Workshop Series • St. Albert & District Chamber of Commerce</p>
+        <p>AI for All Workshop Series &bull; St. Albert &amp; District Chamber of Commerce</p>
     </footer>
-    
+
     <script>
         // Auth check
         if (!localStorage.getItem('aiforall_hub_access')) {
@@ -756,6 +932,11 @@ Remember: You're here to make AI useful and safe for small business owners. Be h
                     btn.classList.remove('copied');
                 }, 2000);
             });
+        }
+
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+            document.getElementById('mobileOverlay').classList.toggle('open');
         }
     </script>
 </body>
