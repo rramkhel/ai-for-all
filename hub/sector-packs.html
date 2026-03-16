@@ -255,7 +255,40 @@
         .copy-btn.copied {
             background: #16a34a;
         }
-        
+
+        /* Starred Cards */
+        .prompt-card.starred {
+            border-color: var(--accent);
+            border-width: 2px;
+            position: relative;
+        }
+
+        .prompt-card.starred::before {
+            content: '⭐ Start Here';
+            position: absolute;
+            top: -1px;
+            right: 16px;
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 0 0 8px 8px;
+            font-size: 0.75em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .start-here-hint {
+            text-align: center;
+            color: var(--accent-dark);
+            font-size: 0.9em;
+            font-weight: 500;
+            margin-bottom: 24px;
+            padding: 10px 16px;
+            background: var(--accent-light);
+            border-radius: 8px;
+        }
+
         /* Guardrails Note */
         .guardrails-note {
             margin-top: 12px;
@@ -409,10 +442,11 @@
                 <h2>🔨 Construction & Trades Pack</h2>
                 <p>Quotes, project updates, client communication, and documentation</p>
             </div>
-            
+            <p class="start-here-hint">New to AI prompts? Start with the ⭐ starred prompts — they're quick wins you can try right now.</p>
+
             <div class="prompt-grid">
                 <!-- Quote Generator -->
-                <div class="prompt-card">
+                <div class="prompt-card starred">
                     <div class="prompt-card-header">
                         <h4>📝 Quote/Estimate Email</h4>
                         <p class="description">Professional quote follow-up for prospects</p>
@@ -427,7 +461,7 @@
                 </div>
                 
                 <!-- Project Update -->
-                <div class="prompt-card">
+                <div class="prompt-card starred">
                     <div class="prompt-card-header">
                         <h4>🏗️ Project Status Update</h4>
                         <p class="description">Keep clients informed on project progress</p>
@@ -473,10 +507,11 @@
                 <h2>💼 Professional Services Pack</h2>
                 <p>Proposals, reports, client management, and documentation</p>
             </div>
-            
+            <p class="start-here-hint">New to AI prompts? Start with the ⭐ starred prompts — they're quick wins you can try right now.</p>
+
             <div class="prompt-grid">
                 <!-- Proposal Introduction -->
-                <div class="prompt-card">
+                <div class="prompt-card starred">
                     <div class="prompt-card-header">
                         <h4>📑 Proposal Introduction</h4>
                         <p class="description">Compelling opening for client proposals</p>
@@ -491,7 +526,7 @@
                 </div>
                 
                 <!-- Meeting Summary -->
-                <div class="prompt-card">
+                <div class="prompt-card starred">
                     <div class="prompt-card-header">
                         <h4>📝 Meeting Summary</h4>
                         <p class="description">Turn notes into professional summaries</p>
@@ -537,10 +572,11 @@
                 <h2>🛍️ Retail & Service Pack</h2>
                 <p>Product descriptions, social media, customer responses, and marketing</p>
             </div>
-            
+            <p class="start-here-hint">New to AI prompts? Start with the ⭐ starred prompts — they're quick wins you can try right now.</p>
+
             <div class="prompt-grid">
                 <!-- Product Description -->
-                <div class="prompt-card">
+                <div class="prompt-card starred">
                     <div class="prompt-card-header">
                         <h4>🏷️ Product Description</h4>
                         <p class="description">Compelling product copy that sells</p>
@@ -552,7 +588,7 @@
                 </div>
                 
                 <!-- Social Post -->
-                <div class="prompt-card">
+                <div class="prompt-card starred">
                     <div class="prompt-card-header">
                         <h4>📱 Social Media Post</h4>
                         <p class="description">Engaging content for social platforms</p>
@@ -598,10 +634,11 @@
                 <h2>📋 General Business Pack</h2>
                 <p>Universal prompts for any business type</p>
             </div>
-            
+            <p class="start-here-hint">New to AI prompts? Start with the ⭐ starred prompts — they're quick wins you can try right now.</p>
+
             <div class="prompt-grid">
                 <!-- Professional Email -->
-                <div class="prompt-card">
+                <div class="prompt-card starred">
                     <div class="prompt-card-header">
                         <h4>✉️ Professional Email</h4>
                         <p class="description">Any business email, done right</p>
@@ -613,7 +650,7 @@
                 </div>
                 
                 <!-- Job Posting -->
-                <div class="prompt-card">
+                <div class="prompt-card starred">
                     <div class="prompt-card-header">
                         <h4>👥 Job Posting</h4>
                         <p class="description">Attract the right candidates</p>

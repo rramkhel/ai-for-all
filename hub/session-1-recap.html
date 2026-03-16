@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 1 Recap | AI for All</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1c1917;
+            --paper: #fafaf9;
+            --cream: #f5f5f0;
+            --accent: #0f766e;
+            --accent-light: #ccfbf1;
+            --accent-dark: #134e4a;
+            --warm-gray: #78716c;
+            --border: #e7e5e4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Commissioner', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--ink);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Fraunces', serif;
+            color: white;
+            font-size: 1.4em;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        .back-link:hover { opacity: 1; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1em;
+        }
+
+        /* Main Content */
+        .page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        p { margin-bottom: 1em; }
+
+        /* Cards */
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card h4 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p:last-child { margin-bottom: 0; }
+
+        /* Takeaways */
+        .takeaway-list {
+            list-style: none;
+        }
+
+        .takeaway-item {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .takeaway-num {
+            width: 36px;
+            height: 36px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .takeaway-content strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Tools List */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .tool-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .tool-item h5 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .tool-item a {
+            color: var(--accent);
+            font-size: 0.9em;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--accent-dark);
+            margin-bottom: 12px;
+        }
+
+        .highlight-box ol {
+            margin-left: 20px;
+            margin-bottom: 0;
+        }
+
+        .highlight-box li {
+            margin-bottom: 6px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--ink);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">AI for All</a>
+            <a href="resources.html" class="back-link">&larr; Back to Toolkit</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-icon">📅</div>
+        <h1>Session 1 Recap</h1>
+        <p>Stop Guessing, Start Growing — February 24, 2026</p>
+    </div>
+
+    <div class="page">
+        <!-- What We Covered -->
+        <div class="section">
+            <h2 class="section-title">What We Covered</h2>
+
+            <div class="card">
+                <h4>🔍 Demo A: The Research Assistant (NotebookLM)</h4>
+                <p>We showed how a construction business owner (Steve from Birchwood Builders) used Google's NotebookLM to make sense of the 90+ page Alberta Employment Standards Code. Instead of reading the whole document, Steve uploaded it and asked specific questions — getting instant, cited answers. The key insight: AI that's grounded in YOUR documents gives you reliable answers, not guesses.</p>
+            </div>
+
+            <div class="card">
+                <h4>📊 Demo B: AI-Assisted Spreadsheets</h4>
+                <p>Jeff showed how AI can help with the spreadsheet tasks that eat up your evenings — organizing data, writing formulas, and making sense of numbers. The takeaway: you don't need to be a spreadsheet expert when AI can help you get the same results faster.</p>
+            </div>
+
+            <div class="card">
+                <h4>📣 Demo C: Your Marketing Assistant (ChatGPT Projects)</h4>
+                <p>We built a marketing assistant for a fictional renovation company (Evergreen Renos) by uploading a brand voice guide, pricing sheet, and a top-performing email into a ChatGPT Project. The result: AI that writes social posts, emails, and content calendars that actually sound like your business — not generic robot text.</p>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="section">
+            <h2 class="section-title">Key Takeaways</h2>
+
+            <div class="takeaway-list">
+                <div class="takeaway-item">
+                    <div class="takeaway-num">1</div>
+                    <div class="takeaway-content">
+                        <strong>AI needs fuel (your context) to be useful.</strong>
+                        Generic AI gives generic answers. Upload your documents, describe your business, and the output transforms.
+                    </div>
+                </div>
+
+                <div class="takeaway-item">
+                    <div class="takeaway-num">2</div>
+                    <div class="takeaway-content">
+                        <strong>The Red/Yellow/Green framework keeps you safe.</strong>
+                        Not everything should go into an AI tool. Passwords and financial credentials = never. Customer names = anonymize first. General business info = go ahead.
+                    </div>
+                </div>
+
+                <div class="takeaway-item">
+                    <div class="takeaway-num">3</div>
+                    <div class="takeaway-content">
+                        <strong>You don't need to be technical.</strong>
+                        Every tool we showed works with plain English questions. If you can describe your problem, AI can help.
+                    </div>
+                </div>
+
+                <div class="takeaway-item">
+                    <div class="takeaway-num">4</div>
+                    <div class="takeaway-content">
+                        <strong>Pick one tool and start.</strong>
+                        Don't try to learn everything at once. Choose ChatGPT, Claude, or Gemini, set up Ally, and try one prompt from your Sector Pack this week.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tools Mentioned -->
+        <div class="section">
+            <h2 class="section-title">Tools Mentioned</h2>
+
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <h5>🔬 NotebookLM</h5>
+                    <a href="https://notebooklm.google.com" target="_blank" rel="noopener noreferrer">notebooklm.google.com</a>
+                    <p style="font-size: 0.85em; color: var(--warm-gray); margin-top: 4px;">Free with a Google account</p>
+                </div>
+
+                <div class="tool-item">
+                    <h5>💬 ChatGPT</h5>
+                    <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">chat.openai.com</a>
+                    <p style="font-size: 0.85em; color: var(--warm-gray); margin-top: 4px;">Free tier available</p>
+                </div>
+
+                <div class="tool-item">
+                    <h5>🟣 Claude</h5>
+                    <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">claude.ai</a>
+                    <p style="font-size: 0.85em; color: var(--warm-gray); margin-top: 4px;">Free tier available</p>
+                </div>
+
+                <div class="tool-item">
+                    <h5>🔵 Gemini</h5>
+                    <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">gemini.google.com</a>
+                    <p style="font-size: 0.85em; color: var(--warm-gray); margin-top: 4px;">Free with Google account</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Your Homework -->
+        <div class="section">
+            <h2 class="section-title">Your Homework</h2>
+
+            <div class="highlight-box">
+                <h4>📝 If you haven't already:</h4>
+                <ol>
+                    <li>Fill out your <a href="business-profile.html">Business Profile</a> in the toolkit</li>
+                    <li>Read the <a href="guardrails.html">AI Safety Guardrails</a></li>
+                    <li>Set up Ally using the <a href="ally-setup.html">setup guide</a></li>
+                </ol>
+                <p style="margin-top: 12px; margin-bottom: 0; font-size: 0.9em; color: var(--warm-gray);">Total time: about 30 minutes</p>
+            </div>
+        </div>
+
+        <!-- Next Steps CTA -->
+        <div style="text-align: center; margin-top: 32px; padding: 32px; background: var(--cream); border-radius: 16px;">
+            <p style="font-size: 1.1em; margin-bottom: 16px;">Ready to get started?</p>
+            <a href="resources.html" style="display: inline-block; background: var(--accent); color: white; padding: 14px 28px; border-radius: 8px; font-weight: 600; text-decoration: none;">Head to Your Toolkit &rarr;</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>AI for All Workshop Series &bull; St. Albert & District Chamber of Commerce</p>
+    </footer>
+
+    <script>
+        // Auth check
+        if (!localStorage.getItem('aiforall_hub_access')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

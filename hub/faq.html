@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | AI for All</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1c1917;
+            --paper: #fafaf9;
+            --cream: #f5f5f0;
+            --accent: #0f766e;
+            --accent-light: #ccfbf1;
+            --accent-dark: #134e4a;
+            --warm-gray: #78716c;
+            --border: #e7e5e4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Commissioner', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--ink);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Fraunces', serif;
+            color: white;
+            font-size: 1.4em;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        .back-link:hover { opacity: 1; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1em;
+        }
+
+        /* Main Content */
+        .page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        /* FAQ Sections */
+        .faq-section {
+            margin-bottom: 40px;
+        }
+
+        .faq-section h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3em;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .faq-item {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+
+        .faq-item summary {
+            padding: 16px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: background 0.2s;
+        }
+
+        .faq-item summary:hover { background: var(--cream); }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::before { content: '\25B8'; color: var(--accent); font-size: 0.9em; transition: transform 0.2s; }
+        .faq-item[open] summary::before { transform: rotate(90deg); }
+        .faq-item[open] summary { background: var(--cream); }
+
+        .faq-answer {
+            padding: 0 20px 16px;
+            line-height: 1.7;
+            color: #44403c;
+        }
+
+        .faq-answer p { margin-bottom: 8px; }
+        .faq-answer p:last-child { margin-bottom: 0; }
+
+        .faq-answer a {
+            color: var(--accent);
+        }
+
+        .faq-answer strong {
+            color: var(--ink);
+        }
+
+        .faq-answer code {
+            background: var(--cream);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--ink);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+
+        /* CTA */
+        .cta-box {
+            text-align: center;
+            margin-top: 32px;
+            padding: 32px;
+            background: var(--cream);
+            border-radius: 16px;
+        }
+
+        .cta-box p {
+            margin-bottom: 16px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .cta-btn:hover {
+            background: var(--accent-dark);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">AI for All</a>
+            <a href="resources.html" class="back-link">&larr; Back to Toolkit</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="hero-icon">💬</div>
+        <h1>Frequently Asked Questions</h1>
+        <p>Common questions about the toolkit and using AI for your business.</p>
+    </div>
+
+    <div class="page">
+        <!-- Section 1: Getting Started -->
+        <div class="faq-section">
+            <h3>Getting Started</h3>
+
+            <details class="faq-item">
+                <summary>Which AI tool should I pick — ChatGPT, Claude, or Gemini?</summary>
+                <div class="faq-answer">
+                    <p>Whichever you already have an account on, or whichever feels most comfortable. ChatGPT is the most popular and has the most tutorials online. Claude is excellent for writing tasks. Gemini works especially well if you already use Google Workspace (Gmail, Google Docs).</p>
+                    <p>All three work with Ally. You can always switch later — nothing is locked in.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Is the free tier really enough?</summary>
+                <div class="faq-answer">
+                    <p>Yes, for most small business use cases. The free tiers of all three platforms give you plenty of conversations per day. You'd only need to upgrade if you're using AI heavily throughout the day or want access to the newest, most powerful models.</p>
+                    <p>Our advice: start free and only upgrade if you find yourself hitting limits.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>What if the access code doesn't work?</summary>
+                <div class="faq-answer">
+                    <p>Make sure you're typing it in all capital letters with no spaces: <strong>AIFORALL2026</strong></p>
+                    <p>If it still doesn't work, try a different browser or clear your browser's stored data (Settings &rarr; Clear Browsing Data &rarr; Cookies). Still stuck? Email <a href="mailto:info@stalbertchamber.com">info@stalbertchamber.com</a> and we'll get you sorted.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>I'm not great with technology. Can I really do this?</summary>
+                <div class="faq-answer">
+                    <p>Absolutely. Every tool in this toolkit uses plain English — no coding, no technical jargon. If you can type a question or fill out a form, you can use these tools.</p>
+                    <p>Start with the <a href="business-profile.html">Business Profile</a> (it's just a fill-in-the-blank form) and take it one step at a time.</p>
+                </div>
+            </details>
+        </div>
+
+        <!-- Section 2: Using Ally -->
+        <div class="faq-section">
+            <h3>Using Ally</h3>
+
+            <details class="faq-item">
+                <summary>What should I ask Ally first?</summary>
+                <div class="faq-answer">
+                    <p>Try something real, not a test. Good first questions:</p>
+                    <p>"What's taking up most of my time this week?"<br>
+                    "Help me write a follow-up email to a client."<br>
+                    "What are some quick wins I could try for my marketing?"</p>
+                    <p>The more specific you are, the better Ally's answers will be.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Can my team or employees use Ally too?</summary>
+                <div class="faq-answer">
+                    <p>Yes! Share the <a href="ally-setup.html">Ally Setup</a> instructions and have each person fill out their own Business Profile with their role and responsibilities. Each person sets up Ally in their own AI account.</p>
+                    <p>It's a great way to keep everyone consistent.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>What if my business information changes?</summary>
+                <div class="faq-answer">
+                    <p>Just update your Business Profile (re-fill the template in the toolkit) and then re-paste the updated profile into your AI platform — go to wherever you originally set up the instructions and replace the old profile section with the new one.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Ally gave me a weird or wrong answer. What should I do?</summary>
+                <div class="faq-answer">
+                    <p>AI isn't perfect — it can sometimes misunderstand or give off-target responses. Try rephrasing your question with more detail and context.</p>
+                    <p>Using the structured prompts from the <a href="sector-packs.html">Sector Packs</a> tends to give more reliable results than freeform questions. And always use your own judgment — Ally is an assistant, not a decision-maker.</p>
+                </div>
+            </details>
+        </div>
+
+        <!-- Section 3: Safety & Privacy -->
+        <div class="faq-section">
+            <h3>Safety & Privacy</h3>
+
+            <details class="faq-item">
+                <summary>Is it safe to use AI for my business?</summary>
+                <div class="faq-answer">
+                    <p>Yes, if you follow the Red/Yellow/Green framework we teach in the workshops. The short version:</p>
+                    <p><strong>Never share:</strong> passwords, financial credentials, or personal identification numbers (SIN, etc.)<br>
+                    <strong>Anonymize first:</strong> customer names and specific dollar amounts<br>
+                    <strong>Safe to share:</strong> general business information, templates, and ideas</p>
+                    <p>Review the full framework on the <a href="guardrails.html">AI Safety Guardrails</a> page.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Does the AI remember or store what I type?</summary>
+                <div class="faq-answer">
+                    <p>AI platforms process your input to generate responses, and their policies on data retention vary. That's exactly why we teach the guardrails — treat AI like a very helpful stranger.</p>
+                    <p>Share information you'd be comfortable putting on a bulletin board, and anonymize anything private. Check each platform's privacy policy for specifics.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>What was that Samsung story from the workshop?</summary>
+                <div class="faq-answer">
+                    <p>In 2023, Samsung employees accidentally pasted proprietary source code into ChatGPT during their work. The code was then processed by the system and could have been exposed through the model's training data. Samsung ended up banning ChatGPT internally.</p>
+                    <p>This is why we teach the Red/Yellow/Green framework — so you always pause and consider what you're sharing before you hit Enter.</p>
+                </div>
+            </details>
+        </div>
+
+        <!-- Section 4: Workshop & Program -->
+        <div class="faq-section">
+            <h3>Workshop & Program</h3>
+
+            <details class="faq-item">
+                <summary>I missed a session. Can I catch up?</summary>
+                <div class="faq-answer">
+                    <p>Check the Session Recaps in your toolkit for summaries of what was covered, the key takeaways, and links to the relevant tools and resources.</p>
+                    <p>&rarr; <a href="session-1-recap.html">Session 1 Recap</a></p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>When is the next workshop session?</summary>
+                <div class="faq-answer">
+                    <p>Check the <a href="../calendar.html">Calendar</a> on the main AI for All website for the full schedule. Sessions run roughly monthly.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Will the workshop sessions be recorded?</summary>
+                <div class="faq-answer">
+                    <p>We're exploring options for session recordings. Check back in the toolkit after your next session for updates.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>I have a question that isn't listed here.</summary>
+                <div class="faq-answer">
+                    <p>Email the Chamber at <a href="mailto:info@stalbertchamber.com">info@stalbertchamber.com</a> or speak to Shelly at your next workshop session. We're happy to help!</p>
+                </div>
+            </details>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-box">
+            <p>Need anything else?</p>
+            <a href="resources.html" class="cta-btn">Back to Your Toolkit &rarr;</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>AI for All Workshop Series &bull; St. Albert & District Chamber of Commerce</p>
+    </footer>
+
+    <script>
+        // Auth check
+        if (!localStorage.getItem('aiforall_hub_access')) {
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

@@ -384,7 +384,11 @@
             <p>Fill out this template to create context for Ally. The more detail you provide, the better Ally can help you.</p>
             <div class="time-badge">⏱️ Takes about 10-15 minutes</div>
         </div>
-        
+
+        <div class="save-indicator" style="text-align: center; margin-bottom: 24px; padding: 10px 16px; background: var(--accent-light); border-radius: 8px; font-size: 0.9em; color: var(--accent-dark);">
+            💾 Your answers are saved automatically in this browser. You can close this page and come back anytime.
+        </div>
+
         <form id="profileForm">
             <!-- Section 1: Business Basics -->
             <div class="form-section">
@@ -540,6 +544,9 @@
                 <button class="btn btn-primary" onclick="copyProfile()">📋 Copy Profile</button>
                 <button class="btn btn-secondary" onclick="downloadProfile()">⬇️ Download as Text</button>
             </div>
+            <button class="btn btn-secondary" onclick="clearFormData()" style="margin-top: 12px; display: block; margin-left: auto; margin-right: auto; font-size: 0.85em; color: var(--warm-gray);">
+                🗑️ Clear Form & Start Over
+            </button>
         </div>
         
         <div class="helper-box" style="margin-top: 32px;">
@@ -557,9 +564,10 @@
         if (!localStorage.getItem('aiforall_hub_access')) {
             window.location.href = 'index.html';
         }
-        
+
+        const STORAGE_KEY = 'aiforall_business_profile_data';
         let techLevel = null;
-        
+
         function selectComfort(level) {
             techLevel = level;
             document.querySelectorAll('.comfort-option').forEach(el => {
@@ -567,6 +575,63 @@
             });
             document.querySelector(`.comfort-option[data-level="${level}"]`).classList.add('selected');
             updateProfile();
+            saveFormData();
+        }
+
+        // Save form data to localStorage
+        function saveFormData() {
+            const data = {
+                businessName: document.getElementById('businessName').value,
+                industry: document.getElementById('industry').value,
+                description: document.getElementById('description').value,
+                teamSize: document.getElementById('teamSize').value,
+                customers: document.getElementById('customers').value,
+                howFind: document.getElementById('howFind').value,
+                challenges: document.getElementById('challenges').value,
+                goals: document.getElementById('goals').value,
+                techLevel: techLevel,
+                aiExperience: document.getElementById('aiExperience').value,
+                other: document.getElementById('other').value,
+                savedAt: new Date().toISOString()
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        }
+
+        // Restore form data from localStorage
+        function restoreFormData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (!saved) return;
+
+            try {
+                const data = JSON.parse(saved);
+                if (data.businessName) document.getElementById('businessName').value = data.businessName;
+                if (data.industry) document.getElementById('industry').value = data.industry;
+                if (data.description) document.getElementById('description').value = data.description;
+                if (data.teamSize) document.getElementById('teamSize').value = data.teamSize;
+                if (data.customers) document.getElementById('customers').value = data.customers;
+                if (data.howFind) document.getElementById('howFind').value = data.howFind;
+                if (data.challenges) document.getElementById('challenges').value = data.challenges;
+                if (data.goals) document.getElementById('goals').value = data.goals;
+                if (data.techLevel) selectComfort(data.techLevel);
+                if (data.aiExperience) document.getElementById('aiExperience').value = data.aiExperience;
+                if (data.other) document.getElementById('other').value = data.other;
+
+                updateProfile();
+            } catch(e) {
+                console.error('Error restoring form data:', e);
+            }
+        }
+
+        // Clear form data
+        function clearFormData() {
+            if (confirm('Are you sure you want to clear all your answers and start over? This cannot be undone.')) {
+                localStorage.removeItem(STORAGE_KEY);
+                document.querySelectorAll('input[type="text"], textarea').forEach(el => el.value = '');
+                document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+                document.querySelectorAll('.comfort-option').forEach(el => el.classList.remove('selected'));
+                techLevel = null;
+                updateProfile();
+            }
         }
         
         // Generate profile text
@@ -620,8 +685,8 @@ ${goals}
         
         // Add listeners to all form fields
         document.querySelectorAll('input, textarea, select').forEach(el => {
-            el.addEventListener('input', updateProfile);
-            el.addEventListener('change', updateProfile);
+            el.addEventListener('input', () => { updateProfile(); saveFormData(); });
+            el.addEventListener('change', () => { updateProfile(); saveFormData(); });
         });
         
         function copyProfile() {
@@ -648,6 +713,7 @@ ${goals}
         }
         
         // Initialize
+        restoreFormData();
         updateProfile();
     </script>
 </body>

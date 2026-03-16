@@ -386,16 +386,117 @@
             font-size: 0.9em;
         }
         
+        /* Examples Section */
+        .examples-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+
+        .examples-toggle {
+            padding: 20px 28px;
+            font-family: 'Fraunces', serif;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .examples-toggle::-webkit-details-marker { display: none; }
+        .examples-toggle::after { content: '▸'; margin-left: auto; transition: transform 0.2s; }
+        details[open] .examples-toggle::after { transform: rotate(90deg); }
+
+        .examples-content {
+            padding: 0 28px 28px;
+        }
+
+        .example-block {
+            background: var(--cream);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .example-block:last-child { margin-bottom: 0; }
+
+        .example-block h4 {
+            font-family: 'Fraunces', serif;
+            margin-bottom: 12px;
+            font-size: 1.05em;
+        }
+
+        .example-fields {
+            margin-bottom: 16px;
+        }
+
+        .example-fields p {
+            margin-bottom: 6px;
+            font-size: 0.9em;
+        }
+
+        .example-fields strong {
+            color: var(--purple);
+        }
+
+        .example-output {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-size: 0.9em;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            margin-bottom: 12px;
+        }
+
+        .example-output-label {
+            font-weight: 600;
+            font-size: 0.85em;
+            color: var(--warm-gray);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .use-example-btn {
+            background: var(--purple);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .use-example-btn:hover {
+            background: #6d28d9;
+        }
+
         /* Responsive */
         @media (max-width: 600px) {
             .step-header {
                 flex-direction: column;
             }
-            
+
             .hero h1 { font-size: 1.8em; }
-            
+
             .step-card {
                 padding: 24px 20px;
+            }
+
+            .examples-content {
+                padding: 0 20px 20px;
+            }
+
+            .example-block {
+                padding: 20px;
             }
         }
     </style>
@@ -418,7 +519,76 @@
         <div class="intro">
             <p>Great prompts lead to great results. This builder walks you through creating a well-structured prompt while automatically checking for data safety issues.</p>
         </div>
-        
+
+        <!-- Completed Examples Section -->
+        <details class="examples-section">
+            <summary class="examples-toggle">📖 See Complete Examples (click to expand)</summary>
+            <div class="examples-content">
+                <!-- Example 1: Construction -->
+                <div class="example-block">
+                    <h4>🔨 Construction: Client Follow-Up Email</h4>
+                    <div class="example-fields">
+                        <p><strong>Role:</strong> You are a professional residential renovation contractor</p>
+                        <p><strong>Task:</strong> Write a follow-up email for a client who received a kitchen renovation quote 5 days ago but hasn't responded</p>
+                        <p><strong>Context:</strong> My company does kitchen and bathroom renovations in St. Albert, AB. Our clients are homeowners, typically 35–60 years old. The quote was in the $40K–$50K range. The client seemed enthusiastic at the walk-through but mentioned they were comparing a few companies.</p>
+                        <p><strong>Format:</strong> Under 150 words. Friendly but professional. Include a soft deadline — mention our spring schedule is filling up. End with a clear call to action.</p>
+                        <p><strong>Safety Check:</strong> ✅ No real names, no exact dollar amount — this is GREEN zone.</p>
+                    </div>
+                    <p class="example-output-label">Assembled Prompt:</p>
+                    <div class="example-output">**Role:** You are a professional residential renovation contractor
+
+**Task:** Write a follow-up email for a client who received a kitchen renovation quote 5 days ago but hasn't responded
+
+**Context:** My company does kitchen and bathroom renovations in St. Albert, AB. Our clients are homeowners, typically 35–60 years old. The quote was in the $40K–$50K range. The client seemed enthusiastic at the walk-through but mentioned they were comparing a few companies.
+
+**Format:** Under 150 words. Friendly but professional. Include a soft deadline — mention our spring schedule is filling up. End with a clear call to action.</div>
+                    <button class="use-example-btn" onclick="loadExample('construction')">💡 Use This as a Starting Point</button>
+                </div>
+
+                <!-- Example 2: Retail -->
+                <div class="example-block">
+                    <h4>🛍️ Retail: Social Media Post</h4>
+                    <div class="example-fields">
+                        <p><strong>Role:</strong> You are a social media marketing specialist</p>
+                        <p><strong>Task:</strong> Create 3 Instagram post ideas for a Mother's Day promotion</p>
+                        <p><strong>Context:</strong> I run a boutique gift shop. Our customers are mostly women aged 30–55 who value unique, locally-made products. We're promoting a curated Mother's Day gift box ($65–$85).</p>
+                        <p><strong>Format:</strong> For each post: a caption under 100 words, a suggested image description, and 3 relevant hashtags. Voice: warm, genuine, not salesy.</p>
+                        <p><strong>Safety Check:</strong> ✅ No customer data, general product info — this is GREEN zone.</p>
+                    </div>
+                    <p class="example-output-label">Assembled Prompt:</p>
+                    <div class="example-output">**Role:** You are a social media marketing specialist
+
+**Task:** Create 3 Instagram post ideas for a Mother's Day promotion
+
+**Context:** I run a boutique gift shop. Our customers are mostly women aged 30–55 who value unique, locally-made products. We're promoting a curated Mother's Day gift box ($65–$85).
+
+**Format:** For each post: a caption under 100 words, a suggested image description, and 3 relevant hashtags. Voice: warm, genuine, not salesy.</div>
+                    <button class="use-example-btn" onclick="loadExample('retail')">💡 Use This as a Starting Point</button>
+                </div>
+
+                <!-- Example 3: Professional Services -->
+                <div class="example-block">
+                    <h4>💼 Professional Services: Meeting Summary</h4>
+                    <div class="example-fields">
+                        <p><strong>Role:</strong> You are a professional business consultant</p>
+                        <p><strong>Task:</strong> Turn these rough meeting notes into a clear action item list</p>
+                        <p><strong>Context:</strong> Small accounting firm (6 people). Meeting was about migrating from desktop QuickBooks to cloud-based accounting software. Three options were discussed.</p>
+                        <p><strong>Format:</strong> Numbered list. Each item: what needs to happen, who's responsible, and a suggested deadline. Keep to one page.</p>
+                        <p><strong>Safety Check:</strong> ✅ No client names or financial details included — this is GREEN zone. If I were including client info, I'd anonymize it first (YELLOW zone).</p>
+                    </div>
+                    <p class="example-output-label">Assembled Prompt:</p>
+                    <div class="example-output">**Role:** You are a professional business consultant
+
+**Task:** Turn these rough meeting notes into a clear action item list
+
+**Context:** Small accounting firm (6 people). Meeting was about migrating from desktop QuickBooks to cloud-based accounting software. Three options were discussed.
+
+**Format:** Numbered list. Each item: what needs to happen, who's responsible, and a suggested deadline. Keep to one page.</div>
+                    <button class="use-example-btn" onclick="loadExample('professional')">💡 Use This as a Starting Point</button>
+                </div>
+            </div>
+        </details>
+
         <form id="promptForm">
             <!-- Step 1: Role -->
             <div class="step-card">
@@ -608,7 +778,41 @@
         if (!localStorage.getItem('aiforall_hub_access')) {
             window.location.href = 'index.html';
         }
-        
+
+        // Example data for pre-filling the form
+        const examples = {
+            construction: {
+                role: "You are a professional residential renovation contractor",
+                task: "Write a follow-up email for a client who received a kitchen renovation quote 5 days ago but hasn't responded",
+                context: "My company does kitchen and bathroom renovations in St. Albert, AB. Our clients are homeowners, typically 35–60 years old. The quote was in the $40K–$50K range. The client seemed enthusiastic at the walk-through but mentioned they were comparing a few companies.",
+                format: "Under 150 words. Friendly but professional. Include a soft deadline — mention our spring schedule is filling up. End with a clear call to action."
+            },
+            retail: {
+                role: "You are a social media marketing specialist",
+                task: "Create 3 Instagram post ideas for a Mother's Day promotion",
+                context: "I run a boutique gift shop. Our customers are mostly women aged 30–55 who value unique, locally-made products. We're promoting a curated Mother's Day gift box ($65–$85).",
+                format: "For each post: a caption under 100 words, a suggested image description, and 3 relevant hashtags. Voice: warm, genuine, not salesy."
+            },
+            professional: {
+                role: "You are a professional business consultant",
+                task: "Turn these rough meeting notes into a clear action item list",
+                context: "Small accounting firm (6 people). Meeting was about migrating from desktop QuickBooks to cloud-based accounting software. Three options were discussed.",
+                format: "Numbered list. Each item: what needs to happen, who's responsible, and a suggested deadline. Keep to one page."
+            }
+        };
+
+        function loadExample(key) {
+            const ex = examples[key];
+            document.getElementById('role').value = ex.role;
+            document.getElementById('task').value = ex.task;
+            document.getElementById('context').value = ex.context;
+            document.getElementById('format').value = ex.format;
+            // Trigger the prompt assembly update
+            updatePrompt();
+            // Scroll to form
+            document.getElementById('promptForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
         // Generate prompt
         function generatePrompt() {
             const role = document.getElementById('role').value.trim();

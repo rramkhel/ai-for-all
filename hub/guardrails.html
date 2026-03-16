@@ -369,16 +369,32 @@
             .traffic-light-container {
                 grid-template-columns: 1fr;
             }
-            
+
             .example-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .quick-ref-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .hero h1 { font-size: 1.8em; }
+        }
+
+        /* Print Styles */
+        @media print {
+            body * { visibility: hidden; }
+            .quick-ref, .quick-ref * { visibility: visible; }
+            .quick-ref {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                padding: 20px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .nav, .hero, .footer, .print-btn-container { display: none !important; }
         }
     </style>
 </head>
@@ -590,7 +606,13 @@
                 </div>
             </div>
         </div>
-        
+
+        <div class="print-btn-container" style="text-align: center; margin-top: 16px;">
+            <button onclick="window.print()" style="background: var(--ink); color: white; padding: 12px 24px; border-radius: 8px; border: none; font-family: inherit; font-weight: 600; font-size: 0.95em; cursor: pointer;">
+                🖨️ Print Quick Reference Card
+            </button>
+        </div>
+
         <div style="background: var(--accent-light); border-left: 4px solid var(--accent); padding: 20px 24px; border-radius: 0 12px 12px 0; margin-top: 32px;">
             <h4 style="color: var(--accent-dark); margin-bottom: 8px;">💡 Remember</h4>
             <p style="margin: 0;">When in doubt, anonymize. It only takes a few seconds to remove identifying details, and it could save you from a serious privacy incident. Ally is programmed to remind you about these guardrails—but the final check is always on you.</p>

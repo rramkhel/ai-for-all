@@ -311,17 +311,95 @@
             font-size: 0.9em;
         }
         
+        /* Platform Tabs */
+        .platform-tabs {
+            display: flex;
+            gap: 8px;
+            margin: 20px 0;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0;
+        }
+
+        .platform-tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-family: inherit;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--warm-gray);
+            transition: all 0.2s;
+            margin-bottom: -2px;
+        }
+
+        .platform-tab:hover { color: var(--ink); }
+        .platform-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+        .platform-content { display: none; }
+        .platform-content.active { display: block; }
+
+        .method-card {
+            background: var(--cream);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .method-card h5 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.05em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .method-card ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .method-card li {
+            margin-bottom: 8px;
+        }
+
+        .method-card .note {
+            font-size: 0.9em;
+            color: var(--warm-gray);
+            font-style: italic;
+        }
+
+        .pricing-note {
+            font-size: 0.9em;
+            color: var(--warm-gray);
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: white;
+            border-radius: 8px;
+        }
+
         /* Responsive */
         @media (max-width: 700px) {
             .platform-grid {
                 grid-template-columns: 1fr;
             }
-            
+
             .hero h1 { font-size: 1.8em; }
-            
+
             .code-block {
                 font-size: 0.8em;
                 padding: 16px;
+            }
+
+            .platform-tabs {
+                flex-wrap: wrap;
+            }
+
+            .platform-tab {
+                padding: 10px 16px;
+                font-size: 0.9em;
             }
         }
     </style>
@@ -473,38 +551,127 @@ Remember: You're here to make AI useful and safe for small business owners. Be h
             </div>
         </div>
         
-        <!-- Step 4: Set Up in ChatGPT -->
+        <!-- Step 4: Set Up in Your AI Platform -->
         <div class="section">
-            <h2 class="section-title"><span class="step-number">4</span> Set Up in ChatGPT</h2>
-            
-            <div class="card">
-                <h4>📱 On Mobile (App)</h4>
-                <ol style="margin-left: 20px; margin-top: 12px;">
-                    <li>Open the ChatGPT app</li>
-                    <li>Tap your profile icon (bottom left)</li>
-                    <li>Tap <strong>"Customize ChatGPT"</strong></li>
-                    <li>In the first box ("What would you like ChatGPT to know about you?"), paste the Ally instructions</li>
-                    <li>Don't forget to replace <code>[PASTE YOUR COMPLETED BUSINESS PROFILE HERE]</code> with your actual profile!</li>
-                    <li>Tap <strong>Save</strong></li>
-                </ol>
+            <h2 class="section-title"><span class="step-number">4</span> Set Up in Your AI Platform</h2>
+            <p>Choose your platform below and follow the instructions. All three work with Ally — pick the one you're most comfortable with.</p>
+
+            <div class="platform-tabs">
+                <button class="platform-tab active" onclick="showPlatform('chatgpt')">💬 ChatGPT</button>
+                <button class="platform-tab" onclick="showPlatform('claude')">🟣 Claude</button>
+                <button class="platform-tab" onclick="showPlatform('gemini')">🔵 Gemini</button>
             </div>
-            
-            <div class="card">
-                <h4>💻 On Desktop (Browser)</h4>
-                <ol style="margin-left: 20px; margin-top: 12px;">
-                    <li>Go to <a href="https://chat.openai.com" target="_blank">chat.openai.com</a></li>
-                    <li>Click your name (bottom left) → <strong>Settings</strong></li>
-                    <li>Click <strong>"Personalization"</strong></li>
-                    <li>Click <strong>"Custom instructions"</strong></li>
-                    <li>Paste the Ally instructions in the first text box</li>
-                    <li>Replace the placeholder with your Business Profile</li>
-                    <li>Click <strong>Save</strong></li>
-                </ol>
+
+            <!-- ChatGPT Tab -->
+            <div class="platform-content active" id="chatgpt">
+                <div class="method-card">
+                    <h5>📌 Method A: Custom Instructions (Quick Setup)</h5>
+                    <ol>
+                        <li>Go to <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">chat.openai.com</a> and sign in (or create a free account)</li>
+                        <li>Click your profile icon (bottom-left corner)</li>
+                        <li>Click <strong>Settings</strong></li>
+                        <li>Click <strong>Personalization</strong> → <strong>Custom Instructions</strong></li>
+                        <li>In the top box ("What would you like ChatGPT to know about you?"), paste the Ally instructions from Step 3 above</li>
+                        <li>Find the line that says <code>[PASTE YOUR COMPLETED BUSINESS PROFILE HERE]</code> and replace it with your Business Profile text</li>
+                        <li>Click <strong>Save</strong></li>
+                    </ol>
+                    <p class="note">Note: This applies to ALL new conversations. Every time you open a new chat, ChatGPT will act as Ally.</p>
+                </div>
+
+                <div class="method-card">
+                    <h5>⭐ Method B: ChatGPT Project (Recommended)</h5>
+                    <ol>
+                        <li>Go to <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">chat.openai.com</a> and sign in</li>
+                        <li>In the left sidebar, click <strong>Projects</strong> (or the folder icon)</li>
+                        <li>Click <strong>New Project</strong> → name it "Ally"</li>
+                        <li>Click the <strong>gear icon</strong> (⚙️) on your new project</li>
+                        <li>In the <strong>Project Instructions</strong> box, paste the Ally instructions from Step 3</li>
+                        <li>Replace <code>[PASTE YOUR COMPLETED BUSINESS PROFILE HERE]</code> with your Business Profile</li>
+                        <li>Click <strong>Save</strong></li>
+                        <li>Start a new conversation INSIDE this project — Ally only works within the project</li>
+                    </ol>
+                    <p class="note">Note: This is better for keeping Ally separate from your other ChatGPT conversations.</p>
+                </div>
+
+                <div class="pricing-note">
+                    💰 <strong>Cost:</strong> Free tier gives you limited messages per day. ChatGPT Plus is ~$27 CAD/month if you need more.
+                </div>
+
+                <div class="highlight-box" style="margin-top: 24px;">
+                    <h4>✅ Test It's Working</h4>
+                    <p>Ask Ally: <em>"What do you know about my business?"</em></p>
+                    <p>If Ally responds with your business details, you're all set! If it gives a generic answer, the Business Profile didn't get pasted correctly — go back and check.</p>
+                </div>
             </div>
-            
+
+            <!-- Claude Tab -->
+            <div class="platform-content" id="claude">
+                <div class="method-card">
+                    <h5>⭐ Method A: Claude Project (Recommended)</h5>
+                    <ol>
+                        <li>Go to <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">claude.ai</a> and sign in (or create a free account)</li>
+                        <li>In the left sidebar, click <strong>Projects</strong></li>
+                        <li>Click <strong>Create a Project</strong> → name it "Ally"</li>
+                        <li>Click the <strong>pencil icon</strong> next to "Project Instructions"</li>
+                        <li>Paste the Ally instructions from Step 3 above</li>
+                        <li>Replace <code>[PASTE YOUR COMPLETED BUSINESS PROFILE HERE]</code> with your Business Profile</li>
+                        <li>Click <strong>Save</strong></li>
+                        <li>Start a new conversation inside this project</li>
+                    </ol>
+                </div>
+
+                <div class="method-card">
+                    <h5>📌 Method B: For Free Users (if Projects aren't available)</h5>
+                    <ol>
+                        <li>Start a new conversation</li>
+                        <li>As your first message, paste the Ally instructions AND your Business Profile</li>
+                        <li>Then type: "From now on, please act as Ally for all my questions in this conversation."</li>
+                    </ol>
+                    <p class="note">Note: You'll need to do this each time you start a new conversation.</p>
+                </div>
+
+                <div class="pricing-note">
+                    💰 <strong>Cost:</strong> Free tier is generous for daily use. Claude Pro is ~$25 CAD/month for heavier usage.
+                </div>
+
+                <div class="highlight-box" style="margin-top: 24px;">
+                    <h4>✅ Test It's Working</h4>
+                    <p>Ask Ally: <em>"What do you know about my business?"</em></p>
+                    <p>If Ally responds with your business details, you're all set! If it gives a generic answer, the Business Profile didn't get pasted correctly — go back and check.</p>
+                </div>
+            </div>
+
+            <!-- Gemini Tab -->
+            <div class="platform-content" id="gemini">
+                <div class="method-card">
+                    <h5>⭐ Create a Gem</h5>
+                    <ol>
+                        <li>Go to <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">gemini.google.com</a> and sign in with your Google account</li>
+                        <li>In the left sidebar, click <strong>Gems</strong></li>
+                        <li>Click <strong>Create a Gem</strong> (or <strong>+ New Gem</strong>)</li>
+                        <li>Name it "Ally"</li>
+                        <li>In the <strong>Instructions</strong> box, paste the Ally instructions from Step 3</li>
+                        <li>Replace <code>[PASTE YOUR COMPLETED BUSINESS PROFILE HERE]</code> with your Business Profile</li>
+                        <li>Click <strong>Save</strong></li>
+                        <li>Click your new Ally Gem anytime to start a conversation</li>
+                    </ol>
+                </div>
+
+                <div class="pricing-note">
+                    💰 <strong>Cost:</strong> Free tier works well for getting started. Gemini Advanced is ~$26 CAD/month.<br>
+                    <strong>Bonus:</strong> If you use Google Workspace (Gmail, Google Docs), Gemini can integrate with your existing tools.
+                </div>
+
+                <div class="highlight-box" style="margin-top: 24px;">
+                    <h4>✅ Test It's Working</h4>
+                    <p>Ask Ally: <em>"What do you know about my business?"</em></p>
+                    <p>If Ally responds with your business details, you're all set! If it gives a generic answer, the Business Profile didn't get pasted correctly — go back and check.</p>
+                </div>
+            </div>
+
             <div class="warning-box">
-                <h4>⚠️ Don't Forget Your Business Profile!</h4>
-                <p>The instructions won't work well without your specific business context. Make sure to replace the placeholder text <code>[PASTE YOUR COMPLETED BUSINESS PROFILE HERE]</code> with your completed <a href="business-profile.html">Business Profile</a>.</p>
+                <h4>⚠️ Troubleshooting: Not Working?</h4>
+                <p>The most common mistake is forgetting to replace the placeholder. Make sure you pasted BOTH the Ally instructions AND your Business Profile. Look for <code>[PASTE YOUR COMPLETED BUSINESS PROFILE HERE]</code> and replace it with your actual <a href="business-profile.html">Business Profile</a>.</p>
             </div>
         </div>
         
@@ -568,7 +735,15 @@ Remember: You're here to make AI useful and safe for small business owners. Be h
         if (!localStorage.getItem('aiforall_hub_access')) {
             window.location.href = 'index.html';
         }
-        
+
+        // Platform tab switching
+        function showPlatform(platform) {
+            document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.platform-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`.platform-tab[onclick="showPlatform('${platform}')"]`).classList.add('active');
+            document.getElementById(platform).classList.add('active');
+        }
+
         // Copy functionality
         function copyInstructions() {
             const text = document.getElementById('allyInstructions').textContent;
