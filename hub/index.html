@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resource Hub - AI for All</title>
+    <title>Your AI Toolkit - AI for All</title>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -200,11 +200,42 @@
 
         /* Footer */
         .footer {
-            background: var(--cream);
+            background: var(--ink);
             padding: 20px 24px;
             text-align: center;
             font-size: 0.85em;
+            color: white;
+        }
+
+        .footer p {
+            opacity: 0.8;
+        }
+
+        .preview-features {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .preview-label {
+            font-weight: 600;
+            font-size: 0.85em;
             color: var(--warm-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .preview-items {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .preview-items span {
+            font-size: 0.9em;
+            color: var(--ink);
         }
 
         @media (max-width: 500px) {
@@ -234,8 +265,8 @@
     <main>
         <div class="login-card">
             <div class="login-icon">🔐</div>
-            <h1>Resource Hub</h1>
-            <p class="subtitle">Enter your workshop access code to view exclusive AI tools and resources.</p>
+            <h1>Your AI Toolkit</h1>
+            <p class="subtitle">Your workshop toolkit is ready. Enter your access code to get started with your AI assistant, safety guides, and industry-specific prompts.</p>
 
             <div class="error-message" id="errorMessage">
                 Invalid access code. Please check your code and try again.
@@ -257,9 +288,20 @@
                 <button type="submit" class="submit-btn">Access Resources</button>
             </form>
 
+            <div class="preview-features">
+                <p class="preview-label">What's inside:</p>
+                <div class="preview-items">
+                    <span>🤖 Your AI assistant (Ally)</span>
+                    <span>📦 Industry prompt packs</span>
+                    <span>🛡️ AI safety guidelines</span>
+                    <span>🔨 Prompt builder</span>
+                    <span>📅 Session recaps</span>
+                </div>
+            </div>
+
             <p class="help-text">
-                Access codes are provided at AI for All workshops.<br>
-                Questions? <a href="mailto:info@stalbertchamber.com">Contact us</a>
+                Your access code is on your workshop handout or in your email from the Chamber.<br>
+                Need help? <a href="mailto:info@stalbertchamber.com">Contact us</a>
             </p>
         </div>
     </main>
