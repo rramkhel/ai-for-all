@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 2 Recap | AI for All</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1c1917;
+            --paper: #fafaf9;
+            --cream: #f5f5f0;
+            --accent: #0f766e;
+            --accent-light: #ccfbf1;
+            --accent-dark: #134e4a;
+            --warm-gray: #78716c;
+            --border: #e7e5e4;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Commissioner', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--ink);
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Fraunces', serif;
+            color: white;
+            font-size: 1.4em;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        .back-link:hover { opacity: 1; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #6C3FA0 0%, #4C1D95 100%);
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1em;
+        }
+
+        /* Main Content */
+        .page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        p { margin-bottom: 1em; }
+
+        /* Cards */
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .card h4 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p:last-child { margin-bottom: 0; }
+
+        /* Takeaways */
+        .takeaway-list {
+            list-style: none;
+        }
+
+        .takeaway-item {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .takeaway-num {
+            width: 36px;
+            height: 36px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .takeaway-content strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Tools List */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .tool-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .tool-item h5 {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .tool-item a {
+            color: var(--accent);
+            font-size: 0.9em;
+        }
+
+        /* Download Cards */
+        .download-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .download-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 12px 12px 0;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .download-card h5 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.05em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .download-card p {
+            font-size: 0.9em;
+            color: var(--warm-gray);
+            margin-bottom: 0;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            width: fit-content;
+            transition: background 0.2s;
+        }
+
+        .download-btn:hover {
+            background: var(--accent-dark);
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent);
+            padding: 20px 24px;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--accent-dark);
+            margin-bottom: 12px;
+        }
+
+        .highlight-box ol {
+            margin-left: 20px;
+            margin-bottom: 0;
+        }
+
+        .highlight-box li {
+            margin-bottom: 6px;
+        }
+
+        /* 5-Step Process */
+        .process-intro {
+            color: var(--warm-gray);
+            margin-bottom: 24px;
+        }
+
+        .process-step {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .process-step:nth-child(even) {
+            background: var(--cream);
+        }
+
+        .process-step-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .process-step-num {
+            width: 44px;
+            height: 44px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2em;
+            flex-shrink: 0;
+        }
+
+        .process-step-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.15em;
+            font-weight: 600;
+        }
+
+        .process-step-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .process-column h6 {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--warm-gray);
+            margin-bottom: 8px;
+        }
+
+        .process-column p {
+            margin-bottom: 0;
+            font-size: 0.95em;
+        }
+
+        .process-column.human-step {
+            background: var(--accent-light);
+            padding: 12px 16px;
+            border-radius: 8px;
+        }
+
+        .prompt-block {
+            background: var(--ink);
+            color: #e5e5e5;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--ink);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+
+        /* Hub Tabs */
+        .hub-tabs {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .hub-tabs-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hub-tab {
+            padding: 10px 16px;
+            text-decoration: none;
+            color: var(--warm-gray);
+            font-size: 0.82em;
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .hub-tab:hover { color: var(--ink); background: var(--cream); }
+        .hub-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+        /* Next Step CTA */
+        .next-step {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: white;
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .next-step-content { max-width: 600px; margin: 0 auto; }
+
+        .next-step-label {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .next-step h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4em;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .next-step .next-step-subtitle {
+            opacity: 0.9;
+            margin-bottom: 16px;
+            font-size: 0.95em;
+        }
+
+        .next-step-btn {
+            display: inline-block;
+            background: white;
+            color: var(--accent-dark);
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .next-step-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; right: 0; bottom: 0;
+            width: 260px;
+            background: var(--ink);
+            z-index: 1000;
+            padding: 60px 24px 24px;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-weight: 500;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .mobile-overlay.open { display: block; }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .hamburger { display: block; }
+            .back-link { display: none; }
+
+            .hub-tabs-inner {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                justify-content: flex-start;
+                padding: 0 12px;
+            }
+
+            .hub-tab { padding: 10px 12px; font-size: 0.78em; }
+
+            .process-step-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">AI for All</a>
+            <a href="resources.html" class="back-link">&larr; Back to Toolkit</a>
+            <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">&#9776;</button>
+        </div>
+    </nav>
+
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="toggleMenu()">&times;</button>
+        <a href="resources.html">&larr; Back to Toolkit</a>
+        <a href="../index.html">Home</a>
+        <a href="../calendar.html">Calendar</a>
+    </div>
+
+    <div class="hub-tabs">
+        <div class="hub-tabs-inner">
+            <a href="business-profile.html" class="hub-tab">&#128203; Profile</a>
+            <a href="guardrails.html" class="hub-tab">&#128737;&#65039; Safety</a>
+            <a href="ally-setup.html" class="hub-tab">&#129302; Ally</a>
+            <a href="sector-packs.html" class="hub-tab">&#128230; Prompts</a>
+            <a href="prompt-builder.html" class="hub-tab">&#128296; Builder</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="hero-icon">📣</div>
+        <h1>Session 2 Recap</h1>
+        <p>Your 24/7 Marketing Intern &mdash; March 2026</p>
+    </div>
+
+    <div class="page">
+        <!-- What We Covered -->
+        <div class="section">
+            <h2 class="section-title">What We Covered</h2>
+
+            <div class="card">
+                <h4>🎯 Part 1: The ICP Brief (Rachel)</h4>
+                <p>Every marketing strategy starts with one question: who are you actually trying to reach? We walked through the ICP Workshop Worksheet &mdash; a three-part exercise to identify your best customer, build a one-page profile card, and stress-test a real business decision against it. Then we looked at a completed example: Gillian George's Compassion Center ICP, showing how specific client language, dealbreakers, and decision-making triggers make AI-generated marketing dramatically more relevant.</p>
+            </div>
+
+            <div class="card">
+                <h4>🏪 Part 2: Google Business Profile (Jeff)</h4>
+                <p>For many of your customers, your Google Business Profile IS your website. Jeff showed how to turn a neglected GBP into a working storefront &mdash; using Gemini to write a business description, generate weekly posts, and draft Q&amp;A answers. The key stat: complete profiles are 2.7x more reputable and 18x more discoverable than incomplete ones. We also covered Pomelli as a next-level GBP management option.</p>
+            </div>
+
+            <div class="card">
+                <h4>🔬 Part 3: Deep Research (Rachel)</h4>
+                <p>We revealed a full Growth Strategy Report for Compassion Center &mdash; competitive landscape, market trends, ICP refinements, and a 30/60/90 day action plan &mdash; all generated from a single Deep Research prompt. The report identified competitors Gillian didn't know about, surfaced sector-specific trends, and produced a week-by-week plan realistic for a solo entrepreneur with $0 budget and 2 hours per week. Then we showed you the exact prompt that created it, so you can do the same for your business.</p>
+            </div>
+
+            <div class="card">
+                <h4>📅 Part 4: The Content Calendar (Rachel)</h4>
+                <p>This is where iterative AI workflows clicked. Instead of one magic prompt, we walked through a five-step process: (1) mine the research for trending themes, (2) pick your content mix (Educate / Relate / Offer / Prove), (3) generate 12&ndash;15 content ideas, (4) curate and write full posts with platform targeting and hashtags, (5) assemble everything into a four-week calendar. The result: a month of marketing written in the right voice, for the right customer, on the right platforms &mdash; built in about 20 minutes.</p>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="section">
+            <h2 class="section-title">Key Takeaways</h2>
+
+            <div class="takeaway-list">
+                <div class="takeaway-item">
+                    <div class="takeaway-num">1</div>
+                    <div class="takeaway-content">
+                        <strong>Your ICP is the fuel for everything.</strong>
+                        The Ideal Customer Profile isn't a one-time exercise &mdash; it's the document you paste into every AI conversation. The more specific it is (real language, real dealbreakers, real decision triggers), the better every piece of AI-generated content becomes.
+                    </div>
+                </div>
+
+                <div class="takeaway-item">
+                    <div class="takeaway-num">2</div>
+                    <div class="takeaway-content">
+                        <strong>Iterative beats one-shot.</strong>
+                        The five-step content calendar workflow proves it: research first, cherry-pick what matters, generate options, curate the best, then assemble. Each step builds on the last. One giant prompt can't match this.
+                    </div>
+                </div>
+
+                <div class="takeaway-item">
+                    <div class="takeaway-num">3</div>
+                    <div class="takeaway-content">
+                        <strong>Your Google Business Profile is your digital front door.</strong>
+                        If you don't have a website &mdash; or haven't updated yours in years &mdash; your GBP is what customers see first. A complete, active profile is 18x more discoverable than an incomplete one.
+                    </div>
+                </div>
+
+                <div class="takeaway-item">
+                    <div class="takeaway-num">4</div>
+                    <div class="takeaway-content">
+                        <strong>You're the Head Chef, not the intern.</strong>
+                        AI will write whatever you ask &mdash; including fake reviews and fictional customer stories presented as real. It has no conscience. You decide what's ethical. Always humanize and verify before publishing.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tools Mentioned -->
+        <div class="section">
+            <h2 class="section-title">Tools Mentioned</h2>
+
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <h5>🔵 Gemini</h5>
+                    <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">gemini.google.com</a>
+                    <p style="font-size: 0.85em; color: var(--warm-gray); margin-top: 4px;">Free with Google account</p>
+                </div>
+
+                <div class="tool-item">
+                    <h5>💬 ChatGPT</h5>
+                    <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">chat.openai.com</a>
+                    <p style="font-size: 0.85em; color: var(--warm-gray); margin-top: 4px;">Free tier available; Deep Research on Plus</p>
+                </div>
+
+                <div class="tool-item">
+                    <h5>🟣 Claude</h5>
+                    <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">claude.ai</a>
+                    <p style="font-size: 0.85em; color: var(--warm-gray); margin-top: 4px;">Free tier available; Deep Research on Pro</p>
+                </div>
+
+                <div class="tool-item">
+                    <h5>📍 Google Business Profile</h5>
+                    <a href="https://business.google.com" target="_blank" rel="noopener noreferrer">business.google.com</a>
+                    <p style="font-size: 0.85em; color: var(--warm-gray); margin-top: 4px;">Free &mdash; claim or create your listing</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session Handouts -->
+        <div class="section">
+            <h2 class="section-title">Session Handouts</h2>
+
+            <div class="download-grid">
+                <div class="download-card">
+                    <h5>📄 Google Business Profile Guide</h5>
+                    <p>Jeff's comprehensive guide to GBP setup, verification, optimization, reviews, and Alberta-specific SEO tips.</p>
+                    <a href="downloads/SACC_Session2_GBP_Guide.pdf" target="_blank" rel="noopener noreferrer" class="download-btn">Download PDF &rarr;</a>
+                </div>
+
+                <div class="download-card">
+                    <h5>📄 Deep Research Master Prompt</h5>
+                    <p>The fill-in-the-brackets prompt that generates a full growth strategy report. Works with ChatGPT, Gemini, or Claude &mdash; any tool with a deep research mode.</p>
+                    <a href="downloads/SACC_Session2_Deep_Research_Prompt.pdf" target="_blank" rel="noopener noreferrer" class="download-btn">Download PDF &rarr;</a>
+                </div>
+
+                <div class="download-card">
+                    <h5>📄 Example: Compassion Center Growth Strategy</h5>
+                    <p>The complete report generated for Gillian George's practice &mdash; competitive analysis, market trends, ICP refinements, and a 30/60/90 day plan. This is what the Deep Research prompt produces.</p>
+                    <a href="downloads/Compassion_Center_Growth_Strategy_Report.pdf" target="_blank" rel="noopener noreferrer" class="download-btn">Download PDF &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Your Homework -->
+        <div class="section">
+            <h2 class="section-title">Your Homework</h2>
+
+            <div class="highlight-box">
+                <h4>📝 Before next session:</h4>
+                <ol>
+                    <li>Finish your ICP worksheet &mdash; the questions you didn't get to are your homework. Even a rough version is better than none.</li>
+                    <li>Check your Google Business Profile &mdash; is it claimed? Is the description filled in? Are there recent photos? Run through Jeff's guide.</li>
+                    <li>Try the Deep Research prompt &mdash; fill in the brackets with your business info, attach your ICP if you have one, and let it run. Review the output critically &mdash; you're the expert, not the AI.</li>
+                    <li>Bonus: Try the 5-step content calendar process from Part 4. Start with just Step 1 (mine the research) and see what themes come back.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 5-Step Content Calendar Process -->
+        <div class="section">
+            <h2 class="section-title">The 5-Step Content Calendar Process</h2>
+            <p class="process-intro">This is the iterative workflow from Part 4. Each step builds on the last &mdash; that's why it works better than a single prompt.</p>
+
+            <div class="process-step">
+                <div class="process-step-header">
+                    <div class="process-step-num">1</div>
+                    <div class="process-step-title">Mine the Research</div>
+                </div>
+                <div class="process-step-content">
+                    <div class="process-column">
+                        <h6>What You Do</h6>
+                        <p>Start in the same conversation as your deep research report.</p>
+                    </div>
+                    <div class="process-column">
+                        <h6>What AI Does</h6>
+                        <div class="prompt-block">"Pull out the top 8-10 trends most relevant to my business and my ideal customer. For each, explain why it would resonate with [ICP name]."</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-step-header">
+                    <div class="process-step-num">2</div>
+                    <div class="process-step-title">Pick Your Mix</div>
+                </div>
+                <div class="process-step-content">
+                    <div class="process-column">
+                        <h6>What You Do</h6>
+                        <p>YOU choose 4-5 themes. Apply the content mix: Educate, Relate, Offer, Prove.</p>
+                    </div>
+                    <div class="process-column human-step">
+                        <h6>This is the human step</h6>
+                        <p>Don't skip it &mdash; your judgment matters here.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-step-header">
+                    <div class="process-step-num">3</div>
+                    <div class="process-step-title">Generate Ideas</div>
+                </div>
+                <div class="process-step-content">
+                    <div class="process-column">
+                        <h6>What You Do</h6>
+                        <p>Review the options AI gives you.</p>
+                    </div>
+                    <div class="process-column">
+                        <h6>What AI Does</h6>
+                        <div class="prompt-block">"Using themes [X, Y, Z], generate 12-15 content ideas. For each: working title, content mix category, format, and one-sentence hook."</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-step-header">
+                    <div class="process-step-num">4</div>
+                    <div class="process-step-title">Curate &amp; Optimize</div>
+                </div>
+                <div class="process-step-content">
+                    <div class="process-column">
+                        <h6>What You Do</h6>
+                        <p>YOU pick ~8 ideas you actually like.</p>
+                    </div>
+                    <div class="process-column">
+                        <h6>What AI Does</h6>
+                        <div class="prompt-block">"Take ideas [X, Y, Z]. Write full post copy in [voice], adapt for best platform, add hashtags, include a soft CTA, suggest posting time, flag repurposing opportunities."</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-step">
+                <div class="process-step-header">
+                    <div class="process-step-num">5</div>
+                    <div class="process-step-title">Assemble the Calendar</div>
+                </div>
+                <div class="process-step-content">
+                    <div class="process-column">
+                        <h6>What You Do</h6>
+                        <p>Review and humanize the final output.</p>
+                    </div>
+                    <div class="process-column">
+                        <h6>What AI Does</h6>
+                        <div class="prompt-block">"Organize into a 4-week calendar: Week, Day, Platform, Title, Post Copy (first 2 lines), CTA, Hashtags. 3-4 posts per week. Flag which can be batched vs. need a real photo."</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="next-step">
+        <div class="next-step-content">
+            <span class="next-step-label">Coming Up Next</span>
+            <h3>Session 3: Killing the Admin Drudgery</h3>
+            <p class="next-step-subtitle">Email automation, meeting transcription, contract summarization, and prompt engineering.</p>
+            <a href="resources.html" class="next-step-btn">Back to Toolkit &rarr;</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>AI for All Workshop Series &bull; St. Albert &amp; District Chamber of Commerce</p>
+    </footer>
+
+    <script>
+        // Auth check
+        if (!localStorage.getItem('aiforall_hub_access')) {
+            window.location.href = 'index.html';
+        }
+
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+            document.getElementById('mobileOverlay').classList.toggle('open');
+        }
+    </script>
+</body>
+</html>
