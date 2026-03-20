@@ -158,10 +158,10 @@
             margin-bottom: 4px;
         }
 
-        /* Tools List */
+        /* Tools List - 3 column grid */
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 16px;
         }
 
@@ -182,8 +182,15 @@
             font-size: 0.9em;
         }
 
+        .tool-item .tool-note {
+            font-size: 0.85em;
+            color: var(--warm-gray);
+            margin-top: 4px;
+            margin-bottom: 0;
+        }
+
         /* Download Cards */
-        .download-grid {
+        .downloads-grid {
             display: grid;
             gap: 16px;
         }
@@ -283,7 +290,7 @@
         .process-step-num {
             width: 44px;
             height: 44px;
-            background: var(--accent);
+            background: #6C3FA0;
             color: white;
             border-radius: 50%;
             display: flex;
@@ -326,13 +333,24 @@
         }
 
         .prompt-block {
-            background: var(--ink);
-            color: #e5e5e5;
-            padding: 12px 16px;
+            background: var(--cream);
+            border: 1px solid var(--border);
             border-radius: 8px;
+            padding: 16px;
             font-family: 'Courier New', monospace;
-            font-size: 0.85em;
-            line-height: 1.5;
+            font-size: 0.88em;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .content-mix-list {
+            margin: 8px 0 0 0;
+            padding-left: 20px;
+        }
+
+        .content-mix-list li {
+            margin-bottom: 4px;
+            font-size: 0.9em;
         }
 
         /* Footer */
@@ -500,13 +518,13 @@
             .process-step-content {
                 grid-template-columns: 1fr;
             }
-        }
 
-        @media (max-width: 600px) {
             .tools-grid {
                 grid-template-columns: 1fr;
             }
+        }
 
+        @media (max-width: 600px) {
             .hero h1 { font-size: 1.8em; }
         }
     </style>
@@ -550,23 +568,23 @@
             <h2 class="section-title">What We Covered</h2>
 
             <div class="card">
-                <h4>🎯 Part 1: The ICP Brief (Rachel)</h4>
-                <p>Every marketing strategy starts with one question: who are you actually trying to reach? We walked through the ICP Workshop Worksheet &mdash; a three-part exercise to identify your best customer, build a one-page profile card, and stress-test a real business decision against it. Then we looked at a completed example: Gillian George's Compassion Center ICP, showing how specific client language, dealbreakers, and decision-making triggers make AI-generated marketing dramatically more relevant.</p>
+                <h4>🎯 Part 1: The ICP Brief</h4>
+                <p>Every marketing strategy starts with one question: who are you actually trying to reach? We walked through the ICP Workshop Worksheet &mdash; a three-part exercise to identify your best customer, build a one-page profile card, and stress-test a real business decision against it. Then we looked at a completed example: Gillian George's Compassion Center, showing how specific client language, dealbreakers, and decision-making triggers turn generic AI outputs into targeted, relevant marketing.</p>
             </div>
 
             <div class="card">
-                <h4>🏪 Part 2: Google Business Profile (Jeff)</h4>
-                <p>For many of your customers, your Google Business Profile IS your website. Jeff showed how to turn a neglected GBP into a working storefront &mdash; using Gemini to write a business description, generate weekly posts, and draft Q&amp;A answers. The key stat: complete profiles are 2.7x more reputable and 18x more discoverable than incomplete ones. We also covered Pomelli as a next-level GBP management option.</p>
+                <h4>🏪 Part 2: Google Business Profile + Pomelli</h4>
+                <p>For many of your customers, your Google Business Profile IS your website. Jeff showed how to turn a neglected GBP into a working storefront using Gemini &mdash; writing a business description, generating weekly posts, and drafting Q&amp;A answers in minutes. We also introduced Pomelli, Google's new AI tool that scans your website and generates on-brand marketing content automatically. The key stat: complete profiles are 2.7x more reputable and 18x more discoverable than incomplete ones.</p>
             </div>
 
             <div class="card">
-                <h4>🔬 Part 3: Deep Research (Rachel)</h4>
-                <p>We revealed a full Growth Strategy Report for Compassion Center &mdash; competitive landscape, market trends, ICP refinements, and a 30/60/90 day action plan &mdash; all generated from a single Deep Research prompt. The report identified competitors Gillian didn't know about, surfaced sector-specific trends, and produced a week-by-week plan realistic for a solo entrepreneur with $0 budget and 2 hours per week. Then we showed you the exact prompt that created it, so you can do the same for your business.</p>
+                <h4>🔬 Part 3: Deep Research</h4>
+                <p>We revealed a full Growth Strategy Report for Compassion Center &mdash; competitive landscape, market trends, ICP refinements, and a 30/60/90-day action plan &mdash; all generated from a single Deep Research prompt. The report identified competitors Gillian didn't know about, surfaced sector-specific trends, and produced a week-by-week plan realistic for a solo entrepreneur with $0 budget and 2 hours per week. Then we showed you the exact prompt that created it, so you can do the same for your business.</p>
             </div>
 
             <div class="card">
-                <h4>📅 Part 4: The Content Calendar (Rachel)</h4>
-                <p>This is where iterative AI workflows clicked. Instead of one magic prompt, we walked through a five-step process: (1) mine the research for trending themes, (2) pick your content mix (Educate / Relate / Offer / Prove), (3) generate 12&ndash;15 content ideas, (4) curate and write full posts with platform targeting and hashtags, (5) assemble everything into a four-week calendar. The result: a month of marketing written in the right voice, for the right customer, on the right platforms &mdash; built in about 20 minutes.</p>
+                <h4>📅 Part 4: The Content Calendar</h4>
+                <p>This is where iterative AI workflows clicked. Instead of one magic prompt, we walked through a five-step process: mine the research for themes, pick your content mix, generate ideas, curate and write full posts, then assemble into a calendar. The result: a month of marketing written in Gillian's voice, targeted to her customer, optimized for the right platforms &mdash; built in about 20 minutes.</p>
             </div>
         </div>
 
@@ -617,50 +635,74 @@
                 <div class="tool-item">
                     <h5>🔵 Gemini</h5>
                     <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer">gemini.google.com</a>
-                    <p style="font-size: 0.85em; color: var(--warm-gray); margin-top: 4px;">Free with Google account</p>
+                    <p class="tool-note">Free with Google account</p>
                 </div>
 
                 <div class="tool-item">
                     <h5>💬 ChatGPT</h5>
                     <a href="https://chat.openai.com" target="_blank" rel="noopener noreferrer">chat.openai.com</a>
-                    <p style="font-size: 0.85em; color: var(--warm-gray); margin-top: 4px;">Free tier available; Deep Research on Plus</p>
+                    <p class="tool-note">Free tier; Deep Research on Plus</p>
                 </div>
 
                 <div class="tool-item">
                     <h5>🟣 Claude</h5>
                     <a href="https://claude.ai" target="_blank" rel="noopener noreferrer">claude.ai</a>
-                    <p style="font-size: 0.85em; color: var(--warm-gray); margin-top: 4px;">Free tier available; Deep Research on Pro</p>
+                    <p class="tool-note">Free tier; Deep Research on Pro</p>
                 </div>
 
                 <div class="tool-item">
                     <h5>📍 Google Business Profile</h5>
                     <a href="https://business.google.com" target="_blank" rel="noopener noreferrer">business.google.com</a>
-                    <p style="font-size: 0.85em; color: var(--warm-gray); margin-top: 4px;">Free &mdash; claim or create your listing</p>
+                    <p class="tool-note">Free &mdash; claim or create your listing</p>
+                </div>
+
+                <div class="tool-item" style="grid-column: span 2;">
+                    <h5>✨ Pomelli</h5>
+                    <a href="https://labs.google.com/pomelli" target="_blank" rel="noopener noreferrer">labs.google.com/pomelli</a>
+                    <p class="tool-note">Scans your website to build a "Business DNA" profile, then generates on-brand social media campaigns. Available in Canada during public beta.</p>
                 </div>
             </div>
         </div>
 
         <!-- Session Handouts -->
         <div class="section">
-            <h2 class="section-title">Session Handouts</h2>
+            <h2 class="section-title">Session Handouts & Examples</h2>
 
-            <div class="download-grid">
+            <div class="downloads-grid">
+                <div class="download-card">
+                    <h5>📋 ICP Workshop Worksheet (Blank)</h5>
+                    <p>The three-part exercise from Part 1 &mdash; identify your best customer, build a profile card, and stress-test a business decision. Includes a worked example (Sandra / landscaping) to guide your answers.</p>
+                    <a href="downloads/Session2_ICP_Worksheet_Blank.docx" download class="download-btn">Download Word Doc &rarr;</a>
+                </div>
+
+                <div class="download-card">
+                    <h5>📋 Example: Compassion Center ICP (Completed)</h5>
+                    <p>Gillian George's completed ICP &mdash; shows specific client language, dealbreakers, and decision-making triggers that make AI output dramatically more relevant.</p>
+                    <a href="downloads/Session2_Example_ICP_Completed.docx" download class="download-btn">Download Word Doc &rarr;</a>
+                </div>
+
                 <div class="download-card">
                     <h5>📄 Google Business Profile Guide</h5>
                     <p>Jeff's comprehensive guide to GBP setup, verification, optimization, reviews, and Alberta-specific SEO tips.</p>
-                    <a href="downloads/SACC_Session2_GBP_Guide.pdf" target="_blank" rel="noopener noreferrer" class="download-btn">Download PDF &rarr;</a>
+                    <a href="downloads/Session2_GBP_Guide.pdf" target="_blank" rel="noopener noreferrer" class="download-btn">Download PDF &rarr;</a>
                 </div>
 
                 <div class="download-card">
                     <h5>📄 Deep Research Master Prompt</h5>
                     <p>The fill-in-the-brackets prompt that generates a full growth strategy report. Works with ChatGPT, Gemini, or Claude &mdash; any tool with a deep research mode.</p>
-                    <a href="downloads/SACC_Session2_Deep_Research_Prompt.pdf" target="_blank" rel="noopener noreferrer" class="download-btn">Download PDF &rarr;</a>
+                    <a href="downloads/Session2_Deep_Research_Prompt.pdf" target="_blank" rel="noopener noreferrer" class="download-btn">Download PDF &rarr;</a>
                 </div>
 
                 <div class="download-card">
-                    <h5>📄 Example: Compassion Center Growth Strategy</h5>
-                    <p>The complete report generated for Gillian George's practice &mdash; competitive analysis, market trends, ICP refinements, and a 30/60/90 day plan. This is what the Deep Research prompt produces.</p>
-                    <a href="downloads/Compassion_Center_Growth_Strategy_Report.pdf" target="_blank" rel="noopener noreferrer" class="download-btn">Download PDF &rarr;</a>
+                    <h5>📊 Example: Compassion Center Growth Strategy Report</h5>
+                    <p>The complete output from the Deep Research prompt &mdash; competitive analysis, market trends, ICP refinements, and a 30/60/90-day plan for a solo practitioner with $0 budget.</p>
+                    <a href="downloads/Session2_Example_Growth_Strategy_Report.pdf" target="_blank" rel="noopener noreferrer" class="download-btn">Download PDF &rarr;</a>
+                </div>
+
+                <div class="download-card">
+                    <h5>📅 Example: Compassion Center Content Pack</h5>
+                    <p>The output from the five-step content calendar process &mdash; 8 ready-to-post pieces written in Gillian's voice, with platform targeting, hashtags, CTAs, and a posting schedule.</p>
+                    <a href="downloads/Session2_Example_Content_Pack.docx" download class="download-btn">Download Word Doc &rarr;</a>
                 </div>
             </div>
         </div>
@@ -672,10 +714,11 @@
             <div class="highlight-box">
                 <h4>📝 Before next session:</h4>
                 <ol>
-                    <li>Finish your ICP worksheet &mdash; the questions you didn't get to are your homework. Even a rough version is better than none.</li>
-                    <li>Check your Google Business Profile &mdash; is it claimed? Is the description filled in? Are there recent photos? Run through Jeff's guide.</li>
-                    <li>Try the Deep Research prompt &mdash; fill in the brackets with your business info, attach your ICP if you have one, and let it run. Review the output critically &mdash; you're the expert, not the AI.</li>
-                    <li>Bonus: Try the 5-step content calendar process from Part 4. Start with just Step 1 (mine the research) and see what themes come back.</li>
+                    <li><strong>Finish your ICP worksheet</strong> &mdash; the questions you didn't get to in the session are your homework. Even a rough version is better than none.</li>
+                    <li><strong>Check your Google Business Profile</strong> &mdash; is it claimed? Is the description filled in? Are there recent photos? Run through Jeff's guide above.</li>
+                    <li><strong>Try the Deep Research prompt</strong> &mdash; fill in the brackets with your business info, attach your ICP if you have one, and let it run. Review the output critically &mdash; you're the expert, not the AI.</li>
+                    <li><strong>Bonus: Try Pomelli</strong> &mdash; go to labs.google.com/pomelli, enter your website URL, and see what it generates. Compare it to what you'd write yourself.</li>
+                    <li><strong>Stretch goal: Run the 5-step content calendar</strong> &mdash; start with just Step 1 (mine the research) and see what themes come back for your business.</li>
                 </ol>
             </div>
         </div>
@@ -683,7 +726,7 @@
         <!-- 5-Step Content Calendar Process -->
         <div class="section">
             <h2 class="section-title">The 5-Step Content Calendar Process</h2>
-            <p class="process-intro">This is the iterative workflow from Part 4. Each step builds on the last &mdash; that's why it works better than a single prompt.</p>
+            <p class="process-intro">This is the iterative workflow from Part 4. Each step builds on the last &mdash; that's why it works better than a single prompt. Do this in one AI conversation so context carries forward.</p>
 
             <div class="process-step">
                 <div class="process-step-header">
@@ -693,11 +736,11 @@
                 <div class="process-step-content">
                     <div class="process-column">
                         <h6>What You Do</h6>
-                        <p>Start in the same conversation as your deep research report.</p>
+                        <p>Start in the same conversation where your deep research report or ICP lives (or paste in key findings).</p>
                     </div>
                     <div class="process-column">
-                        <h6>What AI Does</h6>
-                        <div class="prompt-block">"Pull out the top 8-10 trends most relevant to my business and my ideal customer. For each, explain why it would resonate with [ICP name]."</div>
+                        <h6>The Prompt</h6>
+                        <div class="prompt-block">Based on the market research, pull out the top 8-10 trends, topics, or themes that are most relevant to my business and my ideal customer right now. For each one, give me a one-line explanation of why it would resonate with [ICP name].</div>
                     </div>
                 </div>
             </div>
@@ -710,11 +753,17 @@
                 <div class="process-step-content">
                     <div class="process-column">
                         <h6>What You Do</h6>
-                        <p>YOU choose 4-5 themes. Apply the content mix: Educate, Relate, Offer, Prove.</p>
+                        <p>This is the human decision step. Choose 4-5 themes from the list. Apply the content mix framework:</p>
+                        <ul class="content-mix-list">
+                            <li><strong>Educate</strong> &mdash; build trust ("here's how this works")</li>
+                            <li><strong>Relate</strong> &mdash; build connection ("you're not alone")</li>
+                            <li><strong>Offer</strong> &mdash; drive action ("here's how I can help")</li>
+                            <li><strong>Prove</strong> &mdash; build credibility ("here's what a client experienced")</li>
+                        </ul>
                     </div>
                     <div class="process-column human-step">
-                        <h6>This is the human step</h6>
-                        <p>Don't skip it &mdash; your judgment matters here.</p>
+                        <h6>This Is Your Call</h6>
+                        <p>No prompt here &mdash; this is YOUR decision. Don't skip it. Your judgment on what themes matter is what makes the final content relevant.</p>
                     </div>
                 </div>
             </div>
@@ -730,8 +779,8 @@
                         <p>Review the options AI gives you.</p>
                     </div>
                     <div class="process-column">
-                        <h6>What AI Does</h6>
-                        <div class="prompt-block">"Using themes [X, Y, Z], generate 12-15 content ideas. For each: working title, content mix category, format, and one-sentence hook."</div>
+                        <h6>The Prompt</h6>
+                        <div class="prompt-block">Using themes [X, Y, Z], generate 12-15 content ideas for [business name] for next month. For each idea, give me: a working title, which content mix category it fits (Educate / Relate / Offer / Prove), the format (social post, short blog, email, GBP post, carousel, or video concept), and one sentence describing the hook. Make sure ideas connect to [ICP name]'s specific pain points and language — not generic talk.</div>
                     </div>
                 </div>
             </div>
@@ -739,16 +788,16 @@
             <div class="process-step">
                 <div class="process-step-header">
                     <div class="process-step-num">4</div>
-                    <div class="process-step-title">Curate &amp; Optimize</div>
+                    <div class="process-step-title">Curate &amp; Write</div>
                 </div>
                 <div class="process-step-content">
                     <div class="process-column">
                         <h6>What You Do</h6>
-                        <p>YOU pick ~8 ideas you actually like.</p>
+                        <p>Pick ~8 ideas you actually like.</p>
                     </div>
                     <div class="process-column">
-                        <h6>What AI Does</h6>
-                        <div class="prompt-block">"Take ideas [X, Y, Z]. Write full post copy in [voice], adapt for best platform, add hashtags, include a soft CTA, suggest posting time, flag repurposing opportunities."</div>
+                        <h6>The Prompt</h6>
+                        <div class="prompt-block">Take ideas [X, Y, Z]. For each one: write the full post copy in [your voice description], adapt for the best platform and explain why, add 5-8 relevant hashtags, include a clear but soft call-to-action, suggest a posting day and time based on when [ICP name] is most likely scrolling, and flag where an idea could be repurposed across platforms.</div>
                     </div>
                 </div>
             </div>
@@ -761,11 +810,11 @@
                 <div class="process-step-content">
                     <div class="process-column">
                         <h6>What You Do</h6>
-                        <p>Review and humanize the final output.</p>
+                        <p>Review and humanize &mdash; add your real photos, tweak anything that doesn't sound like you.</p>
                     </div>
                     <div class="process-column">
-                        <h6>What AI Does</h6>
-                        <div class="prompt-block">"Organize into a 4-week calendar: Week, Day, Platform, Title, Post Copy (first 2 lines), CTA, Hashtags. 3-4 posts per week. Flag which can be batched vs. need a real photo."</div>
+                        <h6>The Prompt</h6>
+                        <div class="prompt-block">Organize all of this into a content calendar for the next 4 weeks. Format as a table with columns: Week, Day, Platform, Content Title, Post Copy (first 2 lines), CTA, and Hashtags. Space it out so I'm posting 3-4 times per week across all platforms. Flag which posts can be batched and scheduled in advance vs. which ones need a real photo or a timely edit.</div>
                     </div>
                 </div>
             </div>
