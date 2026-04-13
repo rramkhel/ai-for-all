@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session 3 Recap | AI for All</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #1c1917;
+            --paper: #fafaf9;
+            --cream: #f5f5f0;
+            --accent: #0f766e;
+            --accent-light: #ccfbf1;
+            --accent-dark: #134e4a;
+            --warm-gray: #78716c;
+            --border: #e7e5e4;
+            --tier1-bg: #DBEAFE;
+            --tier1-border: #3B82F6;
+            --tier2-bg: #FEF3C7;
+            --tier2-border: #F59E0B;
+            --tier3-bg: #D1FAE5;
+            --tier3-border: #10B981;
+            --tier4-bg: #F3E8FF;
+            --tier4-border: #8B5CF6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Commissioner', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--ink);
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Fraunces', serif;
+            color: white;
+            font-size: 1.4em;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        .back-link:hover { opacity: 1; }
+
+        /* Hub Tabs */
+        .hub-tabs {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .hub-tabs-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hub-tab {
+            padding: 10px 16px;
+            text-decoration: none;
+            color: var(--warm-gray);
+            font-size: 0.82em;
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .hub-tab:hover { color: var(--ink); background: var(--cream); }
+        .hub-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%);
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+        }
+
+        .hero-icon { font-size: 64px; margin-bottom: 16px; }
+
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: 2.2em;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            opacity: 0.95;
+            max-width: 650px;
+            margin: 0 auto;
+            font-size: 1.1em;
+        }
+
+        /* Main Content */
+        .page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        .section { margin-bottom: 48px; }
+
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        p { margin-bottom: 1em; }
+
+        /* Intro Box */
+        .intro-box {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .intro-box p:last-child { margin-bottom: 0; }
+
+        .stat-highlight {
+            background: var(--accent-light);
+            color: var(--accent-dark);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Tier Sections */
+        .tier-section {
+            margin-bottom: 40px;
+        }
+
+        .tier-header {
+            padding: 20px 24px;
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 0;
+        }
+
+        .tier-header.tier-1 { background: var(--tier1-bg); border-left: 4px solid var(--tier1-border); }
+        .tier-header.tier-2 { background: var(--tier2-bg); border-left: 4px solid var(--tier2-border); }
+        .tier-header.tier-3 { background: var(--tier3-bg); border-left: 4px solid var(--tier3-border); }
+        .tier-header.tier-4 { background: var(--tier4-bg); border-left: 4px solid var(--tier4-border); }
+
+        .tier-header h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.25em;
+            margin-bottom: 4px;
+        }
+
+        .tier-header p {
+            font-size: 0.95em;
+            color: var(--ink);
+            opacity: 0.85;
+            margin-bottom: 0;
+        }
+
+        .tier-stat {
+            display: inline-block;
+            background: rgba(255,255,255,0.7);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .tier-cards {
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+        }
+
+        /* Task Cards (Expandable) */
+        .task-card {
+            background: white;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .task-card:last-child { border-bottom: none; }
+
+        .task-header {
+            padding: 20px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            transition: background 0.2s;
+        }
+
+        .task-header:hover { background: var(--cream); }
+
+        .task-info { flex: 1; }
+
+        .task-name {
+            font-weight: 600;
+            font-size: 1em;
+            margin-bottom: 4px;
+        }
+
+        .task-ai-does {
+            font-size: 0.9em;
+            color: var(--warm-gray);
+            margin-bottom: 8px;
+        }
+
+        .task-options {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .task-option {
+            font-size: 0.85em;
+        }
+
+        .task-option .label {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .task-option a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        .task-toggle {
+            font-size: 1.5em;
+            color: var(--warm-gray);
+            padding: 0 8px;
+            transition: transform 0.3s;
+        }
+
+        .task-card.open .task-toggle { transform: rotate(180deg); }
+
+        .task-expand {
+            display: none;
+            padding: 0 24px 24px;
+            background: var(--cream);
+        }
+
+        .task-card.open .task-expand { display: block; }
+
+        .expand-section {
+            margin-bottom: 20px;
+        }
+
+        .expand-section:last-child { margin-bottom: 0; }
+
+        .expand-section h5 {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--warm-gray);
+            margin-bottom: 10px;
+        }
+
+        /* Prompt Block */
+        .prompt-block {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.88em;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover { background: var(--accent-dark); }
+        .copy-btn.copied { background: #16a34a; }
+
+        .steps-list {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 16px 16px 36px;
+        }
+
+        .steps-list li { margin-bottom: 8px; }
+        .steps-list li:last-child { margin-bottom: 0; }
+
+        .demo-idea {
+            background: white;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+            padding: 12px 16px;
+            font-size: 0.95em;
+        }
+
+        /* Tool Setup (for non-LLM tasks) */
+        .tool-setup {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .tool-setup h6 {
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .tool-setup p { margin-bottom: 8px; font-size: 0.9em; }
+        .tool-setup p:last-child { margin-bottom: 0; }
+
+        /* Diagnostic Section */
+        .diagnostic-section {
+            background: linear-gradient(135deg, var(--accent-light) 0%, #f0fdfa 100%);
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 48px;
+        }
+
+        .diagnostic-section h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .diagnostic-section > p { margin-bottom: 20px; }
+
+        .diagnostic-prompt {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .diagnostic-prompt .prompt-block {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* Guest Materials */
+        .guest-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 48px;
+        }
+
+        .guest-section h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+
+        .guest-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .guest-card {
+            background: var(--cream);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .guest-card h4 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.05em;
+            margin-bottom: 8px;
+        }
+
+        .guest-card p {
+            font-size: 0.9em;
+            color: var(--warm-gray);
+            margin-bottom: 12px;
+        }
+
+        .guest-card a {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        /* Next Step CTA */
+        .next-step {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: white;
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .next-step-content { max-width: 600px; margin: 0 auto; }
+
+        .next-step-label {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .next-step h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4em;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .next-step .next-step-subtitle {
+            opacity: 0.9;
+            margin-bottom: 16px;
+            font-size: 0.95em;
+        }
+
+        .next-step-btn {
+            display: inline-block;
+            background: white;
+            color: var(--accent-dark);
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .next-step-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--ink);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .footer p { opacity: 0.8; font-size: 0.9em; }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; right: 0; bottom: 0;
+            width: 260px;
+            background: var(--ink);
+            z-index: 1000;
+            padding: 60px 24px 24px;
+            flex-direction: column;
+            gap: 8px;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.3);
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-weight: 500;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 16px; right: 16px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .mobile-overlay.open { display: block; }
+
+        /* Responsive */
+        @media (max-width: 700px) {
+            .hamburger { display: block; }
+            .back-link { display: none; }
+
+            .hub-tabs-inner {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                justify-content: flex-start;
+                padding: 0 12px;
+            }
+
+            .hub-tab { padding: 10px 12px; font-size: 0.78em; }
+
+            .guest-grid { grid-template-columns: 1fr; }
+
+            .task-options { flex-direction: column; gap: 8px; }
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8em; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">AI for All</a>
+            <a href="resources.html" class="back-link">&larr; Back to Toolkit</a>
+            <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">&#9776;</button>
+        </div>
+    </nav>
+
+    <div class="mobile-overlay" id="mobileOverlay" onclick="toggleMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" onclick="toggleMenu()">&times;</button>
+        <a href="resources.html">&larr; Back to Toolkit</a>
+        <a href="../index.html">Home</a>
+        <a href="../calendar.html">Calendar</a>
+    </div>
+
+    <div class="hub-tabs">
+        <div class="hub-tabs-inner">
+            <a href="business-profile.html" class="hub-tab">&#128203; Profile</a>
+            <a href="guardrails.html" class="hub-tab">&#128737;&#65039; Safety</a>
+            <a href="ally-setup.html" class="hub-tab">&#129302; Ally</a>
+            <a href="sector-packs.html" class="hub-tab">&#128230; Prompts</a>
+            <a href="prompt-builder.html" class="hub-tab">&#128296; Builder</a>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="hero-icon">&#128221;</div>
+        <h1>Session 3: Killing the Admin Drudgery</h1>
+        <p>Your admin task toolkit &mdash; prompts, tools, and quick wins organized by pain point.</p>
+    </div>
+
+    <div class="page">
+        <!-- Intro Section -->
+        <div class="intro-box">
+            <p>Small business owners spend <span class="stat-highlight">16 hours per week</span> on administrative tasks. That's two full workdays every week spent on email, scheduling, invoices, and paperwork instead of serving customers or growing your business.</p>
+            <p>We've organized the most common admin time-sinks into four tiers, with a free and paid solution for each. Click any task to see the exact prompt or tool instructions.</p>
+        </div>
+
+        <!-- Tier 1: Email & Communications -->
+        <div class="tier-section">
+            <div class="tier-header tier-1">
+                <h3>Tier 1: Email &amp; Communications</h3>
+                <p>"The inbox that never ends"</p>
+                <span class="tier-stat">Business owners check email 36+ times per hour</span>
+            </div>
+            <div class="tier-cards">
+                <!-- Task 1: Email Replies -->
+                <div class="task-card" data-task="1">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Drafting Email Replies</div>
+                            <div class="task-ai-does">AI matches your voice and tone to draft professional responses</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.superhuman.com" target="_blank">Superhuman</a> ($30/mo)</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">I need to reply to this email. Match my voice: [describe your style - e.g., "professional but warm, direct, avoid jargon"].
+
+Here's the email I received:
+---
+[Paste the email]
+---
+
+Draft a reply that:
+- Addresses their main question/concern directly
+- Keeps it under 150 words
+- Ends with a clear next step or call-to-action
+- Sounds like me, not like a chatbot<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Paste the email you received into the prompt</li>
+                                <li>Add 2-3 words describing your communication style</li>
+                                <li>Review the draft &mdash; edit any details that don't fit</li>
+                                <li>Copy, paste, send</li>
+                            </ol>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Demo Idea</h5>
+                            <div class="demo-idea">Show a client inquiry email and generate a response. Then show the same email with a different tone ("more formal" vs "friendly and casual") to demonstrate voice matching.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 2: Batch Email Templates -->
+                <div class="task-card" data-task="2">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Batch Email Templates</div>
+                            <div class="task-ai-does">Generate a full set of business templates at once</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.flowrite.com" target="_blank">Flowrite</a> ($5/mo)</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">I run a [type of business]. Create a set of email templates I can reuse. For each template, include:
+- Subject line
+- Email body with [BRACKETS] for customizable parts
+- A professional but friendly sign-off
+
+Templates I need:
+1. New client welcome email
+2. Appointment confirmation
+3. Appointment reminder (24 hours before)
+4. Follow-up after service
+5. Request for review/testimonial
+6. Response to price inquiry
+7. "We miss you" re-engagement email
+
+Keep each under 100 words. My business name is [business name] and my tone is [describe tone].<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Fill in your business type and name</li>
+                                <li>Run the prompt once to generate all 7 templates</li>
+                                <li>Save the output somewhere accessible (Google Doc, Notes app)</li>
+                                <li>Copy-paste and fill in brackets when you need each email</li>
+                            </ol>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Demo Idea</h5>
+                            <div class="demo-idea">Generate templates for "Prairie Peak Physiotherapy" and show how the [BRACKETS] system makes templates reusable.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 3: Inbox Rules & Filters -->
+                <div class="task-card" data-task="3">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Inbox Rules &amp; Filters</div>
+                            <div class="task-ai-does">Auto-sort incoming email so you see what matters first</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> Gmail / Outlook built-in filters</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.sanebox.com" target="_blank">SaneBox</a> ($7/mo)</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>Setup Instructions (Gmail)</h5>
+                            <div class="tool-setup">
+                                <h6>Create filters to auto-label and sort:</h6>
+                                <p><strong>1.</strong> In Gmail, click the search bar dropdown (right side)</p>
+                                <p><strong>2.</strong> Enter criteria (e.g., "from:newsletter@" or "subject:invoice")</p>
+                                <p><strong>3.</strong> Click "Create filter" &rarr; Choose action (Skip Inbox, Apply label, etc.)</p>
+                                <p><strong>Recommended filters:</strong></p>
+                                <ul style="margin-left: 20px; margin-top: 8px;">
+                                    <li>All newsletters &rarr; Skip inbox, label "Read Later"</li>
+                                    <li>Key clients (by email domain) &rarr; Label "Priority"</li>
+                                    <li>"Unsubscribe" in body &rarr; Label "Newsletters"</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Demo Idea</h5>
+                            <div class="demo-idea">Show a cluttered inbox, create one filter live, then show how future emails will auto-sort.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 4: Email Scheduling -->
+                <div class="task-card" data-task="4">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Email Scheduling &amp; Snoozing</div>
+                            <div class="task-ai-does">Write now, send later; hide emails until you can deal with them</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> Gmail / Outlook built-in</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.boomeranggmail.com" target="_blank">Boomerang</a> ($5/mo)</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>Setup Instructions (Gmail)</h5>
+                            <div class="tool-setup">
+                                <h6>Schedule Send:</h6>
+                                <p>When composing an email, click the dropdown arrow next to "Send" &rarr; "Schedule send" &rarr; Pick date/time.</p>
+                                <h6 style="margin-top: 12px;">Snooze:</h6>
+                                <p>Hover over an email &rarr; Click the clock icon &rarr; Choose when to be reminded. The email disappears and returns to inbox at that time.</p>
+                                <p><strong>Pro tip:</strong> Batch your email. Write replies Sunday night, schedule them for Monday 8am so you don't look like you work weekends.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 5: Payment Reminders -->
+                <div class="task-card" data-task="5">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Payment Reminder Emails</div>
+                            <div class="task-ai-does">Generate an escalating sequence from friendly to firm</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.waveapps.com" target="_blank">Wave</a> (free) or <a href="https://quickbooks.intuit.com" target="_blank">QuickBooks</a></span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">Write a 4-email payment reminder sequence for my [type of business]. Each email should:
+- Have a clear subject line
+- Be under 100 words
+- Include [CLIENT NAME], [INVOICE NUMBER], [AMOUNT], and [DUE DATE] as placeholders
+- End with payment instructions
+
+The sequence:
+1. Friendly reminder (due in 3 days)
+2. Past due notice (1 day late) - still friendly
+3. Second notice (7 days late) - more direct
+4. Final notice (14+ days late) - firm but professional, mention next steps if unpaid
+
+My business name is [name] and I want to maintain good relationships while getting paid.<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Generate the sequence once</li>
+                                <li>Save all 4 emails as templates</li>
+                                <li>When an invoice is overdue, copy the appropriate stage</li>
+                                <li>Fill in the [BRACKETS] and send</li>
+                            </ol>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Demo Idea</h5>
+                            <div class="demo-idea">Show the progression from Email 1 (friendly) to Email 4 (firm) and discuss how AI helps you be consistent without being emotional.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tier 2: Scheduling & Bookings -->
+        <div class="tier-section">
+            <div class="tier-header tier-2">
+                <h3>Tier 2: Scheduling &amp; Bookings</h3>
+                <p>"The back-and-forth that never ends"</p>
+                <span class="tier-stat">Average of 8 emails to schedule one meeting</span>
+            </div>
+            <div class="tier-cards">
+                <!-- Task 6: Online Booking -->
+                <div class="task-card" data-task="6">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Online Booking Links</div>
+                            <div class="task-ai-does">Let clients self-book; eliminate email tag</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> <a href="https://calendly.com" target="_blank">Calendly</a> (1 event type)</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.acuityscheduling.com" target="_blank">Acuity</a> or <a href="https://calendly.com" target="_blank">Calendly Pro</a> ($12/mo)</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>Setup Instructions (Calendly Free)</h5>
+                            <div class="tool-setup">
+                                <p><strong>1.</strong> Sign up at calendly.com with your Google/Microsoft account</p>
+                                <p><strong>2.</strong> Create one event type (e.g., "30-min Consultation")</p>
+                                <p><strong>3.</strong> Set your available hours (e.g., Mon-Fri 9am-4pm)</p>
+                                <p><strong>4.</strong> Connect your calendar so it blocks off existing appointments</p>
+                                <p><strong>5.</strong> Copy your booking link and add it to your email signature</p>
+                                <p style="margin-top: 12px;"><strong>Pro tip:</strong> Put your Calendly link in your Google Business Profile Q&A section.</p>
+                            </div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Demo Idea</h5>
+                            <div class="demo-idea">Show how a client sees the booking page, picks a time, and both parties get calendar invites automatically.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 7: Automated Reminders -->
+                <div class="task-card" data-task="7">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Automated Appointment Reminders</div>
+                            <div class="task-ai-does">Send reminder emails/texts automatically before appointments</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> <a href="https://calendly.com" target="_blank">Calendly</a> (email only)</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.acuityscheduling.com" target="_blank">Acuity</a> or <a href="https://gohighlevel.com" target="_blank">GoHighLevel</a> (SMS)</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>Setup Instructions (Calendly)</h5>
+                            <div class="tool-setup">
+                                <p><strong>1.</strong> Go to your Event Type &rarr; "Communications"</p>
+                                <p><strong>2.</strong> Enable confirmation email (sends immediately after booking)</p>
+                                <p><strong>3.</strong> Add a reminder: 24 hours before, 1 hour before</p>
+                                <p><strong>4.</strong> Customize the message (add location, what to bring, cancellation policy)</p>
+                                <p style="margin-top: 12px;"><strong>Why this matters:</strong> No-show rates drop by 50%+ with automated reminders.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 8: Meeting Notes Transcription -->
+                <div class="task-card" data-task="8">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Meeting Notes &amp; Transcription</div>
+                            <div class="task-ai-does">Auto-record and transcribe meetings; generate summaries</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> <a href="https://otter.ai" target="_blank">Otter.ai</a> (300 min/mo)</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://fireflies.ai" target="_blank">Fireflies</a> or <a href="https://www.read.ai" target="_blank">Read.ai</a> ($10/mo)</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>Setup Instructions (Otter.ai)</h5>
+                            <div class="tool-setup">
+                                <p><strong>1.</strong> Sign up at otter.ai and connect your Google/Outlook calendar</p>
+                                <p><strong>2.</strong> Enable "Auto-join meetings" &mdash; Otter joins as a participant and records</p>
+                                <p><strong>3.</strong> After the meeting, Otter emails you a transcript + AI summary</p>
+                                <p><strong>4.</strong> Use the summary for follow-ups, action items, or client records</p>
+                                <p style="margin-top: 12px;"><strong>Etiquette tip:</strong> Tell participants "I'm going to have Otter join to take notes &mdash; is that okay?" Most people appreciate it.</p>
+                            </div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Demo Idea</h5>
+                            <div class="demo-idea">Show a sample Otter transcript and AI summary. Highlight how action items are automatically extracted.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tier 3: Documents & Data -->
+        <div class="tier-section">
+            <div class="tier-header tier-3">
+                <h3>Tier 3: Documents &amp; Data</h3>
+                <p>"Drowning in paperwork, nothing is findable"</p>
+                <span class="tier-stat">Employees spend 1.8 hours/day searching for information</span>
+            </div>
+            <div class="tier-cards">
+                <!-- Task 9: Extracting Messy Data -->
+                <div class="task-card" data-task="9">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Extracting &amp; Structuring Messy Data</div>
+                            <div class="task-ai-does">Turn unstructured text into organized tables</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.docsumo.com" target="_blank">Docsumo</a> ($99/mo)</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">I have unstructured data that I need to organize into a table. Extract the following fields and output as a table (or CSV format):
+
+Fields to extract:
+- [Field 1, e.g., "Name"]
+- [Field 2, e.g., "Email"]
+- [Field 3, e.g., "Phone"]
+- [Field 4, e.g., "Date"]
+- [Field 5, e.g., "Amount"]
+
+Here's the messy data:
+---
+[Paste your data here]
+---
+
+If any field is missing, put "N/A". Keep the original values exactly as written (don't fix typos or reformat dates unless I ask).<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Copy messy data (emails, receipts, handwritten notes you've typed up)</li>
+                                <li>List the specific fields you need extracted</li>
+                                <li>Paste into ChatGPT/Claude</li>
+                                <li>Copy the output table into Excel or Google Sheets</li>
+                            </ol>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Demo Idea</h5>
+                            <div class="demo-idea">Show a messy email chain with scattered client info, then extract it into a clean contact table.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 10: Writing Policies & SOPs -->
+                <div class="task-card" data-task="10">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Writing Policies &amp; SOPs</div>
+                            <div class="task-ai-does">Turn your verbal explanations into written procedures</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.scribe.how" target="_blank">Scribe</a> (auto-generates from screen recording)</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">I need to document a standard operating procedure (SOP) for my business. I'll describe the process informally, and you turn it into a clear, step-by-step document that anyone could follow.
+
+Process name: [e.g., "How to process a new client intake"]
+
+Here's how I do it (informal description):
+---
+[Describe the process as if you were explaining it to a new employee. Include any tools used, timing, exceptions, etc.]
+---
+
+Create an SOP document with:
+1. Purpose (1-2 sentences)
+2. When to use this procedure
+3. Numbered step-by-step instructions
+4. Any important notes or warnings
+5. Who to contact if something goes wrong
+
+Keep instructions clear enough for someone with no prior experience.<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Voice memo yourself explaining the process (or just type informally)</li>
+                                <li>Paste the transcription/description into the prompt</li>
+                                <li>Review and adjust the output for accuracy</li>
+                                <li>Save in a shared location (Google Drive, Notion, etc.)</li>
+                            </ol>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Demo Idea</h5>
+                            <div class="demo-idea">Voice-describe "how Dana closes out the clinic at end of day" and generate a formal SOP document.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 11: Formatting Proposals -->
+                <div class="task-card" data-task="11">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Formatting Proposals from Call Notes</div>
+                            <div class="task-ai-does">Turn messy meeting notes into polished client proposals</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.pandadoc.com" target="_blank">PandaDoc</a> or <a href="https://www.proposify.com" target="_blank">Proposify</a></span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">Turn these call notes into a professional proposal document.
+
+Call notes:
+---
+[Paste your meeting notes, transcription, or bullet points from the client conversation]
+---
+
+Create a proposal with:
+1. Project Overview (restate their problem and desired outcome)
+2. Proposed Solution (what you'll do, in clear language)
+3. Scope of Work (bullet list of deliverables)
+4. Timeline (phases or milestones)
+5. Investment (pricing section - use [AMOUNT] as placeholder if I didn't mention price)
+6. Next Steps (how to proceed)
+
+Keep it professional but not stiff. Under 1 page if possible. Client name is [NAME], my business is [BUSINESS NAME].<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>After a client call, dump your notes into the prompt</li>
+                                <li>Fill in client name and your business name</li>
+                                <li>Add your actual pricing to the [AMOUNT] placeholder</li>
+                                <li>Review, adjust details, and send</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 12: Follow-up Sequences -->
+                <div class="task-card" data-task="12">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Lead Follow-up Sequences</div>
+                            <div class="task-ai-does">Generate a multi-touch follow-up sequence for cold leads</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.mailchimp.com" target="_blank">Mailchimp</a> or CRM automation</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">Create a 5-email follow-up sequence for leads who inquired but didn't book. This is for a [type of business].
+
+The sequence should:
+- Email 1 (Day 0): Thank them for reaching out, answer their likely questions, soft CTA
+- Email 2 (Day 3): Share a helpful tip or resource related to their inquiry
+- Email 3 (Day 7): Social proof - mention a client success story (use [CLIENT STORY] as placeholder)
+- Email 4 (Day 14): Address common objections or concerns
+- Email 5 (Day 21): Final check-in, clear "last call" tone without being pushy
+
+Each email should:
+- Be under 100 words
+- Have a clear subject line
+- Sound human, not salesy
+- Include [LEAD NAME] and [SPECIFIC SERVICE] as placeholders
+
+My business name is [NAME] and my tone is [describe tone].<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Generate the sequence once for your business</li>
+                                <li>Review and customize each email</li>
+                                <li>Set up in your email tool (Mailchimp, CRM, or manually)</li>
+                                <li>When a lead doesn't convert, start them on Day 0</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 13: Google Review Responses -->
+                <div class="task-card" data-task="13">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Google Review Responses</div>
+                            <div class="task-ai-does">Draft professional responses to positive and negative reviews</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.birdeye.com" target="_blank">Birdeye</a> (auto-responses)</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">Write a response to this Google review. My business is [BUSINESS NAME].
+
+The review:
+---
+[Paste the review text and star rating]
+---
+
+Guidelines:
+- If positive: Thank them specifically for what they mentioned, reinforce why that's important to us, invite them back
+- If negative: Apologize for their experience (without admitting fault if disputed), offer to make it right, provide contact info to discuss offline
+- Keep under 75 words
+- Sound genuine, not corporate
+- Don't be defensive on negative reviews
+- Include their name if they signed it<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Copy the review from Google Business Profile</li>
+                                <li>Paste into the prompt with star rating</li>
+                                <li>Review the response for accuracy</li>
+                                <li>Post directly to Google</li>
+                            </ol>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Demo Idea</h5>
+                            <div class="demo-idea">Show responses to a glowing 5-star review AND a frustrated 2-star review. Emphasize keeping calm on negatives.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 14: Quote Drafting -->
+                <div class="task-card" data-task="14">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Quote &amp; Proposal Drafting</div>
+                            <div class="task-ai-does">Turn site visit notes into professional quotes</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.jobber.com" target="_blank">Jobber</a> or <a href="https://www.housecallpro.com" target="_blank">Housecall Pro</a></span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">Create a professional quote from these site visit notes.
+
+Site visit notes:
+---
+[Paste your notes - what you saw, what needs to be done, any special considerations, rough pricing thoughts]
+---
+
+Create a quote document with:
+1. Client info header: [CLIENT NAME], [ADDRESS], [DATE]
+2. Scope of Work: Clear description of what's included
+3. Materials (if applicable): Line items with [COST] placeholders
+4. Labor: [LABOR COST] placeholder
+5. Total: [TOTAL] placeholder
+6. Terms: Payment terms, warranty, timeline
+7. Valid until: [DATE - 30 days from today]
+
+My business is [BUSINESS NAME]. Keep it professional but readable. Use bullet points for scope of work.<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Take voice notes during site visit, transcribe after</li>
+                                <li>Paste notes into the prompt</li>
+                                <li>Fill in actual costs in the placeholders</li>
+                                <li>Add to your quote template or send as-is</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 15: Post-Meeting Follow-up -->
+                <div class="task-card" data-task="15">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Post-Meeting Follow-up Emails</div>
+                            <div class="task-ai-does">Turn meeting notes into a professional follow-up email</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.read.ai" target="_blank">Read.ai</a> (auto-generates from transcripts)</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">Write a follow-up email based on these meeting notes.
+
+Meeting notes / transcript:
+---
+[Paste your notes or transcript summary]
+---
+
+The follow-up email should include:
+1. Thank them for the meeting
+2. Recap key discussion points (3-4 bullets max)
+3. List action items with who's responsible
+4. Next steps and timeline
+5. Offer to clarify anything
+
+Keep it under 200 words. Professional but friendly tone. Their name is [NAME], meeting was about [TOPIC].<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>During or immediately after meeting, jot down key points</li>
+                                <li>Paste into the prompt (or use Otter transcript)</li>
+                                <li>Review action items for accuracy</li>
+                                <li>Send within 2 hours of meeting for best impact</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tier 4: Research & Compliance -->
+        <div class="tier-section">
+            <div class="tier-header tier-4">
+                <h3>Tier 4: Research &amp; Compliance</h3>
+                <p>"I don't even know where to start looking"</p>
+                <span class="tier-stat">40% of small business owners feel overwhelmed by regulatory requirements</span>
+            </div>
+            <div class="tier-cards">
+                <!-- Task 16: Invoice Processing -->
+                <div class="task-card" data-task="16">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Invoice &amp; Receipt Processing</div>
+                            <div class="task-ai-does">Scan and categorize receipts automatically</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> <a href="https://www.waveapps.com" target="_blank">Wave</a> (receipt scanning)</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.dext.com" target="_blank">Dext</a> or <a href="https://www.hubdoc.com" target="_blank">Hubdoc</a></span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>Setup Instructions (Wave)</h5>
+                            <div class="tool-setup">
+                                <p><strong>1.</strong> Sign up at waveapps.com (free for invoicing + receipts)</p>
+                                <p><strong>2.</strong> Download the Wave mobile app</p>
+                                <p><strong>3.</strong> Snap a photo of any receipt &mdash; Wave reads it and extracts vendor, date, amount</p>
+                                <p><strong>4.</strong> Categorize and connect to your bookkeeping</p>
+                                <p style="margin-top: 12px;"><strong>Deepak's tip:</strong> Take photos of receipts immediately. The shoebox method fails at tax time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 17: FAQ Extraction -->
+                <div class="task-card" data-task="17">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">FAQ Extraction from Customer Emails</div>
+                            <div class="task-ai-does">Analyze your inbox to find the questions you answer repeatedly</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.helpscout.com" target="_blank">Help Scout</a> or <a href="https://www.freshdesk.com" target="_blank">Freshdesk</a></span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">Analyze these customer emails to identify frequently asked questions.
+
+Customer emails (last 20-30):
+---
+[Paste a collection of customer inquiries - you can redact names/personal info]
+---
+
+Create:
+1. A list of the 10 most common questions or topics
+2. For each question, write a clear, helpful answer (under 50 words)
+3. Note which questions could be answered on your website to reduce emails
+
+Format as a FAQ document I could add to my website or email templates.<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Export or copy your last 20-30 customer inquiry emails</li>
+                                <li>Redact any sensitive personal information</li>
+                                <li>Run through the prompt</li>
+                                <li>Add the FAQ to your website or create email templates for each</li>
+                            </ol>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Demo Idea</h5>
+                            <div class="demo-idea">Show how this reveals patterns you didn't notice &mdash; "Oh, everyone asks about parking!"</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 18: Basic Bookkeeping -->
+                <div class="task-card" data-task="18">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Basic Bookkeeping Categorization</div>
+                            <div class="task-ai-does">Auto-categorize transactions from bank feeds</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> <a href="https://www.waveapps.com" target="_blank">Wave</a></span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://quickbooks.intuit.com" target="_blank">QuickBooks Online</a> ($30/mo)</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>Setup Instructions (Wave or QBO)</h5>
+                            <div class="tool-setup">
+                                <p><strong>1.</strong> Connect your bank account and credit card</p>
+                                <p><strong>2.</strong> Transactions import automatically daily</p>
+                                <p><strong>3.</strong> The software suggests categories based on vendor name</p>
+                                <p><strong>4.</strong> You review and approve (or correct) &mdash; it learns your preferences</p>
+                                <p><strong>5.</strong> Over time, 80%+ of transactions auto-categorize correctly</p>
+                                <p style="margin-top: 12px;"><strong>Key habit:</strong> Spend 5 minutes weekly reviewing uncategorized transactions. Don't let them pile up.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 19: Researching Regulations -->
+                <div class="task-card" data-task="19">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Researching Regulations &amp; Requirements</div>
+                            <div class="task-ai-does">Summarize regulatory requirements for your industry</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini (with caution)</span>
+                                <span class="task-option"><span class="label">Paid:</span> Consult a professional for final decisions</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">I need to understand regulatory requirements for my business. Give me a starting point for research &mdash; NOT legal advice.
+
+My situation:
+- Business type: [e.g., "physiotherapy clinic"]
+- Location: [e.g., "Alberta, Canada"]
+- Specific question: [e.g., "What are the requirements for storing client health records?"]
+
+Please:
+1. Summarize the general requirements (in plain English)
+2. List the specific regulations or laws I should read
+3. Note which government agencies or professional bodies oversee this
+4. Highlight anything that requires professional consultation
+
+IMPORTANT: Remind me that this is for research purposes only and I should verify with a professional before making decisions.<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Start with AI for a plain-English overview</li>
+                                <li>Follow the links to official sources to verify</li>
+                                <li>Consult a lawyer or accountant for anything high-stakes</li>
+                                <li>AI is a research starting point, NOT the final answer</li>
+                            </ol>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Demo Idea</h5>
+                            <div class="demo-idea">Ask about PIPA requirements for a health practice. Show how AI provides a roadmap but emphasize verification.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 20: Translating Legalese -->
+                <div class="task-card" data-task="20">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Translating Legalese to Plain English</div>
+                            <div class="task-ai-does">Explain contracts and legal documents in simple terms</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.lawgeex.com" target="_blank">LawGeex</a> or lawyer review</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">Explain this legal/contract text in plain English. I'm not a lawyer &mdash; help me understand what I'm agreeing to.
+
+The text:
+---
+[Paste the confusing section of the contract or legal document]
+---
+
+For each section, tell me:
+1. What it actually means in simple terms
+2. What obligations it creates for me
+3. Any red flags or unusual terms I should question
+4. Questions I should ask before signing
+
+Note: This is for my understanding only. I know I should consult a lawyer for final review of important contracts.<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Copy the confusing section (not the whole 30-page contract)</li>
+                                <li>Read the plain-English explanation</li>
+                                <li>Note any questions or red flags</li>
+                                <li>Bring those questions to a lawyer if needed</li>
+                            </ol>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Demo Idea</h5>
+                            <div class="demo-idea">Paste a dense indemnification clause from a lease and show the plain-English translation.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 21: Onboarding Docs -->
+                <div class="task-card" data-task="21">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Onboarding &amp; Training Documentation</div>
+                            <div class="task-ai-does">Create training docs for new hires from your existing knowledge</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.trainual.com" target="_blank">Trainual</a> or <a href="https://www.notion.so" target="_blank">Notion</a></span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">Create an onboarding guide for a new [job title] at my [type of business].
+
+What they need to know:
+---
+[Describe the role, key responsibilities, important processes, tools they'll use, who they report to, common questions new hires have, your company values/culture]
+---
+
+Create a "First Week Guide" document with:
+1. Welcome message (brief, warm)
+2. Day 1: What to expect, who to meet, basics
+3. Days 2-3: Key tasks to learn, with step-by-step instructions
+4. Days 4-5: Practice tasks, questions to ask
+5. "Who to ask" directory: [ROLE] for [TOPIC]
+6. Quick reference: Login info needed, key contacts, important policies
+
+Make it friendly and encouraging &mdash; first weeks are overwhelming.<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Brain-dump everything a new hire needs to know</li>
+                                <li>Generate the structured document</li>
+                                <li>Have a current employee review for accuracy</li>
+                                <li>Save and update as processes change</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 22: Meeting Prep -->
+                <div class="task-card" data-task="22">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Meeting Preparation Briefs</div>
+                            <div class="task-ai-does">Research a contact and prepare talking points before meetings</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://www.read.ai" target="_blank">Read.ai</a> or <a href="https://www.fireflies.ai" target="_blank">Fireflies</a></span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">Help me prepare for a meeting. Here's what I know:
+
+Meeting context:
+- Who I'm meeting: [Name, company, role]
+- Purpose: [What we're discussing]
+- What I know about them: [Any context you have &mdash; website, LinkedIn, past conversations]
+- My goals: [What I want to accomplish]
+
+Create a one-page meeting prep brief:
+1. Key facts about them/their company (from what I provided)
+2. 3-5 smart questions to ask
+3. Potential common ground or ice-breakers
+4. Talking points aligned with my goals
+5. Possible objections and how to address them
+6. Ideal outcome for this meeting
+
+Keep it scannable &mdash; bullet points, not paragraphs.<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>15 minutes before the meeting, fill in what you know</li>
+                                <li>Generate the brief</li>
+                                <li>Scan while you wait or on the drive over</li>
+                                <li>Walk in prepared</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 23: Social Media Maintenance -->
+                <div class="task-card" data-task="23">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Social Media Maintenance</div>
+                            <div class="task-ai-does">Generate a month of posts in one sitting</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Paid:</span> <a href="https://buffer.com" target="_blank">Buffer</a> or <a href="https://www.hootsuite.com" target="_blank">Hootsuite</a></span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">Generate a month of social media posts for my [type of business].
+
+About my business:
+- Business: [Name and what you do]
+- Target audience: [Who you're trying to reach]
+- Platforms: [Facebook, Instagram, LinkedIn, etc.]
+- Tone: [How you want to sound]
+
+Create 12 posts (3 per week for 4 weeks) with variety:
+- Mix of: tips, behind-the-scenes, promotions, questions, testimonials
+- Each post should include: caption (under 150 words), suggested image/visual, 3-5 relevant hashtags, best day/time to post
+
+Also include:
+- 4 story ideas (quick, informal content)
+- Any relevant upcoming dates/holidays to tie into
+
+Make them sound like me, not generic marketing-speak.<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Run this once a month</li>
+                                <li>Review and tweak posts that need adjustment</li>
+                                <li>Schedule in Buffer/Hootsuite or post manually</li>
+                                <li>Take photos throughout the month to pair with posts</li>
+                            </ol>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Demo Idea</h5>
+                            <div class="demo-idea">Generate posts for Prairie Peak Physiotherapy including tips, a client success story, and a seasonal promotion.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Diagnostic Section -->
+        <div class="diagnostic-section">
+            <h2>&#129520; The Admin Diagnostic</h2>
+            <p>Not sure where to start? This conversational prompt helps you identify your biggest admin time-sinks. Paste it into ChatGPT, Claude, or Gemini and have a conversation.</p>
+
+            <div class="diagnostic-prompt">
+                <div class="prompt-block">I want you to help me identify my biggest administrative time-wasters and match them to AI tools that can help. Let's have a conversation.
+
+First, I'll tell you about my business:
+- Business type: [What you do]
+- Team size: [Just you? Or employees?]
+- Main services/products: [Brief description]
+
+Then ask me these questions one at a time (wait for my answer before the next):
+
+1. "Walk me through a typical day. What tasks eat up most of your time outside of actually serving customers?"
+
+2. "What's one task you dread doing every week? The one you procrastinate on?"
+
+3. "Think about the last time you stayed late or worked a weekend. What were you catching up on?"
+
+4. "What questions do customers ask you repeatedly? And where does that communication happen - email, phone, in person?"
+
+5. "If you could magically eliminate one admin task forever, what would it be?"
+
+After I answer all five, give me:
+1. My top 3 admin time-wasters ranked by impact
+2. For each one: a free tool or AI prompt that could help
+3. The one thing I should try THIS WEEK (the quick win)
+
+Keep your recommendations practical &mdash; assume I have 30 minutes to try something new, not a whole weekend.<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+            </div>
+
+            <p style="font-size: 0.9em; color: var(--warm-gray); margin-bottom: 0;"><strong>Tip:</strong> The more specific your answers, the better the recommendations. "Email" is too vague &mdash; "writing follow-up emails to leads who didn't book" is actionable.</p>
+        </div>
+
+        <!-- Guest Materials Section -->
+        <div class="guest-section">
+            <h2>Session Resources</h2>
+            <div class="guest-grid">
+                <div class="guest-card">
+                    <h4>&#129302; Bhavneet's Chatbot Materials</h4>
+                    <p>Building a customer-facing chatbot for your business &mdash; tools, prompts, and best practices.</p>
+                    <a href="#">Coming soon &rarr;</a>
+                </div>
+                <div class="guest-card">
+                    <h4>&#128200; Deepak's Accounting Toolkit</h4>
+                    <p>Bookkeeping basics, receipt management, and when to bring in a professional.</p>
+                    <a href="#">Coming soon &rarr;</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="next-step">
+        <div class="next-step-content">
+            <span class="next-step-label">Coming Up Next</span>
+            <h3>Session 4: AI for Builders &amp; Professionals</h3>
+            <p class="next-step-subtitle">Sector-specific tools and prompts for construction, trades, and professional services.</p>
+            <a href="resources.html" class="next-step-btn">Back to Toolkit &rarr;</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>AI for All Workshop Series &bull; St. Albert &amp; District Chamber of Commerce</p>
+    </footer>
+
+    <script>
+        // Auth check
+        if (!localStorage.getItem('aiforall_hub_access')) {
+            window.location.href = 'index.html';
+        }
+
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('open');
+            document.getElementById('mobileOverlay').classList.toggle('open');
+        }
+
+        function toggleTask(header) {
+            const card = header.closest('.task-card');
+            card.classList.toggle('open');
+        }
+
+        function copyPrompt(btn) {
+            const promptBlock = btn.closest('.prompt-block');
+            const text = promptBlock.childNodes[0].textContent.trim();
+
+            navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Copy failed:', err);
+            });
+        }
+    </script>
+</body>
+</html>
