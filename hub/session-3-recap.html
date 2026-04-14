@@ -611,6 +611,55 @@
             <p>We've organized the most common admin time-sinks into four tiers, with a free and paid solution for each. Click any task to see the exact prompt or tool instructions.</p>
         </div>
 
+        <!-- Platform Quick Guide -->
+        <div class="section" style="margin-bottom: 40px;">
+            <h2 class="section-title">Quick Guide: Claude vs. ChatGPT vs. Gemini</h2>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; border: 1px solid var(--border);">
+                    <thead>
+                        <tr style="background: var(--cream);">
+                            <th style="padding: 14px 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border);">If you...</th>
+                            <th style="padding: 14px 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border);">Best free option</th>
+                            <th style="padding: 14px 16px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border);">Why</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 0.95em;">
+                        <tr>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Use Gmail / Google Calendar</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);"><strong>Gemini</strong></td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Built right into your inbox and calendar &mdash; no switching apps</td>
+                        </tr>
+                        <tr style="background: var(--cream);">
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Need to analyze long documents (contracts, policies, regulations)</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);"><strong>Claude</strong></td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Handles massive documents, best at nuanced comprehension</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Want to process images (receipts, whiteboards, handwritten notes)</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);"><strong>ChatGPT</strong> or <strong>Gemini mobile</strong></td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Strong image-to-text on both; Gemini mobile is great for on-the-go photos</td>
+                        </tr>
+                        <tr style="background: var(--cream);">
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Want a persistent business assistant that remembers context</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);"><strong>Any</strong> &mdash; use Projects or Gems</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">All three offer this; pick the one you're most comfortable with</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Want AI connected to your real email/files/calendar</td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);"><strong>Claude</strong> or <strong>Gemini</strong></td>
+                            <td style="padding: 12px 16px; border-bottom: 1px solid var(--border);">Claude connects via MCP; Gemini is natively embedded in Workspace</td>
+                        </tr>
+                        <tr style="background: var(--cream);">
+                            <td style="padding: 12px 16px;">Want to search your own business documents</td>
+                            <td style="padding: 12px 16px;"><strong>NotebookLM</strong></td>
+                            <td style="padding: 12px 16px;">Purpose-built for document research &mdash; upload and ask questions</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size: 0.9em; color: var(--warm-gray); margin-top: 16px; margin-bottom: 0;"><strong>Don't overthink the choice.</strong> Pick one, try it for a week. You can always switch later. They're all free to start.</p>
+        </div>
+
         <!-- Tier 1: Email & Communications -->
         <div class="tier-section">
             <div class="tier-header tier-1">
@@ -1598,6 +1647,133 @@ Make them sound like me, not generic marketing-speak.<button class="copy-btn" on
                         <div class="expand-section">
                             <h5>Demo Idea</h5>
                             <div class="demo-idea">Generate posts for Prairie Peak Physiotherapy including tips, a client success story, and a seasonal promotion.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bonus Prompts Section -->
+        <div class="section" style="margin-bottom: 48px;">
+            <h2 class="section-title">Deeper Dives</h2>
+            <p style="color: var(--warm-gray); margin-bottom: 24px;">These prompts go beyond quick admin fixes &mdash; they tackle bigger, high-value tasks that usually eat up entire weekends.</p>
+
+            <div class="tier-cards" style="border: 2px solid var(--accent); border-radius: 12px;">
+                <!-- Grant Application -->
+                <div class="task-card" data-task="grant">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Grant &amp; Funding Application Assistant</div>
+                            <div class="task-ai-does">Generate a first draft of grant applications, RFP responses, or government forms in minutes</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Works for:</span> Grants, RFPs, government forms, loan applications</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">I need help drafting a grant application. Here's what I have:
+
+**About the grant/funding program:**
+[PASTE THE GRANT CRITERIA, ELIGIBILITY REQUIREMENTS, AND EVALUATION CRITERIA HERE — you can usually find these on the funder's website]
+
+**About our organization:**
+- Organization name: [NAME]
+- What we do: [DESCRIBE IN 2-3 SENTENCES — e.g., "We're a seniors activity centre that provides social, recreational, and support programs for adults 50+ in our community"]
+- Location: [CITY, PROVINCE]
+- Years in operation: [NUMBER]
+- People we serve: [WHO — e.g., "approximately 800 members, primarily seniors aged 55-85"]
+- Key programs/services: [LIST YOUR MAIN OFFERINGS — e.g., "fitness classes, meal delivery partnerships, systems navigation for government services, educational talks, social events, facility rentals"]
+- Team: [SIZE AND STRUCTURE — e.g., "3 full-time staff, 1 part-time, 40+ active volunteers, 9-member board of directors"]
+- Annual budget: [APPROXIMATE — or say "prefer not to share" and I'll draft without it]
+- Previous grants received: [ANY RELEVANT ONES — or "first time applying"]
+
+**What we want to fund:**
+[DESCRIBE THE SPECIFIC PROJECT OR NEED — e.g., "We want to expand our meal delivery program to reach isolated seniors who can't access the centre"]
+
+**Draft a first-pass application that:**
+1. Addresses every criterion from the grant requirements
+2. Uses our ACTUAL programs and impact — not generic statements
+3. Includes specific, concrete examples wherever possible
+4. Identifies where I'll need to fill in real numbers or data I haven't provided
+5. Matches the tone expected by the funder (professional but community-focused)
+6. Flags any eligibility concerns or weak areas I should strengthen before submitting
+
+**Important:** Mark anything you've estimated or assumed with [VERIFY] so I know what to fact-check. This is a first draft — I'll review and refine before submitting.<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Find the grant criteria on the funder's website and paste it in</li>
+                                <li>Fill in your organization details &mdash; be specific about your programs</li>
+                                <li>Describe the project or need you want funded</li>
+                                <li>Review the draft, verify any [VERIFY] tags, and refine before submitting</li>
+                            </ol>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Why This Works</h5>
+                            <div class="demo-idea">Grant applications follow predictable structures. AI can map your real programs to the funder's criteria &mdash; but you still verify facts and add the human nuance. This takes a weekend project down to an hour of refinement.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Promotion -->
+                <div class="task-card" data-task="event">
+                    <div class="task-header" onclick="toggleTask(this)">
+                        <div class="task-info">
+                            <div class="task-name">Event Promotion Generator</div>
+                            <div class="task-ai-does">One prompt generates your Facebook post, email, GBP post, announcement script, and press release</div>
+                            <div class="task-options">
+                                <span class="task-option"><span class="label">Free:</span> ChatGPT / Claude / Gemini</span>
+                                <span class="task-option"><span class="label">Works for:</span> Events, workshops, open houses, fundraisers, sales</span>
+                            </div>
+                        </div>
+                        <span class="task-toggle">&#9662;</span>
+                    </div>
+                    <div class="task-expand">
+                        <div class="expand-section">
+                            <h5>The Prompt</h5>
+                            <div class="prompt-block">I need promotional content for an upcoming event. Give me everything I need in one shot.
+
+**Event details:**
+- Event name: [NAME]
+- What it is: [DESCRIBE — e.g., "A wine tasting evening featuring wines from Spain and Portugal, paired with appetizers by our chef. It's a fundraiser for our organization."]
+- Organization/business: [NAME AND BRIEF DESCRIPTION]
+- Date and time: [DATE, TIME]
+- Location: [VENUE, ADDRESS]
+- Tickets/cost: [PRICE AND HOW TO PURCHASE]
+- Who it's for: [TARGET AUDIENCE]
+- Any special details: [NOTABLE GUESTS, SPONSORS, ENTERTAINMENT, CAPACITY LIMITS, DRESS CODE, etc.]
+
+**Generate all of the following:**
+
+1. **Facebook/Instagram post** (~100 words, casual and inviting, include relevant emojis, suggest an image idea)
+
+2. **Email to members/customers** (~150 words, warm, includes all logistics, clear CTA to buy tickets/register)
+
+3. **Google Business Profile post** (~75 words, optimized for local search, includes location and date)
+
+4. **30-second announcement script** (for reading aloud at a meeting, in-store, or on the phone — conversational tone)
+
+5. **Press release for local newspaper** (~200 words, professional, includes who/what/when/where/why, quote from organizer — draft the quote for me)
+
+Match the tone to a local [BUSINESS TYPE / COMMUNITY ORGANIZATION] — warm, community-focused, not corporate. Make each piece standalone (someone should understand the event from any single piece without seeing the others).<button class="copy-btn" onclick="copyPrompt(this)">Copy</button></div>
+                        </div>
+                        <div class="expand-section">
+                            <h5>How to Use It</h5>
+                            <ol class="steps-list">
+                                <li>Fill in your event details</li>
+                                <li>Run the prompt once &mdash; you'll get all 5 pieces</li>
+                                <li>Review and adjust each piece for your voice</li>
+                                <li>Schedule or send: social posts, email blast, GBP update, script for meetings</li>
+                            </ol>
+                        </div>
+                        <div class="expand-section">
+                            <h5>Session 2 Callback</h5>
+                            <div class="demo-idea">This is the same content multiplication principle from the marketing session &mdash; one input, multiple outputs. Works for open houses, grand openings, workshops, fundraisers, sales events.</div>
                         </div>
                     </div>
                 </div>
