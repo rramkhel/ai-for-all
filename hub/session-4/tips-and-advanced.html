@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tips, Tricks &amp; Advanced Techniques | Session 4 | AI for All</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --ink: #1c1917;
+    --paper: #fafaf9;
+    --cream: #f5f5f0;
+    --accent: #0f766e;
+    --accent-light: #ccfbf1;
+    --accent-dark: #134e4a;
+    --warm-gray: #78716c;
+    --warm-gray-light: #a8a29e;
+    --border: #e7e5e4;
+    --error: #dc2626;
+    --error-light: #fee2e2;
+    --tl-green-bg: #dcfce7;
+    --tl-green-fg: #16a34a;
+    --tl-yellow-bg: #fef3c7;
+    --tl-yellow-fg: #ca8a04;
+    --tl-red-bg: #fee2e2;
+    --tl-red-fg: #dc2626;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Commissioner', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+}
+a { color: var(--accent); }
+a:hover { color: var(--accent-dark); }
+
+/* Navigation */
+.nav { background: var(--ink); padding: 1rem 0; }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+.nav-logo { font-family: 'Fraunces', serif; color: white; font-size: 1.4em; font-weight: 600; text-decoration: none; }
+.back-link { color: white; text-decoration: none; font-size: 0.95em; opacity: 0.9; }
+.back-link:hover { opacity: 1; }
+
+/* Hub tabs strip */
+.hub-tabs { background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.hub-tabs-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap; }
+.hub-tab { padding: 10px 16px; text-decoration: none; color: var(--warm-gray); font-size: 0.82em; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.hub-tab:hover { color: var(--ink); background: var(--cream); }
+.hub-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+/* Breadcrumb */
+.breadcrumb { max-width: 900px; margin: 0 auto; padding: 16px 24px 0; font-size: 0.88em; color: var(--warm-gray); }
+.breadcrumb a { color: var(--warm-gray); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); text-decoration: underline; }
+.breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+/* Hero */
+.hero { background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%); color: white; padding: 56px 24px 48px; text-align: center; }
+.hero .eyebrow { font-size: 0.85em; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; margin-bottom: 10px; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: 2.2em; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
+.hero .subtitle { opacity: 0.95; max-width: 650px; margin: 0 auto 14px; font-size: 1.1em; }
+.hero .meta { font-size: 0.88em; opacity: 0.8; }
+
+/* Page */
+.page { max-width: 760px; margin: 0 auto; padding: 40px 24px 24px; }
+.page > * + * { margin-top: 1em; }
+.page h1 { display: none; }  /* h1 lives in the hero; first H1 of source is suppressed */
+.page h2.section-title, .page h2 { font-family: 'Fraunces', serif; font-size: 1.5em; font-weight: 600; margin-top: 2.2em; margin-bottom: 0.6em; }
+.page h3 { font-family: 'Fraunces', serif; font-size: 1.2em; font-weight: 600; margin-top: 1.6em; margin-bottom: 0.4em; }
+.page h4 { font-family: 'Commissioner', sans-serif; font-size: 1.0em; font-weight: 600; margin-top: 1.2em; margin-bottom: 0.4em; color: var(--ink); }
+.page p { margin-bottom: 1em; }
+.page p:has(em:only-child) { color: var(--warm-gray); font-style: italic; }
+.page ul, .page ol { margin: 0 0 1em 1.2em; }
+.page li { margin-bottom: 0.4em; }
+.page li > ul, .page li > ol { margin-top: 0.4em; }
+.page strong { font-weight: 600; }
+.page code { background: var(--cream); padding: 1px 6px; border-radius: 4px; font-size: 0.92em; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; }
+.page hr.rule { border: none; border-top: 1px solid var(--border); margin: 2.4em 0; }
+
+/* Traffic-light dots */
+.tl { display: inline-block; width: 0.65em; height: 0.65em; border-radius: 50%; vertical-align: 0.05em; margin-right: 0.15em; line-height: 1; font-size: 1em; color: transparent; }
+.tl-green { background: var(--tl-green-fg); }
+.tl-yellow { background: var(--tl-yellow-fg); }
+.tl-red { background: var(--tl-red-fg); }
+
+/* Prompt blocks (blockquote prompts + fenced code prompts) */
+.prompt-block { position: relative; background: var(--cream); border-left: 4px solid var(--accent); border-radius: 8px; padding: 18px 22px 18px 22px; margin: 1.4em 0; }
+.prompt-block .prompt-text { font-family: 'Commissioner', sans-serif; font-size: 0.97em; color: var(--ink); white-space: normal; }
+.prompt-block.prompt-block-code { padding: 0; background: var(--ink); border-left-color: var(--accent); }
+.prompt-block.prompt-block-code pre { margin: 0; padding: 22px; overflow-x: auto; }
+.prompt-block.prompt-block-code code { background: transparent; color: #e7e5e4; font-size: 0.85em; padding: 0; white-space: pre; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; line-height: 1.6; }
+.copy-btn { position: absolute; top: 10px; right: 10px; background: white; border: 1px solid var(--border); color: var(--warm-gray); font-family: 'Commissioner', sans-serif; font-size: 0.78em; font-weight: 600; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.18s; opacity: 0.85; }
+.copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); opacity: 1; }
+.copy-btn.copied { background: var(--tl-green-fg); color: white; border-color: var(--tl-green-fg); opacity: 1; }
+.prompt-block-code .copy-btn { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #e7e5e4; }
+.prompt-block-code .copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* Callouts (non-prompt blockquotes) */
+blockquote.callout { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 14px 20px; margin: 1.4em 0; border-radius: 0 8px 8px 0; }
+blockquote.callout p { margin-bottom: 0.6em; }
+blockquote.callout p:last-child { margin-bottom: 0; }
+
+/* Notes between prompt blocks in mixed blockquotes (e.g., "[review, refine, adjust]") */
+.quote-note { color: var(--warm-gray); font-style: italic; text-align: center; margin: -0.4em 0 1.4em; font-size: 0.95em; }
+
+/* Download row (legal template) */
+.download-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 14px 0 1.6em; padding: 14px 18px; background: var(--cream); border-radius: 8px; border: 1px solid var(--border); }
+.download-btn { background: var(--accent); color: white !important; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.92em; white-space: nowrap; }
+.download-btn:hover { background: var(--accent-dark); color: white !important; }
+.download-note { color: var(--warm-gray); font-size: 0.88em; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 1.4em 0; }
+.page table.data { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); font-size: 0.94em; }
+.page table.data th { background: var(--cream); padding: 12px 14px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); }
+.page table.data td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.page table.data tr:last-child td { border-bottom: none; }
+
+/* Subpage footer (prev/next + related) */
+.subpage-footer { max-width: 760px; margin: 24px auto 0; padding: 32px 24px 0; border-top: 1px solid var(--border); }
+.prev-next { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.prev-next a { flex: 1 1 240px; padding: 14px 18px; background: white; border: 1px solid var(--border); border-radius: 8px; color: var(--ink); text-decoration: none; transition: all 0.2s; }
+.prev-next a:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.prev-next .pn-eyebrow { font-size: 0.78em; color: var(--warm-gray); margin-bottom: 4px; }
+.prev-next .pn-title { font-weight: 600; }
+.prev-next .pn-empty { visibility: hidden; }
+
+.related { background: var(--cream); border-radius: 8px; padding: 18px 22px; }
+.related h4 { font-family: 'Fraunces', serif; font-size: 1.05em; margin-bottom: 10px; font-weight: 600; }
+.related ul { list-style: none; margin: 0; padding: 0; }
+.related li { margin-bottom: 4px; }
+.related li::before { content: "→"; margin-right: 8px; color: var(--accent); }
+
+.help-line { font-size: 0.9em; color: var(--warm-gray); margin-top: 18px; padding: 14px 18px; background: white; border: 1px dashed var(--border); border-radius: 8px; }
+
+/* Site footer */
+.footer { background: var(--ink); color: white; padding: 28px 24px; text-align: center; margin-top: 56px; }
+.footer p { opacity: 0.8; font-size: 0.9em; }
+
+@media (max-width: 720px) {
+    .hero h1 { font-size: 1.7em; }
+    .hero { padding: 40px 20px 36px; }
+    .page { padding: 28px 20px; }
+    .breadcrumb { padding: 14px 20px 0; }
+    .hub-tabs-inner { justify-content: flex-start; overflow-x: auto; }
+    .prev-next { flex-direction: column; }
+    .copy-btn { font-size: 0.72em; padding: 3px 8px; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-container">
+        <a href="../../index.html" class="nav-logo">AI for All</a>
+        <a href="index.html" class="back-link">← Session 4</a>
+    </div>
+</nav>
+<div class="hub-tabs"><div class="hub-tabs-inner"><a href="../business-profile.html" class="hub-tab">Profile</a><a href="../guardrails.html" class="hub-tab">Safety</a><a href="../ally-setup.html" class="hub-tab">Ally</a><a href="../sector-packs.html" class="hub-tab">Prompts</a><a href="../prompt-builder.html" class="hub-tab">Builder</a></div></div>
+<div class="breadcrumb">
+    <a href="../index.html">Hub</a><span class="sep">›</span>
+    <a href="index.html">Session 4</a><span class="sep">›</span>
+    <span>Tips, Tricks &amp; Advanced Techniques</span>
+</div>
+<div class="hero">
+    <div class="eyebrow">Session 4 · #4 of 6 · Get better</div>
+    <h1>Tips, Tricks &amp; Advanced Techniques</h1>
+    <p class="subtitle">Iteration, batching, visuals, and advanced privacy patterns.</p>
+    <p class="meta">Reading time: 15 minutes</p>
+</div>
+<div class="page">
+<h2 class="section-title">Tips, Tricks &amp; Advanced Techniques</h2>
+<p><em>Once you've got your Project set up and you're using it for real work, here are the techniques that turn you from "person using AI" into "person who really knows what they're doing." Scan the list, pick what's useful, come back to it.</em></p>
+<hr class="rule">
+<h2>THE MAIN POINTS</h2>
+<p>Three things that separate AI users who plateau from AI users who keep getting better:</p>
+<ol><li><strong>They iterate.</strong> First drafts are starting points, not finished products. They ask for changes constantly.</li><li><strong>They test before they scale.</strong> Two examples, then sixty — never the other way around.</li><li><strong>They use the right tool for the right thing.</strong> Project knowledge vs. chat attachments, training data vs. web search, manual vs. AI-powered. Different tools have different costs.</li></ol>
+<hr class="rule">
+<h2>TIPS &amp; TRICKS</h2>
+<h3>Iterate — once an artifact is made, you can ask for changes</h3>
+<p>The most common mistake people make with AI is treating the first output as the final output. It isn't. Whatever Claude produces — a draft email, a comparison table, a quote, a social post — you can keep refining it:</p>
+<ul><li><em>"Make this shorter."</em></li><li><em>"The tone is too formal — make it more like how I'd talk to a regular."</em></li><li><em>"Add a sentence about the warranty."</em></li><li><em>"Try again, but this time assume the customer is price-sensitive."</em></li><li><em>"Keep everything except the second paragraph — rewrite that one."</em></li></ul>
+<p>Iteration is the actual work. The first draft is the starting point.</p>
+<h3>When batching — never produce 60 things before testing 2</h3>
+<p>If you're about to ask Claude to generate something at scale — 60 donor thank-yous, 20 candidate writeups, a month of social posts — <strong>don't ideate and immediately batch.</strong> Test the pattern on 2-3 examples first. Lock the format, the voice, and the structure. THEN scale.</p>
+<p>The conversation looks like:</p>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Generate 2-3 examples of [the thing] so I can evaluate before we do all 60.</div></div><p class="quote-note">[review, refine, adjust]</p><div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Perfect — now use that exact pattern for the remaining 57.</div></div>
+<p>This saves you from generating 60 mediocre things and either having to redo them all or send them as-is.</p>
+<h3>Ask for inline visuals when text isn't enough</h3>
+<p>Claude can generate visual artifacts inline — tables, charts, mockups, timelines, comparison grids — that often communicate faster than prose. Once you have an output, try:</p>
+<ul><li><em>"Show this as a comparison table."</em></li><li><em>"Make me a visual timeline of these steps."</em></li><li><em>"Generate a mockup of how this would look as an Instagram post."</em></li><li><em>"Turn this list into a 2x2 grid by priority and effort."</em></li><li><em>"Show me a side-by-side comparison of the two options."</em></li></ul>
+<p>For social posts, real estate listings, product comparisons, weekly schedules — the visual IS the takeaway. Don't settle for text when a quick visual would land harder.</p>
+<h3>When the answer might be more recent than AI's training, tell it to search</h3>
+<p>Claude has a knowledge cutoff. For anything that might have changed recently — current prices, recent legislation, this year's grant deadlines, a company's latest funding round — explicitly ask Claude to search:</p>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Use web search to check this. I want current information, not training data.</div></div>
+<p>Without that instruction, Claude might confidently quote outdated facts. With it, you get fresh information AND it'll tell you when sources disagree.</p>
+<h3>Project knowledge vs. attaching files to chat — when to do which</h3>
+<p>Both work. Use them differently:</p>
+<p><strong>Project knowledge</strong> is for things you'll use across many chats — your business brief, your voice examples, your standard templates, your past quotes. It's "always loaded" for every conversation in that Project.</p>
+<p><strong>Attached to a chat directly</strong> is for things specific to one task — a particular RFP, this week's interview notes, the contract someone just sent you. Once the chat is done, the attachment doesn't follow you around taking up context space.</p>
+<p><strong>The rule of thumb:</strong> if you'll reference it more than three times across different tasks → Project knowledge. If you're using it once → attach to chat.</p>
+<h3>AI meeting notes — the life-changing hack</h3>
+<p>If you're in back-to-back meetings, you're losing details every time. AI meeting tools change this completely. Two paid options worth looking at:</p>
+<ul><li><strong>Fireflies.ai</strong> — joins your meetings (Zoom, Google Meet, Teams), records, transcribes, summarizes. Drops a clean meeting summary in your email afterward.</li><li><strong>Google Meet with Workspace Business</strong> — built-in meeting transcription and AI summaries.</li></ul>
+<p>Once you have a transcript, you can drop it into Claude with prompts like:</p>
+<ul><li><em>"Summarize the decisions made in this meeting."</em></li><li><em>"Pull out the action items with owners."</em></li><li><em>"What questions came up that I didn't get to answer?"</em></li><li><em>"Draft a follow-up email based on what we discussed."</em></li></ul>
+<p>This is the back-to-back-meetings unlock. We'll demo this in the session if there's time.</p>
+<hr class="rule">
+<h2>ADVANCED — IF YOUR WORK NEEDS HIGHER PRIVACY</h2>
+<p>Two patterns for people whose work involves more sensitive information. These are for after you've got the basics working — not day-one moves.</p>
+<h3>Maintaining an anonymized Google Drive (for high-privacy work)</h3>
+<p>If your work is privacy-sensitive (legal, financial, healthcare-adjacent, regulated industries), the cleanest setup is to keep your real working files entirely separate from anything AI touches.</p>
+<p><strong>The pattern:</strong></p>
+<ol><li>In your Google Drive (or OneDrive, Dropbox), create two folders:<ul><li><strong>"Working"</strong> — your real files. Names, addresses, account numbers, everything.</li><li><strong>"AI-Ready"</strong> — anonymized copies of the documents you want AI to help with.</li></ul></li><li><strong>When you need AI help on something sensitive:</strong><ul><li>Open the real file from Working</li><li>Make a copy</li><li>Strip identifying details (use Find &amp; Replace — see below)</li><li>Save to AI-Ready</li><li>Connect Claude only to AI-Ready, never to Working</li></ul></li><li><strong>Set yourself a rule:</strong> the AI-Ready folder is the only place Claude ever sees. The Working folder stays out of the AI workflow entirely.</li></ol>
+<p>This takes discipline but lets you use AI for drafting, analysis, and pattern-finding without your sensitive data ever touching the AI system.</p>
+<h3>Pseudonymization — when privacy matters but full separation is overkill</h3>
+<p>For most "this contains real names and amounts" work, full file separation is too heavy. Pseudonymization is the lighter version: replace names with IDs while you work.</p>
+<p><strong>The setup:</strong></p>
+<ol><li>In your CRM or contact file, add a column called "ID" or "Code"</li><li>Give each contact a short identifier:<ul><li>Donors: D-01, D-02, D-03...</li><li>Candidates: C-01, C-02...</li><li>Clients: CL-01, CL-02...</li></ul></li><li><strong>Keep the master list (ID → real name) in your CRM, not in Claude.</strong></li></ol>
+<p><strong>When you ask Claude about a specific person:</strong></p>
+<ul><li><em>"Donor D-23 gave $500 to our spring campaign and attended our gala last fall"</em> — safe</li><li><em>"Candidate C-47 is currently a VP Engineering at [public company name] with payments background"</em> — safe (the company is public, the person is anonymized)</li></ul>
+<p><strong>When Claude writes back, it uses your placeholders.</strong> You swap them for real names from your CRM before sending.</p>
+<p>This takes a few hours to set up the first time and then becomes automatic. Worth it for recruiters, fundraisers, brokers, and anyone with high-volume personal data.</p>
+<h3>Manual anonymization tricks (for one-off documents)</h3>
+<p>When you have one document you need to anonymize quickly, three options:</p>
+<p><strong>Find &amp; Replace (universal):</strong> Open the document in Word or Google Docs. Ctrl+F (or Cmd+F) → Find and Replace. Replace "John Smith" with "[Customer A]," then his email address with "[email]," then his phone with "[phone]." Takes 90 seconds for a typical document.</p>
+<p><strong>Gemini in Google Sheets:</strong> If you have a column of names and identifying info, Gemini in Workspace can anonymize a whole column at once with a prompt. Faster than manual for spreadsheet data. (Note: less private than manual — the data goes through Gemini, so this isn't for the most sensitive work.)</p>
+<p><strong>Claude for Excel / Copilot in Excel:</strong> Similar pattern for Microsoft users — bulk anonymization in a spreadsheet via natural language prompts.</p>
+<p><strong>The trade-off:</strong> the AI-powered anonymization options are faster but less private (the data passes through the AI). Manual Find &amp; Replace is slower but fully local — nothing leaves your computer. Match the method to the sensitivity.</p>
+<hr class="rule">
+<h2>IF YOU GET STUCK</h2>
+<p>We're walking around — wave us over. The most common things people ask about from this guide:</p>
+<ul><li><strong>"Which of these should I do first?"</strong> — Iteration. Build the muscle of asking for changes before you build anything else.</li><li><strong>"Is the Google Drive separation worth it for me?"</strong> — Only if your work involves regulated data (health, legal-privileged, financial-regulated). For most small businesses, opt-out + pseudonymization is enough.</li><li><strong>"How do I know when to use web search vs. trust training data?"</strong> — Anything that could have changed in the last year. Prices, regulations, current events, current people in roles. Always search.</li><li><strong>"Won't AI meeting notes feel weird for the other people in the meeting?"</strong> — Disclose at the start of the call. Most people are fine with it once they know.</li></ul>
+<hr class="rule">
+<p><em>The basics get you started. These get you good.</em></p>
+</div>
+<div class="subpage-footer">
+    <div class="prev-next"><a href="use-cases.html"><div class="pn-eyebrow">← Previous · #3</div><div class="pn-title">Real Use Cases &amp; Prompts</div></a><a href="professional-prompts.html"><div class="pn-eyebrow">Next · #5 →</div><div class="pn-title">How to Write Professional Prompts</div></a></div>
+    <div class="related"><h4>Related resources</h4><ul><li><a href="privacy-setup.html">Privacy &amp; Setup</a> — Turn on the right privacy settings before you do anything else.</li><li><a href="use-cases.html">Real Use Cases &amp; Prompts</a> — Two case studies and three universal workflows with full prompts you can copy.</li></ul></div>
+    <p class="help-line">Questions about anything in here? You can ask Claude directly — open a chat, paste in this guide, and ask it to walk you through the parts that aren't clicking.</p>
+</div>
+<footer class="footer">
+    <p>AI for All Workshop Series · St. Albert &amp; District Chamber of Commerce</p>
+</footer>
+<script>
+if (!localStorage.getItem('aiforall_hub_access')) {
+    window.location.href = '../index.html';
+}
+function copyPrompt(btn) {
+    var holder = btn.parentElement.querySelector('[data-prompt]');
+    if (!holder) return;
+    var text = holder.innerText || holder.textContent;
+    text = text.trim();
+    navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+        }, 1800);
+    }).catch(function(err) {
+        console.error('Copy failed:', err);
+    });
+}
+</script>
+</body>
+</html>

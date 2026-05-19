@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy &amp; Setup | Session 4 | AI for All</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --ink: #1c1917;
+    --paper: #fafaf9;
+    --cream: #f5f5f0;
+    --accent: #0f766e;
+    --accent-light: #ccfbf1;
+    --accent-dark: #134e4a;
+    --warm-gray: #78716c;
+    --warm-gray-light: #a8a29e;
+    --border: #e7e5e4;
+    --error: #dc2626;
+    --error-light: #fee2e2;
+    --tl-green-bg: #dcfce7;
+    --tl-green-fg: #16a34a;
+    --tl-yellow-bg: #fef3c7;
+    --tl-yellow-fg: #ca8a04;
+    --tl-red-bg: #fee2e2;
+    --tl-red-fg: #dc2626;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Commissioner', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+}
+a { color: var(--accent); }
+a:hover { color: var(--accent-dark); }
+
+/* Navigation */
+.nav { background: var(--ink); padding: 1rem 0; }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+.nav-logo { font-family: 'Fraunces', serif; color: white; font-size: 1.4em; font-weight: 600; text-decoration: none; }
+.back-link { color: white; text-decoration: none; font-size: 0.95em; opacity: 0.9; }
+.back-link:hover { opacity: 1; }
+
+/* Hub tabs strip */
+.hub-tabs { background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.hub-tabs-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap; }
+.hub-tab { padding: 10px 16px; text-decoration: none; color: var(--warm-gray); font-size: 0.82em; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.hub-tab:hover { color: var(--ink); background: var(--cream); }
+.hub-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+/* Breadcrumb */
+.breadcrumb { max-width: 900px; margin: 0 auto; padding: 16px 24px 0; font-size: 0.88em; color: var(--warm-gray); }
+.breadcrumb a { color: var(--warm-gray); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); text-decoration: underline; }
+.breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+/* Hero */
+.hero { background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%); color: white; padding: 56px 24px 48px; text-align: center; }
+.hero .eyebrow { font-size: 0.85em; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; margin-bottom: 10px; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: 2.2em; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
+.hero .subtitle { opacity: 0.95; max-width: 650px; margin: 0 auto 14px; font-size: 1.1em; }
+.hero .meta { font-size: 0.88em; opacity: 0.8; }
+
+/* Page */
+.page { max-width: 760px; margin: 0 auto; padding: 40px 24px 24px; }
+.page > * + * { margin-top: 1em; }
+.page h1 { display: none; }  /* h1 lives in the hero; first H1 of source is suppressed */
+.page h2.section-title, .page h2 { font-family: 'Fraunces', serif; font-size: 1.5em; font-weight: 600; margin-top: 2.2em; margin-bottom: 0.6em; }
+.page h3 { font-family: 'Fraunces', serif; font-size: 1.2em; font-weight: 600; margin-top: 1.6em; margin-bottom: 0.4em; }
+.page h4 { font-family: 'Commissioner', sans-serif; font-size: 1.0em; font-weight: 600; margin-top: 1.2em; margin-bottom: 0.4em; color: var(--ink); }
+.page p { margin-bottom: 1em; }
+.page p:has(em:only-child) { color: var(--warm-gray); font-style: italic; }
+.page ul, .page ol { margin: 0 0 1em 1.2em; }
+.page li { margin-bottom: 0.4em; }
+.page li > ul, .page li > ol { margin-top: 0.4em; }
+.page strong { font-weight: 600; }
+.page code { background: var(--cream); padding: 1px 6px; border-radius: 4px; font-size: 0.92em; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; }
+.page hr.rule { border: none; border-top: 1px solid var(--border); margin: 2.4em 0; }
+
+/* Traffic-light dots */
+.tl { display: inline-block; width: 0.65em; height: 0.65em; border-radius: 50%; vertical-align: 0.05em; margin-right: 0.15em; line-height: 1; font-size: 1em; color: transparent; }
+.tl-green { background: var(--tl-green-fg); }
+.tl-yellow { background: var(--tl-yellow-fg); }
+.tl-red { background: var(--tl-red-fg); }
+
+/* Prompt blocks (blockquote prompts + fenced code prompts) */
+.prompt-block { position: relative; background: var(--cream); border-left: 4px solid var(--accent); border-radius: 8px; padding: 18px 22px 18px 22px; margin: 1.4em 0; }
+.prompt-block .prompt-text { font-family: 'Commissioner', sans-serif; font-size: 0.97em; color: var(--ink); white-space: normal; }
+.prompt-block.prompt-block-code { padding: 0; background: var(--ink); border-left-color: var(--accent); }
+.prompt-block.prompt-block-code pre { margin: 0; padding: 22px; overflow-x: auto; }
+.prompt-block.prompt-block-code code { background: transparent; color: #e7e5e4; font-size: 0.85em; padding: 0; white-space: pre; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; line-height: 1.6; }
+.copy-btn { position: absolute; top: 10px; right: 10px; background: white; border: 1px solid var(--border); color: var(--warm-gray); font-family: 'Commissioner', sans-serif; font-size: 0.78em; font-weight: 600; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.18s; opacity: 0.85; }
+.copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); opacity: 1; }
+.copy-btn.copied { background: var(--tl-green-fg); color: white; border-color: var(--tl-green-fg); opacity: 1; }
+.prompt-block-code .copy-btn { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #e7e5e4; }
+.prompt-block-code .copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* Callouts (non-prompt blockquotes) */
+blockquote.callout { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 14px 20px; margin: 1.4em 0; border-radius: 0 8px 8px 0; }
+blockquote.callout p { margin-bottom: 0.6em; }
+blockquote.callout p:last-child { margin-bottom: 0; }
+
+/* Notes between prompt blocks in mixed blockquotes (e.g., "[review, refine, adjust]") */
+.quote-note { color: var(--warm-gray); font-style: italic; text-align: center; margin: -0.4em 0 1.4em; font-size: 0.95em; }
+
+/* Download row (legal template) */
+.download-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 14px 0 1.6em; padding: 14px 18px; background: var(--cream); border-radius: 8px; border: 1px solid var(--border); }
+.download-btn { background: var(--accent); color: white !important; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.92em; white-space: nowrap; }
+.download-btn:hover { background: var(--accent-dark); color: white !important; }
+.download-note { color: var(--warm-gray); font-size: 0.88em; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 1.4em 0; }
+.page table.data { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); font-size: 0.94em; }
+.page table.data th { background: var(--cream); padding: 12px 14px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); }
+.page table.data td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.page table.data tr:last-child td { border-bottom: none; }
+
+/* Subpage footer (prev/next + related) */
+.subpage-footer { max-width: 760px; margin: 24px auto 0; padding: 32px 24px 0; border-top: 1px solid var(--border); }
+.prev-next { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.prev-next a { flex: 1 1 240px; padding: 14px 18px; background: white; border: 1px solid var(--border); border-radius: 8px; color: var(--ink); text-decoration: none; transition: all 0.2s; }
+.prev-next a:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.prev-next .pn-eyebrow { font-size: 0.78em; color: var(--warm-gray); margin-bottom: 4px; }
+.prev-next .pn-title { font-weight: 600; }
+.prev-next .pn-empty { visibility: hidden; }
+
+.related { background: var(--cream); border-radius: 8px; padding: 18px 22px; }
+.related h4 { font-family: 'Fraunces', serif; font-size: 1.05em; margin-bottom: 10px; font-weight: 600; }
+.related ul { list-style: none; margin: 0; padding: 0; }
+.related li { margin-bottom: 4px; }
+.related li::before { content: "→"; margin-right: 8px; color: var(--accent); }
+
+.help-line { font-size: 0.9em; color: var(--warm-gray); margin-top: 18px; padding: 14px 18px; background: white; border: 1px dashed var(--border); border-radius: 8px; }
+
+/* Site footer */
+.footer { background: var(--ink); color: white; padding: 28px 24px; text-align: center; margin-top: 56px; }
+.footer p { opacity: 0.8; font-size: 0.9em; }
+
+@media (max-width: 720px) {
+    .hero h1 { font-size: 1.7em; }
+    .hero { padding: 40px 20px 36px; }
+    .page { padding: 28px 20px; }
+    .breadcrumb { padding: 14px 20px 0; }
+    .hub-tabs-inner { justify-content: flex-start; overflow-x: auto; }
+    .prev-next { flex-direction: column; }
+    .copy-btn { font-size: 0.72em; padding: 3px 8px; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-container">
+        <a href="../../index.html" class="nav-logo">AI for All</a>
+        <a href="index.html" class="back-link">← Session 4</a>
+    </div>
+</nav>
+<div class="hub-tabs"><div class="hub-tabs-inner"><a href="../business-profile.html" class="hub-tab">Profile</a><a href="../guardrails.html" class="hub-tab">Safety</a><a href="../ally-setup.html" class="hub-tab">Ally</a><a href="../sector-packs.html" class="hub-tab">Prompts</a><a href="../prompt-builder.html" class="hub-tab">Builder</a></div></div>
+<div class="breadcrumb">
+    <a href="../index.html">Hub</a><span class="sep">›</span>
+    <a href="index.html">Session 4</a><span class="sep">›</span>
+    <span>Privacy &amp; Setup</span>
+</div>
+<div class="hero">
+    <div class="eyebrow">Session 4 · #1 of 6 · Start here</div>
+    <h1>Privacy &amp; Setup</h1>
+    <p class="subtitle">Turn on the right privacy settings before you do anything else.</p>
+    <p class="meta">Reading time: 10 minutes</p>
+</div>
+<div class="page">
+<h2 class="section-title">Privacy &amp; Setup — Start Here</h2>
+<p><em>The first 10 minutes of your AI journey. Read the main points, do the action steps, then choose your level. We'll walk you through this together at the start — this sheet is what you take home.</em></p>
+<hr class="rule">
+<h2>THE MAIN POINTS</h2>
+<p>Three rules that protect you regardless of which AI you use, what business you run, or how much you know about tech.</p>
+<h3>Rule 1 — Turn off training (this is a one-time setting)</h3>
+<p>By default, consumer AI tools learn from your conversations. That's how the model improves over time. The trade-off is that what you type <em>could</em> end up in the training data for the next version.</p>
+<p>You can opt out. Once you do, your conversations are kept for 30 days for safety review, then deleted, and never used for training. <strong>This is the single most important thing you'll do today.</strong></p>
+<h3>Rule 2 — Use the traffic light</h3>
+<p>Before you paste anything in, give it a colour.</p>
+<p><span class="tl tl-green">●</span> <strong>Green — Safe to share.</strong> General business info, templates, your own work, things that are already public or that nobody could be hurt by seeing. Most of what you'll use AI for is green.</p>
+<p><span class="tl tl-yellow">●</span> <strong>Yellow — Anonymize first.</strong> Customer names, addresses, exact dollar amounts, employee info. Useful for AI to know the SHAPE of, but not the specifics. Strip names and identifying details before pasting.</p>
+<p><span class="tl tl-red">●</span> <strong>Red — Don't share.</strong> Banking credentials, government IDs (SIN, passport), passwords, medical records, legal-privileged documents, confidential contracts. Belongs in your CRM, your filing cabinet, or your accountant's office — not in your AI.</p>
+<h3>Rule 3 — Verify, don't trust</h3>
+<p>Whatever the AI writes, you're still the one putting your name on it. Read it. Check the facts. AI sometimes invents details that sound right but aren't. Treat every output as a first draft, never a final.</p>
+<hr class="rule">
+<h2>YOUR ACTION STEPS (DO THESE NOW, 10 MINUTES)</h2>
+<h3>Step 1 — Open Claude on your laptop (1 minute)</h3>
+<p>Go to <strong>claude.ai</strong> in your browser and sign in. If you don't have an account yet, create one — it's free.</p>
+<p>You should be looking at the main chat interface.</p>
+<h3>Step 2 — Find your settings (1 minute)</h3>
+<ol><li>Click your <strong>name or profile icon</strong> (usually in the bottom left)</li><li>Click <strong>Settings</strong></li><li>Look for the <strong>Privacy</strong> section in the left sidebar of the settings panel</li></ol>
+<h3>Step 3 — Turn off training (1 minute)</h3>
+<p>In the Privacy section, find the toggle labelled something like <strong>"Help improve Claude"</strong> or <strong>"You can help improve Claude"</strong>.</p>
+<p><strong>Turn it OFF.</strong></p>
+<p>That's it. From this moment forward:</p>
+<ul><li>Your conversations won't be used to train future Claude models</li><li>Your conversations will be kept for up to 30 days for safety review, then deleted</li><li>Anything you've already typed in past chats — that's already in the system. Going forward is what matters now.</li></ul>
+<h3>Step 4 — Do the same for other AI tools you use (3 minutes)</h3>
+<p>If you also use ChatGPT or Gemini, flip those settings too. Each one is its own thing.</p>
+<p><strong>ChatGPT:</strong></p>
+<ol><li>Click your profile icon (bottom left)</li><li>Click <strong>Settings</strong></li><li>Click <strong>Data Controls</strong></li><li>Turn off <strong>"Improve the model for everyone"</strong></li></ol>
+<p><strong>Gemini:</strong></p>
+<ol><li>Go to <strong>myaccount.google.com</strong></li><li>Click <strong>Data and Privacy</strong> in the left sidebar</li><li>Scroll to <strong>Gemini Apps Activity</strong> (it may be under "History settings")</li><li>Turn it <strong>Off</strong></li><li>⚠ Note: turning this off also disables Gemini's connection to Gmail, Drive, and Docs. If you use those integrations, this is a tradeoff you'll have to choose.</li></ol>
+<h3>Step 5 — Practice the anonymizing move (3 minutes)</h3>
+<p>This is a muscle, not a rule. Let's build it now with a real example.</p>
+<p><strong>Take this email you might send to a customer:</strong></p>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Hi John, following up on the quote I sent you last Tuesday for the kitchen renovation at 142 Maple Drive. As discussed, the $47,500 includes the custom cabinets from Steve's shop. Let me know if your wife is comfortable with the timeline. — Mike</div></div>
+<p><strong>Now rewrite it like this:</strong></p>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Hi [Customer], following up on the quote I sent you last week for the kitchen renovation. As discussed, the price includes the custom cabinets. Let me know if you're comfortable with the timeline. — [Me]</div></div>
+<p><strong>Notice what changed:</strong></p>
+<ul><li>Customer's first name → [Customer]</li><li>Specific address → "the" (location removed)</li><li>Day of the week → "last week" (timeline generalized)</li><li>Exact dollar amount → "the price"</li><li>Supplier's name → "the" (third party removed)</li><li>Spouse reference → "you" (no second person involved)</li><li>Your name → [Me]</li></ul>
+<p><strong>What stayed the same:</strong></p>
+<ul><li>The voice — direct, casual, no fluff</li><li>The structure — greeting, reference, key detail, close</li><li>The information AI needs to learn — that you write follow-ups this way</li></ul>
+<p>Now you have an example AI can learn your voice from, without any identifying details. <strong>That's the move. Build the habit now while you're starting fresh.</strong></p>
+<hr class="rule">
+<h2>CHOOSE YOUR LEVEL — WHAT TO DO BEYOND THE BASICS</h2>
+<p>Different work needs different levels of care. Find yourself below.</p>
+<h3>LEVEL 1 — Standard business work (most people, most of the time)</h3>
+<p>If your work involves: marketing, drafting emails, planning, brainstorming, summarizing documents, writing content, general operations.</p>
+<p><strong>You're set.</strong> The steps above are enough. Follow the traffic light when you paste things in. You're good.</p>
+<h3>LEVEL 2 — Customer data, donor data, candidate data, financial details</h3>
+<p>If you regularly work with: client lists, donor records, recruitment candidate info, customer financial details, sales data tied to specific people.</p>
+<p><strong>Add pseudonymization to your habit.</strong></p>
+<p>The architecture that works for this kind of work is simple: <strong>names live in your CRM. IDs go in Claude.</strong></p>
+<p>In practice:</p>
+<ul><li><strong>In your existing files</strong> (CRM, spreadsheets, contact management): keep using real names. That's where they belong. They're protected by your normal business security.</li><li><strong>When you talk to Claude:</strong> use identifiers. <em>"Donor D-23 gave to our literacy program last quarter"</em> not <em>"Sarah Mitchell gave $5,000."</em> <em>"Candidate C-47, VP Engineering background, fintech experience"</em> not <em>"John Smith at RBC."</em></li><li><strong>When Claude writes back:</strong> it uses your placeholders. You swap them for real names before you send.</li></ul>
+<p><strong>To set this up:</strong></p>
+<ol><li>Decide your ID format. Simple is best: D-01, D-02 for donors. C-01, C-02 for clients. CN-01, CN-02 for candidates.</li><li>In your CRM or contact file, add a column called "ID" or "Code" and assign one to each contact.</li><li>When you ask Claude about a specific person, refer to them by ID.</li><li>Keep the master list (ID → real name) in your CRM, not in Claude.</li></ol>
+<p>This takes a few hours to set up the first time and then becomes automatic.</p>
+<h3>LEVEL 3 — Health information, legal-privileged work, or sensitive regulated data</h3>
+<p>If your work involves: patient information (hospice, mental health, medical), attorney-client privileged communications, financial advisory work covered by regulations, employee performance/disciplinary matters.</p>
+<p><strong>Consumer Claude isn't built for this.</strong> Period. The opt-out toggle is necessary but not sufficient. You need enterprise-tier tooling.</p>
+<p><strong>Your options:</strong></p>
+<p><strong>Option A — Use enterprise tier AI.</strong> Claude Team or Enterprise, ChatGPT Team or Enterprise, or Gemini for Workspace with a signed Business Associate Agreement (BAA). These tiers have different terms — your data isn't used for training, retention is shorter, and (for Workspace Gemini with BAA) you're HIPAA-covered. Costs more — usually $25-$30 per user per month, sometimes more.</p>
+<p><strong>Option B — Maintain an anonymized "AI workspace" parallel to your regulated data.</strong></p>
+<p>For some workflows, you can keep your real data entirely separate from AI and only let AI see fully anonymized versions:</p>
+<ol><li><strong>In Google Drive (or Dropbox, OneDrive), create two folders:</strong><ul><li><strong>"Working Files"</strong> — your real, regulated data. Names, details, everything. Treat this folder like you'd treat a paper file cabinet.</li><li><strong>"AI-Ready"</strong> — anonymized versions of the same documents. No names. No identifying details. Use IDs, descriptors, and ranges.</li></ul></li><li><strong>When you need to do work that involves AI:</strong><ul><li>Open the real document from Working Files</li><li>Make a copy</li><li>Anonymize the copy</li><li>Save the anonymized version in AI-Ready</li><li>Connect Claude to the AI-Ready folder only</li></ul></li><li><strong>Set a rule for yourself:</strong> the AI-Ready folder is the only place Claude ever sees. The Working Files folder is never connected, never uploaded, never pasted into a chat.</li></ol>
+<p>This takes discipline but lets you use AI for drafting, analysis, and pattern-finding on sensitive work — without the regulated data ever touching the AI system.</p>
+<p><strong>Option C — Don't use AI for the sensitive piece.</strong> Some work shouldn't have AI in the loop at all. Patient session notes, privileged legal advice, employee personnel files. Use AI for the surrounding work — admin, marketing, scheduling — and keep AI out of the regulated piece.</p>
+<p><strong>Honest note for the hospice case:</strong> If your nonprofit handles Protected Health Information (PHI) and you already use Google Workspace, getting a signed Business Associate Agreement with Google and using Workspace Gemini is probably the cleanest answer. Consumer Claude won't cover you for patient-adjacent work no matter what you do to anonymize.</p>
+<hr class="rule">
+<h2>DETAILS — WHEN YOU OR YOUR ADVISORS ASK THE DEEPER QUESTIONS</h2>
+<h3>What's actually happening with my data, by tool</h3>
+<p><strong>ChatGPT (Free / Plus / Pro)</strong></p>
+<ul><li>Trains on your conversations by default unless you opt out</li><li>After opt-out: ~30 days retention for safety review, then deleted</li><li>The $20 Plus subscription does NOT exempt you from training defaults — same opt-out toggle required</li><li>ChatGPT Team ($25-30/user/month) and Enterprise are excluded from training by default</li><li>Has a "Temporary Chat" option (pill at top-right of new chat) that doesn't train and only kept ~30 days regardless of your settings</li></ul>
+<p><strong>Claude (Free / Pro / Max)</strong></p>
+<ul><li>Trains by default since Anthropic's policy change in September/October 2025</li><li>After opt-out: 30 days retention</li><li>Important detail: the opt-out applies to new and resumed conversations going forward. Conversations that were already part of a training run before you opted out remain in that training run.</li><li>Claude Team and Enterprise: not used for training by default</li><li>Claude API: 7-day default retention, never used for training</li></ul>
+<p><strong>Gemini (consumer)</strong></p>
+<ul><li>Trains by default ("Gemini Apps Activity" on)</li><li>After opt-out: ~72 hours operational retention</li><li>Catch: turning off Apps Activity also disables Gemini's Google Workspace connections — Gmail, Drive, Docs integration goes away</li><li>Gemini for Workspace is included under Google's HIPAA Business Associate Addendum as of late 2025 — requires a signed BAA</li><li>An active class action (Thele v. Google, 2026) alleges Google used "Smart Features" toggle as a backdoor to enable Gemini's data access — currently in discovery</li></ul>
+<h3>Privacy ranking, best to worst (consumer tiers, opt-out applied)</h3>
+<ol><li>ChatGPT Team/Enterprise — excluded by default</li><li>Claude Team/Enterprise — excluded by default</li><li>Gemini Workspace with BAA — excluded, plus HIPAA-compliant</li><li>Claude Pro opted out — 30-day purge</li><li>ChatGPT Plus opted out — 30-day purge</li><li>Gemini personal opted out — 72-hour purge but workflow tradeoffs</li><li>Other consumer AI tools — varies, often partial opt-outs</li></ol>
+<p>The gap between Claude opt-out and ChatGPT opt-out is small. The real division is consumer vs. business/enterprise tiers.</p>
+<h3>HIPAA-specific notes</h3>
+<p>Consumer Claude is NOT HIPAA compliant. Neither is consumer ChatGPT.</p>
+<ul><li><strong>Claude:</strong> HIPAA compliance only on Enterprise accounts with a Business Associate Agreement</li><li><strong>Gemini for Workspace:</strong> included under Google's HIPAA Business Associate Addendum as of late 2025 (requires a signed BAA)</li><li><strong>ChatGPT:</strong> Enterprise tier required for HIPAA</li></ul>
+<p><strong>For hospice, mental health, medical practices:</strong> patient names, conditions, family situations, end-of-life details = Red on consumer Claude, full stop. If your organization uses Google Workspace and has (or can get) a signed BAA, Workspace Gemini covers patient-adjacent work. For donor letters, KPI reports, grant writing, general operations — consumer Claude with opt-out is fine. Just keep the patient-adjacent work in the regulated tier.</p>
+<h3>Legal privilege — the Heppner ruling</h3>
+<p>In 2026, US v. Heppner established that AI conversations have no legal confidentiality protection.</p>
+<ul><li>AI conversations are NOT protected by attorney-client privilege</li><li>AI conversations do NOT constitute work product</li><li>Lawyers, accountants, and others with privileged information should not use consumer AI tiers for privileged communications</li></ul>
+<p>For mortgage brokers, insurance brokers, financial advisors, anyone in regulated services: this is why the opt-out + pseudonymization pattern matters. You can use AI to draft, summarize, and explain. You should not paste the privileged client documents themselves on consumer tiers.</p>
+<h3>What pseudonymization protects against (and doesn't)</h3>
+<p><strong>What it protects against:</strong></p>
+<ul><li>Names appearing in any future training data</li><li>Pattern matching that could re-identify specific clients</li><li>Casual exposure if your account were ever breached</li></ul>
+<p><strong>What it doesn't protect against:</strong></p>
+<ul><li>Re-identification through context (small markets + specific details can identify individuals even without names — e.g., "the 12-person hospice in St. Albert" is one organization)</li><li>The "join attack" — if someone got both your CRM and your Claude history, they could reconnect them</li><li>Regulated data requirements that exist regardless of anonymization (HIPAA, attorney-client)</li><li>Workflow friction (every time you ask about "Client C-03," you have to look up who that is)</li></ul>
+<p><strong>Where it works best:</strong> structured client/candidate/donor data with natural IDs. Recruiters, consultants, nonprofits, brokers, customer-record-heavy businesses.</p>
+<p><strong>Where it falls short:</strong> small populations where context identifies the person even without names. Healthcare in small towns. Specialized professional services with a handful of clients.</p>
+<h3>Things you can truthfully say about Claude vs. things you should NOT</h3>
+<p><strong>True (you can say with confidence):</strong></p>
+<ul><li>"Anthropic doesn't sell your data to third parties." (In their policy.)</li><li>"After opt-out, my conversations aren't used to train future models."</li><li>"Conversations are kept for 30 days then deleted, after opt-out."</li><li>"My Project is private to my account. Other users can't see it."</li><li>"I can delete a conversation at any time."</li></ul>
+<p><strong>Overstatements (don't say these even if they feel true):</strong></p>
+<ul><li>"It's completely private." (It isn't — 30-day retention exists.)</li><li>"It's confidential." (Legally, it isn't — Heppner ruling.)</li><li>"Your data is safe." (Too vague, overpromising.)</li><li>"It's like an assistant who works only for me." (Closer to one who works for both you and Anthropic — agrees not to share, isn't legally bound to confidentiality.)</li></ul>
+<h3>If you've been pasting client info into ChatGPT for months</h3>
+<p>Past conversations that already went into a training run can't be pulled back out. Opt-out protects you from this point forward, not backwards. The good news: you can delete conversations you don't want preserved, and once deleted they stay out of future training. The better news: from today on, you control what goes in.</p>
+<p>Don't beat yourself up about the past. Build the habit going forward.</p>
+<h3>Policies change</h3>
+<p>Anthropic shifted its training default in September/October 2025. Companies do change these policies. Check your settings every few months. The opt-out toggle is the one that matters most.</p>
+<hr class="rule">
+<h2>WHAT TO DO IF YOU GET STUCK</h2>
+<p>We're walking around — wave us over. Common things people get stuck on at this stage:</p>
+<ul><li><strong>Can't find the settings panel:</strong> make sure you're on <strong>claude.ai</strong> in a browser, not the mobile app. Settings is under your name in the bottom left.</li><li><strong>The toggle says something different than the script:</strong> Anthropic occasionally renames their toggles. Look for anything that mentions "training," "improve Claude," or "data sharing" — that's the one.</li><li><strong>Not sure if my work is Level 1, 2, or 3:</strong> when in doubt, ask us. Better to spend 60 seconds confirming than to set things up wrong.</li><li><strong>My organization has its own IT policy:</strong> follow that first. These steps are for personal/business owner use. If your job has rules about AI tools, those rules take priority.</li></ul>
+<hr class="rule">
+<h2>QUICK REFERENCE — WHEN SOMEONE ASKS DURING WORKING TIME</h2>
+<p><strong>"Is it safe to put my client list in?"</strong></p>
+<blockquote class="callout"><p>"Not the names + contact info together. Use IDs in Claude, keep the rolodex in your CRM."</p></blockquote>
+<p><strong>"Can I paste a quote I sent last week?"</strong></p>
+<blockquote class="callout"><p>"Yes, but swap the customer name for [Customer A]. Pricing, scope, and language are all green."</p></blockquote>
+<p><strong>"What about my pricing sheet?"</strong></p>
+<blockquote class="callout"><p>"Green. It's your business context, not someone else's data."</p></blockquote>
+<p><strong>"What about a customer email I wrote?"</strong></p>
+<blockquote class="callout"><p>"Yellow. Use it as an example of your voice, but anonymize the customer's specifics."</p></blockquote>
+<p><strong>"Can I let Claude read my Gmail?"</strong></p>
+<blockquote class="callout"><p>"You can connect it. The tradeoff is everything in your inbox becomes available to it. For regulated industries, don't. For most operational email, the opt-out toggle does enough work."</p></blockquote>
+<p><strong>"What if I want to share AI output with a client?"</strong></p>
+<blockquote class="callout"><p>"That's fine — the output is yours. Just review for accuracy. AI sometimes invents plausible-sounding details. Always verify facts and figures before sending."</p></blockquote>
+<hr class="rule">
+<h2>SOURCES TO POINT PEOPLE AT</h2>
+<p>For deeper questions or to read more:</p>
+<ul><li><strong>Anthropic Privacy Center:</strong> anthropic.com/privacy</li><li><strong>ChatGPT Data Controls help:</strong> help.openai.com (search "data controls")</li><li><strong>Gemini privacy settings:</strong> myaccount.google.com/data-and-privacy</li><li><strong>For non-profits:</strong> AI Fluency for Nonprofits course (free, via Anthropic Academy)</li><li><strong>For regulated industries:</strong> talk to a Claude Team representative about Enterprise terms</li></ul>
+<hr class="rule">
+<p><em>Last reviewed before May 19 session. These companies change defaults faster than documentation updates — verify current policies before quoting specifics in writing.</em></p>
+</div>
+<div class="subpage-footer">
+    <div class="prev-next"><span class="pn-empty"></span><a href="project-checklist.html"><div class="pn-eyebrow">Next · #2 →</div><div class="pn-title">What to Put in Your Project</div></a></div>
+    <div class="related"><h4>Related resources</h4><ul><li><a href="project-checklist.html">What to Put in Your Project</a> — The checklist of things to add to your Claude Project, organized by industry.</li><li><a href="tips-and-advanced.html">Tips, Tricks &amp; Advanced Techniques</a> — Iteration, batching, visuals, and advanced privacy patterns.</li></ul></div>
+    <p class="help-line">Questions about anything in here? You can ask Claude directly — open a chat, paste in this guide, and ask it to walk you through the parts that aren't clicking.</p>
+</div>
+<footer class="footer">
+    <p>AI for All Workshop Series · St. Albert &amp; District Chamber of Commerce</p>
+</footer>
+<script>
+if (!localStorage.getItem('aiforall_hub_access')) {
+    window.location.href = '../index.html';
+}
+function copyPrompt(btn) {
+    var holder = btn.parentElement.querySelector('[data-prompt]');
+    if (!holder) return;
+    var text = holder.innerText || holder.textContent;
+    text = text.trim();
+    navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+        }, 1800);
+    }).catch(function(err) {
+        console.error('Copy failed:', err);
+    });
+}
+</script>
+</body>
+</html>

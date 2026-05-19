@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Write Professional Prompts | Session 4 | AI for All</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --ink: #1c1917;
+    --paper: #fafaf9;
+    --cream: #f5f5f0;
+    --accent: #0f766e;
+    --accent-light: #ccfbf1;
+    --accent-dark: #134e4a;
+    --warm-gray: #78716c;
+    --warm-gray-light: #a8a29e;
+    --border: #e7e5e4;
+    --error: #dc2626;
+    --error-light: #fee2e2;
+    --tl-green-bg: #dcfce7;
+    --tl-green-fg: #16a34a;
+    --tl-yellow-bg: #fef3c7;
+    --tl-yellow-fg: #ca8a04;
+    --tl-red-bg: #fee2e2;
+    --tl-red-fg: #dc2626;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Commissioner', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+}
+a { color: var(--accent); }
+a:hover { color: var(--accent-dark); }
+
+/* Navigation */
+.nav { background: var(--ink); padding: 1rem 0; }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+.nav-logo { font-family: 'Fraunces', serif; color: white; font-size: 1.4em; font-weight: 600; text-decoration: none; }
+.back-link { color: white; text-decoration: none; font-size: 0.95em; opacity: 0.9; }
+.back-link:hover { opacity: 1; }
+
+/* Hub tabs strip */
+.hub-tabs { background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.hub-tabs-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap; }
+.hub-tab { padding: 10px 16px; text-decoration: none; color: var(--warm-gray); font-size: 0.82em; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.hub-tab:hover { color: var(--ink); background: var(--cream); }
+.hub-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+/* Breadcrumb */
+.breadcrumb { max-width: 900px; margin: 0 auto; padding: 16px 24px 0; font-size: 0.88em; color: var(--warm-gray); }
+.breadcrumb a { color: var(--warm-gray); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); text-decoration: underline; }
+.breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+/* Hero */
+.hero { background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%); color: white; padding: 56px 24px 48px; text-align: center; }
+.hero .eyebrow { font-size: 0.85em; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; margin-bottom: 10px; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: 2.2em; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
+.hero .subtitle { opacity: 0.95; max-width: 650px; margin: 0 auto 14px; font-size: 1.1em; }
+.hero .meta { font-size: 0.88em; opacity: 0.8; }
+
+/* Page */
+.page { max-width: 760px; margin: 0 auto; padding: 40px 24px 24px; }
+.page > * + * { margin-top: 1em; }
+.page h1 { display: none; }  /* h1 lives in the hero; first H1 of source is suppressed */
+.page h2.section-title, .page h2 { font-family: 'Fraunces', serif; font-size: 1.5em; font-weight: 600; margin-top: 2.2em; margin-bottom: 0.6em; }
+.page h3 { font-family: 'Fraunces', serif; font-size: 1.2em; font-weight: 600; margin-top: 1.6em; margin-bottom: 0.4em; }
+.page h4 { font-family: 'Commissioner', sans-serif; font-size: 1.0em; font-weight: 600; margin-top: 1.2em; margin-bottom: 0.4em; color: var(--ink); }
+.page p { margin-bottom: 1em; }
+.page p:has(em:only-child) { color: var(--warm-gray); font-style: italic; }
+.page ul, .page ol { margin: 0 0 1em 1.2em; }
+.page li { margin-bottom: 0.4em; }
+.page li > ul, .page li > ol { margin-top: 0.4em; }
+.page strong { font-weight: 600; }
+.page code { background: var(--cream); padding: 1px 6px; border-radius: 4px; font-size: 0.92em; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; }
+.page hr.rule { border: none; border-top: 1px solid var(--border); margin: 2.4em 0; }
+
+/* Traffic-light dots */
+.tl { display: inline-block; width: 0.65em; height: 0.65em; border-radius: 50%; vertical-align: 0.05em; margin-right: 0.15em; line-height: 1; font-size: 1em; color: transparent; }
+.tl-green { background: var(--tl-green-fg); }
+.tl-yellow { background: var(--tl-yellow-fg); }
+.tl-red { background: var(--tl-red-fg); }
+
+/* Prompt blocks (blockquote prompts + fenced code prompts) */
+.prompt-block { position: relative; background: var(--cream); border-left: 4px solid var(--accent); border-radius: 8px; padding: 18px 22px 18px 22px; margin: 1.4em 0; }
+.prompt-block .prompt-text { font-family: 'Commissioner', sans-serif; font-size: 0.97em; color: var(--ink); white-space: normal; }
+.prompt-block.prompt-block-code { padding: 0; background: var(--ink); border-left-color: var(--accent); }
+.prompt-block.prompt-block-code pre { margin: 0; padding: 22px; overflow-x: auto; }
+.prompt-block.prompt-block-code code { background: transparent; color: #e7e5e4; font-size: 0.85em; padding: 0; white-space: pre; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; line-height: 1.6; }
+.copy-btn { position: absolute; top: 10px; right: 10px; background: white; border: 1px solid var(--border); color: var(--warm-gray); font-family: 'Commissioner', sans-serif; font-size: 0.78em; font-weight: 600; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.18s; opacity: 0.85; }
+.copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); opacity: 1; }
+.copy-btn.copied { background: var(--tl-green-fg); color: white; border-color: var(--tl-green-fg); opacity: 1; }
+.prompt-block-code .copy-btn { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #e7e5e4; }
+.prompt-block-code .copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* Callouts (non-prompt blockquotes) */
+blockquote.callout { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 14px 20px; margin: 1.4em 0; border-radius: 0 8px 8px 0; }
+blockquote.callout p { margin-bottom: 0.6em; }
+blockquote.callout p:last-child { margin-bottom: 0; }
+
+/* Notes between prompt blocks in mixed blockquotes (e.g., "[review, refine, adjust]") */
+.quote-note { color: var(--warm-gray); font-style: italic; text-align: center; margin: -0.4em 0 1.4em; font-size: 0.95em; }
+
+/* Download row (legal template) */
+.download-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 14px 0 1.6em; padding: 14px 18px; background: var(--cream); border-radius: 8px; border: 1px solid var(--border); }
+.download-btn { background: var(--accent); color: white !important; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.92em; white-space: nowrap; }
+.download-btn:hover { background: var(--accent-dark); color: white !important; }
+.download-note { color: var(--warm-gray); font-size: 0.88em; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 1.4em 0; }
+.page table.data { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); font-size: 0.94em; }
+.page table.data th { background: var(--cream); padding: 12px 14px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); }
+.page table.data td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.page table.data tr:last-child td { border-bottom: none; }
+
+/* Subpage footer (prev/next + related) */
+.subpage-footer { max-width: 760px; margin: 24px auto 0; padding: 32px 24px 0; border-top: 1px solid var(--border); }
+.prev-next { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.prev-next a { flex: 1 1 240px; padding: 14px 18px; background: white; border: 1px solid var(--border); border-radius: 8px; color: var(--ink); text-decoration: none; transition: all 0.2s; }
+.prev-next a:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.prev-next .pn-eyebrow { font-size: 0.78em; color: var(--warm-gray); margin-bottom: 4px; }
+.prev-next .pn-title { font-weight: 600; }
+.prev-next .pn-empty { visibility: hidden; }
+
+.related { background: var(--cream); border-radius: 8px; padding: 18px 22px; }
+.related h4 { font-family: 'Fraunces', serif; font-size: 1.05em; margin-bottom: 10px; font-weight: 600; }
+.related ul { list-style: none; margin: 0; padding: 0; }
+.related li { margin-bottom: 4px; }
+.related li::before { content: "→"; margin-right: 8px; color: var(--accent); }
+
+.help-line { font-size: 0.9em; color: var(--warm-gray); margin-top: 18px; padding: 14px 18px; background: white; border: 1px dashed var(--border); border-radius: 8px; }
+
+/* Site footer */
+.footer { background: var(--ink); color: white; padding: 28px 24px; text-align: center; margin-top: 56px; }
+.footer p { opacity: 0.8; font-size: 0.9em; }
+
+@media (max-width: 720px) {
+    .hero h1 { font-size: 1.7em; }
+    .hero { padding: 40px 20px 36px; }
+    .page { padding: 28px 20px; }
+    .breadcrumb { padding: 14px 20px 0; }
+    .hub-tabs-inner { justify-content: flex-start; overflow-x: auto; }
+    .prev-next { flex-direction: column; }
+    .copy-btn { font-size: 0.72em; padding: 3px 8px; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-container">
+        <a href="../../index.html" class="nav-logo">AI for All</a>
+        <a href="index.html" class="back-link">← Session 4</a>
+    </div>
+</nav>
+<div class="hub-tabs"><div class="hub-tabs-inner"><a href="../business-profile.html" class="hub-tab">Profile</a><a href="../guardrails.html" class="hub-tab">Safety</a><a href="../ally-setup.html" class="hub-tab">Ally</a><a href="../sector-packs.html" class="hub-tab">Prompts</a><a href="../prompt-builder.html" class="hub-tab">Builder</a></div></div>
+<div class="breadcrumb">
+    <a href="../index.html">Hub</a><span class="sep">›</span>
+    <a href="index.html">Session 4</a><span class="sep">›</span>
+    <span>How to Write Professional Prompts</span>
+</div>
+<div class="hero">
+    <div class="eyebrow">Session 4 · #5 of 6 · Level up</div>
+    <h1>How to Write Professional Prompts</h1>
+    <p class="subtitle">The methodology behind high-stakes professional prompts, with a worked legal research example.</p>
+    <p class="meta">Reading time: 20 minutes</p>
+</div>
+<div class="page">
+<h2 class="section-title">How to Write High-Level Professional Prompts</h2>
+<p><em>The simple prompts in our Hub get you 80% of the way for everyday work. This guide is for the other 20% — when your work has real stakes, regulatory considerations, or needs to look like a senior professional wrote it. Read the anatomy below, then use the legal research example as a model for building your own.</em></p>
+<hr class="rule">
+<h2>THE MAIN POINTS</h2>
+<p>A great professional prompt is mostly NOT about the question. It's about the scaffolding around the question. The ratio is roughly:</p>
+<ul><li><strong>10%</strong> the actual question</li><li><strong>90%</strong> the scaffolding — role, rules, sources, format, refusals</li></ul>
+<p>That ratio is what separates "ChatGPT, summarize this" from output that looks like a junior associate's first draft.</p>
+<h3>The seven parts of a serious prompt</h3>
+<p>Every high-level professional prompt has these seven pieces:</p>
+<ol><li><strong>Role and stance</strong> — who is AI pretending to be, and what duties bind that role</li><li><strong>Accuracy and refusal rules</strong> — when to say "I don't know" instead of guessing</li><li><strong>Source hierarchy</strong> — what counts as authoritative, what doesn't</li><li><strong>Citation format</strong> — exactly how to attribute claims</li><li><strong>Verification instructions</strong> — how to check that claims hold up</li><li><strong>Output structure</strong> — the shape of the deliverable</li><li><strong>The actual case-specific question</strong> — usually the smallest section</li></ol>
+<p>Skip any of these and you're back to generic output.</p>
+<h3>The unbreakable rule: verify the links yourself</h3>
+<p>AI can confidently cite sources that don't exist, or that exist but say something different than claimed. Hallucinated citations have ended careers — a US lawyer was sanctioned in 2023 for filing a brief with six fake cases ChatGPT invented. The same risk applies to medical literature, financial regulations, historical claims, and technical specifications.</p>
+<p><strong>The rule:</strong> if AI cites a source, click the link and check the source yourself before using it. No exceptions. The prompt below has refusal rules built in, but those help — they don't replace verification.</p>
+<hr class="rule">
+<h2>ACTION STEPS — BUILD YOUR OWN PROMPT TEMPLATE (20 MINUTES)</h2>
+<p>If you're following along, here's how to build a high-level prompt for YOUR professional work. Don't try to do this with a stranger's domain — pick something you do regularly that has stakes.</p>
+<h3>Step 1 — Open a blank document (1 minute)</h3>
+<p>Save it as <strong>"My Professional Prompt — [task type]"</strong> (e.g., "My Professional Prompt — Engagement Letter Review" or "Client Memo Drafting" or "Grant Proposal Research").</p>
+<h3>Step 2 — Define the role (3 minutes)</h3>
+<p>Answer:</p>
+<ul><li><strong>What kind of professional should AI act like?</strong> (a senior associate, a research analyst, a senior consultant — be specific)</li><li><strong>Who reviews their work?</strong> (you, a client, a partner, no one)</li><li><strong>What kind of mistakes would be most damaging in this work?</strong> (overpromising, missing nuance, citing bad sources, breaking confidentiality)</li></ul>
+<p>Write this as a paragraph at the top of your prompt. <em>"You are acting as a senior [role] supporting [type of work]. Your output is reviewed by [whom] before [what happens to it]."</em></p>
+<h3>Step 3 — Set the accuracy rules (3 minutes)</h3>
+<p>Answer:</p>
+<ul><li><strong>When should AI say "I don't know" instead of guessing?</strong></li><li><strong>What's the cost of a wrong answer?</strong> (in your field — discipline? lost client? bad outcome?)</li><li><strong>What's the right thing to do when the answer is unsettled or split?</strong></li></ul>
+<p>Write rules like:</p>
+<ul><li><em>"When you do not have reliable information on a point, say 'I cannot verify this — please confirm from primary source.'"</em></li><li><em>"When the [law/literature/data] is unsettled, identify the split rather than synthesizing a confident position."</em></li><li><em>"Hallucinated [citations / data / claims] are worse than acknowledged gaps."</em></li></ul>
+<h3>Step 4 — Define what counts as a real source (3 minutes)</h3>
+<p>Answer:</p>
+<ul><li><strong>What primary sources should AI cite?</strong> (specific databases, official websites, peer-reviewed journals, statute books — name them)</li><li><strong>What secondary sources are OK as background but not authority?</strong> (textbooks, professional publications)</li><li><strong>What sources should AI NOT cite at all?</strong> (blog posts, news summaries, AI-generated content from other tools)</li></ul>
+<p>This is the highest-leverage section. AI defaults to citing whatever's most easily searchable — which is often the lowest-quality option. Naming your sources changes everything.</p>
+<h3>Step 5 — Set the citation format (2 minutes)</h3>
+<p>Tell AI exactly how to attribute claims. Different fields have different standards:</p>
+<ul><li><strong>Legal:</strong> McGill Guide (Canada) or Bluebook (US)</li><li><strong>Medical/Scientific:</strong> AMA, APA, or Vancouver style</li><li><strong>Academic:</strong> Chicago, APA, or MLA</li><li><strong>Business/financial:</strong> depends on context — name the standard</li></ul>
+<p>If your field doesn't have a formal standard, write your own: <em>"Cite sources inline as [Source Name, Date, link]. Include a sources list at the end. Don't cite anything without a link I can verify."</em></p>
+<h3>Step 6 — Spell out the output structure (3 minutes)</h3>
+<p>Answer:</p>
+<ul><li><strong>What should every output look like, regardless of the specific question?</strong></li><li><strong>What sections does it need to have?</strong></li><li><strong>What's the right length?</strong></li></ul>
+<p>For a research memo:</p>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Produce output with these sections in this order: 1. Question, 2. Short Answer, 3. Applicable Law/Framework, 4. Application to Facts, 5. Adverse Views / Counter-Arguments, 6. Open Questions.</div></div>
+<p>For a client deliverable:</p>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Produce output with: 1. Executive summary (3-4 sentences), 2. Key findings (bulleted), 3. Recommendation, 4. Caveats and limitations.</div></div>
+<h3>Step 7 — Save it as a Project (5 minutes)</h3>
+<p>This whole document becomes the <a href="project-checklist.html">Project Instructions</a> for a Claude Project named after the task (e.g., "Legal Research Memos" or "Grant Proposal Research" or "Client Diagnostic Reports").</p>
+<p>From now on, every time you have a case/client/question of this type, you start a chat in that Project, paste the specific facts and question, and get back output that follows your scaffolding.</p>
+<p><strong>Built once. Reused forever.</strong> That's the unlock.</p>
+<hr class="rule">
+<h2>EXAMPLE — A FULL LEGAL RESEARCH PROMPT</h2>
+<p>The following is an example of all seven parts in one document. It's built for a Crown prosecutor doing case research, but the <em>shape</em> is what to copy. Look at the scaffolding, not the specific content.</p>
+<p>After this example, there's a prompt you can use to adapt this template for YOUR profession.</p>
+<hr class="rule">
+<h3>THE EXAMPLE PROMPT</h3>
+<div class="prompt-block prompt-block-code"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><pre><code data-prompt>ROLE AND OPERATING STANCE
+
+You are research counsel supporting a Crown prosecutor at the Alberta 
+Crown Prosecution Service. Your output is research support, reviewed by 
+Crown counsel before any use in case preparation, disclosure, or court. 
+You are not counsel of record. You do not make charging decisions, 
+sentencing recommendations, or strategic choices — those belong to Crown 
+counsel.
+
+You operate under the Crown's quasi-judicial duty: your job is to 
+identify the law and the facts honestly, not to win. This means:
+
+- Treat adverse authority with the same rigour as favourable authority. 
+  Identify cases that hurt the Crown's position as carefully as those 
+  that help it.
+- Surface Charter issues proactively, even where defence has not raised 
+  them.
+- Flag any potential disclosure obligation under R v Stinchcombe and its 
+  progeny that the facts might trigger.
+- Where the law genuinely supports a defence argument, say so plainly. 
+  Do not hedge to make the Crown's case look stronger than it is.
+
+ACCURACY AND REFUSAL RULES
+
+When you do not have reliable information on a point, say so explicitly. 
+The exact phrase to use is: "I cannot verify this from my training data 
+— please confirm directly via CanLII or another primary source before 
+relying on this." A hallucinated case citation in a Crown brief is a 
+discipline-level problem. Acknowledged gaps are not.
+
+When the law is unsettled, say so explicitly. If appellate courts have 
+split, identify the split and the leading authorities on each side. Do 
+not synthesize a confident position out of conflicting authority.
+
+If you are asked a question that requires you to take a position on 
+prosecutorial discretion (whether to lay a charge, whether to proceed 
+to trial, what sentence to seek, whether to enter a stay), refuse and 
+explain that this is reserved to Crown counsel's judgment. You can 
+identify the legal framework that informs those decisions, but you do 
+not make them.
+
+SOURCE HIERARCHY (USE IN THIS ORDER)
+
+1. PRIMARY SOURCES — cite only these as authority:
+   - Federal statutes: Criminal Code (RSC 1985, c C-46) and other federal 
+     statutes accessible via laws-lois.justice.gc.ca
+   - Provincial statutes: Alberta statutes via kings-printer.alberta.ca 
+     and canlii.org/en/ab
+   - Reported decisions: cite from CanLII (canlii.org) as the primary 
+     access point. CanLII is the authoritative free database for 
+     Canadian case law, statutes, and regulations across all jurisdictions 
+     and court levels.
+   - Where a Supreme Court of Canada decision is the leading authority, 
+     cite the SCC neutral citation.
+
+2. SECONDARY SOURCES — may be referenced as background, never as 
+   authority, and must be clearly labelled as such:
+   - Canadian Encyclopedic Digest (CED) on Westlaw
+   - Halsbury's Laws of Canada
+   - Treatises (e.g., Manning, Mewett &amp; Sankoff for criminal; Stuart's 
+     Charter Justice; Vauclair &amp; Desjardins on criminal procedure)
+   - Provincial Crown Practice Manuals where publicly available
+
+3. DO NOT CITE AS AUTHORITY:
+   - Law firm blog posts, summaries, or newsletters
+   - Generic legal information websites aimed at lay readers
+   - News reporting on cases (use to locate the underlying decision, 
+     then cite the decision itself)
+   - AI-generated summaries from other tools
+
+CITATION FORMAT
+
+Follow the Canadian Guide to Uniform Legal Citation (McGill Guide), 
+9th edition. Specifically:
+
+- Statutes: short title, statute volume, jurisdiction, year, chapter, 
+  section. Example: Criminal Code, RSC 1985, c C-46, s 320.13(2).
+- Cases: style of cause, neutral citation, parallel citation to a 
+  reported source where available, paragraph number when quoting or 
+  paraphrasing a specific holding. Example: R v Beatty, 2008 SCC 5 
+  at para 43, [2008] 1 SCR 49.
+- Where a case is available on CanLII and has no neutral citation, use 
+  the CanLII citation. Example: R v Smith, 2019 ABQB 412 (CanLII).
+- For unreported decisions, provide docket number and date.
+
+VERIFICATION INSTRUCTION
+
+Before stating that a case stands for a particular proposition:
+- Confirm the holding has not been overruled or distinguished by a higher 
+  court.
+- Note any subsequent appellate treatment in Alberta specifically.
+- If you are uncertain whether a case remains good law, flag it for 
+  verification rather than stating it as settled.
+- Where appellate treatment has shifted the analysis (e.g., the 
+  post-Grant analysis of s. 10(b) detention; the post-Jordan framework 
+  for s. 11(b) delay; the post-Bill C-46 dangerous and impaired driving 
+  amendments), apply the current framework and note when it superseded 
+  the prior one.
+
+OUTPUT STRUCTURE
+
+Produce a research memo with the following sections:
+
+1. ISSUE
+   - One-sentence statement of the legal question.
+
+2. SHORT ANSWER
+   - 2-4 sentences. The bottom line. Calibrate confidence honestly.
+
+3. APPLICABLE LAW
+   - Statute(s) with section numbers
+   - Leading appellate authority with neutral citations
+   - Current legal test, broken into its elements
+
+4. APPLICATION TO THE FACTS
+   - Walk through each element of the test against the facts provided.
+   - Identify which elements are strongly established, which are 
+     contestable, and which are weak.
+
+5. ADVERSE AUTHORITY AND DEFENCE ARGUMENTS
+   - The three cases most likely to be cited by defence on these facts.
+   - The strongest defence argument and an honest assessment of its 
+     prospects.
+   - Any Charter issues the facts may engage, even if not raised.
+
+6. DISCLOSURE FLAGS
+   - Anything in the fact pattern that triggers a Stinchcombe-style 
+     disclosure obligation Crown counsel should consider.
+
+7. OPEN QUESTIONS / VERIFICATION NEEDED
+   - Anything you are not confident about and recommend Crown counsel 
+     verify directly.
+
+THE FACTS OF THIS CASE
+
+[Charge(s) and section(s) of the Criminal Code or other statute:]
+[CHARGE]
+
+[Anonymized accused descriptor — e.g., "the accused, a male in his 
+mid-30s with no prior record"]:
+[ACCUSED]
+
+[Anonymized complainant descriptor where relevant:]
+[COMPLAINANT]
+
+[Date and location of alleged offence — general only, no street 
+addresses or identifying detail:]
+[WHEN AND WHERE]
+
+[Summary of the alleged conduct, in neutral, factual terms:]
+[ALLEGED CONDUCT]
+
+[Police investigative steps relevant to the legal question:]
+[INVESTIGATION]
+
+[Statements made, with timing and whether Chartered/cautioned:]
+[STATEMENTS]
+
+[Physical or documentary evidence relevant to the legal question:]
+[EVIDENCE]
+
+[Defence positions communicated to date, if any:]
+[DEFENCE POSITION]
+
+THE RESEARCH QUESTIONS
+
+[List specific questions in priority order]
+[QUESTION 1]
+[QUESTION 2]
+[QUESTION 3]
+
+ANONYMIZATION
+
+The facts above have been anonymized for the purposes of this research. 
+Do not attempt to identify the accused, complainant, or any other 
+individual. If the facts as stated appear to identify a specific real-
+world case, do not speculate about the identity — answer the legal 
+question on the facts as given.</code></pre></div><div class="download-row"><a class="download-btn" href="downloads/legal-research-prompt-template.md" download="legal-research-prompt-template.md">↓ Download the prompt as a .md file</a><span class="download-note">Save it locally, paste into a Claude Project, fill in your case facts.</span></div>
+<hr class="rule">
+<h2>WHAT TO NOTICE ABOUT THE EXAMPLE</h2>
+<p>Six specific things this prompt does that most prompts don't:</p>
+<p><strong>1. The role section names the duties of the role, not just the title.</strong> "You are research counsel supporting a Crown prosecutor" is the title. The next paragraph — "you operate under the Crown's quasi-judicial duty: your job is to identify the law honestly, not to win" — is the duty. That second part is what shapes the output.</p>
+<p><strong>2. Refusals are scripted, not just permitted.</strong> The prompt doesn't say "feel free to say you don't know." It says "use this exact phrase: 'I cannot verify this from my training data — please confirm directly via CanLII.'" That precision is what gets used.</p>
+<p><strong>3. The source hierarchy is concrete.</strong> Not "use authoritative sources." Specifically: CanLII for cases, laws-lois.justice.gc.ca for federal statutes, kings-printer.alberta.ca for Alberta statutes. Named. Linked. Unambiguous.</p>
+<p><strong>4. There's an explicit "do not cite" list.</strong> Law firm blog posts, generic legal information sites, news reports. The prompt names the wrong sources so AI doesn't reach for them when the right ones are harder to find.</p>
+<p><strong>5. The output structure is enforced.</strong> Every output has the same 7 sections in the same order. Crown counsel never has to remember "what should this memo look like" — the prompt makes it identical every time.</p>
+<p><strong>6. Anonymization sits inside the prompt.</strong> The fact-pattern fields are explicitly labeled as anonymized. <em>"Date and location — general only, no street addresses."</em> It tells the user how to use the prompt as much as it tells AI how to respond.</p>
+<hr class="rule">
+<h2>ADAPT THIS TEMPLATE FOR YOUR OWN WORK</h2>
+<p>The example above is for legal research. Yours might be for medical literature review, financial analysis, technical writing, grant research, candidate assessment, or anything else where stakes are real.</p>
+<p>To adapt it, you have two options.</p>
+<h3>Option A — Do it yourself</h3>
+<p>Take the seven sections from the example (Role, Refusal Rules, Source Hierarchy, Citation Format, Verification, Output Structure, Facts/Questions). Rewrite each one for your field. The action steps at the top of this document walk through how.</p>
+<h3>Option B — Have Claude adapt it for you</h3>
+<p>Paste this meta-prompt into Claude:</p>
+<div class="prompt-block prompt-block-code"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><pre><code data-prompt>I'm building a high-level professional prompt template for my own work. 
+Below is an example template built for a Crown prosecutor doing legal 
+research. I want you to adapt this template's STRUCTURE and APPROACH 
+for my profession.
+
+My profession: [DESCRIBE YOUR WORK — e.g., "I'm a solo accountant who 
+does corporate tax returns for small businesses" or "I'm an executive 
+recruiter doing candidate assessments" or "I'm a non-profit ED doing 
+grant proposal research"]
+
+The kind of work I want the template for: [DESCRIBE — e.g., "drafting 
+candidate writeups for clients" or "researching foundation grants my 
+non-profit might qualify for"]
+
+The stakes of getting it wrong: [DESCRIBE — e.g., "I could send a 
+client a writeup with the wrong salary band" or "I could waste hours 
+applying for a grant we're not actually eligible for"]
+
+Here is the original template. Adapt each of its seven sections for 
+my profession and my specific use case. Keep the structure. Change 
+the content.
+
+[PASTE THE ENTIRE LEGAL RESEARCH PROMPT FROM ABOVE]
+
+For each section, ask me clarifying questions if you need information 
+I haven't provided. Don't guess about my profession's standards — ask 
+me. When you're done, produce the adapted template as a single 
+ready-to-use prompt I can save into a Claude Project.</code></pre></div>
+<p>That meta-prompt will walk you through the adaptation. Claude will ask you about your professional sources, your citation standards, your output structure, and your refusal rules. By the end, you'll have a template tailored to your field that you can save into a Project and reuse on every case.</p>
+<hr class="rule">
+<h2>THINGS TO WATCH OUT FOR</h2>
+<p>Three honest warnings:</p>
+<h3>1. Verify every link AI cites</h3>
+<p>A scripted refusal rule helps but doesn't eliminate hallucinated citations. The most professional-sounding prompt with the most carefully named sources can still produce a citation that doesn't exist or that says something different than claimed. <strong>Click every link. Read the source. Confirm the holding.</strong></p>
+<p>If you're a lawyer, doctor, financial advisor, or anyone whose work has regulatory exposure — your name goes on the work, not Claude's. Verify everything.</p>
+<h3>2. The prompt doesn't replace your judgment</h3>
+<p>A well-built prompt produces well-structured first drafts. It doesn't produce final decisions. Whether to lay a charge, what diagnosis to give, what investment to recommend, what scope to take on — those belong to you. The prompt's job is to give you a starting point for your judgment, not a substitute for it.</p>
+<h3>3. Update the prompt when the world changes</h3>
+<p>Laws change. Best practices shift. Source databases get reorganized. The prompt you built in May 2026 may need updating by May 2027. Build a habit: every few months, re-read your Project Instructions and update anything that's gone stale.</p>
+<hr class="rule">
+<h2>IF YOU GET STUCK</h2>
+<p>We're walking around — wave us over. Common things people get stuck on:</p>
+<ul><li><strong>Don't know what counts as a primary source in my field:</strong> ask a more senior person in your profession, or check a professional association's research guide</li><li><strong>My field doesn't have a formal citation standard:</strong> make your own — pick a format and stick to it</li><li><strong>The output structure feels arbitrary:</strong> start with what you wish a junior person would produce. That's your output structure.</li><li><strong>The whole thing feels like a lot of work:</strong> it is, the first time. Maybe 30-60 minutes. Then you save it as a Project Instructions and use it forever. The math works out.</li></ul>
+<hr class="rule">
+<p><em>Build it once. Reuse it forever. That's the difference between people who try AI and people who use AI.</em></p>
+</div>
+<div class="subpage-footer">
+    <div class="prev-next"><a href="tips-and-advanced.html"><div class="pn-eyebrow">← Previous · #4</div><div class="pn-title">Tips, Tricks &amp; Advanced Techniques</div></a><a href="connectors-mcps.html"><div class="pn-eyebrow">Next · #6 →</div><div class="pn-title">Connectors &amp; MCPs</div></a></div>
+    <div class="related"><h4>Related resources</h4><ul><li><a href="use-cases.html">Real Use Cases &amp; Prompts</a> — Two case studies and three universal workflows with full prompts you can copy.</li><li><a href="tips-and-advanced.html">Tips, Tricks &amp; Advanced Techniques</a> — Iteration, batching, visuals, and advanced privacy patterns.</li></ul></div>
+    <p class="help-line">Questions about anything in here? You can ask Claude directly — open a chat, paste in this guide, and ask it to walk you through the parts that aren't clicking.</p>
+</div>
+<footer class="footer">
+    <p>AI for All Workshop Series · St. Albert &amp; District Chamber of Commerce</p>
+</footer>
+<script>
+if (!localStorage.getItem('aiforall_hub_access')) {
+    window.location.href = '../index.html';
+}
+function copyPrompt(btn) {
+    var holder = btn.parentElement.querySelector('[data-prompt]');
+    if (!holder) return;
+    var text = holder.innerText || holder.textContent;
+    text = text.trim();
+    navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+        }, 1800);
+    }).catch(function(err) {
+        console.error('Copy failed:', err);
+    });
+}
+</script>
+</body>
+</html>

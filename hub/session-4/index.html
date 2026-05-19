@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 4 — Build Your Own Claude Project | AI for All</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --ink: #1c1917;
+    --paper: #fafaf9;
+    --cream: #f5f5f0;
+    --accent: #0f766e;
+    --accent-light: #ccfbf1;
+    --accent-dark: #134e4a;
+    --warm-gray: #78716c;
+    --warm-gray-light: #a8a29e;
+    --border: #e7e5e4;
+    --error: #dc2626;
+    --error-light: #fee2e2;
+    --tl-green-bg: #dcfce7;
+    --tl-green-fg: #16a34a;
+    --tl-yellow-bg: #fef3c7;
+    --tl-yellow-fg: #ca8a04;
+    --tl-red-bg: #fee2e2;
+    --tl-red-fg: #dc2626;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Commissioner', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+}
+a { color: var(--accent); }
+a:hover { color: var(--accent-dark); }
+
+/* Navigation */
+.nav { background: var(--ink); padding: 1rem 0; }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+.nav-logo { font-family: 'Fraunces', serif; color: white; font-size: 1.4em; font-weight: 600; text-decoration: none; }
+.back-link { color: white; text-decoration: none; font-size: 0.95em; opacity: 0.9; }
+.back-link:hover { opacity: 1; }
+
+/* Hub tabs strip */
+.hub-tabs { background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.hub-tabs-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap; }
+.hub-tab { padding: 10px 16px; text-decoration: none; color: var(--warm-gray); font-size: 0.82em; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.hub-tab:hover { color: var(--ink); background: var(--cream); }
+.hub-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+/* Breadcrumb */
+.breadcrumb { max-width: 900px; margin: 0 auto; padding: 16px 24px 0; font-size: 0.88em; color: var(--warm-gray); }
+.breadcrumb a { color: var(--warm-gray); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); text-decoration: underline; }
+.breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+/* Hero */
+.hero { background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%); color: white; padding: 56px 24px 48px; text-align: center; }
+.hero .eyebrow { font-size: 0.85em; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; margin-bottom: 10px; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: 2.2em; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
+.hero .subtitle { opacity: 0.95; max-width: 650px; margin: 0 auto 14px; font-size: 1.1em; }
+.hero .meta { font-size: 0.88em; opacity: 0.8; }
+
+/* Page */
+.page { max-width: 760px; margin: 0 auto; padding: 40px 24px 24px; }
+.page > * + * { margin-top: 1em; }
+.page h1 { display: none; }  /* h1 lives in the hero; first H1 of source is suppressed */
+.page h2.section-title, .page h2 { font-family: 'Fraunces', serif; font-size: 1.5em; font-weight: 600; margin-top: 2.2em; margin-bottom: 0.6em; }
+.page h3 { font-family: 'Fraunces', serif; font-size: 1.2em; font-weight: 600; margin-top: 1.6em; margin-bottom: 0.4em; }
+.page h4 { font-family: 'Commissioner', sans-serif; font-size: 1.0em; font-weight: 600; margin-top: 1.2em; margin-bottom: 0.4em; color: var(--ink); }
+.page p { margin-bottom: 1em; }
+.page p:has(em:only-child) { color: var(--warm-gray); font-style: italic; }
+.page ul, .page ol { margin: 0 0 1em 1.2em; }
+.page li { margin-bottom: 0.4em; }
+.page li > ul, .page li > ol { margin-top: 0.4em; }
+.page strong { font-weight: 600; }
+.page code { background: var(--cream); padding: 1px 6px; border-radius: 4px; font-size: 0.92em; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; }
+.page hr.rule { border: none; border-top: 1px solid var(--border); margin: 2.4em 0; }
+
+/* Traffic-light dots */
+.tl { display: inline-block; width: 0.65em; height: 0.65em; border-radius: 50%; vertical-align: 0.05em; margin-right: 0.15em; line-height: 1; font-size: 1em; color: transparent; }
+.tl-green { background: var(--tl-green-fg); }
+.tl-yellow { background: var(--tl-yellow-fg); }
+.tl-red { background: var(--tl-red-fg); }
+
+/* Prompt blocks (blockquote prompts + fenced code prompts) */
+.prompt-block { position: relative; background: var(--cream); border-left: 4px solid var(--accent); border-radius: 8px; padding: 18px 22px 18px 22px; margin: 1.4em 0; }
+.prompt-block .prompt-text { font-family: 'Commissioner', sans-serif; font-size: 0.97em; color: var(--ink); white-space: normal; }
+.prompt-block.prompt-block-code { padding: 0; background: var(--ink); border-left-color: var(--accent); }
+.prompt-block.prompt-block-code pre { margin: 0; padding: 22px; overflow-x: auto; }
+.prompt-block.prompt-block-code code { background: transparent; color: #e7e5e4; font-size: 0.85em; padding: 0; white-space: pre; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; line-height: 1.6; }
+.copy-btn { position: absolute; top: 10px; right: 10px; background: white; border: 1px solid var(--border); color: var(--warm-gray); font-family: 'Commissioner', sans-serif; font-size: 0.78em; font-weight: 600; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.18s; opacity: 0.85; }
+.copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); opacity: 1; }
+.copy-btn.copied { background: var(--tl-green-fg); color: white; border-color: var(--tl-green-fg); opacity: 1; }
+.prompt-block-code .copy-btn { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #e7e5e4; }
+.prompt-block-code .copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* Callouts (non-prompt blockquotes) */
+blockquote.callout { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 14px 20px; margin: 1.4em 0; border-radius: 0 8px 8px 0; }
+blockquote.callout p { margin-bottom: 0.6em; }
+blockquote.callout p:last-child { margin-bottom: 0; }
+
+/* Notes between prompt blocks in mixed blockquotes (e.g., "[review, refine, adjust]") */
+.quote-note { color: var(--warm-gray); font-style: italic; text-align: center; margin: -0.4em 0 1.4em; font-size: 0.95em; }
+
+/* Download row (legal template) */
+.download-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 14px 0 1.6em; padding: 14px 18px; background: var(--cream); border-radius: 8px; border: 1px solid var(--border); }
+.download-btn { background: var(--accent); color: white !important; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.92em; white-space: nowrap; }
+.download-btn:hover { background: var(--accent-dark); color: white !important; }
+.download-note { color: var(--warm-gray); font-size: 0.88em; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 1.4em 0; }
+.page table.data { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); font-size: 0.94em; }
+.page table.data th { background: var(--cream); padding: 12px 14px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); }
+.page table.data td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.page table.data tr:last-child td { border-bottom: none; }
+
+/* Subpage footer (prev/next + related) */
+.subpage-footer { max-width: 760px; margin: 24px auto 0; padding: 32px 24px 0; border-top: 1px solid var(--border); }
+.prev-next { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.prev-next a { flex: 1 1 240px; padding: 14px 18px; background: white; border: 1px solid var(--border); border-radius: 8px; color: var(--ink); text-decoration: none; transition: all 0.2s; }
+.prev-next a:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.prev-next .pn-eyebrow { font-size: 0.78em; color: var(--warm-gray); margin-bottom: 4px; }
+.prev-next .pn-title { font-weight: 600; }
+.prev-next .pn-empty { visibility: hidden; }
+
+.related { background: var(--cream); border-radius: 8px; padding: 18px 22px; }
+.related h4 { font-family: 'Fraunces', serif; font-size: 1.05em; margin-bottom: 10px; font-weight: 600; }
+.related ul { list-style: none; margin: 0; padding: 0; }
+.related li { margin-bottom: 4px; }
+.related li::before { content: "→"; margin-right: 8px; color: var(--accent); }
+
+.help-line { font-size: 0.9em; color: var(--warm-gray); margin-top: 18px; padding: 14px 18px; background: white; border: 1px dashed var(--border); border-radius: 8px; }
+
+/* Site footer */
+.footer { background: var(--ink); color: white; padding: 28px 24px; text-align: center; margin-top: 56px; }
+.footer p { opacity: 0.8; font-size: 0.9em; }
+
+@media (max-width: 720px) {
+    .hero h1 { font-size: 1.7em; }
+    .hero { padding: 40px 20px 36px; }
+    .page { padding: 28px 20px; }
+    .breadcrumb { padding: 14px 20px 0; }
+    .hub-tabs-inner { justify-content: flex-start; overflow-x: auto; }
+    .prev-next { flex-direction: column; }
+    .copy-btn { font-size: 0.72em; padding: 3px 8px; }
+}
+
+.landing-intro { max-width: 720px; margin: 32px auto 16px; padding: 0 24px; font-size: 1.05em; color: var(--ink); }
+.landing-intro p { margin-bottom: 0.8em; }
+.ord-list { max-width: 760px; margin: 16px auto 0; padding: 0 24px 16px; display: flex; flex-direction: column; gap: 16px; }
+.ord-card { display: flex; gap: 20px; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; text-decoration: none; color: var(--ink); transition: all 0.2s; }
+.ord-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+.ord-num { font-family: 'Fraunces', serif; font-size: 2.4em; font-weight: 700; line-height: 1; color: var(--accent); flex-shrink: 0; min-width: 48px; }
+.ord-body { flex: 1; }
+.ord-badge { display: inline-block; font-size: 0.72em; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; margin-bottom: 8px; }
+.phase-foundation .ord-badge { background: var(--accent); color: white; }
+.phase-build .ord-badge { background: white; border: 1px solid var(--accent); color: var(--accent); }
+.phase-stretch .ord-badge { background: transparent; border: 1px dashed var(--warm-gray-light); color: var(--warm-gray); }
+.phase-stretch .ord-num { color: var(--warm-gray-light); }
+.phase-stretch .ord-card { opacity: 0.92; }
+.ord-title { font-family: 'Fraunces', serif; font-size: 1.2em; font-weight: 600; margin-bottom: 4px; }
+.ord-label { font-family: 'Commissioner', sans-serif; font-weight: 500; color: var(--warm-gray); font-size: 0.85em; }
+.ord-summary { color: var(--ink); margin-bottom: 6px; font-size: 0.96em; line-height: 1.5; }
+.ord-time { font-size: 0.84em; color: var(--warm-gray); margin: 0; }
+.landing-footer { max-width: 760px; margin: 32px auto 0; padding: 32px 24px 0; border-top: 1px solid var(--border); }
+.landing-footer h3 { font-family: 'Fraunces', serif; font-size: 1.1em; margin-bottom: 14px; font-weight: 600; }
+.cross-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.cross-link { padding: 12px 14px; background: var(--cream); border-radius: 8px; text-decoration: none; color: var(--ink); font-size: 0.95em; }
+.cross-link:hover { background: var(--accent-light); }
+.cross-link strong { display: block; font-weight: 600; }
+.cross-link span { color: var(--warm-gray); font-size: 0.86em; }
+.help-line { font-size: 0.95em; color: var(--warm-gray); padding: 16px 20px; background: white; border: 1px dashed var(--border); border-radius: 8px; }
+@media (max-width: 640px) {
+    .ord-card { flex-direction: column; gap: 8px; padding: 18px; }
+    .ord-num { font-size: 1.8em; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-container">
+        <a href="../../index.html" class="nav-logo">AI for All</a>
+        <a href="../index.html" class="back-link">← Hub</a>
+    </div>
+</nav>
+<div class="hub-tabs"><div class="hub-tabs-inner"><a href="../business-profile.html" class="hub-tab">Profile</a><a href="../guardrails.html" class="hub-tab">Safety</a><a href="../ally-setup.html" class="hub-tab">Ally</a><a href="../sector-packs.html" class="hub-tab">Prompts</a><a href="../prompt-builder.html" class="hub-tab">Builder</a></div></div>
+<div class="breadcrumb">
+    <a href="../index.html">Hub</a><span class="sep">›</span>
+    <span>Session 4</span>
+</div>
+<div class="hero">
+    <div class="eyebrow">Session 4 · In-person workshop</div>
+    <h1>Build Your Own Claude Project</h1>
+    <p class="subtitle">May 19, 2026 — In-person workshop. The reference materials below are what you take home.</p>
+</div>
+<div class="landing-intro">
+    <p>Session 4 was the hands-on Claude Projects workshop. Unlike Sessions 1–3 which were webinars, this was an in-person clinic where attendees built their own Project on their laptop.</p>
+    <p>The six guides below are standalone references — you can read them in order to learn the system end-to-end, or jump straight to whichever one solves your problem today.</p>
+</div>
+<div class="ord-list">
+<a href="privacy-setup.html" class="ord-card phase-foundation">
+    <div class="ord-num">1</div>
+    <div class="ord-body">
+        <div class="ord-badge">Foundation</div>
+        <h3 class="ord-title">Privacy &amp; Setup <span class="ord-label">· Start here</span></h3>
+        <p class="ord-summary">Turn on the right privacy settings before you do anything else.</p>
+        <p class="ord-time">⏱ 10 minutes</p>
+    </div>
+</a>
+<a href="project-checklist.html" class="ord-card phase-foundation">
+    <div class="ord-num">2</div>
+    <div class="ord-body">
+        <div class="ord-badge">Foundation</div>
+        <h3 class="ord-title">What to Put in Your Project <span class="ord-label">· Build it</span></h3>
+        <p class="ord-summary">The checklist of things to add to your Claude Project, organized by industry.</p>
+        <p class="ord-time">⏱ 30 minutes</p>
+    </div>
+</a>
+<a href="use-cases.html" class="ord-card phase-foundation">
+    <div class="ord-num">3</div>
+    <div class="ord-body">
+        <div class="ord-badge">Foundation</div>
+        <h3 class="ord-title">Real Use Cases &amp; Prompts <span class="ord-label">· Use it</span></h3>
+        <p class="ord-summary">Two case studies and three universal workflows with full prompts you can copy.</p>
+        <p class="ord-time">⏱ 60+ minutes of reference</p>
+    </div>
+</a>
+<a href="tips-and-advanced.html" class="ord-card phase-build">
+    <div class="ord-num">4</div>
+    <div class="ord-body">
+        <div class="ord-badge">Build on the basics</div>
+        <h3 class="ord-title">Tips, Tricks &amp; Advanced Techniques <span class="ord-label">· Get better</span></h3>
+        <p class="ord-summary">Iteration, batching, visuals, and advanced privacy patterns.</p>
+        <p class="ord-time">⏱ 15 minutes</p>
+    </div>
+</a>
+<a href="professional-prompts.html" class="ord-card phase-build">
+    <div class="ord-num">5</div>
+    <div class="ord-body">
+        <div class="ord-badge">Build on the basics</div>
+        <h3 class="ord-title">How to Write Professional Prompts <span class="ord-label">· Level up</span></h3>
+        <p class="ord-summary">The methodology behind high-stakes professional prompts, with a worked legal research example.</p>
+        <p class="ord-time">⏱ 20 minutes</p>
+    </div>
+</a>
+<a href="connectors-mcps.html" class="ord-card phase-stretch">
+    <div class="ord-num">6</div>
+    <div class="ord-body">
+        <div class="ord-badge">Stretch</div>
+        <h3 class="ord-title">Connectors &amp; MCPs <span class="ord-label">· What's next</span></h3>
+        <p class="ord-summary">A preview of what's possible when Claude connects to your other tools. Stretch material.</p>
+        <p class="ord-time">⏱ 15 minutes</p>
+    </div>
+</a>
+</div>
+<div class="landing-footer">
+    <h3>Other places to go from here</h3>
+    <div class="cross-links">
+        <a href="../session-1-recap.html" class="cross-link"><strong>Session 1 Recap</strong><span>AI fundamentals</span></a>
+        <a href="../session-2-recap.html" class="cross-link"><strong>Session 2 Recap</strong><span>Google Business Profile</span></a>
+        <a href="../session-3-recap.html" class="cross-link"><strong>Session 3 Recap</strong><span>Admin task toolkit</span></a>
+        <a href="../prompt-builder.html" class="cross-link"><strong>Prompt Builder</strong><span>Interactive prompt crafting</span></a>
+        <a href="../sector-packs.html" class="cross-link"><strong>Sector Packs</strong><span>Industry-specific prompts</span></a>
+        <a href="../resources.html" class="cross-link"><strong>Full Toolkit</strong><span>All hub resources</span></a>
+    </div>
+    <p class="help-line">Questions about anything in here? You can ask Claude — open a chat, paste in a guide, and ask it to walk you through the parts that aren't clicking.</p>
+</div>
+<footer class="footer">
+    <p>AI for All Workshop Series · St. Albert &amp; District Chamber of Commerce</p>
+</footer>
+<script>
+if (!localStorage.getItem('aiforall_hub_access')) {
+    window.location.href = '../index.html';
+}
+</script>
+</body>
+</html>

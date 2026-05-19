@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connectors &amp; MCPs | Session 4 | AI for All</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --ink: #1c1917;
+    --paper: #fafaf9;
+    --cream: #f5f5f0;
+    --accent: #0f766e;
+    --accent-light: #ccfbf1;
+    --accent-dark: #134e4a;
+    --warm-gray: #78716c;
+    --warm-gray-light: #a8a29e;
+    --border: #e7e5e4;
+    --error: #dc2626;
+    --error-light: #fee2e2;
+    --tl-green-bg: #dcfce7;
+    --tl-green-fg: #16a34a;
+    --tl-yellow-bg: #fef3c7;
+    --tl-yellow-fg: #ca8a04;
+    --tl-red-bg: #fee2e2;
+    --tl-red-fg: #dc2626;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Commissioner', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+}
+a { color: var(--accent); }
+a:hover { color: var(--accent-dark); }
+
+/* Navigation */
+.nav { background: var(--ink); padding: 1rem 0; }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+.nav-logo { font-family: 'Fraunces', serif; color: white; font-size: 1.4em; font-weight: 600; text-decoration: none; }
+.back-link { color: white; text-decoration: none; font-size: 0.95em; opacity: 0.9; }
+.back-link:hover { opacity: 1; }
+
+/* Hub tabs strip */
+.hub-tabs { background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.hub-tabs-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap; }
+.hub-tab { padding: 10px 16px; text-decoration: none; color: var(--warm-gray); font-size: 0.82em; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.hub-tab:hover { color: var(--ink); background: var(--cream); }
+.hub-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+/* Breadcrumb */
+.breadcrumb { max-width: 900px; margin: 0 auto; padding: 16px 24px 0; font-size: 0.88em; color: var(--warm-gray); }
+.breadcrumb a { color: var(--warm-gray); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); text-decoration: underline; }
+.breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+/* Hero */
+.hero { background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%); color: white; padding: 56px 24px 48px; text-align: center; }
+.hero .eyebrow { font-size: 0.85em; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; margin-bottom: 10px; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: 2.2em; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
+.hero .subtitle { opacity: 0.95; max-width: 650px; margin: 0 auto 14px; font-size: 1.1em; }
+.hero .meta { font-size: 0.88em; opacity: 0.8; }
+
+/* Page */
+.page { max-width: 760px; margin: 0 auto; padding: 40px 24px 24px; }
+.page > * + * { margin-top: 1em; }
+.page h1 { display: none; }  /* h1 lives in the hero; first H1 of source is suppressed */
+.page h2.section-title, .page h2 { font-family: 'Fraunces', serif; font-size: 1.5em; font-weight: 600; margin-top: 2.2em; margin-bottom: 0.6em; }
+.page h3 { font-family: 'Fraunces', serif; font-size: 1.2em; font-weight: 600; margin-top: 1.6em; margin-bottom: 0.4em; }
+.page h4 { font-family: 'Commissioner', sans-serif; font-size: 1.0em; font-weight: 600; margin-top: 1.2em; margin-bottom: 0.4em; color: var(--ink); }
+.page p { margin-bottom: 1em; }
+.page p:has(em:only-child) { color: var(--warm-gray); font-style: italic; }
+.page ul, .page ol { margin: 0 0 1em 1.2em; }
+.page li { margin-bottom: 0.4em; }
+.page li > ul, .page li > ol { margin-top: 0.4em; }
+.page strong { font-weight: 600; }
+.page code { background: var(--cream); padding: 1px 6px; border-radius: 4px; font-size: 0.92em; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; }
+.page hr.rule { border: none; border-top: 1px solid var(--border); margin: 2.4em 0; }
+
+/* Traffic-light dots */
+.tl { display: inline-block; width: 0.65em; height: 0.65em; border-radius: 50%; vertical-align: 0.05em; margin-right: 0.15em; line-height: 1; font-size: 1em; color: transparent; }
+.tl-green { background: var(--tl-green-fg); }
+.tl-yellow { background: var(--tl-yellow-fg); }
+.tl-red { background: var(--tl-red-fg); }
+
+/* Prompt blocks (blockquote prompts + fenced code prompts) */
+.prompt-block { position: relative; background: var(--cream); border-left: 4px solid var(--accent); border-radius: 8px; padding: 18px 22px 18px 22px; margin: 1.4em 0; }
+.prompt-block .prompt-text { font-family: 'Commissioner', sans-serif; font-size: 0.97em; color: var(--ink); white-space: normal; }
+.prompt-block.prompt-block-code { padding: 0; background: var(--ink); border-left-color: var(--accent); }
+.prompt-block.prompt-block-code pre { margin: 0; padding: 22px; overflow-x: auto; }
+.prompt-block.prompt-block-code code { background: transparent; color: #e7e5e4; font-size: 0.85em; padding: 0; white-space: pre; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; line-height: 1.6; }
+.copy-btn { position: absolute; top: 10px; right: 10px; background: white; border: 1px solid var(--border); color: var(--warm-gray); font-family: 'Commissioner', sans-serif; font-size: 0.78em; font-weight: 600; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.18s; opacity: 0.85; }
+.copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); opacity: 1; }
+.copy-btn.copied { background: var(--tl-green-fg); color: white; border-color: var(--tl-green-fg); opacity: 1; }
+.prompt-block-code .copy-btn { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #e7e5e4; }
+.prompt-block-code .copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* Callouts (non-prompt blockquotes) */
+blockquote.callout { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 14px 20px; margin: 1.4em 0; border-radius: 0 8px 8px 0; }
+blockquote.callout p { margin-bottom: 0.6em; }
+blockquote.callout p:last-child { margin-bottom: 0; }
+
+/* Notes between prompt blocks in mixed blockquotes (e.g., "[review, refine, adjust]") */
+.quote-note { color: var(--warm-gray); font-style: italic; text-align: center; margin: -0.4em 0 1.4em; font-size: 0.95em; }
+
+/* Download row (legal template) */
+.download-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 14px 0 1.6em; padding: 14px 18px; background: var(--cream); border-radius: 8px; border: 1px solid var(--border); }
+.download-btn { background: var(--accent); color: white !important; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.92em; white-space: nowrap; }
+.download-btn:hover { background: var(--accent-dark); color: white !important; }
+.download-note { color: var(--warm-gray); font-size: 0.88em; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 1.4em 0; }
+.page table.data { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); font-size: 0.94em; }
+.page table.data th { background: var(--cream); padding: 12px 14px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); }
+.page table.data td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.page table.data tr:last-child td { border-bottom: none; }
+
+/* Subpage footer (prev/next + related) */
+.subpage-footer { max-width: 760px; margin: 24px auto 0; padding: 32px 24px 0; border-top: 1px solid var(--border); }
+.prev-next { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.prev-next a { flex: 1 1 240px; padding: 14px 18px; background: white; border: 1px solid var(--border); border-radius: 8px; color: var(--ink); text-decoration: none; transition: all 0.2s; }
+.prev-next a:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.prev-next .pn-eyebrow { font-size: 0.78em; color: var(--warm-gray); margin-bottom: 4px; }
+.prev-next .pn-title { font-weight: 600; }
+.prev-next .pn-empty { visibility: hidden; }
+
+.related { background: var(--cream); border-radius: 8px; padding: 18px 22px; }
+.related h4 { font-family: 'Fraunces', serif; font-size: 1.05em; margin-bottom: 10px; font-weight: 600; }
+.related ul { list-style: none; margin: 0; padding: 0; }
+.related li { margin-bottom: 4px; }
+.related li::before { content: "→"; margin-right: 8px; color: var(--accent); }
+
+.help-line { font-size: 0.9em; color: var(--warm-gray); margin-top: 18px; padding: 14px 18px; background: white; border: 1px dashed var(--border); border-radius: 8px; }
+
+/* Site footer */
+.footer { background: var(--ink); color: white; padding: 28px 24px; text-align: center; margin-top: 56px; }
+.footer p { opacity: 0.8; font-size: 0.9em; }
+
+@media (max-width: 720px) {
+    .hero h1 { font-size: 1.7em; }
+    .hero { padding: 40px 20px 36px; }
+    .page { padding: 28px 20px; }
+    .breadcrumb { padding: 14px 20px 0; }
+    .hub-tabs-inner { justify-content: flex-start; overflow-x: auto; }
+    .prev-next { flex-direction: column; }
+    .copy-btn { font-size: 0.72em; padding: 3px 8px; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-container">
+        <a href="../../index.html" class="nav-logo">AI for All</a>
+        <a href="index.html" class="back-link">← Session 4</a>
+    </div>
+</nav>
+<div class="hub-tabs"><div class="hub-tabs-inner"><a href="../business-profile.html" class="hub-tab">Profile</a><a href="../guardrails.html" class="hub-tab">Safety</a><a href="../ally-setup.html" class="hub-tab">Ally</a><a href="../sector-packs.html" class="hub-tab">Prompts</a><a href="../prompt-builder.html" class="hub-tab">Builder</a></div></div>
+<div class="breadcrumb">
+    <a href="../index.html">Hub</a><span class="sep">›</span>
+    <a href="index.html">Session 4</a><span class="sep">›</span>
+    <span>Connectors &amp; MCPs</span>
+</div>
+<div class="hero">
+    <div class="eyebrow">Session 4 · #6 of 6 · What's next</div>
+    <h1>Connectors &amp; MCPs</h1>
+    <p class="subtitle">A preview of what's possible when Claude connects to your other tools. Stretch material.</p>
+    <p class="meta">Reading time: 15 minutes</p>
+</div>
+<div class="page">
+<h2 class="section-title">Connectors &amp; MCPs — When AI Compounds Your Tools</h2>
+<p><em>A demo of what's possible when Claude connects to the tools you already use — Gmail, Google Calendar, Google Drive, and more. This is the "stretch goal" of the session. Not for everyone, but worth seeing.</em></p>
+<hr class="rule">
+<h2>THE MAIN POINTS</h2>
+<p>Three things to understand before deciding if connectors are right for your situation:</p>
+<h3>1. Connectors compound the time savings</h3>
+<p>Everything we've covered so far uses Claude in isolation — you paste things in, get drafts back, send them elsewhere. Connectors change that. Claude can read your email, search your calendar, find files in Drive, and act across them in one conversation. The result isn't 2x more useful — it's more like 5x, because the tools start to chain together.</p>
+<h3>2. They trade privacy for convenience</h3>
+<p>Every connector you add expands what Claude can see. Gmail means Claude can read your email. Drive means Claude can read your files. The opt-out toggle still applies — your data isn't used for training — but you're putting more information into reach. <strong>The convenience is real. So is the trade-off.</strong></p>
+<h3>3. They're not for everyone</h3>
+<p>Connectors are a great fit if any of these describe you:</p>
+<ul><li><strong>Solopreneurs with discretion over your own AI practice</strong> — you decide what's in your accounts, and your work doesn't involve heavy regulated data</li><li><strong>Organizational policy allows AI integration</strong> — your employer has approved AI usage and ideally has set up enterprise terms</li><li><strong>Government accounts and special licenses</strong> — agencies with approved AI tooling that includes proper data agreements</li></ul>
+<p>If your work involves regulated data (HIPAA, attorney-client privilege, financial regulations) and you don't have an enterprise account, <strong>stop here.</strong> Connectors aren't the right move on consumer Claude for that kind of work. The <a href="privacy-setup.html">privacy guide</a> covers what to do instead.</p>
+<hr class="rule">
+<h2>WHAT GOOGLE WORKSPACE CONNECTORS UNLOCK</h2>
+<p>Three core Google connectors, available free on Claude. Each one expands what Claude can do dramatically.</p>
+<h3>Gmail connector</h3>
+<p><strong>What it does:</strong></p>
+<ul><li>Search your inbox in natural language</li><li>Read email threads and summarize them</li><li>Draft replies in your voice with full context</li><li>Pull email metadata into other tasks</li></ul>
+<p><strong>What it doesn't do:</strong></p>
+<ul><li>Send emails on your behalf (you always click send manually)</li><li>Access attachment content (only metadata)</li></ul>
+<p><strong>Privacy specifics:</strong> Gmail connector data is retrieved when you ask, stored with the chat, and protected by Anthropic's security infrastructure. <strong>Not used for training your Gmail content</strong> — even if you've left the general training toggle on. Worth confirming the opt-out toggle is on anyway.</p>
+<h3>Google Calendar connector</h3>
+<p><strong>What it does:</strong></p>
+<ul><li>See your upcoming meetings</li><li>Find available time slots</li><li>Create events (with your approval)</li><li>Cross-reference meetings with emails or notes</li></ul>
+<p><strong>Why it matters:</strong> Scheduling is invisible time-loss. "Find me a 30-minute window this week" or "block two hours Wednesday afternoon for deep work" becomes one sentence instead of three clicks across multiple tools.</p>
+<h3>Google Drive connector</h3>
+<p><strong>What it does:</strong></p>
+<ul><li>Search files by name or content</li><li>Read documents during a chat</li><li>Pull spreadsheet data into a conversation</li><li>Reference templates and past work without uploading</li></ul>
+<p><strong>Why it matters:</strong> No more "let me find that file, download it, upload it to Claude, wait for it to process." Just <em>"pull up the proposal I sent to [Client] last month and use it as a template."</em></p>
+<hr class="rule">
+<h2>DEMO 1 — "PREP ME FOR TOMORROW MORNING"</h2>
+<p>The chain-of-tools demo. This is the one that gets people to sit up.</p>
+<p><strong>The scenario:</strong> You have a packed morning tomorrow. Three meetings, all with people you haven't talked to in a while. Normally you'd spend 30-45 minutes reviewing emails, finding past notes, and refreshing your memory on what each conversation was about.</p>
+<p><strong>With connectors, one prompt does it:</strong></p>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Look at my calendar for tomorrow morning. For each meeting, pull the last 2-3 email threads I had with the attendees, find any relevant documents in my Drive that mention them or the project, and produce a one-page brief for each meeting. Include: who the person is, what we last discussed, what the meeting is about, what they're likely to want, and any open questions from previous threads.</div></div>
+<p><strong>What Claude does behind the scenes:</strong></p>
+<ol><li>Reads your calendar for tomorrow morning → finds three meetings</li><li>For each meeting, gets the attendee list</li><li>Searches Gmail for the most recent threads with each person</li><li>Searches Drive for files mentioning them or shared projects</li><li>Synthesizes a brief per meeting</li><li>Hands you three pages of prep before your first coffee</li></ol>
+<p><strong>Why this is the compounding moment:</strong> No single connector does this. The magic is in the chain. Calendar → Gmail → Drive → synthesis. Each connector alone saves a little time. Together they save you an hour every morning and you walk into every meeting actually prepared.</p>
+<p><strong>Privacy considerations for this demo:</strong></p>
+<ul><li>This pulls data from your real Gmail and Drive into the chat</li><li>Anyone who can see your Claude account can see the briefs</li><li>Information in the brief inherits the sensitivity of the source emails — if there's a confidential thread with a client, that confidentiality is now in the chat history</li><li>Use the opt-out toggle (always), and consider this approach only for clients/contacts where the data is appropriately handled</li></ul>
+<hr class="rule">
+<h2>DEMO 2 — "FOLLOW UP ON EVERYTHING I DROPPED LAST WEEK"</h2>
+<p>The "things falling through the cracks" demo. Solopreneurs lose deals and donor relationships to this constantly.</p>
+<p><strong>The scenario:</strong> You finished a busy week. Several conversations are unresolved — quotes you sent, donors you meant to thank, candidates you meant to update, customers who asked questions you haven't answered. Some of these are slipping. You don't have a system to track it because you ARE the system.</p>
+<p><strong>With connectors:</strong></p>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Look at my sent emails from the last 7 days. Find any threads where I sent something — a quote, a proposal, a question — and the other person hasn't replied. For each one, draft a follow-up email in my voice from the examples in my Project. Present them as a list I can review and send.</div></div>
+<p><strong>What Claude does:</strong></p>
+<ol><li>Reads your Sent folder for the last 7 days</li><li>Checks which threads have no reply since you sent</li><li>Pulls in context from each thread</li><li>Drafts follow-ups in your voice (using your <a href="project-checklist.html">Project Instructions</a>)</li><li>Hands you a list with one-click approval per email</li></ol>
+<p><strong>The result:</strong> Twenty minutes on a Friday afternoon recovers six or eight conversations that would have died otherwise. For a solopreneur whose pipeline IS their business, that's real money.</p>
+<p><strong>Privacy considerations for this demo:</strong></p>
+<ul><li>Same caveats as Demo 1</li><li>Be thoughtful if your sent folder contains confidential matter — the drafts will reflect what's in those threads</li><li>For people who handle highly sensitive client data, this is a Level 3 workflow that probably needs enterprise tooling</li></ul>
+<hr class="rule">
+<h2>OTHER MCPS WORTH KNOWING — ESCAPE THE BAD UI</h2>
+<p>The Google connectors are the starter pack. Beyond them, there's a growing list of MCPs that connect Claude to other tools you already pay for. The pattern worth knowing: <strong>the connectors that pay off most are the ones that let you skip terrible interfaces.</strong> Meta Business Manager, Google Ads, CRM dashboards — these tools are notoriously slow, buried in settings, and built for people who use them all day. If you only touch them occasionally, every visit costs you 20 minutes of re-learning where things are.</p>
+<p>A connector turns "navigate the bad UI" into "ask in plain English." That's the unlock.</p>
+<h3>CRM connectors (HubSpot is the most mature)</h3>
+<p>If you use HubSpot, the native Claude connector is one of the best-built ones available. Once connected, Claude can:</p>
+<ul><li>Search and summarize contact histories</li><li>Pull deal pipelines organized by stage and value</li><li>Create or update CRM records (contacts, deals) from a chat</li><li>Log activities, tasks, and notes against records</li><li>Generate insights from engagement history (emails, calls, meetings)</li></ul>
+<p><strong>Example prompts:</strong></p>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Give me a summary of active deals organized by name, amount, and stage, sorted by closing date.</div></div><div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Create follow-up tasks for any contacts who opened my last email but haven't booked a demo.</div></div><div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Which campaign generated the most revenue last month?</div></div>
+<p><strong>Why this matters for small business:</strong> HubSpot's interface is fine but requires clicking through several screens to answer questions you ask frequently. <em>"Who haven't I followed up with this week?"</em> turns into a 30-second answer instead of a 10-minute report-build.</p>
+<p><strong>Other CRMs:</strong> Salesforce has a deep partnership with Anthropic (Claude is built into Agentforce). Other CRMs like Pipedrive, Zoho, and Copper have community-built MCPs available — quality varies, set up time is longer.</p>
+<h3>Marketing platform connectors (the "bad UI" unlock)</h3>
+<p>This is where MCPs deliver the most visible time savings, because the underlying interfaces are notoriously painful. Several third-party MCPs bundle access to multiple ad/marketing platforms at once:</p>
+<ul><li><strong>Google Ads</strong> — campaigns, keywords, bid strategies, performance data</li><li><strong>Meta Ads</strong> (Facebook + Instagram) — campaigns, ad sets, creative performance</li><li><strong>Google Analytics 4</strong> — traffic, conversions, behavior data</li><li><strong>Google Search Console</strong> — search queries, ranking positions, indexing</li><li><strong>Google Business Profile</strong> — posts, reviews, insights, hours updates</li><li><strong>TikTok Ads, LinkedIn Ads</strong> — for businesses that run there</li></ul>
+<p><strong>Example prompts that demonstrate the value:</strong></p>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Look at my Google Ads account for the last 30 days. Find campaigns with zero conversions, ad groups with no impressions, and any keywords burning budget with no return. Give me a prioritized list of what to pause or fix.</div></div><div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>What search terms are people actually using to find my business in Google Search Console? Are there any high-impression, low-click queries I should write content for?</div></div><div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Pull my Google Business Profile insights for the last quarter. Which posts performed best, what times of day did I get the most searches, and what should I post about this month based on what's working?</div></div><div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Draft three Google Business Profile posts for this week and queue them up for me to approve.</div></div>
+<p><strong>Why this matters for small business:</strong> Most owners avoid these platforms because the interfaces are confusing and the cost of getting something wrong is real (turning on the wrong campaign can burn money fast). A connector lets you ASK what's happening and get a plain-English answer, with proposed changes you can approve before anything goes live.</p>
+<p><strong>One important note on these:</strong> most marketing platform MCPs are third-party (not built by Google or Meta directly). They use your authorized OAuth access, but they're a step removed from the platforms themselves. Read what you're authorizing. Stick with well-known providers. Start with read-only access until you trust the workflow.</p>
+<h3>Other connectors people commonly add</h3>
+<p>A few that come up frequently for small business owners:</p>
+<ul><li><strong>Slack / Teams</strong> — search team conversations, draft replies, summarize what you missed</li><li><strong>Notion</strong> — search your knowledge base, build pages, pull project data</li><li><strong>Stripe</strong> — revenue queries, transaction history, customer lookups</li><li><strong>Canva</strong> — pull your brand kit, generate on-brand designs</li><li><strong>Linear / Asana / Trello</strong> — task and project queries, status summaries</li><li><strong>Shopify</strong> — product catalog, orders, customer insights for e-commerce</li></ul>
+<p>The full connector directory has over 200 options as of mid-2026 and grows weekly.</p>
+<hr class="rule">
+<h2>SHOULD YOU USE CONNECTORS?</h2>
+<p>A simple checklist. If you can answer yes to most of these, you're a good candidate:</p>
+<ul><li>[ ] You're a solopreneur or you have authority over your own AI use</li><li>[ ] Your work doesn't involve heavily regulated data (HIPAA, attorney-client, banking)</li><li>[ ] You've already done the privacy setup (opt-out toggle on, traffic light habit built)</li><li>[ ] You're paying for or willing to consider Claude Pro ($20/month) for advanced features</li><li>[ ] You have a specific time-loss pattern that connectors would directly solve</li></ul>
+<p>If you check most of these, connectors will save you real time.</p>
+<p>If you're missing several — especially the regulated-data and policy ones — stick with the foundational workflow we've built today. You're not missing out. The Project + manual paste workflow is genuinely most of the value.</p>
+<hr class="rule">
+<h2>HOW TO SET UP A CONNECTOR (60 SECONDS)</h2>
+<p>When you're ready, here's the path:</p>
+<ol><li>Open Claude (web or desktop) and sign in</li><li>Click the <strong>+</strong> sign in the chat interface, or go to <strong>Settings → Connectors</strong></li><li>Browse the connector directory — over 200 options</li><li>Click <strong>Connect</strong> on the one you want (Gmail, Drive, Calendar, etc.)</li><li>Authorize through your existing Google/whatever account (OAuth — no API keys, no developer setup)</li><li>The connector is now active across all your Claude conversations</li></ol>
+<p>For most Google connectors, the whole setup is under a minute.</p>
+<p><strong>One important rule for day one:</strong> <strong>start with read-only.</strong> Most connectors let you set permissions when you connect. Pick read-only first. Use it for a few days. Only grant write access once you trust the workflow. Most data accidents happen on day one when someone enables a connector with full write access and asks Claude to "clean up my Drive."</p>
+<hr class="rule">
+<h2>IF YOU GET STUCK</h2>
+<p>We're walking around — wave us over. Common questions about connectors:</p>
+<ul><li><strong>"Will my employer know I connected my work Gmail to Claude?"</strong> — On a personal account, no. On a managed Workspace account, your IT admin sets the policy. If you're not sure, ask before connecting.</li><li><strong>"Can Claude send emails for me?"</strong> — Claude can draft. You always click send manually. This is by design.</li><li><strong>"What about a tool that isn't in the directory?"</strong> — Custom connectors exist on Pro/Team plans. Anyone with developer skills (or who can ask Claude to build one) can wire up almost anything. Not a day-one move.</li><li><strong>"How do I disconnect if I change my mind?"</strong> — Settings → Connectors → click the connector → Disconnect. The data Claude retrieved while it was connected stays with the chat (delete the chat to remove it).</li><li><strong>"Is there a Slack connector?"</strong> — Yes, for Pro/Team users. Same idea: Claude can read channels you have access to.</li></ul>
+<hr class="rule">
+<h2>WHAT TO REMEMBER</h2>
+<p>Connectors are a power-user move, not a starter move. They're the answer to <em>"I've got the basics down and I want more leverage."</em> They're not the answer to <em>"I'm just getting started with AI."</em></p>
+<p>If you're in the room today and the basics still feel new — leave connectors for next month. Get your Project working. Build the iteration habit. Learn the colour codes. Run the use cases that don't need connectors. Three weeks from now, when you're confident with the foundation, come back to this doc and pick one connector to add.</p>
+<p>The compounding only works if the foundation is solid.</p>
+<hr class="rule">
+<p><em>The basics are most of the value. Connectors are the multiplier — for people whose situation supports them.</em></p>
+</div>
+<div class="subpage-footer">
+    <div class="prev-next"><a href="professional-prompts.html"><div class="pn-eyebrow">← Previous · #5</div><div class="pn-title">How to Write Professional Prompts</div></a><span class="pn-empty"></span></div>
+    <div class="related"><h4>Related resources</h4><ul><li><a href="privacy-setup.html">Privacy &amp; Setup</a> — Turn on the right privacy settings before you do anything else.</li><li><a href="use-cases.html">Real Use Cases &amp; Prompts</a> — Two case studies and three universal workflows with full prompts you can copy.</li><li><a href="project-checklist.html">What to Put in Your Project</a> — The checklist of things to add to your Claude Project, organized by industry.</li><li><a href="tips-and-advanced.html">Tips, Tricks &amp; Advanced Techniques</a> — Iteration, batching, visuals, and advanced privacy patterns.</li><li><a href="professional-prompts.html">How to Write Professional Prompts</a> — The methodology behind high-stakes professional prompts, with a worked legal research example.</li></ul></div>
+    <p class="help-line">Questions about anything in here? You can ask Claude directly — open a chat, paste in this guide, and ask it to walk you through the parts that aren't clicking.</p>
+</div>
+<footer class="footer">
+    <p>AI for All Workshop Series · St. Albert &amp; District Chamber of Commerce</p>
+</footer>
+<script>
+if (!localStorage.getItem('aiforall_hub_access')) {
+    window.location.href = '../index.html';
+}
+function copyPrompt(btn) {
+    var holder = btn.parentElement.querySelector('[data-prompt]');
+    if (!holder) return;
+    var text = holder.innerText || holder.textContent;
+    text = text.trim();
+    navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+        }, 1800);
+    }).catch(function(err) {
+        console.error('Copy failed:', err);
+    });
+}
+</script>
+</body>
+</html>

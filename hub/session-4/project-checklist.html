@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What to Put in Your Project | Session 4 | AI for All</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --ink: #1c1917;
+    --paper: #fafaf9;
+    --cream: #f5f5f0;
+    --accent: #0f766e;
+    --accent-light: #ccfbf1;
+    --accent-dark: #134e4a;
+    --warm-gray: #78716c;
+    --warm-gray-light: #a8a29e;
+    --border: #e7e5e4;
+    --error: #dc2626;
+    --error-light: #fee2e2;
+    --tl-green-bg: #dcfce7;
+    --tl-green-fg: #16a34a;
+    --tl-yellow-bg: #fef3c7;
+    --tl-yellow-fg: #ca8a04;
+    --tl-red-bg: #fee2e2;
+    --tl-red-fg: #dc2626;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Commissioner', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+}
+a { color: var(--accent); }
+a:hover { color: var(--accent-dark); }
+
+/* Navigation */
+.nav { background: var(--ink); padding: 1rem 0; }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+.nav-logo { font-family: 'Fraunces', serif; color: white; font-size: 1.4em; font-weight: 600; text-decoration: none; }
+.back-link { color: white; text-decoration: none; font-size: 0.95em; opacity: 0.9; }
+.back-link:hover { opacity: 1; }
+
+/* Hub tabs strip */
+.hub-tabs { background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.hub-tabs-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap; }
+.hub-tab { padding: 10px 16px; text-decoration: none; color: var(--warm-gray); font-size: 0.82em; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.hub-tab:hover { color: var(--ink); background: var(--cream); }
+.hub-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+/* Breadcrumb */
+.breadcrumb { max-width: 900px; margin: 0 auto; padding: 16px 24px 0; font-size: 0.88em; color: var(--warm-gray); }
+.breadcrumb a { color: var(--warm-gray); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); text-decoration: underline; }
+.breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+/* Hero */
+.hero { background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%); color: white; padding: 56px 24px 48px; text-align: center; }
+.hero .eyebrow { font-size: 0.85em; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; margin-bottom: 10px; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: 2.2em; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
+.hero .subtitle { opacity: 0.95; max-width: 650px; margin: 0 auto 14px; font-size: 1.1em; }
+.hero .meta { font-size: 0.88em; opacity: 0.8; }
+
+/* Page */
+.page { max-width: 760px; margin: 0 auto; padding: 40px 24px 24px; }
+.page > * + * { margin-top: 1em; }
+.page h1 { display: none; }  /* h1 lives in the hero; first H1 of source is suppressed */
+.page h2.section-title, .page h2 { font-family: 'Fraunces', serif; font-size: 1.5em; font-weight: 600; margin-top: 2.2em; margin-bottom: 0.6em; }
+.page h3 { font-family: 'Fraunces', serif; font-size: 1.2em; font-weight: 600; margin-top: 1.6em; margin-bottom: 0.4em; }
+.page h4 { font-family: 'Commissioner', sans-serif; font-size: 1.0em; font-weight: 600; margin-top: 1.2em; margin-bottom: 0.4em; color: var(--ink); }
+.page p { margin-bottom: 1em; }
+.page p:has(em:only-child) { color: var(--warm-gray); font-style: italic; }
+.page ul, .page ol { margin: 0 0 1em 1.2em; }
+.page li { margin-bottom: 0.4em; }
+.page li > ul, .page li > ol { margin-top: 0.4em; }
+.page strong { font-weight: 600; }
+.page code { background: var(--cream); padding: 1px 6px; border-radius: 4px; font-size: 0.92em; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; }
+.page hr.rule { border: none; border-top: 1px solid var(--border); margin: 2.4em 0; }
+
+/* Traffic-light dots */
+.tl { display: inline-block; width: 0.65em; height: 0.65em; border-radius: 50%; vertical-align: 0.05em; margin-right: 0.15em; line-height: 1; font-size: 1em; color: transparent; }
+.tl-green { background: var(--tl-green-fg); }
+.tl-yellow { background: var(--tl-yellow-fg); }
+.tl-red { background: var(--tl-red-fg); }
+
+/* Prompt blocks (blockquote prompts + fenced code prompts) */
+.prompt-block { position: relative; background: var(--cream); border-left: 4px solid var(--accent); border-radius: 8px; padding: 18px 22px 18px 22px; margin: 1.4em 0; }
+.prompt-block .prompt-text { font-family: 'Commissioner', sans-serif; font-size: 0.97em; color: var(--ink); white-space: normal; }
+.prompt-block.prompt-block-code { padding: 0; background: var(--ink); border-left-color: var(--accent); }
+.prompt-block.prompt-block-code pre { margin: 0; padding: 22px; overflow-x: auto; }
+.prompt-block.prompt-block-code code { background: transparent; color: #e7e5e4; font-size: 0.85em; padding: 0; white-space: pre; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; line-height: 1.6; }
+.copy-btn { position: absolute; top: 10px; right: 10px; background: white; border: 1px solid var(--border); color: var(--warm-gray); font-family: 'Commissioner', sans-serif; font-size: 0.78em; font-weight: 600; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.18s; opacity: 0.85; }
+.copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); opacity: 1; }
+.copy-btn.copied { background: var(--tl-green-fg); color: white; border-color: var(--tl-green-fg); opacity: 1; }
+.prompt-block-code .copy-btn { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #e7e5e4; }
+.prompt-block-code .copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* Callouts (non-prompt blockquotes) */
+blockquote.callout { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 14px 20px; margin: 1.4em 0; border-radius: 0 8px 8px 0; }
+blockquote.callout p { margin-bottom: 0.6em; }
+blockquote.callout p:last-child { margin-bottom: 0; }
+
+/* Notes between prompt blocks in mixed blockquotes (e.g., "[review, refine, adjust]") */
+.quote-note { color: var(--warm-gray); font-style: italic; text-align: center; margin: -0.4em 0 1.4em; font-size: 0.95em; }
+
+/* Download row (legal template) */
+.download-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 14px 0 1.6em; padding: 14px 18px; background: var(--cream); border-radius: 8px; border: 1px solid var(--border); }
+.download-btn { background: var(--accent); color: white !important; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.92em; white-space: nowrap; }
+.download-btn:hover { background: var(--accent-dark); color: white !important; }
+.download-note { color: var(--warm-gray); font-size: 0.88em; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 1.4em 0; }
+.page table.data { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); font-size: 0.94em; }
+.page table.data th { background: var(--cream); padding: 12px 14px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); }
+.page table.data td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.page table.data tr:last-child td { border-bottom: none; }
+
+/* Subpage footer (prev/next + related) */
+.subpage-footer { max-width: 760px; margin: 24px auto 0; padding: 32px 24px 0; border-top: 1px solid var(--border); }
+.prev-next { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.prev-next a { flex: 1 1 240px; padding: 14px 18px; background: white; border: 1px solid var(--border); border-radius: 8px; color: var(--ink); text-decoration: none; transition: all 0.2s; }
+.prev-next a:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.prev-next .pn-eyebrow { font-size: 0.78em; color: var(--warm-gray); margin-bottom: 4px; }
+.prev-next .pn-title { font-weight: 600; }
+.prev-next .pn-empty { visibility: hidden; }
+
+.related { background: var(--cream); border-radius: 8px; padding: 18px 22px; }
+.related h4 { font-family: 'Fraunces', serif; font-size: 1.05em; margin-bottom: 10px; font-weight: 600; }
+.related ul { list-style: none; margin: 0; padding: 0; }
+.related li { margin-bottom: 4px; }
+.related li::before { content: "→"; margin-right: 8px; color: var(--accent); }
+
+.help-line { font-size: 0.9em; color: var(--warm-gray); margin-top: 18px; padding: 14px 18px; background: white; border: 1px dashed var(--border); border-radius: 8px; }
+
+/* Site footer */
+.footer { background: var(--ink); color: white; padding: 28px 24px; text-align: center; margin-top: 56px; }
+.footer p { opacity: 0.8; font-size: 0.9em; }
+
+@media (max-width: 720px) {
+    .hero h1 { font-size: 1.7em; }
+    .hero { padding: 40px 20px 36px; }
+    .page { padding: 28px 20px; }
+    .breadcrumb { padding: 14px 20px 0; }
+    .hub-tabs-inner { justify-content: flex-start; overflow-x: auto; }
+    .prev-next { flex-direction: column; }
+    .copy-btn { font-size: 0.72em; padding: 3px 8px; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-container">
+        <a href="../../index.html" class="nav-logo">AI for All</a>
+        <a href="index.html" class="back-link">← Session 4</a>
+    </div>
+</nav>
+<div class="hub-tabs"><div class="hub-tabs-inner"><a href="../business-profile.html" class="hub-tab">Profile</a><a href="../guardrails.html" class="hub-tab">Safety</a><a href="../ally-setup.html" class="hub-tab">Ally</a><a href="../sector-packs.html" class="hub-tab">Prompts</a><a href="../prompt-builder.html" class="hub-tab">Builder</a></div></div>
+<div class="breadcrumb">
+    <a href="../index.html">Hub</a><span class="sep">›</span>
+    <a href="index.html">Session 4</a><span class="sep">›</span>
+    <span>What to Put in Your Project</span>
+</div>
+<div class="hero">
+    <div class="eyebrow">Session 4 · #2 of 6 · Build it</div>
+    <h1>What to Put in Your Project</h1>
+    <p class="subtitle">The checklist of things to add to your Claude Project, organized by industry.</p>
+    <p class="meta">Reading time: 30 minutes</p>
+</div>
+<div class="page">
+<h2 class="section-title">What to Put in Your Claude Project</h2>
+<p><em>A checklist of artifacts that make AI actually know your business. Find your industry below, look at the list, start collecting. Each item has a colour: <span class="tl tl-green">●</span> green safe to add as-is, <span class="tl tl-yellow">●</span> yellow anonymize first, <span class="tl tl-red">●</span> red leave out entirely.</em></p>
+<hr class="rule">
+<h2>The Quick Privacy Key</h2>
+<p><strong><span class="tl tl-green">●</span> GREEN</strong> — Safe to add directly. Your business information, your templates, your voice examples. Nothing identifying anyone else.</p>
+<p><strong><span class="tl tl-yellow">●</span> YELLOW</strong> — Add it, but anonymize first. Strip names, addresses, exact amounts, contact details. Replace with [Customer A], "mid-range project," "approximately $45-55K," etc. The example email below shows you how.</p>
+<p><strong><span class="tl tl-red">●</span> RED</strong> — Don't add. Belongs in your CRM, your accounting software, or a locked drawer — not in your AI.</p>
+<h3>Anonymizing an email — before and after</h3>
+<p><strong>Before (<span class="tl tl-red">●</span> don't add this version):</strong></p>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Hi John, following up on the quote I sent you last Tuesday for the kitchen renovation at 142 Maple Drive. As discussed, the $47,500 includes the custom cabinets from Steve's shop. Let me know if your wife is comfortable with the timeline. — Mike</div></div>
+<p><strong>After (<span class="tl tl-green">●</span> safe to add as a voice example):</strong></p>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Hi [Customer], following up on the quote I sent you last week for the kitchen renovation. As discussed, the price includes the custom cabinets. Let me know if you're comfortable with the timeline. — [Me]</div></div>
+<p>The voice is preserved. The identifying details are gone. That's the move.</p>
+<hr class="rule">
+<h2>Universal Items — Add These Regardless of Industry</h2>
+<p>Every Project, every business, every sector:</p>
+<ul><li><span class="tl tl-green">●</span> <strong>Your business basics</strong> — name, what you do, where you operate, how long you've been in business</li><li><span class="tl tl-green">●</span> <strong>Your voice rules</strong> — written in your own words. <em>"I write the way I talk. Direct, plain, no fluff. I never say 'circle back' or 'reach out.' I sign emails with just my first name."</em></li><li><span class="tl tl-green">●</span> <strong>Who you serve</strong> — your typical customer or client in 2-3 sentences</li><li><span class="tl tl-green">●</span> <strong>Who you want more of</strong> — the kind of work or client you're trying to attract</li><li><span class="tl tl-green">●</span> <strong>What you don't do</strong> — things you turn away, scope you don't take. Saves AI from suggesting work you'd never accept.</li><li><span class="tl tl-green">●</span> <strong>Pricing structure</strong> — your rate card, packages, or fee schedule (your prices are your business, not your customer's data)</li><li><span class="tl tl-yellow">●</span> <strong>3-5 of your best sent emails</strong> — pick ones in your voice that you'd be happy to receive yourself. Anonymize the customer names and specifics before adding.</li><li><span class="tl tl-yellow">●</span> <strong>2-3 past customer success stories</strong> — what you did, the outcome. Anonymize identifying details.</li></ul>
+<hr class="rule">
+<h2>Trades, Construction, &amp; Skilled Services</h2>
+<p><em>Builders, electricians, plumbers, mechanics, cleaning, landscaping, anyone with trucks and tools.</em></p>
+<ul><li><span class="tl tl-green">●</span> <strong>Your service area</strong> — neighbourhoods, postal codes, how far you travel</li><li><span class="tl tl-green">●</span> <strong>The kinds of projects you take</strong> — kitchen renos, electrical service upgrades, lawn maintenance, etc.</li><li><span class="tl tl-green">●</span> <strong>Scope language you reuse</strong> — "we'll demo, frame, drywall, paint" — the standard phrases that show up in every quote</li><li><span class="tl tl-green">●</span> <strong>Standard inclusions and exclusions</strong> — what's always in your quote, what's always extra</li><li><span class="tl tl-green">●</span> <strong>Materials suppliers and standard products</strong> — Home Depot vs. specialty supplier, the brands you spec</li><li><span class="tl tl-green">●</span> <strong>Your trade certifications and credentials</strong></li><li><span class="tl tl-green">●</span> <strong>Permit/inspection processes</strong> you handle in your jurisdiction</li><li><span class="tl tl-green">●</span> <strong>Warranty terms</strong> you offer</li><li><span class="tl tl-green">●</span> <strong>Payment structure</strong> — deposit, draws, final</li><li><span class="tl tl-yellow">●</span> <strong>3-5 past quotes</strong> in your format — anonymize customer names and addresses</li><li><span class="tl tl-yellow">●</span> <strong>3-5 sent customer emails</strong> — initial quote follow-up, scheduling, completion, the one where you handled a complaint well</li><li><span class="tl tl-yellow">●</span> <strong>2-3 change order examples</strong> — anonymized</li><li><span class="tl tl-red">●</span> <strong>Customer payment details, banking, credit card info</strong></li><li><span class="tl tl-red">●</span> <strong>Subcontractor pricing if it's negotiated confidentially</strong></li></ul>
+<hr class="rule">
+<h2>Restaurants, Cafés, &amp; Food Service</h2>
+<p><em>Independent restaurants, cafés, food trucks, catering, anyone who feeds people.</em></p>
+<ul><li><span class="tl tl-green">●</span> <strong>Your menu</strong> — current version with descriptions, ingredients, allergens, prices</li><li><span class="tl tl-green">●</span> <strong>Your brand voice</strong> — warm/neighbourhood/storytelling, upscale/refined, fast-casual/punchy, etc.</li><li><span class="tl tl-green">●</span> <strong>Your story</strong> — how the place got started, the people behind it, what makes it different</li><li><span class="tl tl-green">●</span> <strong>Your neighbourhood/city context</strong> — what part of town, what's nearby, who walks in the door</li><li><span class="tl tl-green">●</span> <strong>Dietary specialties</strong> — vegan, gluten-free, halal, kosher, allergy-aware</li><li><span class="tl tl-green">●</span> <strong>Recurring specials and events</strong> — Tuesday pasta night, Sunday brunch, monthly wine dinners</li><li><span class="tl tl-green">●</span> <strong>5-10 social posts that worked well</strong> — the ones that got engagement, in your voice</li><li><span class="tl tl-green">●</span> <strong>Your standard review-response approach</strong> — for both 5-star and 1-star</li><li><span class="tl tl-green">●</span> <strong>Suppliers and sourcing story</strong> — local farms, the cheese guy, the bread bakery</li><li><span class="tl tl-green">●</span> <strong>Catering packages and pricing</strong></li><li><span class="tl tl-green">●</span> <strong>Hours, location, reservation policies</strong></li><li><span class="tl tl-yellow">●</span> <strong>2-3 past review responses you're proud of</strong> — anonymize the reviewer's name</li><li><span class="tl tl-yellow">●</span> <strong>2-3 past email campaigns</strong> that worked — anonymize subscriber-specific content</li><li><span class="tl tl-yellow">●</span> <strong>Sample job postings</strong> for line cook, server, dishwasher</li><li><span class="tl tl-red">●</span> <strong>Employee personal info, scheduling specifics, payroll details</strong></li><li><span class="tl tl-red">●</span> <strong>Supplier pricing if it's negotiated confidentially</strong></li></ul>
+<hr class="rule">
+<h2>Real Estate</h2>
+<p><em>Solo agents, small teams, listing focused or buyer focused.</em></p>
+<ul><li><span class="tl tl-green">●</span> <strong>Your farm areas</strong> — neighbourhoods, postal codes, building types you specialize in</li><li><span class="tl tl-green">●</span> <strong>Your specialty</strong> — luxury, first-time buyers, investors, downsizers, families — and the voice that matches</li><li><span class="tl tl-green">●</span> <strong>Your bio and credentials</strong> — designations, years in business, languages spoken</li><li><span class="tl tl-green">●</span> <strong>Your standard listing language</strong> — how you describe a kitchen, a yard, a finished basement</li><li><span class="tl tl-green">●</span> <strong>Your buyer/seller process documents</strong> — what you walk clients through</li><li><span class="tl tl-green">●</span> <strong>Standard scripts</strong> — open house follow-up, after-showing email, offer presentation</li><li><span class="tl tl-green">●</span> <strong>Fair housing compliance rules</strong> — explicitly: <em>"never use language that implies preferences for or against protected classes"</em> (add this as a rule in your Project Instructions)</li><li><span class="tl tl-green">●</span> <strong>Your brokerage's compliance/advertising rules</strong></li><li><span class="tl tl-green">●</span> <strong>Common buyer questions and how you answer them</strong> — interest rates, closing costs, neighbourhood schools</li><li><span class="tl tl-green">●</span> <strong>Market context</strong> — what's been happening in your areas, typical price ranges</li><li><span class="tl tl-yellow">●</span> <strong>5-10 past listings</strong> you wrote and were happy with — anonymize addresses</li><li><span class="tl tl-yellow">●</span> <strong>3-5 after-showing follow-up emails</strong> — anonymize buyer names and addresses</li><li><span class="tl tl-yellow">●</span> <strong>Comp analysis approach</strong> — your method, with anonymized examples</li><li><span class="tl tl-red">●</span> <strong>Client pre-approval letters, financial information, SIN, banking details</strong></li><li><span class="tl tl-red">●</span> <strong>Specific buyer motivations or vulnerabilities</strong> ("they have to sell because of divorce")</li><li><span class="tl tl-red">●</span> <strong>Seller bottom-line numbers</strong> they've shared with you in confidence</li></ul>
+<hr class="rule">
+<h2>Mortgage &amp; Insurance Brokers</h2>
+<p><em>Solo brokers, independent agents, financial advisors.</em></p>
+<ul><li><span class="tl tl-green">●</span> <strong>Your product lines</strong> — what kinds of mortgages, what kinds of policies, what carriers you work with</li><li><span class="tl tl-green">●</span> <strong>Your specialties</strong> — first-time buyers, self-employed, commercial, life insurance, group benefits</li><li><span class="tl tl-green">●</span> <strong>Your voice rules</strong> — formal, reassuring, transparent. Add explicit compliance guardrails: <em>"never quote a rate without saying 'subject to underwriting'"</em> or <em>"always mention 'consult your advisor'"</em></li><li><span class="tl tl-green">●</span> <strong>Your explainer library</strong> — how you explain amortization, how you explain a deductible, how you explain underwriting. These are your most reused pieces.</li><li><span class="tl tl-green">●</span> <strong>Your renewal/retention approach</strong></li><li><span class="tl tl-green">●</span> <strong>Standard process descriptions</strong> you explain to every client</li><li><span class="tl tl-green">●</span> <strong>Common objections and how you handle them</strong></li><li><span class="tl tl-green">●</span> <strong>Regulatory framework you operate under</strong> (FSRA, AMF, etc.) so AI doesn't suggest non-compliant content</li><li><span class="tl tl-yellow">●</span> <strong>5-10 past explainer emails</strong> — anonymize client specifics, keep your voice</li><li><span class="tl tl-yellow">●</span> <strong>Sample renewal outreach</strong> — anonymized</li><li><span class="tl tl-yellow">●</span> <strong>Sample marketing content</strong> — newsletter, social — anonymized</li><li><span class="tl tl-red">●</span> <strong>Client SINs, banking info, account numbers</strong></li><li><span class="tl tl-red">●</span> <strong>Specific client financial details</strong> — income, debt, credit scores</li><li><span class="tl tl-red">●</span> <strong>Pre-approval letters, application packages with PII</strong></li><li><span class="tl tl-red">●</span> <strong>Medical underwriting information</strong> for life/disability insurance</li></ul>
+<hr class="rule">
+<h2>Solo Professional Services</h2>
+<p><em>Consultants, coaches, bookkeepers, accountants, HR consultants, recruiters, trainers, designers — anyone who sells expertise.</em></p>
+<ul><li><span class="tl tl-green">●</span> <strong>Your service offerings and packages</strong> — what you sell, at what price points</li><li><span class="tl tl-green">●</span> <strong>Your ideal client profile</strong> — the kind of work you want more of</li><li><span class="tl tl-green">●</span> <strong>Your brand voice</strong> — formal/conversational, technical/plain-English, warm/direct</li><li><span class="tl tl-green">●</span> <strong>Your methodology</strong> — frameworks you use, your approach to engagements</li><li><span class="tl tl-green">●</span> <strong>Your bio, credentials, and case studies</strong> (anonymized where needed)</li><li><span class="tl tl-green">●</span> <strong>Standard contract terms</strong> — what's always in your engagement letter</li><li><span class="tl tl-green">●</span> <strong>Standard templates</strong> — proposal structure, project plan, status report, invoice</li><li><span class="tl tl-green">●</span> <strong>Your LinkedIn recommendations and testimonials</strong> (these are public, fair game)</li><li><span class="tl tl-green">●</span> <strong>Your typical project lifecycle</strong> — from first call to final invoice</li><li><span class="tl tl-green">●</span> <strong>Things you don't do</strong> — projects you turn down, scope you won't take</li><li><span class="tl tl-yellow">●</span> <strong>3-5 past proposals</strong> that won the work — anonymize client names, scope specifics</li><li><span class="tl tl-yellow">●</span> <strong>3-5 sent client emails</strong> — proposal follow-up, kickoff, status update, handover</li><li><span class="tl tl-yellow">●</span> <strong>Past content</strong> in your voice — articles, posts, newsletters</li><li><span class="tl tl-yellow">●</span> <strong>For recruiters specifically:</strong> candidate writeup templates with [Candidate ID] not names; sample boolean searches; outreach templates</li><li><span class="tl tl-yellow">●</span> <strong>For coaches/therapists:</strong> be especially careful — client session content should generally stay out entirely</li><li><span class="tl tl-red">●</span> <strong>Specific client financial details, salaries, fee negotiations</strong></li><li><span class="tl tl-red">●</span> <strong>Client confidential business info</strong> — strategy, M&amp;A, personnel issues</li><li><span class="tl tl-red">●</span> <strong>For recruiters:</strong> candidate names paired with current employer + salary</li><li><span class="tl tl-red">●</span> <strong>For coaches/therapists:</strong> session notes, diagnoses, anything emotionally sensitive</li></ul>
+<hr class="rule">
+<h2>Non-Profit &amp; Charity</h2>
+<p><em>Executive directors, fundraising staff, program managers.</em></p>
+<ul><li><span class="tl tl-green">●</span> <strong>Your mission statement</strong> and theory of change</li><li><span class="tl tl-green">●</span> <strong>Your programs</strong> — what you do, who you serve, how you measure impact</li><li><span class="tl tl-green">●</span> <strong>Your voice and tone</strong> — mission-driven, donor-facing, beneficiary-respectful</li><li><span class="tl tl-green">●</span> <strong>Your impact data</strong> — beneficiaries served, outcomes, KPIs (the aggregate numbers, not individuals)</li><li><span class="tl tl-green">●</span> <strong>Your story library</strong> — the anecdotes you use in appeals (anonymized if they identify beneficiaries)</li><li><span class="tl tl-green">●</span> <strong>Your donor segments</strong> described generically — "major donors $5K+", "monthly sustainers", "lapsed donors"</li><li><span class="tl tl-green">●</span> <strong>Your standard reporting structures</strong> — board memo format, funder report format</li><li><span class="tl tl-green">●</span> <strong>Past funders and grant programs</strong> you've successfully accessed</li><li><span class="tl tl-green">●</span> <strong>Your fundraising calendar</strong> — appeal cycles, events, giving days</li><li><span class="tl tl-green">●</span> <strong>Your organization's history and milestones</strong></li><li><span class="tl tl-yellow">●</span> <strong>2-3 past grant proposals</strong> that won funding — anonymize any beneficiary-identifying content</li><li><span class="tl tl-yellow">●</span> <strong>3-5 sent donor letters</strong> — appeal letters, thank-yous, stewardship updates. Anonymize donor names.</li><li><span class="tl tl-yellow">●</span> <strong>Sample board reports</strong> — anonymized</li><li><span class="tl tl-yellow">●</span> <strong>Sample volunteer onboarding materials</strong> — anonymized</li><li><span class="tl tl-red">●</span> <strong>Donor names paired with giving amounts</strong></li><li><span class="tl tl-red">●</span> <strong>Beneficiary identifying information</strong> — names, addresses, specific circumstances</li><li><span class="tl tl-red">●</span> <strong>For health-adjacent non-profits (hospice, mental health, addictions):</strong> ANY protected health information stays out of consumer Claude. Period. Use Workspace Gemini with a signed BAA if you need AI on patient-adjacent work.</li><li><span class="tl tl-red">●</span> <strong>Personnel matters</strong> — performance reviews, disciplinary actions, compensation specifics</li></ul>
+<hr class="rule">
+<h2>Retail, E-Commerce, &amp; Product Businesses</h2>
+<p><em>Shop owners, online sellers, makers.</em></p>
+<ul><li><span class="tl tl-green">●</span> <strong>Your product catalogue</strong> — what you sell, descriptions, price points</li><li><span class="tl tl-green">●</span> <strong>Your brand story</strong> — how it started, what makes it different</li><li><span class="tl tl-green">●</span> <strong>Your brand voice</strong> — fun, premium, eco-conscious, irreverent, etc.</li><li><span class="tl tl-green">●</span> <strong>Your target customer</strong> — demographic, psychographic, where they hang out online</li><li><span class="tl tl-green">●</span> <strong>Your supplier story</strong> — sourcing, ethics, made-in-Canada angles</li><li><span class="tl tl-green">●</span> <strong>Your return/exchange/shipping policies</strong></li><li><span class="tl tl-green">●</span> <strong>Past marketing campaigns that worked</strong> — emails, social, ads</li><li><span class="tl tl-green">●</span> <strong>Product photography style guide</strong> — if you have one</li><li><span class="tl tl-green">●</span> <strong>Your sales calendar</strong> — holidays, seasonal pushes, sale events</li><li><span class="tl tl-yellow">●</span> <strong>Past customer reviews</strong> in aggregate (anonymize reviewer names)</li><li><span class="tl tl-yellow">●</span> <strong>Sample customer service responses</strong> — anonymized</li><li><span class="tl tl-yellow">●</span> <strong>Past email campaigns</strong> — anonymized subscriber data</li><li><span class="tl tl-red">●</span> <strong>Customer payment information, account numbers</strong></li><li><span class="tl tl-red">●</span> <strong>Customer addresses and contact info</strong> paired with purchase history</li><li><span class="tl tl-red">●</span> <strong>Supplier pricing if it's negotiated confidentially</strong></li></ul>
+<hr class="rule">
+<h2>How to Build Your Project — Right Now, In This Session</h2>
+<p>If you're following along on your own while we walk the room, here's the exact sequence. Should take about 30-40 minutes if you have your business stuff handy on your laptop.</p>
+<h3>Step 1 — Open a blank document (2 minutes)</h3>
+<p>Open Word, Google Docs, Notes, or whatever you normally write in. Save it as <strong>"My Business Brief — [Your Business Name]."</strong> This is your scratch pad. You'll paste the finished version into Claude in the last step.</p>
+<h3>Step 2 — Answer these questions in the doc (10 minutes)</h3>
+<p>Copy these questions into your document, then answer each one in 1-3 sentences. Don't overthink it — write the way you'd explain your business to a friend at a barbecue.</p>
+<p><strong>The questions:</strong></p>
+<ol><li>What is your business and how long have you been doing it?</li><li>Where do you operate? (city, region, service area)</li><li>Who is your typical customer or client? Describe them like you'd describe a regular.</li><li>Who do you want MORE of? What kind of work or client are you trying to attract?</li><li>What kind of work do you turn down or refuse?</li><li>How would you describe the way you write or talk to customers? (formal? casual? direct? warm?) Give 2-3 specific examples of phrases you USE and 2-3 you NEVER use.</li><li>What's your pricing or fee structure? (rates, packages, hourly, project-based)</li><li>What's your process from first contact to finished job?</li><li>What are the 3 most common questions customers ask you?</li><li>What makes you different from your competitors? (in your own words, not marketing-speak)</li></ol>
+<p>That's your business brief. It's the most important file in your Project. Save it.</p>
+<h3>Step 3 — Hunt your files for examples (10 minutes)</h3>
+<p>Now look at the colour-coded checklist above for your industry. Pick <strong>3 to 5 items</strong> from the green and yellow lists to add today. Don't try to find everything — pick the ones that would help you most this week.</p>
+<p>For each item:</p>
+<ul><li><strong>Find it</strong> — search your email, your Drive, your Documents folder, your invoicing software, your website. Wherever it lives.</li><li><strong>Copy it</strong> — open a new document, paste in the contents (or save a copy of the file)</li><li><strong>If it's <span class="tl tl-yellow">●</span> yellow:</strong> delete customer names, addresses, phone numbers, exact dollar amounts. Replace with [Customer], [Address], "approximately $X-Y range." Look at the email example up top if you need a reminder.</li><li><strong>Save</strong> with a clear title like "Past quote example — kitchen reno" or "Customer follow-up email — anonymized"</li></ul>
+<p>A short list to make this concrete — most people should grab some combination of:</p>
+<ul><li>A pricing sheet or rate card</li><li>One or two past quotes/proposals</li><li>Three or four past emails you wrote that sound like you</li><li>Your standard contract or terms</li><li>One or two case studies or success stories</li></ul>
+<h3>Step 4 — Create your Claude Project (3 minutes)</h3>
+<p>On your laptop, go to <strong>claude.ai</strong> and sign in.</p>
+<ol><li>Click <strong>"Projects"</strong> in the left sidebar</li><li>Click <strong>"Create Project"</strong></li><li>Name it after your business (e.g., "Birchwood Builders" or "My Consulting Business")</li><li>Add a short description if you want — one line is fine</li><li>Click <strong>Create</strong></li></ol>
+<p>You're now inside an empty Project.</p>
+<h3>Step 5 — Add your Project Instructions (5 minutes)</h3>
+<p>Look for the <strong>"Add instructions"</strong> or <strong>"Set custom instructions"</strong> button (it's usually on the right side or under a settings icon).</p>
+<ol><li>Open the business brief document you made in Step 2</li><li>Copy the entire thing</li><li>Paste it into the Project Instructions field</li><li>Add this line at the top: <em>"You are my AI assistant for [business name]. Use the briefing below to help me with emails, drafts, quotes, and other work. Match my voice. Ask me clarifying questions when you need more context."</em></li><li>Click <strong>Save</strong></li></ol>
+<p>Your Project now has its "brain."</p>
+<h3>Step 6 — Upload your files to the knowledge base (5 minutes)</h3>
+<p>Look for the <strong>"Project knowledge"</strong> section (usually shows files you can drag in).</p>
+<ol><li>Drag in the files you collected in Step 3 — your pricing sheet, anonymized quotes, anonymized emails, etc.</li><li>Or click <strong>"Add content"</strong> and upload them one at a time</li><li>Files can be Word docs, PDFs, text files, or you can paste content as text</li></ol>
+<p>Wait for them to upload. You should see them listed in the Project knowledge.</p>
+<h3>Step 7 — Test it (5 minutes)</h3>
+<p>Start a new chat inside your Project. Try a real prompt:</p>
+<ul><li><em>"Draft a follow-up email to a customer I quoted last week who hasn't responded yet."</em></li><li><em>"Write three Google Business Profile posts for this week."</em></li><li><em>"Help me explain [thing customers always ask about] in my voice."</em></li></ul>
+<p>Read the output. Does it sound like you? Does it use your pricing? Does it know your business?</p>
+<p><strong>If it doesn't sound right</strong> — that's not a failure, that's normal on attempt one. Tell Claude what's off: <em>"That sounds too formal — I'm more casual. And we don't use the word 'leverage.' Try again."</em> Then update your Project Instructions with what you just learned. The Project gets smarter every time you correct it.</p>
+<h3>When you walk out today, you'll have:</h3>
+<ul><li>A Project named after your business</li><li>Instructions that tell Claude who you are and how you write</li><li>3-5 real examples it can learn from</li><li>A first chat where you tested it</li></ul>
+<p>That's the foundation. Every week from now on, you add one more thing — an email that worked, a new template, an updated pricing sheet. By month three, it knows your business better than a new hire would after a year.</p>
+<hr class="rule">
+<h2>If you get stuck</h2>
+<p>We're walking around — wave us over. Common things people get stuck on:</p>
+<ul><li><strong>Can't find the Projects button:</strong> make sure you're signed in to claude.ai (not the mobile app for this part)</li><li><strong>Don't have past emails to use:</strong> that's fine — just write 2-3 paragraphs describing how you'd email a customer, in your own words. AI can learn voice from a description, not just examples.</li><li><strong>Not sure if something is yellow or green:</strong> when in doubt, anonymize. Takes 30 seconds, removes the question.</li><li><strong>Output sounds robotic:</strong> your voice rules need more specifics. Add 3-5 phrases you actually use and 3-5 you'd never use.</li></ul>
+<hr class="rule">
+<h2>The Three Mistakes to Avoid</h2>
+<p><strong>1. Trying to load everything at once.</strong> Don't spend a Saturday trying to upload your entire business. Five good examples beat fifty mediocre ones. AI learns from quality, not volume.</p>
+<p><strong>2. Putting in stuff you're not proud of.</strong> If a past email was rushed, awkward, or off-brand — don't add it. AI will mimic what it sees. Add the work you'd be happy to be judged by.</p>
+<p><strong>3. Forgetting to anonymize.</strong> Build the habit now while you're starting fresh. Easier to anonymize three emails on day one than to clean up a Project full of customer names six months from now.</p>
+<hr class="rule">
+<h2>When You're Done — How to Tell It's Working</h2>
+<p>You'll know your Project is set up right when:</p>
+<ul><li>You can ask "draft a follow-up email to [customer description]" and get back something that sounds like you wrote it</li><li>You stop having to re-explain your business at the start of every chat</li><li>Other people read what you produced and assume you wrote it yourself</li><li>You find yourself reaching for Claude before you'd normally sit down to write</li></ul>
+<p>If the output still sounds generic, the Project needs more voice examples. If it gets the facts wrong, the Project needs more business context. Keep feeding it. It compounds.</p>
+<hr class="rule">
+<p><em>Print this. Find your industry. Cross things off as you find them. By the end of the session, your Project will know your business — and Monday morning, you'll have a real assistant on your laptop.</em></p>
+</div>
+<div class="subpage-footer">
+    <div class="prev-next"><a href="privacy-setup.html"><div class="pn-eyebrow">← Previous · #1</div><div class="pn-title">Privacy &amp; Setup</div></a><a href="use-cases.html"><div class="pn-eyebrow">Next · #3 →</div><div class="pn-title">Real Use Cases &amp; Prompts</div></a></div>
+    <div class="related"><h4>Related resources</h4><ul><li><a href="privacy-setup.html">Privacy &amp; Setup</a> — Turn on the right privacy settings before you do anything else.</li><li><a href="use-cases.html">Real Use Cases &amp; Prompts</a> — Two case studies and three universal workflows with full prompts you can copy.</li></ul></div>
+    <p class="help-line">Questions about anything in here? You can ask Claude directly — open a chat, paste in this guide, and ask it to walk you through the parts that aren't clicking.</p>
+</div>
+<footer class="footer">
+    <p>AI for All Workshop Series · St. Albert &amp; District Chamber of Commerce</p>
+</footer>
+<script>
+if (!localStorage.getItem('aiforall_hub_access')) {
+    window.location.href = '../index.html';
+}
+function copyPrompt(btn) {
+    var holder = btn.parentElement.querySelector('[data-prompt]');
+    if (!holder) return;
+    var text = holder.innerText || holder.textContent;
+    text = text.trim();
+    navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+        }, 1800);
+    }).catch(function(err) {
+        console.error('Copy failed:', err);
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real Use Cases &amp; Prompts | Session 4 | AI for All</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Commissioner:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --ink: #1c1917;
+    --paper: #fafaf9;
+    --cream: #f5f5f0;
+    --accent: #0f766e;
+    --accent-light: #ccfbf1;
+    --accent-dark: #134e4a;
+    --warm-gray: #78716c;
+    --warm-gray-light: #a8a29e;
+    --border: #e7e5e4;
+    --error: #dc2626;
+    --error-light: #fee2e2;
+    --tl-green-bg: #dcfce7;
+    --tl-green-fg: #16a34a;
+    --tl-yellow-bg: #fef3c7;
+    --tl-yellow-fg: #ca8a04;
+    --tl-red-bg: #fee2e2;
+    --tl-red-fg: #dc2626;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Commissioner', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+}
+a { color: var(--accent); }
+a:hover { color: var(--accent-dark); }
+
+/* Navigation */
+.nav { background: var(--ink); padding: 1rem 0; }
+.nav-container { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+.nav-logo { font-family: 'Fraunces', serif; color: white; font-size: 1.4em; font-weight: 600; text-decoration: none; }
+.back-link { color: white; text-decoration: none; font-size: 0.95em; opacity: 0.9; }
+.back-link:hover { opacity: 1; }
+
+/* Hub tabs strip */
+.hub-tabs { background: white; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.hub-tabs-inner { max-width: 900px; margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap; }
+.hub-tab { padding: 10px 16px; text-decoration: none; color: var(--warm-gray); font-size: 0.82em; font-weight: 500; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.hub-tab:hover { color: var(--ink); background: var(--cream); }
+.hub-tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+/* Breadcrumb */
+.breadcrumb { max-width: 900px; margin: 0 auto; padding: 16px 24px 0; font-size: 0.88em; color: var(--warm-gray); }
+.breadcrumb a { color: var(--warm-gray); text-decoration: none; }
+.breadcrumb a:hover { color: var(--accent); text-decoration: underline; }
+.breadcrumb .sep { margin: 0 8px; opacity: 0.5; }
+
+/* Hero */
+.hero { background: linear-gradient(135deg, #0f766e 0%, #134e4a 100%); color: white; padding: 56px 24px 48px; text-align: center; }
+.hero .eyebrow { font-size: 0.85em; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.8; margin-bottom: 10px; }
+.hero h1 { font-family: 'Fraunces', serif; font-size: 2.2em; font-weight: 700; margin-bottom: 12px; line-height: 1.2; }
+.hero .subtitle { opacity: 0.95; max-width: 650px; margin: 0 auto 14px; font-size: 1.1em; }
+.hero .meta { font-size: 0.88em; opacity: 0.8; }
+
+/* Page */
+.page { max-width: 760px; margin: 0 auto; padding: 40px 24px 24px; }
+.page > * + * { margin-top: 1em; }
+.page h1 { display: none; }  /* h1 lives in the hero; first H1 of source is suppressed */
+.page h2.section-title, .page h2 { font-family: 'Fraunces', serif; font-size: 1.5em; font-weight: 600; margin-top: 2.2em; margin-bottom: 0.6em; }
+.page h3 { font-family: 'Fraunces', serif; font-size: 1.2em; font-weight: 600; margin-top: 1.6em; margin-bottom: 0.4em; }
+.page h4 { font-family: 'Commissioner', sans-serif; font-size: 1.0em; font-weight: 600; margin-top: 1.2em; margin-bottom: 0.4em; color: var(--ink); }
+.page p { margin-bottom: 1em; }
+.page p:has(em:only-child) { color: var(--warm-gray); font-style: italic; }
+.page ul, .page ol { margin: 0 0 1em 1.2em; }
+.page li { margin-bottom: 0.4em; }
+.page li > ul, .page li > ol { margin-top: 0.4em; }
+.page strong { font-weight: 600; }
+.page code { background: var(--cream); padding: 1px 6px; border-radius: 4px; font-size: 0.92em; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; }
+.page hr.rule { border: none; border-top: 1px solid var(--border); margin: 2.4em 0; }
+
+/* Traffic-light dots */
+.tl { display: inline-block; width: 0.65em; height: 0.65em; border-radius: 50%; vertical-align: 0.05em; margin-right: 0.15em; line-height: 1; font-size: 1em; color: transparent; }
+.tl-green { background: var(--tl-green-fg); }
+.tl-yellow { background: var(--tl-yellow-fg); }
+.tl-red { background: var(--tl-red-fg); }
+
+/* Prompt blocks (blockquote prompts + fenced code prompts) */
+.prompt-block { position: relative; background: var(--cream); border-left: 4px solid var(--accent); border-radius: 8px; padding: 18px 22px 18px 22px; margin: 1.4em 0; }
+.prompt-block .prompt-text { font-family: 'Commissioner', sans-serif; font-size: 0.97em; color: var(--ink); white-space: normal; }
+.prompt-block.prompt-block-code { padding: 0; background: var(--ink); border-left-color: var(--accent); }
+.prompt-block.prompt-block-code pre { margin: 0; padding: 22px; overflow-x: auto; }
+.prompt-block.prompt-block-code code { background: transparent; color: #e7e5e4; font-size: 0.85em; padding: 0; white-space: pre; font-family: 'SFMono-Regular', Menlo, Consolas, monospace; line-height: 1.6; }
+.copy-btn { position: absolute; top: 10px; right: 10px; background: white; border: 1px solid var(--border); color: var(--warm-gray); font-family: 'Commissioner', sans-serif; font-size: 0.78em; font-weight: 600; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: all 0.18s; opacity: 0.85; }
+.copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); opacity: 1; }
+.copy-btn.copied { background: var(--tl-green-fg); color: white; border-color: var(--tl-green-fg); opacity: 1; }
+.prompt-block-code .copy-btn { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #e7e5e4; }
+.prompt-block-code .copy-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+/* Callouts (non-prompt blockquotes) */
+blockquote.callout { background: var(--accent-light); border-left: 4px solid var(--accent); padding: 14px 20px; margin: 1.4em 0; border-radius: 0 8px 8px 0; }
+blockquote.callout p { margin-bottom: 0.6em; }
+blockquote.callout p:last-child { margin-bottom: 0; }
+
+/* Notes between prompt blocks in mixed blockquotes (e.g., "[review, refine, adjust]") */
+.quote-note { color: var(--warm-gray); font-style: italic; text-align: center; margin: -0.4em 0 1.4em; font-size: 0.95em; }
+
+/* Download row (legal template) */
+.download-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 14px 0 1.6em; padding: 14px 18px; background: var(--cream); border-radius: 8px; border: 1px solid var(--border); }
+.download-btn { background: var(--accent); color: white !important; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.92em; white-space: nowrap; }
+.download-btn:hover { background: var(--accent-dark); color: white !important; }
+.download-note { color: var(--warm-gray); font-size: 0.88em; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; margin: 1.4em 0; }
+.page table.data { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); font-size: 0.94em; }
+.page table.data th { background: var(--cream); padding: 12px 14px; text-align: left; font-weight: 600; border-bottom: 1px solid var(--border); }
+.page table.data td { padding: 12px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.page table.data tr:last-child td { border-bottom: none; }
+
+/* Subpage footer (prev/next + related) */
+.subpage-footer { max-width: 760px; margin: 24px auto 0; padding: 32px 24px 0; border-top: 1px solid var(--border); }
+.prev-next { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+.prev-next a { flex: 1 1 240px; padding: 14px 18px; background: white; border: 1px solid var(--border); border-radius: 8px; color: var(--ink); text-decoration: none; transition: all 0.2s; }
+.prev-next a:hover { border-color: var(--accent); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.prev-next .pn-eyebrow { font-size: 0.78em; color: var(--warm-gray); margin-bottom: 4px; }
+.prev-next .pn-title { font-weight: 600; }
+.prev-next .pn-empty { visibility: hidden; }
+
+.related { background: var(--cream); border-radius: 8px; padding: 18px 22px; }
+.related h4 { font-family: 'Fraunces', serif; font-size: 1.05em; margin-bottom: 10px; font-weight: 600; }
+.related ul { list-style: none; margin: 0; padding: 0; }
+.related li { margin-bottom: 4px; }
+.related li::before { content: "→"; margin-right: 8px; color: var(--accent); }
+
+.help-line { font-size: 0.9em; color: var(--warm-gray); margin-top: 18px; padding: 14px 18px; background: white; border: 1px dashed var(--border); border-radius: 8px; }
+
+/* Site footer */
+.footer { background: var(--ink); color: white; padding: 28px 24px; text-align: center; margin-top: 56px; }
+.footer p { opacity: 0.8; font-size: 0.9em; }
+
+@media (max-width: 720px) {
+    .hero h1 { font-size: 1.7em; }
+    .hero { padding: 40px 20px 36px; }
+    .page { padding: 28px 20px; }
+    .breadcrumb { padding: 14px 20px 0; }
+    .hub-tabs-inner { justify-content: flex-start; overflow-x: auto; }
+    .prev-next { flex-direction: column; }
+    .copy-btn { font-size: 0.72em; padding: 3px 8px; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav-container">
+        <a href="../../index.html" class="nav-logo">AI for All</a>
+        <a href="index.html" class="back-link">← Session 4</a>
+    </div>
+</nav>
+<div class="hub-tabs"><div class="hub-tabs-inner"><a href="../business-profile.html" class="hub-tab">Profile</a><a href="../guardrails.html" class="hub-tab">Safety</a><a href="../ally-setup.html" class="hub-tab">Ally</a><a href="../sector-packs.html" class="hub-tab">Prompts</a><a href="../prompt-builder.html" class="hub-tab">Builder</a></div></div>
+<div class="breadcrumb">
+    <a href="../index.html">Hub</a><span class="sep">›</span>
+    <a href="index.html">Session 4</a><span class="sep">›</span>
+    <span>Real Use Cases &amp; Prompts</span>
+</div>
+<div class="hero">
+    <div class="eyebrow">Session 4 · #3 of 6 · Use it</div>
+    <h1>Real Use Cases &amp; Prompts</h1>
+    <p class="subtitle">Two case studies and three universal workflows with full prompts you can copy.</p>
+    <p class="meta">Reading time: 60+ minutes of reference</p>
+</div>
+<div class="page">
+<h2 class="section-title">Real Use Cases — Time &amp; Customers</h2>
+<p><em>Now that your Project is set up, here's what to actually DO with it. Two case studies for two specific roles, plus three versatile workflows that work for nearly any small business — and a tips section worth scanning regardless of what you do.</em></p>
+<hr class="rule">
+<h2>THE MAIN POINTS</h2>
+<p>Three things to know before you run any of these prompts:</p>
+<h3>1. Your Project does most of the work</h3>
+<p>These prompts look short because they ASSUME your <a href="project-checklist.html">Project Instructions</a> already know who you are, who your customers are, and how you write. If your Project isn't set up yet, the output will sound generic. If it is, it'll sound like you.</p>
+<h3>2. The first try won't be perfect</h3>
+<p>Read the output. Notice what's off. Tell Claude what's wrong and ask it to try again. <strong>This iteration IS the work.</strong> Your Project gets smarter every time you correct it.</p>
+<h3>3. Bring multiple sources when you have them</h3>
+<p>The single best prompting upgrade isn't writing a fancier prompt — it's giving Claude more context to work with. A grant proposal becomes 10x better when Claude has the RFP, last year's winning proposal, your impact data, AND your voice. A candidate writeup becomes 10x better when Claude has the resume, your interview notes, AND the job description.</p>
+<p>Before you start prompting, ask: <em>what else do I have that would help?</em></p>
+<h3>4. Anonymize people and confidential details — not public entities</h3>
+<p>A subtle but important rule. The traffic light isn't just "name vs. no name" — it's <em>what kind</em> of name.</p>
+<ul><li><span class="tl tl-green">●</span> <strong>Public companies, foundations, government programs, public events:</strong> name them. AI can research them and tailor your output. If you're writing a candidate writeup for a role at Shopify, telling AI it's Shopify makes the "Why This Role" section dramatically better. If you're applying for a McConnell Foundation grant, naming McConnell lets AI factor in their stated priorities.</li><li><span class="tl tl-yellow">●</span> <strong>Individual people + their personal details:</strong> anonymize. A candidate's name + exact salary + reason for leaving is sensitive. A donor's name + giving history is sensitive. Use IDs and descriptors.</li><li><span class="tl tl-red">●</span> <strong>Information shared with you in confidence:</strong> stays out entirely, regardless of whether it's about a public entity or not.</li></ul>
+<p><strong>The test:</strong> would I publish this in a press release? If yes (company names, public roles, public programs) → green. If no (specific people, specific dollar amounts, things told in confidence) → yellow or red.</p>
+<h3>The traffic light, at point of use</h3>
+<p>You'll see these tags throughout. They tell you what to gather and what to anonymize first.</p>
+<p><span class="tl tl-green">●</span> <strong>GREEN</strong> — paste directly. Your business, your work, public info. <span class="tl tl-yellow">●</span> <strong>YELLOW</strong> — anonymize before pasting. Strip names, addresses, exact dollar amounts. <span class="tl tl-red">●</span> <strong>RED</strong> — don't paste at all. Keep it in your CRM or secure files.</p>
+<hr class="rule">
+<h2 class="section-title">CASE STUDY 1 — NON-PROFIT EXECUTIVE DIRECTOR</h2>
+<p><em>For anyone running a small charity, foundation, or community organization where you wear every hat.</em></p>
+<h3>The frame</h3>
+<p>The mission work isn't the bottleneck. The structural work around it is — grant writing, board reports, donor stewardship, KPI narratives. That's where AI delivers the most hours back. The pattern across all four use cases below: <strong>bring multiple sources together so AI has full context to work with.</strong></p>
+<hr class="rule">
+<h3>Use case 1A — Grant proposal section drafting</h3>
+<p><strong>The pain:</strong> Each funder wants different framing. Each RFP is 20+ pages. You decode what they care about, then write 6-10 pages aligned to their priorities. 4-6 hours per section, every time.</p>
+<p><strong>What to gather before you start:</strong></p>
+<div class="table-wrap"><table class="data"><thead><tr><th>Source</th><th>What it is</th><th>Colour</th></tr></thead><tbody><tr><td>The RFP itself</td><td>The funder's call for proposals (PDF)</td><td><span class="tl tl-green">●</span> GREEN — public document</td></tr><tr><td>The funder's name</td><td>The foundation or government program offering the grant</td><td><span class="tl tl-green">●</span> GREEN — public entity</td></tr><tr><td>Last year's winning proposal</td><td>A proposal you submitted that got funded</td><td><span class="tl tl-yellow">●</span> YELLOW — anonymize any beneficiary names; the funder's name is fine</td></tr><tr><td>Your impact data</td><td>Numbers from your latest annual report or program dashboard</td><td><span class="tl tl-green">●</span> GREEN if aggregated; <span class="tl tl-yellow">●</span> YELLOW if any individual beneficiaries are identifiable</td></tr><tr><td>Your theory of change document</td><td>If you have one</td><td><span class="tl tl-green">●</span> GREEN</td></tr><tr><td>Notes on this funder</td><td>If you've researched them — past grants, board, focus areas</td><td><span class="tl tl-green">●</span> GREEN</td></tr></tbody></table></div>
+<p><strong>Step-by-step:</strong></p>
+<ol><li><strong>Gather your sources</strong> — open or download each item. Save them somewhere easy to find. If documents need anonymizing, do it now using the email-anonymizing pattern from the <a href="privacy-setup.html">privacy guide</a>.</li><li><strong>Open your Claude Project</strong> — the one you set up earlier.</li><li><strong>Upload the sources to the Project knowledge base</strong> (or attach them to the chat). Drag and drop works. PDFs are fine.</li><li><strong>Run this prompt:</strong></li></ol>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt><p>I'm drafting a grant proposal section for [Funder Name]. I've uploaded the RFP, last year's successful proposal for a similar program, and our current impact data.</p><p>First, do a quick research pass on [Funder Name]: their stated funding priorities, recent grantees, board composition, any public statements about what they're funding next. Then read the RFP carefully and identify what THIS funder explicitly says they care about in THIS RFP — not what I assume, what they actually say.</p><p>Then draft the [Program Description / Theory of Change / Impact Measurement / Sustainability Plan] section. Use the voice and structure from last year's proposal. Use the impact data where it strengthens our case. Where [Funder Name]'s stated priorities or past grantees suggest an angle that strengthens our case, use it.</p><p>Flag anywhere we'd need data we don't have, and anywhere our existing programs don't quite match what this funder is asking for. Be honest about gaps — don't fudge. If your research on the funder is uncertain or out of date, say so rather than guessing.</p></div></div>
+<ol><li><strong>Verify the funder research.</strong> AI sometimes has outdated information about foundations — leadership changes, strategic shifts, priority updates. Cross-check anything you'll use in the proposal against the funder's current website.</li><li><strong>Read the output carefully.</strong> The "be honest about gaps" instruction is important — that's how you avoid submitting a proposal that overstates what you do.</li><li><strong>Iterate.</strong> If the voice is off, point at specific sentences and ask Claude to rewrite them. If a claim seems shaky, ask Claude what evidence it has.</li></ol>
+<p><strong>What you get:</strong> A first draft that's actually aligned to the funder's stated priorities, in your voice, with honest flags. 4-6 hours becomes 30-45 minutes of review and refinement.</p>
+<hr class="rule">
+<h3>Use case 1B — Donor thank-you batch generation</h3>
+<p><strong>The pain:</strong> You want every donor to feel personally appreciated. Writing 60 individual thank-yous after a campaign takes 5-6 hours. Generic mail-merge ones feel impersonal.</p>
+<p><strong>What to gather before you start:</strong></p>
+<div class="table-wrap"><table class="data"><thead><tr><th>Source</th><th>What it is</th><th>Colour</th></tr></thead><tbody><tr><td>Donor list with descriptors</td><td>Spreadsheet or list — but you'll only use it to BUILD a pseudonymized version</td><td><span class="tl tl-red">●</span> RED in original form</td></tr><tr><td>Pseudonymized donor list</td><td>The version you actually use — IDs and descriptors only, no names</td><td><span class="tl tl-green">●</span> GREEN</td></tr><tr><td>2-3 past thank-you notes you've sent</td><td>The ones you're proudest of</td><td><span class="tl tl-yellow">●</span> YELLOW — anonymize the recipient names</td></tr><tr><td>Campaign details</td><td>What the campaign was, what it raised, what specific outcome donors funded</td><td><span class="tl tl-green">●</span> GREEN</td></tr></tbody></table></div>
+<p><strong>Step-by-step:</strong></p>
+<ol><li><strong>Build your pseudonymized donor list.</strong> Open the original donor list. For each donor you want to thank, create a row with:<ul><li>An ID (D-23, D-24, D-25...)</li><li>Their giving history in general terms ("monthly sustainer for 4 years")</li><li>The specific gift this campaign ("$500 to spring campaign")</li><li><p>One personal touch you know about them ("attended our gala last fall" or "mentioned in note that they lost a family member to cancer last year")</p><p>Keep this list ONLY in your CRM or local files. What you paste into Claude is just the descriptors — no names.</p></li></ul></li><li><strong>Add the 2-3 past thank-you examples to your Project knowledge base.</strong> Anonymize the recipient names first.</li><li><strong>Open a chat in your Project.</strong></li><li><strong>Run this prompt:</strong></li></ol>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>I need to write thank-you notes for our [campaign name] campaign, which raised [amount] for [specific outcome]. I'll give you donor descriptors using IDs — no real names. For each donor below, draft a thank-you in our voice that references something specific to them and ties their gift to the impact it created. Keep each to 4-6 sentences. Use the voice from the past thank-you examples I've uploaded. I'll fill in real names from my CRM before sending.</div></div>
+<p>Then paste your pseudonymized list:</p>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Donor D-23: monthly sustainer for 4 years, gave $500 to spring campaign, attended our gala last fall</div></div><div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Donor D-24: first-time gift of $100, came from our newsletter signup, mentioned in note that they lost a family member to cancer last year</div></div><div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Donor D-25: lapsed donor who renewed at $250 this campaign, used to attend volunteer events 2018-2020</div></div>
+<ol><li><strong>Review the drafts.</strong> Make sure each one sounds like you and references the right details.</li><li><strong>Match the drafts back to real names in your CRM.</strong> Replace [Donor Name] with the actual person before you send.</li></ol>
+<p><strong>What you get:</strong> 60 personalized drafts in 5 minutes. 90 minutes of review and personalization instead of 6 hours of writing.</p>
+<hr class="rule">
+<h3>Use case 1C — Board memo from messy meeting notes</h3>
+<p><strong>The pain:</strong> After a 90-minute board meeting, you have 4 pages of scrawled notes. You need a clean board memo for the record, an action items list, and a 2-paragraph update for your next funder communication.</p>
+<p><strong>What to gather before you start:</strong></p>
+<div class="table-wrap"><table class="data"><thead><tr><th>Source</th><th>What it is</th><th>Colour</th></tr></thead><tbody><tr><td>Your meeting notes</td><td>Whatever you wrote during the meeting</td><td><span class="tl tl-yellow">●</span> YELLOW if they mention board members or personnel matters by name; <span class="tl tl-green">●</span> GREEN if topic-focused</td></tr><tr><td>Your standard board memo format</td><td>Previous board memos as a template</td><td><span class="tl tl-yellow">●</span> YELLOW — anonymize specific names from past memos</td></tr><tr><td>Recent organizational context</td><td>What's been happening that the board is reacting to</td><td><span class="tl tl-green">●</span> GREEN</td></tr></tbody></table></div>
+<p><strong>Step-by-step:</strong></p>
+<ol><li><strong>Type up your notes</strong> if they're handwritten. Don't worry about cleaning them up — messy is fine.</li><li><strong>Anonymize what needs anonymizing</strong> — if your notes say "Sarah raised concerns about Bob's performance," replace with "Board Member A raised concerns about a staffing matter." Personnel issues are <span class="tl tl-yellow">●</span> YELLOW at minimum.</li><li><strong>Run this prompt:</strong></li></ol>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Below are my notes from yesterday's board meeting. They're messy. Using the board memo format I've uploaded to my Project, turn the notes into three deliverables: (1) a clean board memo with sections for Discussion, Decisions Made, and Next Steps; (2) an action items list with owner and due date for each — flag where the owner or due date wasn't specified in the meeting; (3) a 2-paragraph update I can send to our funders highlighting progress without revealing internal deliberations. Use our voice. If something in the notes is unclear or contradicts itself, flag it and ask me rather than guessing.</div></div>
+<p>Then paste your typed-up notes.</p>
+<ol><li><strong>Pay attention to the flags.</strong> The "flag rather than guess" instruction is what makes this trustworthy. If Claude says "I'm not sure who owns the budget review action — was it Member A or Member B?", you fix it. If it just guessed, you'd have wrong information in your minutes.</li></ol>
+<p><strong>What you get:</strong> A 4-hour Friday task becomes 20 minutes of editing.</p>
+<hr class="rule">
+<h3>Use case 1D — KPI narrative from spreadsheet data</h3>
+<p><strong>The pain:</strong> Your impact numbers exist in spreadsheets. The story doesn't write itself. Funders want narrative, not numbers.</p>
+<p><strong>What to gather before you start:</strong></p>
+<div class="table-wrap"><table class="data"><thead><tr><th>Source</th><th>What it is</th><th>Colour</th></tr></thead><tbody><tr><td>Your KPI data</td><td>The actual numbers — paste as a table or upload the spreadsheet</td><td><span class="tl tl-green">●</span> GREEN if aggregate; <span class="tl tl-red">●</span> RED if individual beneficiaries are identifiable</td></tr><tr><td>Last quarter's narrative report</td><td>The story you told last time</td><td><span class="tl tl-green">●</span> GREEN</td></tr><tr><td>Existing impact stories</td><td>Anonymized case studies you use in donor communications</td><td><span class="tl tl-yellow">●</span> YELLOW</td></tr><tr><td>The voice/tone of your previous donor updates</td><td>Already in your Project Instructions if you set it up</td><td><span class="tl tl-green">●</span> GREEN</td></tr></tbody></table></div>
+<p><strong>Step-by-step:</strong></p>
+<ol><li><strong>Aggregate your data.</strong> If your spreadsheet contains individual beneficiary records, build a summary version with only totals, averages, and ranges. The detail-level data stays in your records — only the aggregate goes to Claude.</li><li><strong>Run this prompt:</strong></li></ol>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Here are our Q[X] program metrics: [paste the aggregated numbers]. Write a 250-word program narrative for our quarterly funder update. Reference patterns and trends from last quarter's narrative where relevant. Use one of our anonymized impact stories to make a specific point come alive. Don't invent any details that aren't in the data or in the impact stories I've uploaded. If a number seems to need context to make sense, flag it rather than guessing.</div></div>
+<ol><li><strong>Verify every number.</strong> AI's biggest risk in reporting is making up plausible-sounding details. Check that every figure in the narrative matches your source data.</li></ol>
+<p><strong>What you get:</strong> Numbers translated to story, in your voice. The "don't invent" instruction catches the highest-risk error.</p>
+<hr class="rule">
+<h3>Important note for health-adjacent non-profits</h3>
+<p>If your organization handles Protected Health Information (PHI) — hospice, mental health, addictions services, anything healthcare-adjacent — <strong>none of the use cases above should include patient names, conditions, or family situations.</strong> All four are donor, board, funder, and program-level — none of them touch patient data. For anything patient-adjacent, Workspace Gemini with a Business Associate Agreement is the right tool, not consumer Claude.</p>
+<hr class="rule">
+<h2 class="section-title">CASE STUDY 2 — SOLO RECRUITER OR PROFESSIONAL SERVICES CONSULTANT</h2>
+<p><em>For anyone doing executive search, recruiting, consulting, or solo professional services where you write a lot of client-facing material.</em></p>
+<h3>The frame</h3>
+<p>Solo recruiters and consultants live in writing — proposals, engagement letters, candidate writeups, client updates, outreach. The work that pays is relationship-building. The work that takes the time is everything around the relationship. The pattern across all four use cases: <strong>distinguish between public entities</strong> (the client company, the candidate's current employer — name them so AI can research them) <strong>and personal/confidential details</strong> (candidate names, exact comp, confidences shared in interviews — anonymize). Over-anonymizing makes the output worse. Under-anonymizing creates real risk. The line is between public companies and personal/confidential information.</p>
+<hr class="rule">
+<h3>Use case 2A — Engagement letter generation</h3>
+<p><strong>The pain:</strong> Each engagement needs a tailored letter. You have a standard template, but tailoring takes 30-45 minutes of edits per client. You do this 10-15 times a year.</p>
+<p><strong>What to gather before you start:</strong></p>
+<div class="table-wrap"><table class="data"><thead><tr><th>Source</th><th>What it is</th><th>Colour</th></tr></thead><tbody><tr><td>Your standard engagement letter template</td><td>The skeleton you start every letter from</td><td><span class="tl tl-green">●</span> GREEN</td></tr><tr><td>2-3 past engagement letters</td><td>Examples in your voice</td><td><span class="tl tl-yellow">●</span> YELLOW — keep your voice intact, but anonymize past clients' specific fees and any confidential terms that don't appear in your standard template</td></tr><tr><td>Your fee structure document</td><td>Your standard rates and packages</td><td><span class="tl tl-green">●</span> GREEN</td></tr><tr><td>Your standard confidentiality and exclusivity clauses</td><td>The boilerplate you always include</td><td><span class="tl tl-green">●</span> GREEN</td></tr><tr><td>The new client's company name</td><td>The hiring company</td><td><span class="tl tl-green">●</span> GREEN — they're going to receive this letter; their name being in the draft is fine</td></tr></tbody></table></div>
+<p><strong>What stays anonymized vs. what gets named:</strong></p>
+<ul><li><span class="tl tl-green">●</span> <strong>Name the new client:</strong> they're the recipient. The letter is FOR them.</li><li><span class="tl tl-green">●</span> <strong>Past client names in completed engagements:</strong> generally fine if the search has closed. Use your judgment based on what was confidential about that engagement.</li><li><span class="tl tl-yellow">●</span> <strong>Past client FEES and confidential commercial terms:</strong> anonymize. Other clients' fee arrangements aren't yours to share.</li><li><span class="tl tl-yellow">●</span> <strong>Anything you negotiated under NDA:</strong> stays out, regardless of how old.</li></ul>
+<p><strong>Step-by-step:</strong></p>
+<ol><li><strong>Make sure your Project has past engagement letter examples uploaded</strong> with sensitive commercial terms anonymized.</li><li><strong>Run this prompt:</strong></li></ol>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Draft an engagement letter for a new search. Client: [Client Company Name]. Role: [VP/C-level, function, location]. Fee structure: [retainer / contingent / fixed], [specific amount or percentage]. Term: [duration]. Use the structure and language from the past engagement letters I've uploaded. Include the standard confidentiality and exclusivity clauses. Match the voice from my past letters. Reference [Client Company Name] specifically where the letter benefits from doing so — but keep the boilerplate boilerplate.</div></div>
+<ol><li><strong>Review the draft.</strong> Customize anything that doesn't fit this specific engagement.</li><li><strong>Save and send.</strong></li></ol>
+<p><strong>What you get:</strong> A 90% complete letter in 30 seconds. You review and send. 30-45 minutes becomes 5 minutes.</p>
+<hr class="rule">
+<h3>Use case 2B — Candidate writeup from interview notes</h3>
+<p><strong>The pain:</strong> After every screening call, you spend 15-20 minutes writing up the candidate for your client. Across a typical search, that's 4-6 hours of writeups. The hardest part isn't the structure — it's writing the "Why This Role" section that ties the candidate's specific background to the client's specific situation.</p>
+<p><strong>The unlock for this one:</strong> name the client company and the candidate's current employer (these are public companies — AI can research them) but keep candidate personal details anonymized. AI can pattern-match the candidate's background against publicly known facts about the client, the industry, and the role. That's where the "Why This Role" insight comes from.</p>
+<p><strong>What to gather before you start:</strong></p>
+<div class="table-wrap"><table class="data"><thead><tr><th>Source</th><th>What it is</th><th>Colour</th></tr></thead><tbody><tr><td>Your interview notes</td><td>What you wrote during/after the call</td><td><span class="tl tl-yellow">●</span> YELLOW — anonymize candidate's name, contact details, exact compensation, and anything personal (health, family, why they're really leaving)</td></tr><tr><td>The job description</td><td>What the client is hiring for</td><td><span class="tl tl-green">●</span> GREEN — real client name is fine, the JD is meant to be shared with candidates anyway</td></tr><tr><td>The client company name</td><td>The hiring company</td><td><span class="tl tl-green">●</span> GREEN — public company information</td></tr><tr><td>The candidate's current employer</td><td>If it's a public/well-known company</td><td><span class="tl tl-green">●</span> GREEN — publicly known affiliation</td></tr><tr><td>Your standard writeup format</td><td>The structure you use for every writeup</td><td><span class="tl tl-green">●</span> GREEN</td></tr><tr><td>2-3 past writeups</td><td>Examples in your voice</td><td><span class="tl tl-yellow">●</span> YELLOW — anonymize candidate names and compensation; client names from past searches are fine if the search is complete</td></tr></tbody></table></div>
+<p><strong>What stays anonymized vs. what gets named:</strong></p>
+<ul><li><span class="tl tl-green">●</span> <strong>Name the companies:</strong> the hiring client, the candidate's current employer, past employers on their resume. These are public facts.</li><li><span class="tl tl-green">●</span> <strong>Name the role:</strong> "VP Engineering" or whatever it is. That's in the JD.</li><li><span class="tl tl-yellow">●</span> <strong>Anonymize the candidate:</strong> use a Candidate ID until the client formally engages with them. Their name + comp + reason-for-leaving is the sensitive combo.</li><li><span class="tl tl-yellow">●</span> <strong>Use ranges for compensation:</strong> "$280-320K base" not "$307,500 base." Exact numbers can identify a candidate when paired with title and company.</li><li><span class="tl tl-red">●</span> <strong>Never include:</strong> the candidate's personal phone, email, address, or anything they shared in confidence (health issues, family situations, the real reason they're leaving if it's sensitive).</li></ul>
+<p><strong>Step-by-step:</strong></p>
+<ol><li><strong>Anonymize the candidate's personal details</strong> in your notes. Replace name with Candidate ID (C-47). Replace exact comp with a range. Remove anything they told you in confidence that doesn't belong in a client writeup.</li><li><strong>Keep the company names.</strong> This is the change from how most people approach this. The client knows their own company. The candidate's resume is meant to be shared. Naming both lets AI research what each company does and tailor the writeup accordingly.</li><li><strong>Run this prompt:</strong></li></ol>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt><p>I just finished a screen with Candidate C-[ID] for a [role title] role at [Client Company Name]. The candidate is currently [title] at [Current Employer]. Here are my notes from the call: [paste anonymized notes]. The JD is uploaded.</p><p>Before drafting, do a quick research pass: what is [Client Company Name] known for, what's their stage/size/recent news, and what's the strategic situation this hire is likely solving? Same for the candidate's current employer — what's their reputation, their culture, why might someone be leaving them now?</p><p>Then draft a candidate writeup using my standard format from the examples I've uploaded: Snapshot, Background, Why Now, Why This Role, Compensation Expectations, My Recommendation.</p><p>In 'Why This Role,' specifically tie the candidate's background to what [Client Company Name] is trying to do — don't just say 'good fit,' show the connection. In 'Why Now,' use what you know about [Current Employer] to make the move make sense.</p><p>Use my voice — professional, direct, no hype. If anything in my notes is unclear or contradicts itself, flag it rather than smoothing it over. If your research on either company is uncertain, say 'I'm not sure about X — please verify' rather than guessing.</p></div></div>
+<ol><li><strong>Verify the research.</strong> AI will sometimes confidently state outdated or wrong facts about companies. Quickly check the parts you'll use in the writeup — recent funding, leadership changes, strategic direction.</li><li><strong>Review the writeup.</strong> Add anything from the call that isn't in your written notes — sometimes the most important signal is what you remember, not what you wrote down.</li><li><strong>Fill in the candidate's real name and exact compensation</strong> before sending to the client.</li></ol>
+<p><strong>What you get:</strong> 15-20 minute task becomes 30-second draft + 2-minute review. AND a writeup where the "Why This Role" section actually says something specific instead of generic flattery. Across a search of 15-20 candidates, you've recovered most of a day — and your writeups are noticeably better.</p>
+<hr class="rule">
+<h3>Use case 2C — The "silent themes" stakeholder debrief</h3>
+<p><strong>The pain:</strong> After a few weeks of stakeholder interviews on a search (hiring manager, peers, direct reports), you have rich qualitative data. Most recruiters compile it into a scorecard that misses the most valuable insight — what people <em>aren't</em> saying.</p>
+<p><strong>What to gather before you start:</strong></p>
+<div class="table-wrap"><table class="data"><thead><tr><th>Source</th><th>What it is</th><th>Colour</th></tr></thead><tbody><tr><td>Your interview notes from each stakeholder</td><td>Bullet-pointed or paragraphs</td><td><span class="tl tl-yellow">●</span> YELLOW — anonymize stakeholder names, use roles instead</td></tr><tr><td>The role description</td><td>What the client said they want at the outset</td><td><span class="tl tl-green">●</span> GREEN</td></tr><tr><td>The client company name</td><td>The hiring company</td><td><span class="tl tl-green">●</span> GREEN — public company information</td></tr><tr><td>Your understanding of the team and situation</td><td>Context Claude needs to spot what's missing</td><td><span class="tl tl-green">●</span> GREEN — describe the situation, just not by named individuals</td></tr></tbody></table></div>
+<p><strong>What stays anonymized vs. what gets named:</strong></p>
+<ul><li><span class="tl tl-green">●</span> <strong>Name the company:</strong> so AI knows what's typical for a company of that size, stage, and industry to grapple with</li><li><span class="tl tl-green">●</span> <strong>Name the role:</strong> "VP Engineering" or whatever it is</li><li><span class="tl tl-yellow">●</span> <strong>Anonymize the stakeholders:</strong> use roles instead of names ("VP Engineering," "Peer A on the leadership team"). Their named opinions about a still-open search are sensitive.</li><li><span class="tl tl-red">●</span> <strong>Never include:</strong> anything a stakeholder said in confidence about another team member's performance, compensation specifics, or personal information</li></ul>
+<p><strong>Step-by-step:</strong></p>
+<ol><li><strong>Anonymize all stakeholder names</strong> in your notes. Replace with their role: "VP Engineering," "Peer A on the leadership team," "Direct report A," "Direct report B," "Board observer."</li><li><strong>Run this prompt:</strong></li></ol>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt><p>I conducted [N] stakeholder interviews for the [role title] search at [Client Company Name]. Notes below.</p><p>Before analyzing, do a quick research pass on [Client Company Name]: what stage are they at, what's their reputation, what's been in the news recently, what would you expect a [role] hire at this company to be solving for?</p><p>Then identify three things from the interview notes: (1) the top 5 recurring themes across all interviews — what everyone is implicitly or explicitly aligned on; (2) the most significant points of disagreement between stakeholders, including any where stakeholders are saying contradictory things without realizing it; (3) any 'silent themes' — things nobody mentioned that you'd expect to come up given what you know about this company, this role, and this industry. Be honest about the third one even if it's awkward. If silence on a topic is itself a signal, name what the signal might mean.</p></div></div>
+<p>Then paste your anonymized notes.</p>
+<ol><li><strong>Read the silent themes section carefully.</strong> That's where the real value is. The research pass is what makes it work — AI flagging "nobody mentioned international expansion, which is unusual for a company that just announced a Series C with European investors" is dramatically more useful than "nobody mentioned X."</li></ol>
+<p><strong>What you get:</strong> The kind of insight that elevates a search from "we found candidates" to "we found the right one — and here's what the client doesn't realize they need to think about."</p>
+<hr class="rule">
+<h3>Use case 2D — Difficult client conversation prep</h3>
+<p><strong>The pain:</strong> Sometimes you need to tell a client something they don't want to hear. Their salary expectations are unrealistic. The role description is too vague. They're misreading a candidate's signals. You know what needs to be said but freeze on how to say it.</p>
+<p><strong>Why this one is different:</strong> Unlike the other recruiter use cases, this isn't a research task. You're not asking AI to pattern-match against the company's public information. You're asking it to think through interpersonal dynamics. The company's name doesn't add value here — the client's personality and the specific situation do.</p>
+<p><strong>What to gather before you start:</strong></p>
+<div class="table-wrap"><table class="data"><thead><tr><th>Source</th><th>What it is</th><th>Colour</th></tr></thead><tbody><tr><td>The situation, in your own words</td><td>What's wrong and why it matters</td><td><span class="tl tl-yellow">●</span> YELLOW — describe the situation, but don't include identifying details about specific candidates or anything you learned in confidence</td></tr><tr><td>What you know about the client's communication style</td><td>How they receive feedback</td><td><span class="tl tl-green">●</span> GREEN — descriptive</td></tr><tr><td>The specific outcome you want from the conversation</td><td>What does success look like</td><td><span class="tl tl-green">●</span> GREEN</td></tr></tbody></table></div>
+<p><strong>Step-by-step:</strong></p>
+<ol><li><strong>Write the situation honestly.</strong> Use descriptors instead of names — "the hiring manager I've been working with" rather than naming them. Same for candidates: "the candidate we placed in week 3" or "the finalist who pulled out." The point isn't to hide the company — it's that AI doesn't need names to give you good interpersonal coaching, and keeping confidences out of the prompt is good practice.</li><li><strong>Run this prompt:</strong></li></ol>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>I need to have a hard conversation with a client. The situation: [describe what's wrong, what you've observed, why it matters]. The client's communication style: [direct/sensitive/data-driven/relationship-focused — pick one]. The outcome I want: [what does success look like — e.g., 'they agree to raise the comp band' or 'they reset expectations on timeline']. Help me think through three different approaches to this conversation. For each approach: opening line, the substance of the message, how to handle their likely pushback. Don't make me look like the villain — but don't soften the actual message either.</div></div>
+<ol><li><strong>Pick the approach that fits the relationship.</strong> Different clients need different framings. The point isn't to use the script verbatim — it's to have done the thinking before the call.</li></ol>
+<p><strong>What you get:</strong> A thinking partner who's not emotionally invested in the relationship. Use it to prepare, not to deliver. The conversation is still yours.</p>
+<hr class="rule">
+<h3>Important note for solo recruiters and consultants</h3>
+<p>If you already use paid ChatGPT and don't want to switch tools, that's a defensible call. The honest reason to use Claude specifically for these workflows is two things: <strong>long-document handling</strong> (interview notes, stakeholder packs, RFPs) and <strong>persistent business context through Projects</strong> (you don't re-explain your practice every chat). For shorter one-off prompts, the difference between Claude and ChatGPT is small. Keep your existing setup. Test Claude on the long-document or repeated-context tasks.</p>
+<hr class="rule">
+<h2 class="section-title">VERSATILE USE CASES — WORK FOR ANY SMALL BUSINESS</h2>
+<p>The three workflows below apply across nearly any sector. Pick the one that maps to your biggest pain point.</p>
+<hr class="rule">
+<h2>USE CASE 3 — THE QUOTE FOLLOW-UP THAT ACTUALLY GETS RESPONSES</h2>
+<p><em>Applies to: contractors, electricians, plumbers, landscapers, cleaning services, consultants, anyone who sends quotes.</em></p>
+<p><strong>The pain:</strong> You send quotes. Some never come back. You know you should follow up but it feels pushy. You write a bland "just checking in" email and it dies in their inbox. Or worse, you don't follow up at all and lose the job.</p>
+<p><strong>What to gather before you start:</strong></p>
+<div class="table-wrap"><table class="data"><thead><tr><th>Source</th><th>What it is</th><th>Colour</th></tr></thead><tbody><tr><td>Description of the customer and situation</td><td>What kind of project, how the conversation went, what state they were in</td><td><span class="tl tl-yellow">●</span> YELLOW — generic descriptors, no names</td></tr><tr><td>Time since you sent the quote</td><td>When did you send it</td><td><span class="tl tl-green">●</span> GREEN</td></tr><tr><td>2-3 past follow-up emails that worked</td><td>Examples in your voice that got responses</td><td><span class="tl tl-yellow">●</span> YELLOW — anonymize customer names</td></tr></tbody></table></div>
+<p><strong>Step-by-step:</strong></p>
+<ol><li><strong>Make sure your Project has the past follow-up examples uploaded</strong> so Claude knows your voice.</li><li><strong>Run this prompt:</strong></li></ol>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt><p>I sent a quote to a customer about [time period] ago for [type of work, rough size — e.g., 'a kitchen renovation in the $40-50K range']. I haven't heard back. They were [describe their state when we talked — 'genuinely interested but distracted by a renovation timeline conflict' or 'price-conscious and getting other quotes' or 'enthusiastic but seemed unsure about scope'].</p><p>Draft three follow-up versions: (1) a short, friendly check-in, (2) one that offers a specific next step like scheduling a walkthrough, (3) one that's more direct about timeline if they want the work done this season. Use my voice from the examples in my Project.</p><p>Present the three versions in a comparison table so I can pick at a glance. Columns: Approach, Subject Line, Opening Line, Body, Closing/Call-to-Action, Best When To Use This One. Make the table inline so I can scan it without scrolling.</p></div></div>
+<ol><li><strong>Scan the table.</strong> The visual layout makes it obvious which approach fits this specific customer. The "Best When To Use" column is the decision aid — sometimes the right answer is the gentle one, sometimes it's the direct one.</li><li><strong>Pick a version.</strong> Tell Claude which one and ask for any tweaks: <em>"Use version 2 but make the call-to-action softer"</em> or <em>"Version 3 is right but cut the second paragraph."</em></li><li><strong>Send.</strong></li></ol>
+<p><strong>What you get:</strong> Three angles, side by side, in 30 seconds. The "specific next step" framing converts dramatically better than "just checking in" because it gives them something easy to say yes to.</p>
+<p><strong>Why this matters for your business:</strong> Quotes that follow up well convert at roughly 2-3× the rate of quotes that don't. If you send 20 quotes a month and currently convert 30%, going to 45% via better follow-ups is 3 more jobs a month. For a small renovation business, that can be $50-100K in additional annual revenue.</p>
+<hr class="rule">
+<h2>USE CASE 4 — A WEEK OF SOCIAL POSTS IN 10 MINUTES</h2>
+<p><em>Applies to: restaurants, retail shops, salons, service businesses, anyone who needs to keep social media alive.</em></p>
+<p><strong>The pain:</strong> You're supposed to post regularly. You don't have time. The posts you do squeeze out feel forced. Instagram, Facebook, and Google all want fresh content weekly.</p>
+<p><strong>What to gather before you start:</strong></p>
+<div class="table-wrap"><table class="data"><thead><tr><th>Source</th><th>What it is</th><th>Colour</th></tr></thead><tbody><tr><td>4-5 things happening this week</td><td>A special, an event, a new offering, a customer story, a behind-the-scenes moment</td><td><span class="tl tl-green">●</span> GREEN if generic; <span class="tl tl-yellow">●</span> YELLOW if it names a specific customer</td></tr><tr><td>Your brand voice (already in Project Instructions)</td><td>Warm/neighborhood, upscale/refined, fast-casual/punchy, etc.</td><td><span class="tl tl-green">●</span> GREEN</td></tr><tr><td>5-10 past posts that worked well</td><td>The ones that got engagement</td><td><span class="tl tl-yellow">●</span> YELLOW — anonymize anyone named in them</td></tr><tr><td>Your local hashtag set</td><td>The hashtags for your city/neighborhood</td><td><span class="tl tl-green">●</span> GREEN</td></tr></tbody></table></div>
+<p><strong>Step-by-step:</strong></p>
+<ol><li><strong>Spend 5 minutes jotting down the 4-5 things happening this week.</strong> A bullet or two each — not full sentences.</li><li><strong>Run this prompt:</strong></li></ol>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Generate a week of social media content for [business name]. Here's what's happening this week: [paste your bullets]. For each item, give me an Instagram caption (with hashtag suggestions for our local area), a Facebook version (slightly longer, more story-driven), and a Google Business Profile post (short, action-oriented, with a clear hook for searchers). Use our voice — already in my Project Instructions. Don't use clichés like 'mouth-watering,' 'culinary journey,' 'unwind and relax,' or any phrase that sounds like every other business in our category.</div></div>
+<ol><li><strong>Now see what they'll look like.</strong> Once Claude has produced the captions, ask:</li></ol>
+<div class="prompt-block"><button class="copy-btn" onclick="copyPrompt(this)">Copy</button><div class="prompt-text" data-prompt>Generate a quick visual mockup of how each Instagram post will look in the feed — show the caption, suggested image description, and hashtags laid out like a real Instagram post. Make it inline so I can see them at a glance.</div></div>
+<p>Claude will produce a visual preview right in the chat — captions formatted like real posts, with the image description shown as a placeholder. You can see at a glance which ones land and which ones don't.</p>
+<ol><li><strong>Refine the ones that don't quite work.</strong> Point at a specific post: <em>"This Tuesday pasta one is too generic — give me three alternative angles."</em> Or: <em>"The Friday brunch one is great but the hashtags feel corporate — replace with more conversational ones."</em></li><li><strong>Use the image descriptions as a brief.</strong> Each post comes with a suggested image. Take it to Canva, hand it to whoever shoots your content, or use it as a prompt in an image generator. The visual brief is part of the package.</li><li><strong>Schedule them.</strong> Drop into your social tool of choice, or post directly. Twenty minutes from "I have nothing to post this week" to "the week is queued."</li></ol>
+<p><strong>What you get:</strong> Up to 21 pieces of platform-tailored content AND visual previews so you can see what works before you publish. A New Jersey restaurant case study documented cutting Instagram/email/review time from 10+ hours/week to under 4 hours/week using this exact pattern.</p>
+<p><strong>Customer story note:</strong> Real customer stories are great content. Get permission first, and consider whether you need to name them at all. "A regular who's been coming for ten years" is often a better story than naming someone.</p>
+<hr class="rule">
+<h2>USE CASE 5 — VOICE MEMO TO BUSINESS DOCUMENT</h2>
+<p><em>Applies to: literally everyone. The most underrated workflow in this entire session.</em></p>
+<p><strong>The pain:</strong> You have ideas in your head, not on paper. Your best thinking happens while you're driving, walking the dog, or on a job site. By the time you sit down to write, it's gone.</p>
+<p><strong>What to gather before you start:</strong></p>
+<div class="table-wrap"><table class="data"><thead><tr><th>Source</th><th>What it is</th><th>Colour</th></tr></thead><tbody><tr><td>The Claude mobile app</td><td>Installed on your phone, signed into your account</td><td>—</td></tr><tr><td>Your Project</td><td>The one you set up earlier — already synced to your phone</td><td><span class="tl tl-green">●</span> GREEN</td></tr><tr><td>Two minutes of focus</td><td>While you walk to the truck, before you start the car, in the parking lot</td><td>—</td></tr></tbody></table></div>
+<p><strong>Step-by-step:</strong></p>
+<ol><li><strong>One-time setup (do this once, you'll never need to again):</strong><ul><li>On your phone, install the Claude mobile app (free, from the App Store or Google Play)</li><li>Sign in with the same email you used on your laptop</li><li>Open your Project — it'll appear automatically because it's synced to your account</li><li>Confirm the microphone icon is visible in the chat input</li></ul></li><li><strong>Day-of workflow:</strong><ul><li>Finish a customer meeting, a site visit, or a phone call</li><li>On your way to the next thing, open the Claude app</li><li>Tap into your Project</li><li>Tap the microphone icon</li><li><p><strong>Just talk.</strong> Two minutes, no script.</p><p>Example of what to say (don't read this — say something like it): &gt; <em>"Just finished a meeting with a customer about a kitchen renovation. They want to do it in the spring. Their budget is around fifty thousand. They're worried about the timeline because they have a kid graduating high school in June. I quoted them in the moment for the cabinets but I think the appliances are going to push it over. I need to write up a proper quote and a follow-up email. Can you draft both?"</em></p><p>Tap send.</p></li></ul></li><li><strong>Wait 30 seconds.</strong></li><li><strong>Read the draft.</strong> It'll be on your phone before you get to the next job.</li><li><strong>Tweak it later when you have time at a real keyboard.</strong> This is the move most people miss. The voice memo gives you a 90% draft — fast, in your voice, with the right details. The last 10% (the polish, the precise dollar amounts, the tone calibration for THIS specific customer) is easier to do at your desk later that evening. The voice-memo step isn't "AI replaces my work" — it's "AI gives me a kickstart so the desk work is editing instead of drafting from a blank page."</li></ol>
+<p><strong>What you get:</strong> A draft quote AND a follow-up email, in your voice, with the customer's specific concerns acknowledged — sitting on your phone before you pull into the next job. The 9pm kitchen-table writing session shifts from 90 minutes of writing to 15 minutes of editing.</p>
+<p><strong>Anonymization in voice memos:</strong> When you talk naturally, you'll use customer names. Two options: (1) train yourself to use descriptors ("the kitchen customer" instead of names), or (2) talk normally and edit the customer name out of the draft before sending. Most people do #2 because it's faster — and it's fine, as long as you have the opt-out toggle on.</p>
+<hr class="rule">
+<h2>IF YOU GET STUCK</h2>
+<p>We're walking around — wave us over. Common things people get stuck on:</p>
+<ul><li><strong>The output sounds generic:</strong> your Project Instructions need more voice details. Add 3-5 specific phrases you use and 3-5 phrases you'd never use.</li><li><strong>It got facts wrong:</strong> AI hallucinates plausible-sounding details. Always verify before sending. If a fact matters, check the original source.</li><li><strong>It missed important nuance:</strong> tell it what it missed and ask it to try again. The Project gets smarter every time you correct it.</li><li><strong>It refuses to do something you think it should:</strong> ask it why. Sometimes there's a real reason (privacy, accuracy, safety). Sometimes it's being overcautious — push back politely.</li><li><strong>I have multiple documents that should inform one prompt:</strong> drag them all into the chat or upload them to the Project knowledge base. Claude can pull from multiple sources at once — that's usually when the output gets dramatically better.</li><li><strong>The information feels out of date:</strong> ask Claude to web-search to confirm. Especially for prices, dates, regulations, or anything that changes frequently.</li><li><strong>I don't have time to iterate today:</strong> that's fine. Get one workflow working now. Come back and add more next week.</li></ul>
+<hr class="rule">
+<h2>WHAT TO COMMIT TO BEFORE YOU LEAVE TODAY</h2>
+<p>Pick <strong>one</strong> workflow from this guide. The one that maps to your biggest pain point right now.</p>
+<p>Tomorrow morning — Monday morning — before your first coffee, before email, before anything else: open your Project and run that workflow once on real work.</p>
+<p>That's the only thing that turns this session from "interesting" into "changed how I work."</p>
+<hr class="rule">
+<p><em>Built once. Reused forever. That's the difference between people who try AI and people who use AI.</em></p>
+</div>
+<div class="subpage-footer">
+    <div class="prev-next"><a href="project-checklist.html"><div class="pn-eyebrow">← Previous · #2</div><div class="pn-title">What to Put in Your Project</div></a><a href="tips-and-advanced.html"><div class="pn-eyebrow">Next · #4 →</div><div class="pn-title">Tips, Tricks &amp; Advanced Techniques</div></a></div>
+    <div class="related"><h4>Related resources</h4><ul><li><a href="project-checklist.html">What to Put in Your Project</a> — The checklist of things to add to your Claude Project, organized by industry.</li><li><a href="tips-and-advanced.html">Tips, Tricks &amp; Advanced Techniques</a> — Iteration, batching, visuals, and advanced privacy patterns.</li></ul></div>
+    <p class="help-line">Questions about anything in here? You can ask Claude directly — open a chat, paste in this guide, and ask it to walk you through the parts that aren't clicking.</p>
+</div>
+<footer class="footer">
+    <p>AI for All Workshop Series · St. Albert &amp; District Chamber of Commerce</p>
+</footer>
+<script>
+if (!localStorage.getItem('aiforall_hub_access')) {
+    window.location.href = '../index.html';
+}
+function copyPrompt(btn) {
+    var holder = btn.parentElement.querySelector('[data-prompt]');
+    if (!holder) return;
+    var text = holder.innerText || holder.textContent;
+    text = text.trim();
+    navigator.clipboard.writeText(text).then(function() {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(function() {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+        }, 1800);
+    }).catch(function(err) {
+        console.error('Copy failed:', err);
+    });
+}
+</script>
+</body>
+</html>
